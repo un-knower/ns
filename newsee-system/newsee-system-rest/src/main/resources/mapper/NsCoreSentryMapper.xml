@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreSentryMapper">
+
+	<resultMap id="NsCoreSentryResultMap" type="com.newsee.system.entity.NsCoreSentry">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="sentryid" column="SENTRYID" jdbcType="VARCHAR"/>
+			<result property="jtgsdm" column="JTGSDM" jdbcType="VARCHAR"/>
+			<result property="jtgsid" column="JTGSID" jdbcType="VARCHAR"/>
+			<result property="jtgsmc" column="JTGSMC" jdbcType="VARCHAR"/>
+			<result property="jtjggscode" column="JTJGGSCODE" jdbcType="VARCHAR"/>
+			<result property="jtjggsid" column="JTJGGSID" jdbcType="VARCHAR"/>
+			<result property="jtjggsname" column="JTJGGSNAME" jdbcType="VARCHAR"/>
+			<result property="mainduty" column="MAINDUTY" jdbcType="LONGVARCHAR"/>
+			<result property="nodeinfo" column="NODEINFO" jdbcType="VARCHAR"/>
+			<result property="nodeinfotype" column="NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="orderindex" column="ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="sentrycode" column="SENTRYCODE" jdbcType="VARCHAR"/>
+			<result property="sentryname" column="SENTRYNAME" jdbcType="VARCHAR"/>
+			<result property="tablecode" column="TABLECODE" jdbcType="VARCHAR"/>
+			<result property="audflag" column="AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="createorg" column="CREATEORG" jdbcType="VARCHAR"/>
+			<result property="createorgname" column="CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="createtime" column="CREATETIME" jdbcType="VARCHAR"/>
+			<result property="createuser" column="CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="createusername" column="CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="flag" column="FLAG" jdbcType="VARCHAR"/>
+			<result property="layer" column="LAYER" jdbcType="INTEGER"/>
+			<result property="modifyorg" column="MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="modifyorgname" column="MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="modifytime" column="MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="modifyuser" column="MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="modifyusername" column="MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="nodetype" column="NODETYPE" jdbcType="VARCHAR"/>
+			<result property="parent" column="PARENT" jdbcType="VARCHAR"/>
+			<result property="parentpath" column="PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="path" column="PATH" jdbcType="LONGVARCHAR"/>
+			<result property="pdid" column="PDID" jdbcType="VARCHAR"/>
+			<result property="piid" column="PIID" jdbcType="VARCHAR"/>
+			<result property="status" column="STATUS" jdbcType="VARCHAR"/>
+			<result property="treeorderindex" column="TREEORDERINDEX" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreSentry_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,SENTRYID,JTGSDM,JTGSID,JTGSMC,JTJGGSCODE,JTJGGSID,JTJGGSNAME,MAINDUTY,NODEINFO,NODEINFOTYPE,ORDERINDEX,SENTRYCODE,SENTRYNAME,TABLECODE,AUDFLAG,CREATEORG,CREATEORGNAME,CREATETIME,CREATEUSER,CREATEUSERNAME,FLAG,LAYER,MODIFYORG,MODIFYORGNAME,MODIFYTIME,MODIFYUSER,MODIFYUSERNAME,NODETYPE,PARENT,PARENTPATH,PATH,PDID,PIID,STATUS,TREEORDERINDEX
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreSentryResultMap">
+		select
+			<include refid="NsCoreSentry_Column_List" />
+		from
+			ns_core_sentry
+		where
+			ID = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreSentry">
+		update ns_core_sentry
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="sentryid != null">
+			  SENTRYID = #{sentryid, jdbcType=VARCHAR },
+			</if>
+			<if test="jtgsdm != null">
+			  JTGSDM = #{jtgsdm, jdbcType=VARCHAR },
+			</if>
+			<if test="jtgsid != null">
+			  JTGSID = #{jtgsid, jdbcType=VARCHAR },
+			</if>
+			<if test="jtgsmc != null">
+			  JTGSMC = #{jtgsmc, jdbcType=VARCHAR },
+			</if>
+			<if test="jtjggscode != null">
+			  JTJGGSCODE = #{jtjggscode, jdbcType=VARCHAR },
+			</if>
+			<if test="jtjggsid != null">
+			  JTJGGSID = #{jtjggsid, jdbcType=VARCHAR },
+			</if>
+			<if test="jtjggsname != null">
+			  JTJGGSNAME = #{jtjggsname, jdbcType=VARCHAR },
+			</if>
+			<if test="mainduty != null">
+			  MAINDUTY = #{mainduty, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="nodeinfo != null">
+			  NODEINFO = #{nodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="nodeinfotype != null">
+			  NODEINFOTYPE = #{nodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="orderindex != null">
+			  ORDERINDEX = #{orderindex, jdbcType=INTEGER },
+			</if>
+			<if test="sentrycode != null">
+			  SENTRYCODE = #{sentrycode, jdbcType=VARCHAR },
+			</if>
+			<if test="sentryname != null">
+			  SENTRYNAME = #{sentryname, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecode != null">
+			  TABLECODE = #{tablecode, jdbcType=VARCHAR },
+			</if>
+			<if test="audflag != null">
+			  AUDFLAG = #{audflag, jdbcType=VARCHAR },
+			</if>
+			<if test="createorg != null">
+			  CREATEORG = #{createorg, jdbcType=VARCHAR },
+			</if>
+			<if test="createorgname != null">
+			  CREATEORGNAME = #{createorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="createtime != null">
+			  CREATETIME = #{createtime, jdbcType=VARCHAR },
+			</if>
+			<if test="createuser != null">
+			  CREATEUSER = #{createuser, jdbcType=VARCHAR },
+			</if>
+			<if test="createusername != null">
+			  CREATEUSERNAME = #{createusername, jdbcType=VARCHAR },
+			</if>
+			<if test="flag != null">
+			  FLAG = #{flag, jdbcType=VARCHAR },
+			</if>
+			<if test="layer != null">
+			  LAYER = #{layer, jdbcType=INTEGER },
+			</if>
+			<if test="modifyorg != null">
+			  MODIFYORG = #{modifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyorgname != null">
+			  MODIFYORGNAME = #{modifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="modifytime != null">
+			  MODIFYTIME = #{modifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyuser != null">
+			  MODIFYUSER = #{modifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyusername != null">
+			  MODIFYUSERNAME = #{modifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="nodetype != null">
+			  NODETYPE = #{nodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="parent != null">
+			  PARENT = #{parent, jdbcType=VARCHAR },
+			</if>
+			<if test="parentpath != null">
+			  PARENTPATH = #{parentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="path != null">
+			  PATH = #{path, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="pdid != null">
+			  PDID = #{pdid, jdbcType=VARCHAR },
+			</if>
+			<if test="piid != null">
+			  PIID = #{piid, jdbcType=VARCHAR },
+			</if>
+			<if test="status != null">
+			  STATUS = #{status, jdbcType=VARCHAR },
+			</if>
+			<if test="treeorderindex != null">
+			  TREEORDERINDEX = #{treeorderindex, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_sentry 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_sentry
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreSentry">
+		insert into ns_core_sentry
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="sentryid != null">
+				SENTRYID,
+			</if>
+			<if test="jtgsdm != null">
+				JTGSDM,
+			</if>
+			<if test="jtgsid != null">
+				JTGSID,
+			</if>
+			<if test="jtgsmc != null">
+				JTGSMC,
+			</if>
+			<if test="jtjggscode != null">
+				JTJGGSCODE,
+			</if>
+			<if test="jtjggsid != null">
+				JTJGGSID,
+			</if>
+			<if test="jtjggsname != null">
+				JTJGGSNAME,
+			</if>
+			<if test="mainduty != null">
+				MAINDUTY,
+			</if>
+			<if test="nodeinfo != null">
+				NODEINFO,
+			</if>
+			<if test="nodeinfotype != null">
+				NODEINFOTYPE,
+			</if>
+			<if test="orderindex != null">
+				ORDERINDEX,
+			</if>
+			<if test="sentrycode != null">
+				SENTRYCODE,
+			</if>
+			<if test="sentryname != null">
+				SENTRYNAME,
+			</if>
+			<if test="tablecode != null">
+				TABLECODE,
+			</if>
+			<if test="audflag != null">
+				AUDFLAG,
+			</if>
+			<if test="createorg != null">
+				CREATEORG,
+			</if>
+			<if test="createorgname != null">
+				CREATEORGNAME,
+			</if>
+			<if test="createtime != null">
+				CREATETIME,
+			</if>
+			<if test="createuser != null">
+				CREATEUSER,
+			</if>
+			<if test="createusername != null">
+				CREATEUSERNAME,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="layer != null">
+				LAYER,
+			</if>
+			<if test="modifyorg != null">
+				MODIFYORG,
+			</if>
+			<if test="modifyorgname != null">
+				MODIFYORGNAME,
+			</if>
+			<if test="modifytime != null">
+				MODIFYTIME,
+			</if>
+			<if test="modifyuser != null">
+				MODIFYUSER,
+			</if>
+			<if test="modifyusername != null">
+				MODIFYUSERNAME,
+			</if>
+			<if test="nodetype != null">
+				NODETYPE,
+			</if>
+			<if test="parent != null">
+				PARENT,
+			</if>
+			<if test="parentpath != null">
+				PARENTPATH,
+			</if>
+			<if test="path != null">
+				PATH,
+			</if>
+			<if test="pdid != null">
+				PDID,
+			</if>
+			<if test="piid != null">
+				PIID,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="treeorderindex != null">
+				TREEORDERINDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="sentryid != null">
+				#{sentryid, jdbcType=VARCHAR},
+			</if>
+			<if test="jtgsdm != null">
+				#{jtgsdm, jdbcType=VARCHAR},
+			</if>
+			<if test="jtgsid != null">
+				#{jtgsid, jdbcType=VARCHAR},
+			</if>
+			<if test="jtgsmc != null">
+				#{jtgsmc, jdbcType=VARCHAR},
+			</if>
+			<if test="jtjggscode != null">
+				#{jtjggscode, jdbcType=VARCHAR},
+			</if>
+			<if test="jtjggsid != null">
+				#{jtjggsid, jdbcType=VARCHAR},
+			</if>
+			<if test="jtjggsname != null">
+				#{jtjggsname, jdbcType=VARCHAR},
+			</if>
+			<if test="mainduty != null">
+				#{mainduty, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="nodeinfo != null">
+				#{nodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="nodeinfotype != null">
+				#{nodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="orderindex != null">
+				#{orderindex, jdbcType=INTEGER},
+			</if>
+			<if test="sentrycode != null">
+				#{sentrycode, jdbcType=VARCHAR},
+			</if>
+			<if test="sentryname != null">
+				#{sentryname, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecode != null">
+				#{tablecode, jdbcType=VARCHAR},
+			</if>
+			<if test="audflag != null">
+				#{audflag, jdbcType=VARCHAR},
+			</if>
+			<if test="createorg != null">
+				#{createorg, jdbcType=VARCHAR},
+			</if>
+			<if test="createorgname != null">
+				#{createorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime, jdbcType=VARCHAR},
+			</if>
+			<if test="createuser != null">
+				#{createuser, jdbcType=VARCHAR},
+			</if>
+			<if test="createusername != null">
+				#{createusername, jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag, jdbcType=VARCHAR},
+			</if>
+			<if test="layer != null">
+				#{layer, jdbcType=INTEGER},
+			</if>
+			<if test="modifyorg != null">
+				#{modifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyorgname != null">
+				#{modifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="modifytime != null">
+				#{modifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyuser != null">
+				#{modifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyusername != null">
+				#{modifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="nodetype != null">
+				#{nodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="parent != null">
+				#{parent, jdbcType=VARCHAR},
+			</if>
+			<if test="parentpath != null">
+				#{parentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="path != null">
+				#{path, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="pdid != null">
+				#{pdid, jdbcType=VARCHAR},
+			</if>
+			<if test="piid != null">
+				#{piid, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status, jdbcType=VARCHAR},
+			</if>
+			<if test="treeorderindex != null">
+				#{treeorderindex, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_sentry
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			SENTRYID,
+			JTGSDM,
+			JTGSID,
+			JTGSMC,
+			JTJGGSCODE,
+			JTJGGSID,
+			JTJGGSNAME,
+			MAINDUTY,
+			NODEINFO,
+			NODEINFOTYPE,
+			ORDERINDEX,
+			SENTRYCODE,
+			SENTRYNAME,
+			TABLECODE,
+			AUDFLAG,
+			CREATEORG,
+			CREATEORGNAME,
+			CREATETIME,
+			CREATEUSER,
+			CREATEUSERNAME,
+			FLAG,
+			LAYER,
+			MODIFYORG,
+			MODIFYORGNAME,
+			MODIFYTIME,
+			MODIFYUSER,
+			MODIFYUSERNAME,
+			NODETYPE,
+			PARENT,
+			PARENTPATH,
+			PATH,
+			PDID,
+			PIID,
+			STATUS,
+			TREEORDERINDEX,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.sentryid, jdbcType=VARCHAR},
+			#{item.jtgsdm, jdbcType=VARCHAR},
+			#{item.jtgsid, jdbcType=VARCHAR},
+			#{item.jtgsmc, jdbcType=VARCHAR},
+			#{item.jtjggscode, jdbcType=VARCHAR},
+			#{item.jtjggsid, jdbcType=VARCHAR},
+			#{item.jtjggsname, jdbcType=VARCHAR},
+			#{item.mainduty, jdbcType=LONGVARCHAR},
+			#{item.nodeinfo, jdbcType=VARCHAR},
+			#{item.nodeinfotype, jdbcType=VARCHAR},
+			#{item.orderindex, jdbcType=INTEGER},
+			#{item.sentrycode, jdbcType=VARCHAR},
+			#{item.sentryname, jdbcType=VARCHAR},
+			#{item.tablecode, jdbcType=VARCHAR},
+			#{item.audflag, jdbcType=VARCHAR},
+			#{item.createorg, jdbcType=VARCHAR},
+			#{item.createorgname, jdbcType=VARCHAR},
+			#{item.createtime, jdbcType=VARCHAR},
+			#{item.createuser, jdbcType=VARCHAR},
+			#{item.createusername, jdbcType=VARCHAR},
+			#{item.flag, jdbcType=VARCHAR},
+			#{item.layer, jdbcType=INTEGER},
+			#{item.modifyorg, jdbcType=VARCHAR},
+			#{item.modifyorgname, jdbcType=VARCHAR},
+			#{item.modifytime, jdbcType=VARCHAR},
+			#{item.modifyuser, jdbcType=VARCHAR},
+			#{item.modifyusername, jdbcType=VARCHAR},
+			#{item.nodetype, jdbcType=VARCHAR},
+			#{item.parent, jdbcType=VARCHAR},
+			#{item.parentpath, jdbcType=LONGVARCHAR},
+			#{item.path, jdbcType=LONGVARCHAR},
+			#{item.pdid, jdbcType=VARCHAR},
+			#{item.piid, jdbcType=VARCHAR},
+			#{item.status, jdbcType=VARCHAR},
+			#{item.treeorderindex, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

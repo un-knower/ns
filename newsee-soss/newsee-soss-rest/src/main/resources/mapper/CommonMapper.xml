@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.CommonMapper">
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Column_List">
+		TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT, COLUMN_DEFAULT, CHARACTER_SET_NAME, IS_NULLABLE
+	</sql>
+ 
+	
+	<select id="selectTableInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT
+			<include refid="Column_List" />
+		FROM information_schema.columns
+		WHERE TABLE_SCHEMA = #{tableSchema}  <!-- 表所在数据库 -->
+			AND TABLE_NAME = #{tableName}  <!-- 要查的表 -->
+	</select>
+ 	
+</mapper>

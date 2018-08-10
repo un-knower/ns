@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.WyglChargeChargePaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.WyglChargeChargePayment" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CustomerID" property="customerid" jdbcType="BIGINT" />
+    <result column="HouseID" property="houseid" jdbcType="BIGINT" />
+    <result column="MeterID" property="meterid" jdbcType="BIGINT" />
+    <result column="ChargeID" property="chargeid" jdbcType="BIGINT" />
+    <result column="ChargeDetailID" property="chargedetailid" jdbcType="BIGINT" />
+    <result column="IsCanceled" property="iscanceled" jdbcType="TINYINT" />
+    <result column="RefPaymentID" property="refpaymentid" jdbcType="BIGINT" />
+    <result column="BillNo" property="billno" jdbcType="VARCHAR" />
+    <result column="SubjectCode" property="subjectcode" jdbcType="VARCHAR" />
+    <result column="PreCharge" property="precharge" jdbcType="DECIMAL" />
+    <result column="ChargePaid" property="chargepaid" jdbcType="DECIMAL" />
+    <result column="ShouldPaid" property="shouldpaid" jdbcType="DECIMAL" />
+    <result column="DisCount" property="discount" jdbcType="DECIMAL" />
+    <result column="DelaySum" property="delaysum" jdbcType="DECIMAL" />
+    <result column="DelayDisCount" property="delaydiscount" jdbcType="DECIMAL" />
+    <result column="DelayDate" property="delaydate" jdbcType="TIMESTAMP" />
+    <result column="OperatorDate" property="operatordate" jdbcType="TIMESTAMP" />
+    <result column="SquareTypeID" property="squaretypeid" jdbcType="VARCHAR" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="RealDoDate" property="realdodate" jdbcType="TIMESTAMP" />
+    <result column="Prefix" property="prefix" jdbcType="VARCHAR" />
+    <result column="Number" property="number" jdbcType="VARCHAR" />
+    <result column="Postfix" property="postfix" jdbcType="VARCHAR" />
+    <result column="IsCheck" property="ischeck" jdbcType="TINYINT" />
+    <result column="CheckUserID" property="checkuserid" jdbcType="INTEGER" />
+    <result column="CheckDate" property="checkdate" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="BillType" property="billtype" jdbcType="VARCHAR" />
+    <result column="DiscountType" property="discounttype" jdbcType="VARCHAR" />
+    <result column="Amount" property="amount" jdbcType="SMALLINT" />
+    <result column="PrecinctID" property="precinctid" jdbcType="BIGINT" />
+    <result column="ChargeItemID" property="chargeitemid" jdbcType="BIGINT" />
+    <result column="Cheque" property="cheque" jdbcType="VARCHAR" />
+    <result column="AccountBook" property="accountbook" jdbcType="INTEGER" />
+    <result column="IsClosing" property="isclosing" jdbcType="INTEGER" />
+    <result column="IsDayClosing" property="isdayclosing" jdbcType="INTEGER" />
+    <result column="ClosingDay" property="closingday" jdbcType="VARCHAR" />
+    <result column="OldAccountBook" property="oldaccountbook" jdbcType="INTEGER" />
+    <result column="IsCloseStat" property="isclosestat" jdbcType="INTEGER" />
+    <result column="ValidCharge" property="validcharge" jdbcType="DECIMAL" />
+    <result column="DiscountID" property="discountid" jdbcType="BIGINT" />
+    <result column="IsEnterAccount" property="isenteraccount" jdbcType="INTEGER" />
+    <result column="ManualHouseName" property="manualhousename" jdbcType="VARCHAR" />
+    <result column="ManualCustomerName" property="manualcustomername" jdbcType="VARCHAR" />
+    <result column="ManualAutoID" property="manualautoid" jdbcType="VARCHAR" />
+    <result column="ManualSatelliteCardID" property="manualsatellitecardid" jdbcType="VARCHAR" />
+    <result column="DailyClosingDay" property="dailyclosingday" jdbcType="VARCHAR" />
+    <result column="FromVirtualPrePaid" property="fromvirtualprepaid" jdbcType="DECIMAL" />
+    <result column="EnterAccountUserID" property="enteraccountuserid" jdbcType="BIGINT" />
+    <result column="EnterAccountDate" property="enteraccountdate" jdbcType="TIMESTAMP" />
+    <result column="EnterAccountBalance" property="enteraccountbalance" jdbcType="DECIMAL" />
+    <result column="DelayDetailID" property="delaydetailid" jdbcType="BIGINT" />
+    <result column="VoucherBatchID" property="voucherbatchid" jdbcType="BIGINT" />
+    <result column="DayClosingUserID" property="dayclosinguserid" jdbcType="BIGINT" />
+    <result column="ImportBatchID" property="importbatchid" jdbcType="BIGINT" />
+    <result column="BillCode" property="billcode" jdbcType="VARCHAR" />
+    <result column="IsVoucher" property="isvoucher" jdbcType="INTEGER" />
+    <result column="RefCollectionPaymentID" property="refcollectionpaymentid" jdbcType="BIGINT" />
+    <result column="TaxAmount" property="taxamount" jdbcType="DECIMAL" />
+    <result column="TaxRate" property="taxrate" jdbcType="DECIMAL" />
+    <result column="NotTaxAmount" property="nottaxamount" jdbcType="DECIMAL" />
+    <result column="PayBankName" property="paybankname" jdbcType="VARCHAR" />
+    <result column="PayBankNo" property="paybankno" jdbcType="VARCHAR" />
+    <result column="IsAlipayCharge" property="isalipaycharge" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CustomerID, HouseID, MeterID, ChargeID, ChargeDetailID, IsCanceled, RefPaymentID, 
+    BillNo, SubjectCode, PreCharge, ChargePaid, ShouldPaid, DisCount, DelaySum, DelayDisCount, 
+    DelayDate, OperatorDate, SquareTypeID, UserID, RealDoDate, Prefix, Number, Postfix, 
+    IsCheck, CheckUserID, CheckDate, Remark, BillType, DiscountType, Amount, PrecinctID, 
+    ChargeItemID, Cheque, AccountBook, IsClosing, IsDayClosing, ClosingDay, OldAccountBook, 
+    IsCloseStat, ValidCharge, DiscountID, IsEnterAccount, ManualHouseName, ManualCustomerName, 
+    ManualAutoID, ManualSatelliteCardID, DailyClosingDay, FromVirtualPrePaid, EnterAccountUserID, 
+    EnterAccountDate, EnterAccountBalance, DelayDetailID, VoucherBatchID, DayClosingUserID, 
+    ImportBatchID, BillCode, IsVoucher, RefCollectionPaymentID, TaxAmount, TaxRate, NotTaxAmount, 
+    PayBankName, PayBankNo, IsAlipayCharge
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Wygl_Charge_ChargePayment
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Wygl_Charge_ChargePayment
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.WyglChargeChargePayment" >
+    insert into Wygl_Charge_ChargePayment (ID, CustomerID, HouseID, 
+      MeterID, ChargeID, ChargeDetailID, 
+      IsCanceled, RefPaymentID, BillNo, 
+      SubjectCode, PreCharge, ChargePaid, 
+      ShouldPaid, DisCount, DelaySum, 
+      DelayDisCount, DelayDate, OperatorDate, 
+      SquareTypeID, UserID, RealDoDate, 
+      Prefix, Number, Postfix, 
+      IsCheck, CheckUserID, CheckDate, 
+      Remark, BillType, DiscountType, 
+      Amount, PrecinctID, ChargeItemID, 
+      Cheque, AccountBook, IsClosing, 
+      IsDayClosing, ClosingDay, OldAccountBook, 
+      IsCloseStat, ValidCharge, DiscountID, 
+      IsEnterAccount, ManualHouseName, ManualCustomerName, 
+      ManualAutoID, ManualSatelliteCardID, DailyClosingDay, 
+      FromVirtualPrePaid, EnterAccountUserID, 
+      EnterAccountDate, EnterAccountBalance, 
+      DelayDetailID, VoucherBatchID, DayClosingUserID, 
+      ImportBatchID, BillCode, IsVoucher, 
+      RefCollectionPaymentID, TaxAmount, TaxRate, 
+      NotTaxAmount, PayBankName, PayBankNo, 
+      IsAlipayCharge)
+    values (#{id,jdbcType=BIGINT}, #{customerid,jdbcType=BIGINT}, #{houseid,jdbcType=BIGINT}, 
+      #{meterid,jdbcType=BIGINT}, #{chargeid,jdbcType=BIGINT}, #{chargedetailid,jdbcType=BIGINT}, 
+      #{iscanceled,jdbcType=TINYINT}, #{refpaymentid,jdbcType=BIGINT}, #{billno,jdbcType=VARCHAR}, 
+      #{subjectcode,jdbcType=VARCHAR}, #{precharge,jdbcType=DECIMAL}, #{chargepaid,jdbcType=DECIMAL}, 
+      #{shouldpaid,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, #{delaysum,jdbcType=DECIMAL}, 
+      #{delaydiscount,jdbcType=DECIMAL}, #{delaydate,jdbcType=TIMESTAMP}, #{operatordate,jdbcType=TIMESTAMP}, 
+      #{squaretypeid,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{realdodate,jdbcType=TIMESTAMP}, 
+      #{prefix,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{postfix,jdbcType=VARCHAR}, 
+      #{ischeck,jdbcType=TINYINT}, #{checkuserid,jdbcType=INTEGER}, #{checkdate,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{billtype,jdbcType=VARCHAR}, #{discounttype,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=SMALLINT}, #{precinctid,jdbcType=BIGINT}, #{chargeitemid,jdbcType=BIGINT}, 
+      #{cheque,jdbcType=VARCHAR}, #{accountbook,jdbcType=INTEGER}, #{isclosing,jdbcType=INTEGER}, 
+      #{isdayclosing,jdbcType=INTEGER}, #{closingday,jdbcType=VARCHAR}, #{oldaccountbook,jdbcType=INTEGER}, 
+      #{isclosestat,jdbcType=INTEGER}, #{validcharge,jdbcType=DECIMAL}, #{discountid,jdbcType=BIGINT}, 
+      #{isenteraccount,jdbcType=INTEGER}, #{manualhousename,jdbcType=VARCHAR}, #{manualcustomername,jdbcType=VARCHAR}, 
+      #{manualautoid,jdbcType=VARCHAR}, #{manualsatellitecardid,jdbcType=VARCHAR}, #{dailyclosingday,jdbcType=VARCHAR}, 
+      #{fromvirtualprepaid,jdbcType=DECIMAL}, #{enteraccountuserid,jdbcType=BIGINT}, 
+      #{enteraccountdate,jdbcType=TIMESTAMP}, #{enteraccountbalance,jdbcType=DECIMAL}, 
+      #{delaydetailid,jdbcType=BIGINT}, #{voucherbatchid,jdbcType=BIGINT}, #{dayclosinguserid,jdbcType=BIGINT}, 
+      #{importbatchid,jdbcType=BIGINT}, #{billcode,jdbcType=VARCHAR}, #{isvoucher,jdbcType=INTEGER}, 
+      #{refcollectionpaymentid,jdbcType=BIGINT}, #{taxamount,jdbcType=DECIMAL}, #{taxrate,jdbcType=DECIMAL}, 
+      #{nottaxamount,jdbcType=DECIMAL}, #{paybankname,jdbcType=VARCHAR}, #{paybankno,jdbcType=VARCHAR}, 
+      #{isalipaycharge,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.WyglChargeChargePayment" >
+    insert into Wygl_Charge_ChargePayment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="customerid != null" >
+        CustomerID,
+      </if>
+      <if test="houseid != null" >
+        HouseID,
+      </if>
+      <if test="meterid != null" >
+        MeterID,
+      </if>
+      <if test="chargeid != null" >
+        ChargeID,
+      </if>
+      <if test="chargedetailid != null" >
+        ChargeDetailID,
+      </if>
+      <if test="iscanceled != null" >
+        IsCanceled,
+      </if>
+      <if test="refpaymentid != null" >
+        RefPaymentID,
+      </if>
+      <if test="billno != null" >
+        BillNo,
+      </if>
+      <if test="subjectcode != null" >
+        SubjectCode,
+      </if>
+      <if test="precharge != null" >
+        PreCharge,
+      </if>
+      <if test="chargepaid != null" >
+        ChargePaid,
+      </if>
+      <if test="shouldpaid != null" >
+        ShouldPaid,
+      </if>
+      <if test="discount != null" >
+        DisCount,
+      </if>
+      <if test="delaysum != null" >
+        DelaySum,
+      </if>
+      <if test="delaydiscount != null" >
+        DelayDisCount,
+      </if>
+      <if test="delaydate != null" >
+        DelayDate,
+      </if>
+      <if test="operatordate != null" >
+        OperatorDate,
+      </if>
+      <if test="squaretypeid != null" >
+        SquareTypeID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="realdodate != null" >
+        RealDoDate,
+      </if>
+      <if test="prefix != null" >
+        Prefix,
+      </if>
+      <if test="number != null" >
+        Number,
+      </if>
+      <if test="postfix != null" >
+        Postfix,
+      </if>
+      <if test="ischeck != null" >
+        IsCheck,
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID,
+      </if>
+      <if test="checkdate != null" >
+        CheckDate,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="billtype != null" >
+        BillType,
+      </if>
+      <if test="discounttype != null" >
+        DiscountType,
+      </if>
+      <if test="amount != null" >
+        Amount,
+      </if>
+      <if test="precinctid != null" >
+        PrecinctID,
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID,
+      </if>
+      <if test="cheque != null" >
+        Cheque,
+      </if>
+      <if test="accountbook != null" >
+        AccountBook,
+      </if>
+      <if test="isclosing != null" >
+        IsClosing,
+      </if>
+      <if test="isdayclosing != null" >
+        IsDayClosing,
+      </if>
+      <if test="closingday != null" >
+        ClosingDay,
+      </if>
+      <if test="oldaccountbook != null" >
+        OldAccountBook,
+      </if>
+      <if test="isclosestat != null" >
+        IsCloseStat,
+      </if>
+      <if test="validcharge != null" >
+        ValidCharge,
+      </if>
+      <if test="discountid != null" >
+        DiscountID,
+      </if>
+      <if test="isenteraccount != null" >
+        IsEnterAccount,
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName,
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName,
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID,
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID,
+      </if>
+      <if test="dailyclosingday != null" >
+        DailyClosingDay,
+      </if>
+      <if test="fromvirtualprepaid != null" >
+        FromVirtualPrePaid,
+      </if>
+      <if test="enteraccountuserid != null" >
+        EnterAccountUserID,
+      </if>
+      <if test="enteraccountdate != null" >
+        EnterAccountDate,
+      </if>
+      <if test="enteraccountbalance != null" >
+        EnterAccountBalance,
+      </if>
+      <if test="delaydetailid != null" >
+        DelayDetailID,
+      </if>
+      <if test="voucherbatchid != null" >
+        VoucherBatchID,
+      </if>
+      <if test="dayclosinguserid != null" >
+        DayClosingUserID,
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID,
+      </if>
+      <if test="billcode != null" >
+        BillCode,
+      </if>
+      <if test="isvoucher != null" >
+        IsVoucher,
+      </if>
+      <if test="refcollectionpaymentid != null" >
+        RefCollectionPaymentID,
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount,
+      </if>
+      <if test="taxrate != null" >
+        TaxRate,
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount,
+      </if>
+      <if test="paybankname != null" >
+        PayBankName,
+      </if>
+      <if test="paybankno != null" >
+        PayBankNo,
+      </if>
+      <if test="isalipaycharge != null" >
+        IsAlipayCharge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="chargedetailid != null" >
+        #{chargedetailid,jdbcType=BIGINT},
+      </if>
+      <if test="iscanceled != null" >
+        #{iscanceled,jdbcType=TINYINT},
+      </if>
+      <if test="refpaymentid != null" >
+        #{refpaymentid,jdbcType=BIGINT},
+      </if>
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectcode != null" >
+        #{subjectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="precharge != null" >
+        #{precharge,jdbcType=DECIMAL},
+      </if>
+      <if test="chargepaid != null" >
+        #{chargepaid,jdbcType=DECIMAL},
+      </if>
+      <if test="shouldpaid != null" >
+        #{shouldpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaysum != null" >
+        #{delaysum,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydiscount != null" >
+        #{delaydiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydate != null" >
+        #{delaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatordate != null" >
+        #{operatordate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="squaretypeid != null" >
+        #{squaretypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realdodate != null" >
+        #{realdodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prefix != null" >
+        #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="postfix != null" >
+        #{postfix,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeck != null" >
+        #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        #{checkuserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="billtype != null" >
+        #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="discounttype != null" >
+        #{discounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=SMALLINT},
+      </if>
+      <if test="precinctid != null" >
+        #{precinctid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeitemid != null" >
+        #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="cheque != null" >
+        #{cheque,jdbcType=VARCHAR},
+      </if>
+      <if test="accountbook != null" >
+        #{accountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isclosing != null" >
+        #{isclosing,jdbcType=INTEGER},
+      </if>
+      <if test="isdayclosing != null" >
+        #{isdayclosing,jdbcType=INTEGER},
+      </if>
+      <if test="closingday != null" >
+        #{closingday,jdbcType=VARCHAR},
+      </if>
+      <if test="oldaccountbook != null" >
+        #{oldaccountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isclosestat != null" >
+        #{isclosestat,jdbcType=INTEGER},
+      </if>
+      <if test="validcharge != null" >
+        #{validcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="discountid != null" >
+        #{discountid,jdbcType=BIGINT},
+      </if>
+      <if test="isenteraccount != null" >
+        #{isenteraccount,jdbcType=INTEGER},
+      </if>
+      <if test="manualhousename != null" >
+        #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyclosingday != null" >
+        #{dailyclosingday,jdbcType=VARCHAR},
+      </if>
+      <if test="fromvirtualprepaid != null" >
+        #{fromvirtualprepaid,jdbcType=DECIMAL},
+      </if>
+      <if test="enteraccountuserid != null" >
+        #{enteraccountuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountdate != null" >
+        #{enteraccountdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enteraccountbalance != null" >
+        #{enteraccountbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydetailid != null" >
+        #{delaydetailid,jdbcType=BIGINT},
+      </if>
+      <if test="voucherbatchid != null" >
+        #{voucherbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="dayclosinguserid != null" >
+        #{dayclosinguserid,jdbcType=BIGINT},
+      </if>
+      <if test="importbatchid != null" >
+        #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isvoucher != null" >
+        #{isvoucher,jdbcType=INTEGER},
+      </if>
+      <if test="refcollectionpaymentid != null" >
+        #{refcollectionpaymentid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxrate != null" >
+        #{taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="paybankname != null" >
+        #{paybankname,jdbcType=VARCHAR},
+      </if>
+      <if test="paybankno != null" >
+        #{paybankno,jdbcType=VARCHAR},
+      </if>
+      <if test="isalipaycharge != null" >
+        #{isalipaycharge,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.WyglChargeChargePayment" >
+    update Wygl_Charge_ChargePayment
+    <set >
+      <if test="customerid != null" >
+        CustomerID = #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        HouseID = #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        MeterID = #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        ChargeID = #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="chargedetailid != null" >
+        ChargeDetailID = #{chargedetailid,jdbcType=BIGINT},
+      </if>
+      <if test="iscanceled != null" >
+        IsCanceled = #{iscanceled,jdbcType=TINYINT},
+      </if>
+      <if test="refpaymentid != null" >
+        RefPaymentID = #{refpaymentid,jdbcType=BIGINT},
+      </if>
+      <if test="billno != null" >
+        BillNo = #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectcode != null" >
+        SubjectCode = #{subjectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="precharge != null" >
+        PreCharge = #{precharge,jdbcType=DECIMAL},
+      </if>
+      <if test="chargepaid != null" >
+        ChargePaid = #{chargepaid,jdbcType=DECIMAL},
+      </if>
+      <if test="shouldpaid != null" >
+        ShouldPaid = #{shouldpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        DisCount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaysum != null" >
+        DelaySum = #{delaysum,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydiscount != null" >
+        DelayDisCount = #{delaydiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydate != null" >
+        DelayDate = #{delaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatordate != null" >
+        OperatorDate = #{operatordate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="squaretypeid != null" >
+        SquareTypeID = #{squaretypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realdodate != null" >
+        RealDoDate = #{realdodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prefix != null" >
+        Prefix = #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        Number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="postfix != null" >
+        Postfix = #{postfix,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeck != null" >
+        IsCheck = #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID = #{checkuserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkdate != null" >
+        CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="billtype != null" >
+        BillType = #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="discounttype != null" >
+        DiscountType = #{discounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        Amount = #{amount,jdbcType=SMALLINT},
+      </if>
+      <if test="precinctid != null" >
+        PrecinctID = #{precinctid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="cheque != null" >
+        Cheque = #{cheque,jdbcType=VARCHAR},
+      </if>
+      <if test="accountbook != null" >
+        AccountBook = #{accountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isclosing != null" >
+        IsClosing = #{isclosing,jdbcType=INTEGER},
+      </if>
+      <if test="isdayclosing != null" >
+        IsDayClosing = #{isdayclosing,jdbcType=INTEGER},
+      </if>
+      <if test="closingday != null" >
+        ClosingDay = #{closingday,jdbcType=VARCHAR},
+      </if>
+      <if test="oldaccountbook != null" >
+        OldAccountBook = #{oldaccountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isclosestat != null" >
+        IsCloseStat = #{isclosestat,jdbcType=INTEGER},
+      </if>
+      <if test="validcharge != null" >
+        ValidCharge = #{validcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="discountid != null" >
+        DiscountID = #{discountid,jdbcType=BIGINT},
+      </if>
+      <if test="isenteraccount != null" >
+        IsEnterAccount = #{isenteraccount,jdbcType=INTEGER},
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyclosingday != null" >
+        DailyClosingDay = #{dailyclosingday,jdbcType=VARCHAR},
+      </if>
+      <if test="fromvirtualprepaid != null" >
+        FromVirtualPrePaid = #{fromvirtualprepaid,jdbcType=DECIMAL},
+      </if>
+      <if test="enteraccountuserid != null" >
+        EnterAccountUserID = #{enteraccountuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountdate != null" >
+        EnterAccountDate = #{enteraccountdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enteraccountbalance != null" >
+        EnterAccountBalance = #{enteraccountbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydetailid != null" >
+        DelayDetailID = #{delaydetailid,jdbcType=BIGINT},
+      </if>
+      <if test="voucherbatchid != null" >
+        VoucherBatchID = #{voucherbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="dayclosinguserid != null" >
+        DayClosingUserID = #{dayclosinguserid,jdbcType=BIGINT},
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="billcode != null" >
+        BillCode = #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isvoucher != null" >
+        IsVoucher = #{isvoucher,jdbcType=INTEGER},
+      </if>
+      <if test="refcollectionpaymentid != null" >
+        RefCollectionPaymentID = #{refcollectionpaymentid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxrate != null" >
+        TaxRate = #{taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="paybankname != null" >
+        PayBankName = #{paybankname,jdbcType=VARCHAR},
+      </if>
+      <if test="paybankno != null" >
+        PayBankNo = #{paybankno,jdbcType=VARCHAR},
+      </if>
+      <if test="isalipaycharge != null" >
+        IsAlipayCharge = #{isalipaycharge,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.WyglChargeChargePayment" >
+    update Wygl_Charge_ChargePayment
+    set CustomerID = #{customerid,jdbcType=BIGINT},
+      HouseID = #{houseid,jdbcType=BIGINT},
+      MeterID = #{meterid,jdbcType=BIGINT},
+      ChargeID = #{chargeid,jdbcType=BIGINT},
+      ChargeDetailID = #{chargedetailid,jdbcType=BIGINT},
+      IsCanceled = #{iscanceled,jdbcType=TINYINT},
+      RefPaymentID = #{refpaymentid,jdbcType=BIGINT},
+      BillNo = #{billno,jdbcType=VARCHAR},
+      SubjectCode = #{subjectcode,jdbcType=VARCHAR},
+      PreCharge = #{precharge,jdbcType=DECIMAL},
+      ChargePaid = #{chargepaid,jdbcType=DECIMAL},
+      ShouldPaid = #{shouldpaid,jdbcType=DECIMAL},
+      DisCount = #{discount,jdbcType=DECIMAL},
+      DelaySum = #{delaysum,jdbcType=DECIMAL},
+      DelayDisCount = #{delaydiscount,jdbcType=DECIMAL},
+      DelayDate = #{delaydate,jdbcType=TIMESTAMP},
+      OperatorDate = #{operatordate,jdbcType=TIMESTAMP},
+      SquareTypeID = #{squaretypeid,jdbcType=VARCHAR},
+      UserID = #{userid,jdbcType=INTEGER},
+      RealDoDate = #{realdodate,jdbcType=TIMESTAMP},
+      Prefix = #{prefix,jdbcType=VARCHAR},
+      Number = #{number,jdbcType=VARCHAR},
+      Postfix = #{postfix,jdbcType=VARCHAR},
+      IsCheck = #{ischeck,jdbcType=TINYINT},
+      CheckUserID = #{checkuserid,jdbcType=INTEGER},
+      CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      Remark = #{remark,jdbcType=VARCHAR},
+      BillType = #{billtype,jdbcType=VARCHAR},
+      DiscountType = #{discounttype,jdbcType=VARCHAR},
+      Amount = #{amount,jdbcType=SMALLINT},
+      PrecinctID = #{precinctid,jdbcType=BIGINT},
+      ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      Cheque = #{cheque,jdbcType=VARCHAR},
+      AccountBook = #{accountbook,jdbcType=INTEGER},
+      IsClosing = #{isclosing,jdbcType=INTEGER},
+      IsDayClosing = #{isdayclosing,jdbcType=INTEGER},
+      ClosingDay = #{closingday,jdbcType=VARCHAR},
+      OldAccountBook = #{oldaccountbook,jdbcType=INTEGER},
+      IsCloseStat = #{isclosestat,jdbcType=INTEGER},
+      ValidCharge = #{validcharge,jdbcType=DECIMAL},
+      DiscountID = #{discountid,jdbcType=BIGINT},
+      IsEnterAccount = #{isenteraccount,jdbcType=INTEGER},
+      ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      DailyClosingDay = #{dailyclosingday,jdbcType=VARCHAR},
+      FromVirtualPrePaid = #{fromvirtualprepaid,jdbcType=DECIMAL},
+      EnterAccountUserID = #{enteraccountuserid,jdbcType=BIGINT},
+      EnterAccountDate = #{enteraccountdate,jdbcType=TIMESTAMP},
+      EnterAccountBalance = #{enteraccountbalance,jdbcType=DECIMAL},
+      DelayDetailID = #{delaydetailid,jdbcType=BIGINT},
+      VoucherBatchID = #{voucherbatchid,jdbcType=BIGINT},
+      DayClosingUserID = #{dayclosinguserid,jdbcType=BIGINT},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      BillCode = #{billcode,jdbcType=VARCHAR},
+      IsVoucher = #{isvoucher,jdbcType=INTEGER},
+      RefCollectionPaymentID = #{refcollectionpaymentid,jdbcType=BIGINT},
+      TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      TaxRate = #{taxrate,jdbcType=DECIMAL},
+      NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      PayBankName = #{paybankname,jdbcType=VARCHAR},
+      PayBankNo = #{paybankno,jdbcType=VARCHAR},
+      IsAlipayCharge = #{isalipaycharge,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insertList">
+    insert into Wygl_Charge_ChargePayment
+    (
+        CustomerID,
+        HouseID,
+        MeterID,
+        ChargeID,
+        ChargeDetailID,
+        IsCanceled,
+        RefPaymentID,
+        BillNo,
+        SubjectCode,
+        PreCharge,
+        ChargePaid,
+        ShouldPaid,
+        DisCount,
+        DelaySum,
+        DelayDisCount,
+        DelayDate,
+        OperatorDate,
+        SquareTypeID,
+        UserID,
+        RealDoDate,
+        Prefix,
+        Number,
+        Postfix,
+        IsCheck,
+        CheckUserID,
+        CheckDate,
+        Remark,
+        BillType,
+        DiscountType,
+        Amount,
+        PrecinctID,
+        ChargeItemID,
+        Cheque,
+        AccountBook,
+        IsClosing,
+        IsDayClosing,
+        ClosingDay,
+        OldAccountBook,
+        IsCloseStat,
+        ValidCharge,
+        DiscountID,
+        IsEnterAccount,
+        ManualHouseName,
+        ManualCustomerName,
+        ManualAutoID,
+        ManualSatelliteCardID,
+        DailyClosingDay,
+        FromVirtualPrePaid,
+        EnterAccountUserID,
+        EnterAccountDate,
+        EnterAccountBalance,
+        DelayDetailID,
+        VoucherBatchID,
+        DayClosingUserID,
+        ImportBatchID,
+        BillCode,
+        IsVoucher,
+        RefCollectionPaymentID,
+        TaxAmount,
+        TaxRate,
+        NotTaxAmount,
+        PayBankName,
+        PayBankNo,
+        IsAlipayCharge)
+    VALUES
+      <foreach collection="list" item="wyglChargeChargePayment" index="index" separator="," >
+        (
+          #{wyglChargeChargePayment.customerid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.houseid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.meterid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.chargeid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.chargedetailid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.iscanceled,jdbcType=TINYINT},
+          #{wyglChargeChargePayment.refpaymentid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.billno,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.subjectcode,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.precharge,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.chargepaid,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.shouldpaid,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.discount,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.delaysum,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.delaydiscount,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.delaydate,jdbcType=TIMESTAMP},
+          #{wyglChargeChargePayment.operatordate,jdbcType=TIMESTAMP},
+          #{wyglChargeChargePayment.squaretypeid,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.userid,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.realdodate,jdbcType=TIMESTAMP},
+          #{wyglChargeChargePayment.prefix,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.number,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.postfix,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.ischeck,jdbcType=TINYINT},
+          #{wyglChargeChargePayment.checkuserid,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.checkdate,jdbcType=TIMESTAMP},
+          #{wyglChargeChargePayment.remark,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.billtype,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.discounttype,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.amount,jdbcType=SMALLINT},
+          #{wyglChargeChargePayment.precinctid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.chargeitemid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.cheque,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.accountbook,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.isclosing,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.isdayclosing,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.closingday,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.oldaccountbook,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.isclosestat,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.validcharge,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.discountid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.isenteraccount,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.manualhousename,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.manualcustomername,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.manualautoid,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.manualsatellitecardid,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.dailyclosingday,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.fromvirtualprepaid,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.enteraccountuserid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.enteraccountdate,jdbcType=TIMESTAMP},
+          #{wyglChargeChargePayment.enteraccountbalance,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.delaydetailid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.voucherbatchid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.dayclosinguserid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.importbatchid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.billcode,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.isvoucher,jdbcType=INTEGER},
+          #{wyglChargeChargePayment.refcollectionpaymentid,jdbcType=BIGINT},
+          #{wyglChargeChargePayment.taxamount,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.taxrate,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.nottaxamount,jdbcType=DECIMAL},
+          #{wyglChargeChargePayment.paybankname,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.paybankno,jdbcType=VARCHAR},
+          #{wyglChargeChargePayment.isalipaycharge,jdbcType=INTEGER})
+      </foreach>
+  </insert>
+</mapper>

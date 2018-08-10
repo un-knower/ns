@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeCustomerChargeCalcPlanMapper">
+
+	<resultMap id="ChargeCustomerChargeCalcPlanResultMap" type="com.newsee.charge.entity.ChargeCustomerChargeCalcPlan">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="precinctId" column="PrecinctId" jdbcType="BIGINT"/>
+			<result property="precinctName" column="PrecinctName" jdbcType="VARCHAR"/>
+			<result property="planName" column="PlanName" jdbcType="VARCHAR"/>
+			<result property="isWork" column="IsWork" jdbcType="TINYINT"/>
+			<result property="chargeStartMonthType" column="ChargeStartMonthType" jdbcType="TINYINT"/>
+			<result property="chargeRepeatHandleType" column="ChargeRepeatHandleType" jdbcType="TINYINT"/>
+			<result property="planFreqFirst" column="PlanFreqFirst" jdbcType="TINYINT"/>
+			<result property="planFreqSecond" column="PlanFreqSecond" jdbcType="TINYINT"/>
+			<result property="planFreqThird" column="PlanFreqThird" jdbcType="TIME"/>
+			<result property="freq" column="Freq" jdbcType="VARCHAR"/>
+			<result property="remark" column="Remark" jdbcType="VARCHAR"/>
+			<result property="housesSum" column="HousesSum" jdbcType="BIGINT"/>
+			<result property="lastExecuteTime" column="LastExecuteTime" jdbcType="TIMESTAMP"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeCustomerChargeCalcPlan_Column_List">
+		Id,EnterpriseId,OrganizationId,PrecinctId,PrecinctName,PlanName,IsWork,ChargeStartMonthType,ChargeRepeatHandleType,PlanFreqFirst,PlanFreqSecond,PlanFreqThird,Freq,Remark,HousesSum,LastExecuteTime,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeCustomerChargeCalcPlanResultMap">
+	    select 
+	        <include refid="ChargeCustomerChargeCalcPlan_Column_List" />
+	    from 
+	       Charge_CustomerChargeCalcPlan
+	    <where>
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldName} IS NULL or #{item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldName} IS NOT NULL and #{item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeCustomerChargeCalcPlanResultMap">
+		select
+			<include refid="ChargeCustomerChargeCalcPlan_Column_List" />
+		from
+			Charge_CustomerChargeCalcPlan
+		where
+			Id = #{id}
+	</select>
+	
+	<select id="selectAllPlan" parameterType="java.util.Date" resultMap="ChargeCustomerChargeCalcPlanResultMap">
+		select
+			<include refid="ChargeCustomerChargeCalcPlan_Column_List" />
+		from
+			Charge_CustomerChargeCalcPlan
+		where
+			IsWork = 1
+		AND ExecuteStatus = 0
+		AND NextExecuteTime >= #{executeTime};
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeCustomerChargeCalcPlan">
+		update Charge_CustomerChargeCalcPlan
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="precinctId != null">
+			  PrecinctId = #{precinctId, jdbcType=BIGINT },
+			</if>
+			<if test="precinctName != null">
+			  PrecinctName = #{precinctName, jdbcType=VARCHAR },
+			</if>
+			<if test="planName != null">
+			  PlanName = #{planName, jdbcType=VARCHAR },
+			</if>
+			<if test="isWork != null">
+			  IsWork = #{isWork, jdbcType=TINYINT },
+			</if>
+			<if test="chargeStartMonthType != null">
+			  ChargeStartMonthType = #{chargeStartMonthType, jdbcType=TINYINT },
+			</if>
+			<if test="chargeRepeatHandleType != null">
+			  ChargeRepeatHandleType = #{chargeRepeatHandleType, jdbcType=TINYINT },
+			</if>
+			<if test="planFreqFirst != null">
+			  PlanFreqFirst = #{planFreqFirst, jdbcType=TINYINT },
+			</if>
+			<if test="planFreqSecond != null">
+			  PlanFreqSecond = #{planFreqSecond, jdbcType=TINYINT },
+			</if>
+			<if test="planFreqThird != null">
+			  PlanFreqThird = #{planFreqThird, jdbcType=TIME },
+			</if>
+			<if test="freq != null">
+			  Freq = #{freq, jdbcType=VARCHAR },
+			</if>
+			<if test="remark != null">
+			  Remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="housesSum != null">
+			  HousesSum = #{housesSum, jdbcType=BIGINT },
+			</if>
+			<if test="lastExecuteTime != null">
+			  LastExecuteTime = #{lastExecuteTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="sysTime != null">
+			  SysTime = #{sysTime, jdbcType=TIMESTAMP },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from Charge_CustomerChargeCalcPlan 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from Charge_CustomerChargeCalcPlan
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeCustomerChargeCalcPlan">
+		insert into Charge_CustomerChargeCalcPlan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="precinctId != null">
+				PrecinctId,
+			</if>
+			<if test="precinctName != null">
+				PrecinctName,
+			</if>
+			<if test="planName != null">
+				PlanName,
+			</if>
+			<if test="isWork != null">
+				IsWork,
+			</if>
+			<if test="chargeStartMonthType != null">
+				ChargeStartMonthType,
+			</if>
+			<if test="chargeRepeatHandleType != null">
+				ChargeRepeatHandleType,
+			</if>
+			<if test="planFreqFirst != null">
+				PlanFreqFirst,
+			</if>
+			<if test="planFreqSecond != null">
+				PlanFreqSecond,
+			</if>
+			<if test="planFreqThird != null">
+				PlanFreqThird,
+			</if>
+			<if test="freq != null">
+				Freq,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="housesSum != null">
+				HousesSum,
+			</if>
+			<if test="lastExecuteTime != null">
+				LastExecuteTime,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="sysTime != null">
+				SysTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="precinctId != null">
+				#{precinctId, jdbcType=BIGINT},
+			</if>
+			<if test="precinctName != null">
+				#{precinctName, jdbcType=VARCHAR},
+			</if>
+			<if test="planName != null">
+				#{planName, jdbcType=VARCHAR},
+			</if>
+			<if test="isWork != null">
+				#{isWork, jdbcType=TINYINT},
+			</if>
+			<if test="chargeStartMonthType != null">
+				#{chargeStartMonthType, jdbcType=TINYINT},
+			</if>
+			<if test="chargeRepeatHandleType != null">
+				#{chargeRepeatHandleType, jdbcType=TINYINT},
+			</if>
+			<if test="planFreqFirst != null">
+				#{planFreqFirst, jdbcType=TINYINT},
+			</if>
+			<if test="planFreqSecond != null">
+				#{planFreqSecond, jdbcType=TINYINT},
+			</if>
+			<if test="planFreqThird != null">
+				#{planFreqThird, jdbcType=TIME},
+			</if>
+			<if test="freq != null">
+				#{freq, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="housesSum != null">
+				#{housesSum, jdbcType=BIGINT},
+			</if>
+			<if test="lastExecuteTime != null">
+				#{lastExecuteTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysTime != null">
+				#{sysTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_CustomerChargeCalcPlan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			PrecinctId,
+			PrecinctName,
+			PlanName,
+			IsWork,
+			ChargeStartMonthType,
+			ChargeRepeatHandleType,
+			PlanFreqFirst,
+			PlanFreqSecond,
+			PlanFreqThird,
+			Freq,
+			Remark,
+			HousesSum,
+			LastExecuteTime,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			SysTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.precinctId, jdbcType=BIGINT},
+			#{item.precinctName, jdbcType=VARCHAR},
+			#{item.planName, jdbcType=VARCHAR},
+			#{item.isWork, jdbcType=TINYINT},
+			#{item.chargeStartMonthType, jdbcType=TINYINT},
+			#{item.chargeRepeatHandleType, jdbcType=TINYINT},
+			#{item.planFreqFirst, jdbcType=TINYINT},
+			#{item.planFreqSecond, jdbcType=TINYINT},
+			#{item.planFreqThird, jdbcType=TIME},
+			#{item.freq, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.housesSum, jdbcType=BIGINT},
+			#{item.lastExecuteTime, jdbcType=TIMESTAMP},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.sysTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

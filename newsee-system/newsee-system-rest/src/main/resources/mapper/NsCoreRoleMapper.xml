@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreRoleMapper">
+
+	<resultMap id="NsCoreRoleResultMap" type="com.newsee.system.entity.NsCoreRole">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="rolecategoryId" column="ROLECATEGORY_ID" jdbcType="BIGINT"/>
+			<result property="roleid" column="ROLEID" jdbcType="VARCHAR"/>
+			<result property="sentryid" column="SENTRYID" jdbcType="VARCHAR"/>
+			<result property="deptid" column="DEPTID" jdbcType="VARCHAR"/>
+			
+			<!-- 冗余字段 -->
+			<result property="authorizerNames" column="AUTHORIZER_NAMES" jdbcType="VARCHAR"/>
+			<result property="rolecategoryName" column="ROLECATEGORY_NAME" jdbcType="VARCHAR"/>
+			<result property="organizationName" column="ORGANIZATION_NAME" jdbcType="VARCHAR"/>
+			
+			<result property="develop" column="DEVELOP" jdbcType="VARCHAR"/>
+			<result property="extendgroupcode" column="EXTENDGROUPCODE" jdbcType="VARCHAR"/>
+			<result property="extendgroupname" column="EXTENDGROUPNAME" jdbcType="VARCHAR"/>
+			<result property="groupcode" column="GROUPCODE" jdbcType="VARCHAR"/>
+			<result property="groupname" column="GROUPNAME" jdbcType="VARCHAR"/>
+			<result property="icon" column="ICON" jdbcType="VARCHAR"/>
+			<result property="iconcls" column="ICONCLS" jdbcType="VARCHAR"/>
+			<result property="issuperadmin" column="ISSUPERADMIN" jdbcType="VARCHAR"/>
+			<result property="manager" column="MANAGER" jdbcType="VARCHAR"/>
+			<result property="modifyusername" column="MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="nodeinfo" column="NODEINFO" jdbcType="VARCHAR"/>
+			<result property="nodeinfotype" column="NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="parentcode" column="PARENTCODE" jdbcType="VARCHAR"/>
+			<result property="parentname" column="PARENTNAME" jdbcType="VARCHAR"/>
+			<result property="rejectgroupcode" column="REJECTGROUPCODE" jdbcType="VARCHAR"/>
+			<result property="rejectgroupname" column="REJECTGROUPNAME" jdbcType="VARCHAR"/>
+			<result property="rolecode" column="ROLECODE" jdbcType="VARCHAR"/>
+			<result property="rolename" column="ROLENAME" jdbcType="VARCHAR"/>
+			<result property="roletype" column="ROLETYPE" jdbcType="VARCHAR"/>
+			<result property="audflag" column="AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="createorg" column="CREATEORG" jdbcType="VARCHAR"/>
+			<result property="createorgname" column="CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="createtime" column="CREATETIME" jdbcType="VARCHAR"/>
+			<result property="createuser" column="CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="createusername" column="CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="flag" column="FLAG" jdbcType="VARCHAR"/>
+			<result property="layer" column="LAYER" jdbcType="INTEGER"/>
+			<result property="modifyorg" column="MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="modifyorgname" column="MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="modifytime" column="MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="modifyuser" column="MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="nodetype" column="NODETYPE" jdbcType="VARCHAR"/>
+			<result property="orderindex" column="ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="parent" column="PARENT" jdbcType="VARCHAR"/>
+			<result property="parentpath" column="PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="path" column="PATH" jdbcType="LONGVARCHAR"/>
+			<result property="pdid" column="PDID" jdbcType="VARCHAR"/>
+			<result property="piid" column="PIID" jdbcType="VARCHAR"/>
+			<result property="status" column="STATUS" jdbcType="VARCHAR"/>
+			<result property="treeorderindex" column="TREEORDERINDEX" jdbcType="VARCHAR"/>
+			<result property="jtgsid" column="JTGSID" jdbcType="VARCHAR"/>
+			<result property="jtgsmc" column="JTGSMC" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreRole_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,ROLECATEGORY_ID,ROLEID,SENTRYID,DEPTID,AUTHORIZER_NAMES,ROLECATEGORY_NAME,ORGANIZATION_NAME,DEVELOP,EXTENDGROUPCODE,EXTENDGROUPNAME,GROUPCODE,GROUPNAME,ICON,ICONCLS,ISSUPERADMIN,MANAGER,MODIFYUSERNAME,NODEINFO,NODEINFOTYPE,PARENTCODE,PARENTNAME,REJECTGROUPCODE,REJECTGROUPNAME,ROLECODE,ROLENAME,ROLETYPE,AUDFLAG,CREATEORG,CREATEORGNAME,CREATETIME,CREATEUSER,CREATEUSERNAME,FLAG,LAYER,MODIFYORG,MODIFYORGNAME,MODIFYTIME,MODIFYUSER,NODETYPE,ORDERINDEX,PARENT,PARENTPATH,PATH,PDID,PIID,STATUS,TREEORDERINDEX,JTGSID,JTGSMC
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreRoleResultMap">
+		select
+			<include refid="NsCoreRole_Column_List" />
+		from
+			ns_core_role
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByRoleIds" parameterType="java.util.List" resultMap="NsCoreRoleResultMap">
+        select
+            <include refid="NsCoreRole_Column_List" />
+        from
+            ns_core_role
+        where
+            ROLEID 
+        in
+           <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+           </foreach>  
+    </select>
+    
+    <select id="selectByRoleId" parameterType="java.lang.String" resultMap="NsCoreRoleResultMap">
+        select
+            <include refid="NsCoreRole_Column_List" />
+        from
+            ns_core_role
+        where
+            ROLEID = #{id}
+    </select>
+    
+    <select id="selectByOrganizationId" parameterType="java.lang.Long" resultMap="NsCoreRoleResultMap">
+        select
+            <include refid="NsCoreRole_Column_List" />
+        from
+            ns_core_role
+        where
+            ORGANIZATION_ID = #{id}
+    </select>
+    
+    <select id="selectByOrgIdAndCategoryId" parameterType="java.util.Map" resultMap="NsCoreRoleResultMap">
+        select
+            <include refid="NsCoreRole_Column_List" />
+        from
+            ns_core_role
+        where
+            ORGANIZATION_ID = #{organizationId}
+         and
+            ROLECATEGORY_ID = #{rolecategoryId}
+    </select>
+    
+    
+    <select id="selectByOrgIdAndName" parameterType="java.util.Map" resultMap="NsCoreRoleResultMap">
+        select
+            <include refid="NsCoreRole_Column_List" />
+        from
+            ns_core_role
+        where
+            ORGANIZATION_ID = #{organizationId}
+         and
+            ROLENAME = #{roleName}
+    </select>
+    
+    <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsCoreRoleResultMap">
+        select 
+            <include refid="NsCoreRole_Column_List" />
+        from 
+           ns_core_role
+        <where>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, ROLENAME)>0 
+            </if>
+            <if test="enterpriseId != null">
+                and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="seeUserIdStr != null">
+                and createuser = #{seeUserIdStr}
+            </if>
+            <if test="seeOrganizationIdList != null">
+                and organization_id in 
+                <foreach item="item" collection="seeOrganizationIdList" open="(" separator="," close=")">  
+                    #{item}  
+                </foreach>  
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldUnderLineName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldUnderLineName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+               order by ${orderFieldUnderLineName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreRole">
+		update ns_core_role
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="rolecategoryId != null">
+              ROLECATEGORY_ID = #{rolecategoryId, jdbcType=BIGINT },
+            </if>
+			<if test="roleid != null">
+			  ROLEID = #{roleid, jdbcType=VARCHAR },
+			</if>
+			<if test="sentryid != null">
+			  SENTRYID = #{sentryid, jdbcType=VARCHAR },
+			</if>
+			<if test="deptid != null">
+			  DEPTID = #{deptid, jdbcType=VARCHAR },
+			</if>
+			<if test="develop != null">
+			  DEVELOP = #{develop, jdbcType=VARCHAR },
+			</if>
+			<if test="extendgroupcode != null">
+			  EXTENDGROUPCODE = #{extendgroupcode, jdbcType=VARCHAR },
+			</if>
+			<if test="extendgroupname != null">
+			  EXTENDGROUPNAME = #{extendgroupname, jdbcType=VARCHAR },
+			</if>
+			<if test="groupcode != null">
+			  GROUPCODE = #{groupcode, jdbcType=VARCHAR },
+			</if>
+			<if test="groupname != null">
+			  GROUPNAME = #{groupname, jdbcType=VARCHAR },
+			</if>
+			<if test="icon != null">
+			  ICON = #{icon, jdbcType=VARCHAR },
+			</if>
+			<if test="iconcls != null">
+			  ICONCLS = #{iconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="issuperadmin != null">
+			  ISSUPERADMIN = #{issuperadmin, jdbcType=VARCHAR },
+			</if>
+			<if test="manager != null">
+			  MANAGER = #{manager, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyusername != null">
+			  MODIFYUSERNAME = #{modifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="nodeinfo != null">
+			  NODEINFO = #{nodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="nodeinfotype != null">
+			  NODEINFOTYPE = #{nodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="parentcode != null">
+			  PARENTCODE = #{parentcode, jdbcType=VARCHAR },
+			</if>
+			<if test="parentname != null">
+			  PARENTNAME = #{parentname, jdbcType=VARCHAR },
+			</if>
+			<if test="rejectgroupcode != null">
+			  REJECTGROUPCODE = #{rejectgroupcode, jdbcType=VARCHAR },
+			</if>
+			<if test="rejectgroupname != null">
+			  REJECTGROUPNAME = #{rejectgroupname, jdbcType=VARCHAR },
+			</if>
+			<if test="rolecode != null">
+			  ROLECODE = #{rolecode, jdbcType=VARCHAR },
+			</if>
+			<if test="rolename != null">
+			  ROLENAME = #{rolename, jdbcType=VARCHAR },
+			</if>
+			<if test="roletype != null">
+			  ROLETYPE = #{roletype, jdbcType=VARCHAR },
+			</if>
+			<if test="audflag != null">
+			  AUDFLAG = #{audflag, jdbcType=VARCHAR },
+			</if>
+			<if test="createorg != null">
+			  CREATEORG = #{createorg, jdbcType=VARCHAR },
+			</if>
+			<if test="createorgname != null">
+			  CREATEORGNAME = #{createorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="createtime != null">
+			  CREATETIME = #{createtime, jdbcType=VARCHAR },
+			</if>
+			<if test="createuser != null">
+			  CREATEUSER = #{createuser, jdbcType=VARCHAR },
+			</if>
+			<if test="createusername != null">
+			  CREATEUSERNAME = #{createusername, jdbcType=VARCHAR },
+			</if>
+			<if test="flag != null">
+			  FLAG = #{flag, jdbcType=VARCHAR },
+			</if>
+			<if test="layer != null">
+			  LAYER = #{layer, jdbcType=INTEGER },
+			</if>
+			<if test="modifyorg != null">
+			  MODIFYORG = #{modifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyorgname != null">
+			  MODIFYORGNAME = #{modifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="modifytime != null">
+			  MODIFYTIME = #{modifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="modifyuser != null">
+			  MODIFYUSER = #{modifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="nodetype != null">
+			  NODETYPE = #{nodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="orderindex != null">
+			  ORDERINDEX = #{orderindex, jdbcType=INTEGER },
+			</if>
+			<if test="parent != null">
+			  PARENT = #{parent, jdbcType=VARCHAR },
+			</if>
+			<if test="parentpath != null">
+			  PARENTPATH = #{parentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="path != null">
+			  PATH = #{path, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="pdid != null">
+			  PDID = #{pdid, jdbcType=VARCHAR },
+			</if>
+			<if test="piid != null">
+			  PIID = #{piid, jdbcType=VARCHAR },
+			</if>
+			<if test="status != null">
+			  STATUS = #{status, jdbcType=VARCHAR },
+			</if>
+			<if test="treeorderindex != null">
+			  TREEORDERINDEX = #{treeorderindex, jdbcType=VARCHAR },
+			</if>
+			<if test="jtgsid != null">
+			  JTGSID = #{jtgsid, jdbcType=VARCHAR },
+			</if>
+			<if test="jtgsmc != null">
+			  JTGSMC = #{jtgsmc, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	   <update id="updateByRoleId" parameterType="com.newsee.system.entity.NsCoreRole">
+        update ns_core_role
+        <set>
+            <if test="enterpriseId != null">
+              ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+              ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="rolecategoryId != null">
+              ROLECATEGORY_ID = #{rolecategoryId, jdbcType=BIGINT },
+            </if>
+            <if test="sentryid != null">
+              SENTRYID = #{sentryid, jdbcType=VARCHAR },
+            </if>
+            <if test="deptid != null">
+              DEPTID = #{deptid, jdbcType=VARCHAR },
+            </if>
+            
+            <if test="authorizerNames != null">
+              AUTHORIZER_NAMES = #{authorizerNames, jdbcType=VARCHAR },
+            </if>
+            <if test="rolecategoryName != null">
+              ROLECATEGORY_NAME = #{rolecategoryName, jdbcType=VARCHAR },
+            </if>
+            <if test="organizationName != null">
+              ORGANIZATION_NAME = #{organizationName, jdbcType=VARCHAR },
+            </if>
+            
+            <if test="develop != null">
+              DEVELOP = #{develop, jdbcType=VARCHAR },
+            </if>
+            <if test="extendgroupcode != null">
+              EXTENDGROUPCODE = #{extendgroupcode, jdbcType=VARCHAR },
+            </if>
+            <if test="extendgroupname != null">
+              EXTENDGROUPNAME = #{extendgroupname, jdbcType=VARCHAR },
+            </if>
+            <if test="groupcode != null">
+              GROUPCODE = #{groupcode, jdbcType=VARCHAR },
+            </if>
+            <if test="groupname != null">
+              GROUPNAME = #{groupname, jdbcType=VARCHAR },
+            </if>
+            <if test="icon != null">
+              ICON = #{icon, jdbcType=VARCHAR },
+            </if>
+            <if test="iconcls != null">
+              ICONCLS = #{iconcls, jdbcType=VARCHAR },
+            </if>
+            <if test="issuperadmin != null">
+              ISSUPERADMIN = #{issuperadmin, jdbcType=VARCHAR },
+            </if>
+            <if test="manager != null">
+              MANAGER = #{manager, jdbcType=VARCHAR },
+            </if>
+            <if test="modifyusername != null">
+              MODIFYUSERNAME = #{modifyusername, jdbcType=VARCHAR },
+            </if>
+            <if test="nodeinfo != null">
+              NODEINFO = #{nodeinfo, jdbcType=VARCHAR },
+            </if>
+            <if test="nodeinfotype != null">
+              NODEINFOTYPE = #{nodeinfotype, jdbcType=VARCHAR },
+            </if>
+            <if test="parentcode != null">
+              PARENTCODE = #{parentcode, jdbcType=VARCHAR },
+            </if>
+            <if test="parentname != null">
+              PARENTNAME = #{parentname, jdbcType=VARCHAR },
+            </if>
+            <if test="rejectgroupcode != null">
+              REJECTGROUPCODE = #{rejectgroupcode, jdbcType=VARCHAR },
+            </if>
+            <if test="rejectgroupname != null">
+              REJECTGROUPNAME = #{rejectgroupname, jdbcType=VARCHAR },
+            </if>
+            <if test="rolecode != null">
+              ROLECODE = #{rolecode, jdbcType=VARCHAR },
+            </if>
+            <if test="rolename != null">
+              ROLENAME = #{rolename, jdbcType=VARCHAR },
+            </if>
+            <if test="roletype != null">
+              ROLETYPE = #{roletype, jdbcType=VARCHAR },
+            </if>
+            <if test="audflag != null">
+              AUDFLAG = #{audflag, jdbcType=VARCHAR },
+            </if>
+            <if test="createorg != null">
+              CREATEORG = #{createorg, jdbcType=VARCHAR },
+            </if>
+            <if test="createorgname != null">
+              CREATEORGNAME = #{createorgname, jdbcType=VARCHAR },
+            </if>
+            <if test="createtime != null">
+              CREATETIME = #{createtime, jdbcType=VARCHAR },
+            </if>
+            <if test="createuser != null">
+              CREATEUSER = #{createuser, jdbcType=VARCHAR },
+            </if>
+            <if test="createusername != null">
+              CREATEUSERNAME = #{createusername, jdbcType=VARCHAR },
+            </if>
+            <if test="flag != null">
+              FLAG = #{flag, jdbcType=VARCHAR },
+            </if>
+            <if test="layer != null">
+              LAYER = #{layer, jdbcType=INTEGER },
+            </if>
+            <if test="modifyorg != null">
+              MODIFYORG = #{modifyorg, jdbcType=VARCHAR },
+            </if>
+            <if test="modifyorgname != null">
+              MODIFYORGNAME = #{modifyorgname, jdbcType=VARCHAR },
+            </if>
+            <if test="modifytime != null">
+              MODIFYTIME = #{modifytime, jdbcType=VARCHAR },
+            </if>
+            <if test="modifyuser != null">
+              MODIFYUSER = #{modifyuser, jdbcType=VARCHAR },
+            </if>
+            <if test="nodetype != null">
+              NODETYPE = #{nodetype, jdbcType=VARCHAR },
+            </if>
+            <if test="orderindex != null">
+              ORDERINDEX = #{orderindex, jdbcType=INTEGER },
+            </if>
+            <if test="parent != null">
+              PARENT = #{parent, jdbcType=VARCHAR },
+            </if>
+            <if test="parentpath != null">
+              PARENTPATH = #{parentpath, jdbcType=LONGVARCHAR },
+            </if>
+            <if test="path != null">
+              PATH = #{path, jdbcType=LONGVARCHAR },
+            </if>
+            <if test="pdid != null">
+              PDID = #{pdid, jdbcType=VARCHAR },
+            </if>
+            <if test="piid != null">
+              PIID = #{piid, jdbcType=VARCHAR },
+            </if>
+            <if test="status != null">
+              STATUS = #{status, jdbcType=VARCHAR },
+            </if>
+            <if test="treeorderindex != null">
+              TREEORDERINDEX = #{treeorderindex, jdbcType=VARCHAR },
+            </if>
+            <if test="jtgsid != null">
+              JTGSID = #{jtgsid, jdbcType=VARCHAR },
+            </if>
+            <if test="jtgsmc != null">
+              JTGSMC = #{jtgsmc, jdbcType=VARCHAR },
+            </if>
+        </set>
+        where
+            ROLEID = #{roleid}
+    </update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_role 
+		where
+			ID = #{id}
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="java.lang.String">
+        delete from ns_core_role 
+        where
+            ROLEID = #{id}
+    </delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_role
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="roleid"
+		parameterType="com.newsee.system.entity.NsCoreRole">
+		<selectKey resultType="java.lang.String" keyProperty="roleid"
+               order="AFTER">
+          SELECT
+          LAST_INSERT_ID()
+        </selectKey>
+		insert into ns_core_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="rolecategoryId != null">
+                ROLECATEGORY_ID,
+            </if>
+			<if test="roleid != null">
+				ROLEID,
+			</if>
+			<if test="sentryid != null">
+				SENTRYID,
+			</if>
+			<if test="deptid != null">
+				DEPTID,
+			</if>
+			
+			<if test="authorizerNames != null">
+              AUTHORIZER_NAMES,
+            </if>
+            <if test="rolecategoryName != null">
+              ROLECATEGORY_NAME,
+            </if>
+            <if test="organizationName != null">
+              ORGANIZATION_NAME,
+            </if>
+			
+			<if test="develop != null">
+				DEVELOP,
+			</if>
+			<if test="extendgroupcode != null">
+				EXTENDGROUPCODE,
+			</if>
+			<if test="extendgroupname != null">
+				EXTENDGROUPNAME,
+			</if>
+			<if test="groupcode != null">
+				GROUPCODE,
+			</if>
+			<if test="groupname != null">
+				GROUPNAME,
+			</if>
+			<if test="icon != null">
+				ICON,
+			</if>
+			<if test="iconcls != null">
+				ICONCLS,
+			</if>
+			<if test="issuperadmin != null">
+				ISSUPERADMIN,
+			</if>
+			<if test="manager != null">
+				MANAGER,
+			</if>
+			<if test="modifyusername != null">
+				MODIFYUSERNAME,
+			</if>
+			<if test="nodeinfo != null">
+				NODEINFO,
+			</if>
+			<if test="nodeinfotype != null">
+				NODEINFOTYPE,
+			</if>
+			<if test="parentcode != null">
+				PARENTCODE,
+			</if>
+			<if test="parentname != null">
+				PARENTNAME,
+			</if>
+			<if test="rejectgroupcode != null">
+				REJECTGROUPCODE,
+			</if>
+			<if test="rejectgroupname != null">
+				REJECTGROUPNAME,
+			</if>
+			<if test="rolecode != null">
+				ROLECODE,
+			</if>
+			<if test="rolename != null">
+				ROLENAME,
+			</if>
+			<if test="roletype != null">
+				ROLETYPE,
+			</if>
+			<if test="audflag != null">
+				AUDFLAG,
+			</if>
+			<if test="createorg != null">
+				CREATEORG,
+			</if>
+			<if test="createorgname != null">
+				CREATEORGNAME,
+			</if>
+			<if test="createtime != null">
+				CREATETIME,
+			</if>
+			<if test="createuser != null">
+				CREATEUSER,
+			</if>
+			<if test="createusername != null">
+				CREATEUSERNAME,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="layer != null">
+				LAYER,
+			</if>
+			<if test="modifyorg != null">
+				MODIFYORG,
+			</if>
+			<if test="modifyorgname != null">
+				MODIFYORGNAME,
+			</if>
+			<if test="modifytime != null">
+				MODIFYTIME,
+			</if>
+			<if test="modifyuser != null">
+				MODIFYUSER,
+			</if>
+			<if test="nodetype != null">
+				NODETYPE,
+			</if>
+			<if test="orderindex != null">
+				ORDERINDEX,
+			</if>
+			<if test="parent != null">
+				PARENT,
+			</if>
+			<if test="parentpath != null">
+				PARENTPATH,
+			</if>
+			<if test="path != null">
+				PATH,
+			</if>
+			<if test="pdid != null">
+				PDID,
+			</if>
+			<if test="piid != null">
+				PIID,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="treeorderindex != null">
+				TREEORDERINDEX,
+			</if>
+			<if test="jtgsid != null">
+				JTGSID,
+			</if>
+			<if test="jtgsmc != null">
+				JTGSMC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="rolecategoryId != null">
+                #{rolecategoryId, jdbcType=BIGINT},
+            </if>
+			<if test="roleid != null">
+				#{roleid, jdbcType=VARCHAR},
+			</if>
+			<if test="sentryid != null">
+				#{sentryid, jdbcType=VARCHAR},
+			</if>
+			<if test="deptid != null">
+				#{deptid, jdbcType=VARCHAR},
+			</if>
+			
+			<if test="authorizerNames != null">
+               #{authorizerNames, jdbcType=VARCHAR },
+            </if>
+            <if test="rolecategoryName != null">
+               #{rolecategoryName, jdbcType=VARCHAR },
+            </if>
+            <if test="organizationName != null">
+               #{organizationName, jdbcType=VARCHAR },
+            </if>
+			
+			<if test="develop != null">
+				#{develop, jdbcType=VARCHAR},
+			</if>
+			<if test="extendgroupcode != null">
+				#{extendgroupcode, jdbcType=VARCHAR},
+			</if>
+			<if test="extendgroupname != null">
+				#{extendgroupname, jdbcType=VARCHAR},
+			</if>
+			<if test="groupcode != null">
+				#{groupcode, jdbcType=VARCHAR},
+			</if>
+			<if test="groupname != null">
+				#{groupname, jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon, jdbcType=VARCHAR},
+			</if>
+			<if test="iconcls != null">
+				#{iconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="issuperadmin != null">
+				#{issuperadmin, jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				#{manager, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyusername != null">
+				#{modifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="nodeinfo != null">
+				#{nodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="nodeinfotype != null">
+				#{nodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="parentcode != null">
+				#{parentcode, jdbcType=VARCHAR},
+			</if>
+			<if test="parentname != null">
+				#{parentname, jdbcType=VARCHAR},
+			</if>
+			<if test="rejectgroupcode != null">
+				#{rejectgroupcode, jdbcType=VARCHAR},
+			</if>
+			<if test="rejectgroupname != null">
+				#{rejectgroupname, jdbcType=VARCHAR},
+			</if>
+			<if test="rolecode != null">
+				#{rolecode, jdbcType=VARCHAR},
+			</if>
+			<if test="rolename != null">
+				#{rolename, jdbcType=VARCHAR},
+			</if>
+			<if test="roletype != null">
+				#{roletype, jdbcType=VARCHAR},
+			</if>
+			<if test="audflag != null">
+				#{audflag, jdbcType=VARCHAR},
+			</if>
+			<if test="createorg != null">
+				#{createorg, jdbcType=VARCHAR},
+			</if>
+			<if test="createorgname != null">
+				#{createorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime, jdbcType=VARCHAR},
+			</if>
+			<if test="createuser != null">
+				#{createuser, jdbcType=VARCHAR},
+			</if>
+			<if test="createusername != null">
+				#{createusername, jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag, jdbcType=VARCHAR},
+			</if>
+			<if test="layer != null">
+				#{layer, jdbcType=INTEGER},
+			</if>
+			<if test="modifyorg != null">
+				#{modifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyorgname != null">
+				#{modifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="modifytime != null">
+				#{modifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="modifyuser != null">
+				#{modifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="nodetype != null">
+				#{nodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="orderindex != null">
+				#{orderindex, jdbcType=INTEGER},
+			</if>
+			<if test="parent != null">
+				#{parent, jdbcType=VARCHAR},
+			</if>
+			<if test="parentpath != null">
+				#{parentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="path != null">
+				#{path, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="pdid != null">
+				#{pdid, jdbcType=VARCHAR},
+			</if>
+			<if test="piid != null">
+				#{piid, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status, jdbcType=VARCHAR},
+			</if>
+			<if test="treeorderindex != null">
+				#{treeorderindex, jdbcType=VARCHAR},
+			</if>
+			<if test="jtgsid != null">
+				#{jtgsid, jdbcType=VARCHAR},
+			</if>
+			<if test="jtgsmc != null">
+				#{jtgsmc, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			ROLECATEGORY_ID,
+			ROLEID,
+			SENTRYID,
+			DEPTID,
+			DEVELOP,
+			EXTENDGROUPCODE,
+			EXTENDGROUPNAME,
+			GROUPCODE,
+			GROUPNAME,
+			ICON,
+			ICONCLS,
+			ISSUPERADMIN,
+			MANAGER,
+			MODIFYUSERNAME,
+			NODEINFO,
+			NODEINFOTYPE,
+			PARENTCODE,
+			PARENTNAME,
+			REJECTGROUPCODE,
+			REJECTGROUPNAME,
+			ROLECODE,
+			ROLENAME,
+			ROLETYPE,
+			AUDFLAG,
+			CREATEORG,
+			CREATEORGNAME,
+			CREATETIME,
+			CREATEUSER,
+			CREATEUSERNAME,
+			FLAG,
+			LAYER,
+			MODIFYORG,
+			MODIFYORGNAME,
+			MODIFYTIME,
+			MODIFYUSER,
+			NODETYPE,
+			ORDERINDEX,
+			PARENT,
+			PARENTPATH,
+			PATH,
+			PDID,
+			PIID,
+			STATUS,
+			TREEORDERINDEX,
+			JTGSID,
+			JTGSMC,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.rolecategoryId, jdbcType=BIGINT},
+			#{item.roleid, jdbcType=VARCHAR},
+			#{item.sentryid, jdbcType=VARCHAR},
+			#{item.deptid, jdbcType=VARCHAR},
+			#{item.develop, jdbcType=VARCHAR},
+			#{item.extendgroupcode, jdbcType=VARCHAR},
+			#{item.extendgroupname, jdbcType=VARCHAR},
+			#{item.groupcode, jdbcType=VARCHAR},
+			#{item.groupname, jdbcType=VARCHAR},
+			#{item.icon, jdbcType=VARCHAR},
+			#{item.iconcls, jdbcType=VARCHAR},
+			#{item.issuperadmin, jdbcType=VARCHAR},
+			#{item.manager, jdbcType=VARCHAR},
+			#{item.modifyusername, jdbcType=VARCHAR},
+			#{item.nodeinfo, jdbcType=VARCHAR},
+			#{item.nodeinfotype, jdbcType=VARCHAR},
+			#{item.parentcode, jdbcType=VARCHAR},
+			#{item.parentname, jdbcType=VARCHAR},
+			#{item.rejectgroupcode, jdbcType=VARCHAR},
+			#{item.rejectgroupname, jdbcType=VARCHAR},
+			#{item.rolecode, jdbcType=VARCHAR},
+			#{item.rolename, jdbcType=VARCHAR},
+			#{item.roletype, jdbcType=VARCHAR},
+			#{item.audflag, jdbcType=VARCHAR},
+			#{item.createorg, jdbcType=VARCHAR},
+			#{item.createorgname, jdbcType=VARCHAR},
+			#{item.createtime, jdbcType=VARCHAR},
+			#{item.createuser, jdbcType=VARCHAR},
+			#{item.createusername, jdbcType=VARCHAR},
+			#{item.flag, jdbcType=VARCHAR},
+			#{item.layer, jdbcType=INTEGER},
+			#{item.modifyorg, jdbcType=VARCHAR},
+			#{item.modifyorgname, jdbcType=VARCHAR},
+			#{item.modifytime, jdbcType=VARCHAR},
+			#{item.modifyuser, jdbcType=VARCHAR},
+			#{item.nodetype, jdbcType=VARCHAR},
+			#{item.orderindex, jdbcType=INTEGER},
+			#{item.parent, jdbcType=VARCHAR},
+			#{item.parentpath, jdbcType=LONGVARCHAR},
+			#{item.path, jdbcType=LONGVARCHAR},
+			#{item.pdid, jdbcType=VARCHAR},
+			#{item.piid, jdbcType=VARCHAR},
+			#{item.status, jdbcType=VARCHAR},
+			#{item.treeorderindex, jdbcType=VARCHAR},
+			#{item.jtgsid, jdbcType=VARCHAR},
+			#{item.jtgsmc, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

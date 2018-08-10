@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreRolegroupMapper">
+
+	<resultMap id="NsCoreRolegroupResultMap" type="com.newsee.system.entity.NsCoreRolegroup">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="jeCoreRolegroupId" column="JE_CORE_ROLEGROUP_ID" jdbcType="VARCHAR"/>
+			<result property="rolegroupCode" column="ROLEGROUP_CODE" jdbcType="VARCHAR"/>
+			<result property="rolegroupNodeinfo" column="ROLEGROUP_NODEINFO" jdbcType="VARCHAR"/>
+			<result property="rolegroupNodeinfotype" column="ROLEGROUP_NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="rolegroupText" column="ROLEGROUP_TEXT" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syDisabled" column="SY_DISABLED" jdbcType="VARCHAR"/>
+			<result property="syLayer" column="SY_LAYER" jdbcType="INTEGER"/>
+			<result property="syNodetype" column="SY_NODETYPE" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syParent" column="SY_PARENT" jdbcType="VARCHAR"/>
+			<result property="syParentpath" column="SY_PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPath" column="SY_PATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="syTreeorderindex" column="SY_TREEORDERINDEX" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreRolegroup_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,JE_CORE_ROLEGROUP_ID,ROLEGROUP_CODE,ROLEGROUP_NODEINFO,ROLEGROUP_NODEINFOTYPE,ROLEGROUP_TEXT,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_DISABLED,SY_LAYER,SY_NODETYPE,SY_ORDERINDEX,SY_PARENT,SY_PARENTPATH,SY_PATH,SY_PDID,SY_PIID,SY_STATUS,SY_TREEORDERINDEX
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreRolegroupResultMap">
+		select
+			<include refid="NsCoreRolegroup_Column_List" />
+		from
+			ns_core_rolegroup
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByOrganizationId" parameterType="java.lang.Long" resultMap="NsCoreRolegroupResultMap">
+        select
+            <include refid="NsCoreRolegroup_Column_List" />
+        from
+            ns_core_rolegroup
+        where
+            ORGANIZATION_ID = #{id}
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreRolegroup">
+		update ns_core_rolegroup
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="jeCoreRolegroupId != null">
+			  JE_CORE_ROLEGROUP_ID = #{jeCoreRolegroupId, jdbcType=VARCHAR },
+			</if>
+			<if test="rolegroupCode != null">
+			  ROLEGROUP_CODE = #{rolegroupCode, jdbcType=VARCHAR },
+			</if>
+			<if test="rolegroupNodeinfo != null">
+			  ROLEGROUP_NODEINFO = #{rolegroupNodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="rolegroupNodeinfotype != null">
+			  ROLEGROUP_NODEINFOTYPE = #{rolegroupNodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="rolegroupText != null">
+			  ROLEGROUP_TEXT = #{rolegroupText, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syDisabled != null">
+			  SY_DISABLED = #{syDisabled, jdbcType=VARCHAR },
+			</if>
+			<if test="syLayer != null">
+			  SY_LAYER = #{syLayer, jdbcType=INTEGER },
+			</if>
+			<if test="syNodetype != null">
+			  SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syParent != null">
+			  SY_PARENT = #{syParent, jdbcType=VARCHAR },
+			</if>
+			<if test="syParentpath != null">
+			  SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPath != null">
+			  SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="syTreeorderindex != null">
+			  SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_rolegroup 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_rolegroup
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreRolegroup">
+		insert into ns_core_rolegroup
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="jeCoreRolegroupId != null">
+				JE_CORE_ROLEGROUP_ID,
+			</if>
+			<if test="rolegroupCode != null">
+				ROLEGROUP_CODE,
+			</if>
+			<if test="rolegroupNodeinfo != null">
+				ROLEGROUP_NODEINFO,
+			</if>
+			<if test="rolegroupNodeinfotype != null">
+				ROLEGROUP_NODEINFOTYPE,
+			</if>
+			<if test="rolegroupText != null">
+				ROLEGROUP_TEXT,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syDisabled != null">
+				SY_DISABLED,
+			</if>
+			<if test="syLayer != null">
+				SY_LAYER,
+			</if>
+			<if test="syNodetype != null">
+				SY_NODETYPE,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syParent != null">
+				SY_PARENT,
+			</if>
+			<if test="syParentpath != null">
+				SY_PARENTPATH,
+			</if>
+			<if test="syPath != null">
+				SY_PATH,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="syTreeorderindex != null">
+				SY_TREEORDERINDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="jeCoreRolegroupId != null">
+				#{jeCoreRolegroupId, jdbcType=VARCHAR},
+			</if>
+			<if test="rolegroupCode != null">
+				#{rolegroupCode, jdbcType=VARCHAR},
+			</if>
+			<if test="rolegroupNodeinfo != null">
+				#{rolegroupNodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="rolegroupNodeinfotype != null">
+				#{rolegroupNodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="rolegroupText != null">
+				#{rolegroupText, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syDisabled != null">
+				#{syDisabled, jdbcType=VARCHAR},
+			</if>
+			<if test="syLayer != null">
+				#{syLayer, jdbcType=INTEGER},
+			</if>
+			<if test="syNodetype != null">
+				#{syNodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syParent != null">
+				#{syParent, jdbcType=VARCHAR},
+			</if>
+			<if test="syParentpath != null">
+				#{syParentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPath != null">
+				#{syPath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="syTreeorderindex != null">
+				#{syTreeorderindex, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_rolegroup
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			JE_CORE_ROLEGROUP_ID,
+			ROLEGROUP_CODE,
+			ROLEGROUP_NODEINFO,
+			ROLEGROUP_NODEINFOTYPE,
+			ROLEGROUP_TEXT,
+			SY_AUDFLAG,
+			SY_CREATEORG,
+			SY_CREATEORGNAME,
+			SY_CREATETIME,
+			SY_CREATEUSER,
+			SY_CREATEUSERNAME,
+			SY_DISABLED,
+			SY_LAYER,
+			SY_NODETYPE,
+			SY_ORDERINDEX,
+			SY_PARENT,
+			SY_PARENTPATH,
+			SY_PATH,
+			SY_PDID,
+			SY_PIID,
+			SY_STATUS,
+			SY_TREEORDERINDEX,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.jeCoreRolegroupId, jdbcType=VARCHAR},
+			#{item.rolegroupCode, jdbcType=VARCHAR},
+			#{item.rolegroupNodeinfo, jdbcType=VARCHAR},
+			#{item.rolegroupNodeinfotype, jdbcType=VARCHAR},
+			#{item.rolegroupText, jdbcType=VARCHAR},
+			#{item.syAudflag, jdbcType=VARCHAR},
+			#{item.syCreateorg, jdbcType=VARCHAR},
+			#{item.syCreateorgname, jdbcType=VARCHAR},
+			#{item.syCreatetime, jdbcType=VARCHAR},
+			#{item.syCreateuser, jdbcType=VARCHAR},
+			#{item.syCreateusername, jdbcType=VARCHAR},
+			#{item.syDisabled, jdbcType=VARCHAR},
+			#{item.syLayer, jdbcType=INTEGER},
+			#{item.syNodetype, jdbcType=VARCHAR},
+			#{item.syOrderindex, jdbcType=INTEGER},
+			#{item.syParent, jdbcType=VARCHAR},
+			#{item.syParentpath, jdbcType=LONGVARCHAR},
+			#{item.syPath, jdbcType=LONGVARCHAR},
+			#{item.syPdid, jdbcType=VARCHAR},
+			#{item.syPiid, jdbcType=VARCHAR},
+			#{item.syStatus, jdbcType=VARCHAR},
+			#{item.syTreeorderindex, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHouseHouseExtendInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseHouseExtendInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="inside_area" property="insideArea" jdbcType="BIGINT" />
+    <result column="pool_area" property="poolArea" jdbcType="BIGINT" />
+    <result column="garden_area" property="gardenArea" jdbcType="BIGINT" />
+    <result column="basement_area" property="basementArea" jdbcType="BIGINT" />
+    <result column="gift_area" property="giftArea" jdbcType="BIGINT" />
+    <result column="room_property_id" property="roomPropertyId" jdbcType="VARCHAR" />
+    <result column="room_house_type" property="roomHouseType" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="DATE" />
+    <result column="take_over_time" property="takeOverTime" jdbcType="DATE" />
+    <result column="maintenance_start_date" property="maintenanceStartDate" jdbcType="TIMESTAMP" />
+    <result column="maintenance_end_date" property="maintenanceEndDate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, inside_area, pool_area, garden_area, basement_area, gift_area, room_property_id, 
+    room_house_type, delivery_time, take_over_time, maintenance_start_date, maintenance_end_date, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_house_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_house_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseHouseExtendInfo" >
+    insert into owner_house_house_extend_info (house_id, inside_area, pool_area, 
+      garden_area, basement_area, gift_area, 
+      room_property_id, room_house_type, delivery_time, take_over_time, maintenance_start_date, 
+      maintenance_end_date, remark)
+    values (#{houseId,jdbcType=BIGINT}, #{insideArea,jdbcType=BIGINT}, #{poolArea,jdbcType=BIGINT}, 
+      #{gardenArea,jdbcType=BIGINT}, #{basementArea,jdbcType=BIGINT}, #{giftArea,jdbcType=BIGINT}, 
+      #{roomPropertyId,jdbcType=VARCHAR}, #{roomHouseType,jdbcType=VARCHAR}, #{deliveryTime,jdbcType=DATE}, 
+      #{takeOverTime,jdbcType=DATE}, #{maintenanceStartDate,jdbcType=TIMESTAMP}, 
+      #{maintenanceEndDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseHouseExtendInfo" >
+    insert into owner_house_house_extend_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="insideArea != null" >
+        inside_area,
+      </if>
+      <if test="poolArea != null" >
+        pool_area,
+      </if>
+      <if test="gardenArea != null" >
+        garden_area,
+      </if>
+      <if test="basementArea != null" >
+        basement_area,
+      </if>
+      <if test="giftArea != null" >
+        gift_area,
+      </if>
+      <if test="roomPropertyId != null" >
+        room_property_id,
+      </if>
+      <if test="roomHouseType != null" >
+        room_house_type,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="takeOverTime != null" >
+        take_over_time,
+      </if>
+      <if test="maintenanceStartDate != null" >
+        maintenance_start_date,
+      </if>
+      <if test="maintenanceEndDate != null" >
+        maintenance_end_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null" >
+        #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null" >
+        #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null" >
+        #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null" >
+        #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null" >
+        #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="roomPropertyId != null" >
+        #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomHouseType != null" >
+        #{roomHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="takeOverTime != null" >
+        #{takeOverTime,jdbcType=DATE},
+      </if>
+      <if test="maintenanceStartDate != null" >
+        #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null" >
+        #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseHouseExtendInfo" >
+    update owner_house_house_extend_info
+    <set >
+      <if test="insideArea != null" >
+        inside_area = #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null" >
+        pool_area = #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null" >
+        garden_area = #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null" >
+        basement_area = #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null" >
+        gift_area = #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="roomPropertyId != null" >
+        room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomHouseType != null" >
+        room_house_type = #{roomHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=DATE}, 
+      </if>
+      <if test="takeOverTime != null" >
+        take_over_time = #{takeOverTime,jdbcType=DATE},
+      </if>
+      <if test="maintenanceStartDate != null" >
+        maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null" >
+        maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseHouseExtendInfo" >
+    update owner_house_house_extend_info
+    set inside_area = #{insideArea,jdbcType=BIGINT},
+      pool_area = #{poolArea,jdbcType=BIGINT},
+      garden_area = #{gardenArea,jdbcType=BIGINT},
+      basement_area = #{basementArea,jdbcType=BIGINT},
+      gift_area = #{giftArea,jdbcType=BIGINT},
+      room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      room_house_type = #{roomHouseType,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=DATE}, 
+      take_over_time = #{takeOverTime,jdbcType=DATE},
+      maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+
+  <select id="listHouseExtendInfoListByHouseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from owner_house_house_extend_info
+    where 1=1
+    <if test="houseIdList !=null">
+      AND house_id in
+      <foreach collection="houseIdList" open="(" separator="," close=")"
+               item="houseId" index="index">
+        #{houseId,jdbcType=BIGINT}
+      </foreach>
+    </if>
+  </select>
+
+  <insert id="batchInsertHouseExtendInfoList" >
+    insert into owner_house_house_extend_info (house_id, inside_area, pool_area,
+      garden_area, basement_area, gift_area,
+      room_property_id, room_house_type, delivery_time, take_over_time, maintenance_start_date,
+      maintenance_end_date, remark)
+    values
+    <foreach collection="list" item="houseExtendInfo" index="index" separator=",">
+      (#{houseExtendInfo.houseId,jdbcType=BIGINT},
+      #{houseExtendInfo.insideArea,jdbcType=BIGINT},
+      #{houseExtendInfo.poolArea,jdbcType=BIGINT},
+      #{houseExtendInfo.gardenArea,jdbcType=BIGINT},
+      #{houseExtendInfo.basementArea,jdbcType=BIGINT},
+      #{houseExtendInfo.giftArea,jdbcType=BIGINT},
+      #{houseExtendInfo.roomPropertyId,jdbcType=VARCHAR},
+      #{houseExtendInfo.roomHouseType,jdbcType=VARCHAR},
+      #{houseExtendInfo.deliveryTime,jdbcType=DATE}, 
+      #{houseExtendInfo.takeOverTime,jdbcType=DATE},
+      #{houseExtendInfo.maintenanceStartDate,jdbcType=TIMESTAMP},
+      #{houseExtendInfo.maintenanceEndDate,jdbcType=TIMESTAMP},
+      #{houseExtendInfo.remark,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

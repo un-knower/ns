@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossProductOrderMapper">
+
+	<resultMap id="NsSossProductOrderResultMap" type="com.newsee.soss.entity.NsSossProductOrder">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="enterpriseName" column="enterpriseName" jdbcType="VARCHAR"/>
+			<result property="payMoney" column="payMoney" jdbcType="DECIMAL"/>
+			<result property="payTime" column="payTime" jdbcType="TIMESTAMP"/>
+			<result property="payStatus" column="payStatus" jdbcType="VARCHAR"/>
+			<result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+			<result property="serviceStartTime" column="serviceStartTime" jdbcType="DATE"/>
+			<result property="serviceEndTime" column="serviceEndTime" jdbcType="DATE"/>
+			<result property="serviceTotalCount" column="serviceTotalCount" jdbcType="INTEGER"/>
+			<result property="serviceTotalArea" column="serviceTotalArea" jdbcType="BIGINT"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+			<result property="createUserId" column="createUserID" jdbcType="BIGINT"/>
+			<result property="createUserName" column="createUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="updateUserID" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="updateUserName" jdbcType="VARCHAR"/>
+			<result property="orderCode" column="orderCode" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossProductOrder_Column_List">
+		id,orderCode,enterpriseID,enterpriseName,payMoney,payTime,payStatus,isDelete,serviceStartTime,serviceEndTime,serviceTotalCount,
+		serviceTotalArea,remark,createTime,createUserID,createUserName,updateTime,updateUserID,updateUserName
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossProductOrderResultMap">
+		select
+			<include refid="NsSossProductOrder_Column_List" />
+		from
+			ns_soss_productOrder
+		where
+			id = #{id}
+	</select>
+	
+	<!-- 列表查询 -->
+    <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSossProductOrderResultMap">
+        select 
+            <include refid="NsSossProductOrder_Column_List" />
+        from 
+           ns_soss_productOrder
+        <where>
+            <if test="enterpriseId != null">
+                AND enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, enterpriseName)>0 
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldName != null and orderFieldName != ''">
+               order by ${orderFieldName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+      
+      <!-- 获取服务订单数据 -->
+     <select id="selectProductOrders" parameterType="java.util.Map" resultMap="NsSossProductOrderResultMap">
+        SELECT <include refid="NsSossProductOrder_Column_List" /> 
+        FROM ns_soss_productOrder
+        WHERE isDelete = 0
+        <if test="orderCode != null and orderCode != ''">
+            AND orderCode LIKE CONCAT(#{orderCode},'%')
+        </if>
+        <if test="enterpriseId != null">
+            AND enterpriseID = #{enterpriseId}
+        </if>
+        <if test="payStatus != null">
+            AND payStatus = #{payStatus} 
+        </if>
+     </select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossProductOrder">
+		update ns_soss_productOrder
+		<set>
+			<if test="enterpriseId != null">
+			  enterpriseID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="orderCode != null">
+			 orderCode = #{orderCode,jdbcType=VARCHAR}
+			</if>
+			<if test="enterpriseName != null">
+			  enterpriseName = #{enterpriseName, jdbcType=VARCHAR },
+			</if>
+			<if test="payMoney != null">
+			  payMoney = #{payMoney, jdbcType=DECIMAL},
+			</if>
+			<if test="payTime != null">
+			  payTime = #{payTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="payStatus != null">
+			  payStatus = #{payStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelete != null">
+			  isDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+			<if test="serviceStartTime != null">
+			  serviceStartTime = #{serviceStartTime, jdbcType=DATE },
+			</if>
+			<if test="serviceEndTime != null">
+			  serviceEndTime = #{serviceEndTime, jdbcType=DATE },
+			</if>
+			<if test="serviceTotalCount != null">
+			  serviceTotalCount = #{serviceTotalCount, jdbcType=INTEGER },
+			</if>
+			<if test="serviceTotalArea != null">
+			  serviceTotalArea = #{serviceTotalArea, jdbcType=BIGINT },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  createTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="createUserId != null">
+			  createUserID = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  createUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  updateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  updateUserID = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  updateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<update id="updateDeleteBatch" parameterType="java.util.Map">
+        update ns_soss_productOrder
+        <set>
+              isDelete = #{isDelete, jdbcType=INTEGER },
+              updateTime = now(),
+        </set>
+        <where>
+	        <if test="ids != null">
+		        id IN 
+		        <foreach collection="ids" item="item" separator="," open="(" close=")">
+		            #{item}
+		        </foreach>
+	        </if>
+	        <if test="enterpriseId != null">
+	            AND enterpriseID = #{enterpriseId, jdbcType=BIGINT }
+	        </if>
+        </where>
+    </update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_productOrder 
+		where
+			id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_productOrder
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossProductOrder">
+		insert into ns_soss_productOrder
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		    <if test="orderCode != null">
+             orderCode,
+            </if>
+			<if test="enterpriseId != null">
+				enterpriseID,
+			</if>
+			<if test="enterpriseName != null">
+				enterpriseName,
+			</if>
+			<if test="payMoney != null">
+				payMoney,
+			</if>
+			<if test="payTime != null">
+				payTime,
+			</if>
+			<if test="payStatus != null">
+				payStatus,
+			</if>
+			<if test="isDelete != null">
+				isDelete,
+			</if>
+			<if test="serviceStartTime != null">
+				serviceStartTime,
+			</if>
+			<if test="serviceEndTime != null">
+				serviceEndTime,
+			</if>
+			<if test="serviceTotalCount != null">
+				serviceTotalCount,
+			</if>
+			<if test="serviceTotalArea != null">
+				serviceTotalArea,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+				createTime,
+			<if test="createUserId != null">
+				createUserID,
+			</if>
+			<if test="createUserName != null">
+				createUserName,
+			</if>
+				updateTime,
+			<if test="updateUserId != null">
+				updateUserID,
+			</if>
+			<if test="updateUserName != null">
+				updateUserName,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		    <if test="orderCode != null">
+             #{orderCode,jdbcType=VARCHAR},
+            </if>
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="enterpriseName != null">
+				#{enterpriseName, jdbcType=VARCHAR},
+			</if>
+			<if test="payMoney != null">
+				#{payMoney, jdbcType=DECIMAL},
+			</if>
+			<if test="payTime != null">
+				#{payTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+			<if test="serviceStartTime != null">
+				#{serviceStartTime, jdbcType=DATE},
+			</if>
+			<if test="serviceEndTime != null">
+				#{serviceEndTime, jdbcType=DATE},
+			</if>
+			<if test="serviceTotalCount != null">
+				#{serviceTotalCount, jdbcType=INTEGER},
+			</if>
+			<if test="serviceTotalArea != null">
+				#{serviceTotalArea, jdbcType=BIGINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+				now(),
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+				now(),
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_productOrder
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			orderCode,
+			enterpriseID,
+			enterpriseName,
+			payMoney,
+			payTime,
+			payStatus,
+			isDelete,
+			serviceStartTime,
+			serviceEndTime,
+			serviceTotalCount,
+			serviceTotalArea,
+			remark,
+			createTime,
+			createUserID,
+			createUserName,
+			updateTime,
+			updateUserID,
+			updateUserName,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+		    ##{item.orderCode,jdbcType=VARCHAR},
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.enterpriseName, jdbcType=VARCHAR},
+			#{item.payMoney, jdbcType=DECIMAL},
+			#{item.payTime, jdbcType=TIMESTAMP},
+			#{item.payStatus, jdbcType=VARCHAR},
+			#{item.isDelete, jdbcType=INTEGER},
+			#{item.serviceStartTime, jdbcType=DATE},
+			#{item.serviceEndTime, jdbcType=DATE},
+			#{item.serviceTotalCount, jdbcType=INTEGER},
+			#{item.serviceTotalArea, jdbcType=BIGINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

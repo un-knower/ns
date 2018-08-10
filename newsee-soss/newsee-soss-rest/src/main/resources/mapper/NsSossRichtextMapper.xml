@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossProductOrderRecordMapper">
+
+	<resultMap type="com.newsee.soss.entity.NsSossProductOrderRecord" id="BASE_MAP">
+		<id column="recordID"  property="recordID" jdbcType="BIGINT"/>
+		<result column="productOrderID" property="productOrderID" jdbcType="BIGINT"/>
+		<result column="payMoney" property="payMoney" jdbcType="BIGINT"/>
+		<result column="productName" property="productName" jdbcType="VARCHAR"/>
+		<result column="productCode" property="productCode" jdbcType="VARCHAR"/>
+		<result column="createTime" property="createTime" jdbcType="DATE"/>
+		<result column="createUserID" property="createUserId" jdbcType="BIGINT"/>
+		<result column="createUserName" property="createUserName" jdbcType="VARCHAR"/>
+		<result column="serviceStartTime" property="serviceStartTime" jdbcType="DATE"/>
+		<result column="serviceEndTime" property="serviceEndTime" jdbcType="DATE"/>
+		<result column="payStatus" property="payStatus" jdbcType="INTEGER"/>
+		<result column="isLast" property="isLast" jdbcType="INTEGER"/>
+		<result column="serviceArea" property="serviceArea" jdbcType="INTEGER"/>
+		<result column="serviceCount" property="serviceCount" jdbcType="INTEGER"/>
+	</resultMap>
+		<sql id="BASE_LIST">
+			recordID,productOrderID,payMoney,productName,productCode,createTime,createUserID,createUserName,
+			serviceStartTime ,serviceEndTime, payStatus, isLast, serviceArea, serviceCount
+		 </sql>
+
+	<update id="updateByOrderID" parameterType="com.newsee.soss.entity.NsSossProductOrderRecord">
+		update ns_soss_productOrder_record
+		<set>
+			<if test="payMoney != null ">
+				payMoney = #{payMoney, jdbcType=VARCHAR },
+			</if>
+			<if test="productName != null ">
+				productName = #{productName, jdbcType=VARCHAR },
+			</if>
+			<if test="productCode != null ">
+				productCode = #{productCode, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null ">
+				createUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="payStatus != null ">
+				payStatus = #{payStatus, jdbcType=INTEGER },
+			</if>
+			<if test="serviceArea != null ">
+				serviceArea = #{serviceArea, jdbcType=INTEGER },
+			</if>
+			<if test="serviceCount != null">
+				serviceCount = #{serviceCount, jdbcType=INTEGER },
+			</if> 
+			 <if test="isLast !=null">
+				 isLast = #{isLast, jdbcType=INTEGER },
+			</if> 
+				 createTime = now(), 
+		</set>
+		<where>
+			 	isLast = 1 
+			<if test="productOrderID !=null and productOrderID !=''">
+				AND  productOrderID = #{productOrderID}
+			</if>
+		</where>
+	</update>
+	
+	<insert id="insert" parameterType="com.newsee.soss.entity.NsSossProductOrderRecord">
+	insert into ns_soss_productOrder_record
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="payMoney != null and payMoney != ''">
+				payMoney,
+			</if>
+			<if test="productOrderID != null">
+				productOrderID,
+			</if>
+			<if test="productName != null and productName != ''">
+				productName,
+			</if>
+			<if test="productCode != null and productCode != ''">
+				productCode,
+			</if>
+				createTime,
+			<if test="createUserId != null and createUserId != ''">
+				createUserId,
+			</if>
+			<if test="createUserName != null ">
+				createUserName,
+			</if>
+			<if test="payStatus != null and payStatus != ''">
+				payStatus,
+			</if>
+			<if test="serviceArea != null and serviceArea != ''">
+				serviceArea,
+			</if>
+			<if test="serviceCount != null and serviceCount != ''">
+				serviceCount,
+			</if>
+			<if test="serviceStartTime != null ">
+				serviceStartTime,
+			</if>
+			<if test="serviceEndTime != null">
+				serviceEndTime,
+			</if>
+			<if test="payStatus != null ">
+				payStatus,
+			</if>
+			<if test="isLast != null ">
+				isLast,
+			</if>
+	</trim>
+	<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="payMoney != null and payMoney != ''">
+				 #{payMoney, jdbcType=VARCHAR },
+			</if>
+			<if test="productOrderID != null">
+				#{productOrderID,jdbcType=BIGINT},
+			</if>
+			<if test="productName != null and productName != ''">
+				#{productName, jdbcType=VARCHAR },
+			</if>
+			<if test="productCode != null and productCode != ''">
+				#{productCode, jdbcType=VARCHAR },
+			</if>
+				now(),
+			<if test="createUserId != null and createUserId != ''">
+				#{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null ">
+				#{createUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="payStatus != null and payStatus != ''">
+				#{payStatus, jdbcType=INTEGER },
+			</if>
+			<if test="serviceArea != null and serviceArea != ''">
+				#{serviceArea, jdbcType=INTEGER },
+			</if>
+			<if test="serviceCount != null and serviceCount != ''">
+				#{serviceCount, jdbcType=INTEGER },
+			</if>
+			<if test="serviceStartTime != null ">
+				#{serviceStartTime,jdbcType=DATE},
+			</if>
+			<if test="serviceEndTime != null">
+				#{serviceEndTime,jdbcType=DATE},
+			</if>
+			<if test="payStatus != null ">
+				#{payStatus, jdbcType=INTEGER},
+			</if>
+			<if test="isLast != null ">
+				#{isLast, jdbcType=INTEGER},
+			</if>
+	</trim>
+	</insert>
+	<select id="selectOrderRecords"  resultMap="BASE_MAP"  parameterType="java.util.ArrayList">
+		select <include refid="BASE_LIST"/> from ns_soss_productOrder_record where productOrderID in
+		<foreach collection="list" item="productOrderID" open="(" separator="," close=")">#{productOrderID}</foreach>
+	</select>
+	
+	
+</mapper>

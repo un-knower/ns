@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreTablecolumnMapper">
+
+	<resultMap id="NsCoreTablecolumnResultMap" type="com.newsee.system.entity.NsCoreTablecolumn">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="jeCoreTablecolumnId" column="JE_CORE_TABLECOLUMN_ID" jdbcType="VARCHAR"/>
+			<result property="tablecolumnResourcetableId" column="TABLECOLUMN_RESOURCETABLE_ID" jdbcType="VARCHAR"/>
+			<result property="tablecolumnChildconfig" column="TABLECOLUMN_CHILDCONFIG" jdbcType="VARCHAR"/>
+			<result property="tablecolumnClassify" column="TABLECOLUMN_CLASSIFY" jdbcType="VARCHAR"/>
+			<result property="tablecolumnCode" column="TABLECOLUMN_CODE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnDefaultvalue" column="TABLECOLUMN_DEFAULTVALUE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnDicconfig" column="TABLECOLUMN_DICCONFIG" jdbcType="VARCHAR"/>
+			<result property="tablecolumnDicqueryfield" column="TABLECOLUMN_DICQUERYFIELD" jdbcType="VARCHAR"/>
+			<result property="tablecolumnIscreate" column="TABLECOLUMN_ISCREATE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnIsnull" column="TABLECOLUMN_ISNULL" jdbcType="VARCHAR"/>
+			<result property="tablecolumnLength" column="TABLECOLUMN_LENGTH" jdbcType="VARCHAR"/>
+			<result property="tablecolumnName" column="TABLECOLUMN_NAME" jdbcType="VARCHAR"/>
+			<result property="tablecolumnNameEn" column="TABLECOLUMN_NAME_EN" jdbcType="VARCHAR"/>
+			<result property="tablecolumnNote" column="TABLECOLUMN_NOTE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnOldcode" column="TABLECOLUMN_OLDCODE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnOldunique" column="TABLECOLUMN_OLDUNIQUE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnQueryconfig" column="TABLECOLUMN_QUERYCONFIG" jdbcType="VARCHAR"/>
+			<result property="tablecolumnRemark" column="TABLECOLUMN_REMARK" jdbcType="VARCHAR"/>
+			<result property="tablecolumnTablecode" column="TABLECOLUMN_TABLECODE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnTreetype" column="TABLECOLUMN_TREETYPE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnType" column="TABLECOLUMN_TYPE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnUnique" column="TABLECOLUMN_UNIQUE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnUniquecode" column="TABLECOLUMN_UNIQUECODE" jdbcType="VARCHAR"/>
+			<result property="tablecolumnViewconfig" column="TABLECOLUMN_VIEWCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreTablecolumn_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,JE_CORE_TABLECOLUMN_ID,TABLECOLUMN_RESOURCETABLE_ID,TABLECOLUMN_CHILDCONFIG,TABLECOLUMN_CLASSIFY,TABLECOLUMN_CODE,TABLECOLUMN_DEFAULTVALUE,TABLECOLUMN_DICCONFIG,TABLECOLUMN_DICQUERYFIELD,TABLECOLUMN_ISCREATE,TABLECOLUMN_ISNULL,TABLECOLUMN_LENGTH,TABLECOLUMN_NAME,TABLECOLUMN_NAME_EN,TABLECOLUMN_NOTE,TABLECOLUMN_OLDCODE,TABLECOLUMN_OLDUNIQUE,TABLECOLUMN_QUERYCONFIG,TABLECOLUMN_REMARK,TABLECOLUMN_TABLECODE,TABLECOLUMN_TREETYPE,TABLECOLUMN_TYPE,TABLECOLUMN_UNIQUE,TABLECOLUMN_UNIQUECODE,TABLECOLUMN_VIEWCONFIG,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_ORDERINDEX,SY_PDID,SY_PIID,SY_STATUS
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreTablecolumnResultMap">
+		select
+			<include refid="NsCoreTablecolumn_Column_List" />
+		from
+			ns_core_tablecolumn
+		where
+			ID = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreTablecolumn">
+		update ns_core_tablecolumn
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="jeCoreTablecolumnId != null">
+			  JE_CORE_TABLECOLUMN_ID = #{jeCoreTablecolumnId, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnResourcetableId != null">
+			  TABLECOLUMN_RESOURCETABLE_ID = #{tablecolumnResourcetableId, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnChildconfig != null">
+			  TABLECOLUMN_CHILDCONFIG = #{tablecolumnChildconfig, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnClassify != null">
+			  TABLECOLUMN_CLASSIFY = #{tablecolumnClassify, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnCode != null">
+			  TABLECOLUMN_CODE = #{tablecolumnCode, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnDefaultvalue != null">
+			  TABLECOLUMN_DEFAULTVALUE = #{tablecolumnDefaultvalue, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnDicconfig != null">
+			  TABLECOLUMN_DICCONFIG = #{tablecolumnDicconfig, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnDicqueryfield != null">
+			  TABLECOLUMN_DICQUERYFIELD = #{tablecolumnDicqueryfield, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnIscreate != null">
+			  TABLECOLUMN_ISCREATE = #{tablecolumnIscreate, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnIsnull != null">
+			  TABLECOLUMN_ISNULL = #{tablecolumnIsnull, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnLength != null">
+			  TABLECOLUMN_LENGTH = #{tablecolumnLength, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnName != null">
+			  TABLECOLUMN_NAME = #{tablecolumnName, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnNameEn != null">
+			  TABLECOLUMN_NAME_EN = #{tablecolumnNameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnNote != null">
+			  TABLECOLUMN_NOTE = #{tablecolumnNote, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnOldcode != null">
+			  TABLECOLUMN_OLDCODE = #{tablecolumnOldcode, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnOldunique != null">
+			  TABLECOLUMN_OLDUNIQUE = #{tablecolumnOldunique, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnQueryconfig != null">
+			  TABLECOLUMN_QUERYCONFIG = #{tablecolumnQueryconfig, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnRemark != null">
+			  TABLECOLUMN_REMARK = #{tablecolumnRemark, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnTablecode != null">
+			  TABLECOLUMN_TABLECODE = #{tablecolumnTablecode, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnTreetype != null">
+			  TABLECOLUMN_TREETYPE = #{tablecolumnTreetype, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnType != null">
+			  TABLECOLUMN_TYPE = #{tablecolumnType, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnUnique != null">
+			  TABLECOLUMN_UNIQUE = #{tablecolumnUnique, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnUniquecode != null">
+			  TABLECOLUMN_UNIQUECODE = #{tablecolumnUniquecode, jdbcType=VARCHAR },
+			</if>
+			<if test="tablecolumnViewconfig != null">
+			  TABLECOLUMN_VIEWCONFIG = #{tablecolumnViewconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_tablecolumn 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_tablecolumn
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreTablecolumn">
+		insert into ns_core_tablecolumn
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="jeCoreTablecolumnId != null">
+				JE_CORE_TABLECOLUMN_ID,
+			</if>
+			<if test="tablecolumnResourcetableId != null">
+				TABLECOLUMN_RESOURCETABLE_ID,
+			</if>
+			<if test="tablecolumnChildconfig != null">
+				TABLECOLUMN_CHILDCONFIG,
+			</if>
+			<if test="tablecolumnClassify != null">
+				TABLECOLUMN_CLASSIFY,
+			</if>
+			<if test="tablecolumnCode != null">
+				TABLECOLUMN_CODE,
+			</if>
+			<if test="tablecolumnDefaultvalue != null">
+				TABLECOLUMN_DEFAULTVALUE,
+			</if>
+			<if test="tablecolumnDicconfig != null">
+				TABLECOLUMN_DICCONFIG,
+			</if>
+			<if test="tablecolumnDicqueryfield != null">
+				TABLECOLUMN_DICQUERYFIELD,
+			</if>
+			<if test="tablecolumnIscreate != null">
+				TABLECOLUMN_ISCREATE,
+			</if>
+			<if test="tablecolumnIsnull != null">
+				TABLECOLUMN_ISNULL,
+			</if>
+			<if test="tablecolumnLength != null">
+				TABLECOLUMN_LENGTH,
+			</if>
+			<if test="tablecolumnName != null">
+				TABLECOLUMN_NAME,
+			</if>
+			<if test="tablecolumnNameEn != null">
+				TABLECOLUMN_NAME_EN,
+			</if>
+			<if test="tablecolumnNote != null">
+				TABLECOLUMN_NOTE,
+			</if>
+			<if test="tablecolumnOldcode != null">
+				TABLECOLUMN_OLDCODE,
+			</if>
+			<if test="tablecolumnOldunique != null">
+				TABLECOLUMN_OLDUNIQUE,
+			</if>
+			<if test="tablecolumnQueryconfig != null">
+				TABLECOLUMN_QUERYCONFIG,
+			</if>
+			<if test="tablecolumnRemark != null">
+				TABLECOLUMN_REMARK,
+			</if>
+			<if test="tablecolumnTablecode != null">
+				TABLECOLUMN_TABLECODE,
+			</if>
+			<if test="tablecolumnTreetype != null">
+				TABLECOLUMN_TREETYPE,
+			</if>
+			<if test="tablecolumnType != null">
+				TABLECOLUMN_TYPE,
+			</if>
+			<if test="tablecolumnUnique != null">
+				TABLECOLUMN_UNIQUE,
+			</if>
+			<if test="tablecolumnUniquecode != null">
+				TABLECOLUMN_UNIQUECODE,
+			</if>
+			<if test="tablecolumnViewconfig != null">
+				TABLECOLUMN_VIEWCONFIG,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="jeCoreTablecolumnId != null">
+				#{jeCoreTablecolumnId, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnResourcetableId != null">
+				#{tablecolumnResourcetableId, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnChildconfig != null">
+				#{tablecolumnChildconfig, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnClassify != null">
+				#{tablecolumnClassify, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnCode != null">
+				#{tablecolumnCode, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnDefaultvalue != null">
+				#{tablecolumnDefaultvalue, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnDicconfig != null">
+				#{tablecolumnDicconfig, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnDicqueryfield != null">
+				#{tablecolumnDicqueryfield, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnIscreate != null">
+				#{tablecolumnIscreate, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnIsnull != null">
+				#{tablecolumnIsnull, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnLength != null">
+				#{tablecolumnLength, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnName != null">
+				#{tablecolumnName, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnNameEn != null">
+				#{tablecolumnNameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnNote != null">
+				#{tablecolumnNote, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnOldcode != null">
+				#{tablecolumnOldcode, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnOldunique != null">
+				#{tablecolumnOldunique, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnQueryconfig != null">
+				#{tablecolumnQueryconfig, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnRemark != null">
+				#{tablecolumnRemark, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnTablecode != null">
+				#{tablecolumnTablecode, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnTreetype != null">
+				#{tablecolumnTreetype, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnType != null">
+				#{tablecolumnType, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnUnique != null">
+				#{tablecolumnUnique, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnUniquecode != null">
+				#{tablecolumnUniquecode, jdbcType=VARCHAR},
+			</if>
+			<if test="tablecolumnViewconfig != null">
+				#{tablecolumnViewconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_tablecolumn
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			JE_CORE_TABLECOLUMN_ID,
+			TABLECOLUMN_RESOURCETABLE_ID,
+			TABLECOLUMN_CHILDCONFIG,
+			TABLECOLUMN_CLASSIFY,
+			TABLECOLUMN_CODE,
+			TABLECOLUMN_DEFAULTVALUE,
+			TABLECOLUMN_DICCONFIG,
+			TABLECOLUMN_DICQUERYFIELD,
+			TABLECOLUMN_ISCREATE,
+			TABLECOLUMN_ISNULL,
+			TABLECOLUMN_LENGTH,
+			TABLECOLUMN_NAME,
+			TABLECOLUMN_NAME_EN,
+			TABLECOLUMN_NOTE,
+			TABLECOLUMN_OLDCODE,
+			TABLECOLUMN_OLDUNIQUE,
+			TABLECOLUMN_QUERYCONFIG,
+			TABLECOLUMN_REMARK,
+			TABLECOLUMN_TABLECODE,
+			TABLECOLUMN_TREETYPE,
+			TABLECOLUMN_TYPE,
+			TABLECOLUMN_UNIQUE,
+			TABLECOLUMN_UNIQUECODE,
+			TABLECOLUMN_VIEWCONFIG,
+			SY_AUDFLAG,
+			SY_CREATEORG,
+			SY_CREATEORGNAME,
+			SY_CREATETIME,
+			SY_CREATEUSER,
+			SY_CREATEUSERNAME,
+			SY_FLAG,
+			SY_MODIFYORG,
+			SY_MODIFYORGNAME,
+			SY_MODIFYTIME,
+			SY_MODIFYUSER,
+			SY_MODIFYUSERNAME,
+			SY_ORDERINDEX,
+			SY_PDID,
+			SY_PIID,
+			SY_STATUS,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.jeCoreTablecolumnId, jdbcType=VARCHAR},
+			#{item.tablecolumnResourcetableId, jdbcType=VARCHAR},
+			#{item.tablecolumnChildconfig, jdbcType=VARCHAR},
+			#{item.tablecolumnClassify, jdbcType=VARCHAR},
+			#{item.tablecolumnCode, jdbcType=VARCHAR},
+			#{item.tablecolumnDefaultvalue, jdbcType=VARCHAR},
+			#{item.tablecolumnDicconfig, jdbcType=VARCHAR},
+			#{item.tablecolumnDicqueryfield, jdbcType=VARCHAR},
+			#{item.tablecolumnIscreate, jdbcType=VARCHAR},
+			#{item.tablecolumnIsnull, jdbcType=VARCHAR},
+			#{item.tablecolumnLength, jdbcType=VARCHAR},
+			#{item.tablecolumnName, jdbcType=VARCHAR},
+			#{item.tablecolumnNameEn, jdbcType=VARCHAR},
+			#{item.tablecolumnNote, jdbcType=VARCHAR},
+			#{item.tablecolumnOldcode, jdbcType=VARCHAR},
+			#{item.tablecolumnOldunique, jdbcType=VARCHAR},
+			#{item.tablecolumnQueryconfig, jdbcType=VARCHAR},
+			#{item.tablecolumnRemark, jdbcType=VARCHAR},
+			#{item.tablecolumnTablecode, jdbcType=VARCHAR},
+			#{item.tablecolumnTreetype, jdbcType=VARCHAR},
+			#{item.tablecolumnType, jdbcType=VARCHAR},
+			#{item.tablecolumnUnique, jdbcType=VARCHAR},
+			#{item.tablecolumnUniquecode, jdbcType=VARCHAR},
+			#{item.tablecolumnViewconfig, jdbcType=LONGVARCHAR},
+			#{item.syAudflag, jdbcType=VARCHAR},
+			#{item.syCreateorg, jdbcType=VARCHAR},
+			#{item.syCreateorgname, jdbcType=VARCHAR},
+			#{item.syCreatetime, jdbcType=VARCHAR},
+			#{item.syCreateuser, jdbcType=VARCHAR},
+			#{item.syCreateusername, jdbcType=VARCHAR},
+			#{item.syFlag, jdbcType=VARCHAR},
+			#{item.syModifyorg, jdbcType=VARCHAR},
+			#{item.syModifyorgname, jdbcType=VARCHAR},
+			#{item.syModifytime, jdbcType=VARCHAR},
+			#{item.syModifyuser, jdbcType=VARCHAR},
+			#{item.syModifyusername, jdbcType=VARCHAR},
+			#{item.syOrderindex, jdbcType=INTEGER},
+			#{item.syPdid, jdbcType=VARCHAR},
+			#{item.syPiid, jdbcType=VARCHAR},
+			#{item.syStatus, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

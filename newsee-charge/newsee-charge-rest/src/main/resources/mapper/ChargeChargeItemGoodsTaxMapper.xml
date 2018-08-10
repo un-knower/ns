@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeChargeItemGoodsTaxMapper">
+
+	<resultMap id="ChargeChargeItemGoodsTaxResultMap" type="com.newsee.charge.entity.ChargeChargeItemGoodsTax">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="itemId" column="ItemId" jdbcType="BIGINT"/>
+			<result property="taxId" column="TaxId" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeChargeItemGoodsTax_Column_List">
+		Id,ItemId,TaxId
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeChargeItemGoodsTaxResultMap">
+		select
+			<include refid="ChargeChargeItemGoodsTax_Column_List" />
+		from
+			Charge_ChargeItemGoodsTax
+		where
+			Id = #{id}
+	</select>
+	
+	<select id="selectByItemId" parameterType="java.lang.Long" resultMap="ChargeChargeItemGoodsTaxResultMap">
+		select
+			<include refid="ChargeChargeItemGoodsTax_Column_List" />
+		from
+			Charge_ChargeItemGoodsTax
+		where
+			ItemId = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeChargeItemGoodsTax">
+		update Charge_ChargeItemGoodsTax
+		<set>
+			<if test="itemId != null">
+			  ItemId = #{itemId, jdbcType=BIGINT },
+			</if>
+			<if test="taxId != null">
+			  TaxId = #{taxid, jdbcType=BIGINT },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from Charge_ChargeItemGoodsTax 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteByItemId" parameterType="java.lang.Long">
+		delete from Charge_ChargeItemGoodsTax 
+		where
+			ItemId = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from Charge_ChargeItemGoodsTax
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<delete id="deleteByItemIdBatch" parameterType="java.util.List">
+		delete from Charge_ChargeItemGoodsTax
+		where
+			ItemId in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeChargeItemGoodsTax">
+		insert into Charge_ChargeItemGoodsTax
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="itemId != null">
+				ItemId,
+			</if>
+			<if test="taxId != null">
+				TaxId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="itemId != null">
+				#{itemId, jdbcType=BIGINT},
+			</if>
+			<if test="taxId != null">
+				#{taxId, jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_ChargeItemGoodsTax
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ItemId,
+			TaxId,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.itemId, jdbcType=BIGINT},
+			#{item.taxId, jdbcType=BIGINT},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

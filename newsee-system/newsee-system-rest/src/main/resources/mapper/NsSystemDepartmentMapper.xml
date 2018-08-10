@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemDepartmentMapper">
+
+	<resultMap id="NsSystemDepartmentResultMap" type="com.newsee.system.entity.NsSystemDepartment">
+			<id property="departmentId" column="department_id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="groupId" column="group_id" jdbcType="BIGINT"/>
+			<result property="companyId" column="company_id" jdbcType="BIGINT"/>
+			<result property="departmentParentId" column="department_parent_id" jdbcType="BIGINT"/>
+			<result property="departmentCode" column="department_code" jdbcType="VARCHAR"/>
+			<result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+			<result property="departmentShortName" column="department_short_name" jdbcType="VARCHAR"/>
+			<result property="departmentLegalName" column="department_legal_name" jdbcType="VARCHAR"/>
+			<result property="departmentType" column="department_type" jdbcType="TINYINT"/>
+			<result property="departmentPath" column="department_path" jdbcType="VARCHAR"/>
+			<result property="departmentEnablestate" column="department_enablestate" jdbcType="TINYINT"/>
+			<result property="departmentManagerId" column="department_manager_id" jdbcType="BIGINT"/>
+			<result property="departmentBuildDate" column="department_build_date" jdbcType="TIMESTAMP"/>
+			<result property="departmentNature" column="department_nature" jdbcType="INTEGER"/>
+			<result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+			<result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+			<result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+			<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSystemDepartment_Column_List">
+		department_id,enterprise_id,group_id,company_id,department_parent_id,department_code,department_name,department_short_name,
+		department_legal_name,department_type,department_path,department_enablestate,department_manager_id,department_build_date,
+		department_nature,order_no,is_deleted,remark,create_user_id,create_user_name,create_time,update_user_id,update_user_name,update_time
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSystemDepartmentResultMap">
+		select
+			<include refid="NsSystemDepartment_Column_List" />
+		from
+			ns_system_department
+		where
+			department_id = #{departmentId}
+	</select>
+	<select id="checkOnlyShortName" parameterType="com.newsee.system.entity.NsSystemDepartment" resultMap="NsSystemDepartmentResultMap">
+        select
+            <include refid="NsSystemDepartment_Column_List" />
+        from
+            ns_system_department
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+            and company_id = #{companyId}
+           <!--  <if test="departmentParentId != null">
+                 and department_parent_id = #{departmentParentId}
+            </if> -->
+            and department_short_name = #{departmentShortName}
+            <if test="departmentId != null">
+                 and department_id != #{departmentId}
+            </if>
+    </select>
+    
+    <select id="checkOnlyCode" parameterType="com.newsee.system.entity.NsSystemDepartment" resultMap="NsSystemDepartmentResultMap">
+        select
+            <include refid="NsSystemDepartment_Column_List" />
+        from
+            ns_system_department
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+            and company_id = #{companyId}
+           <!--  <if test="departmentParentId != null">
+                 and department_parent_id = #{departmentParentId}
+            </if> -->
+            and department_code = #{departmentCode}
+            <if test="departmentId != null">
+                 and department_id != #{departmentId}
+            </if>
+    </select>
+    
+    <select id="checkOnlyName" parameterType="com.newsee.system.entity.NsSystemDepartment" resultMap="NsSystemDepartmentResultMap">
+        select
+            <include refid="NsSystemDepartment_Column_List" />
+        from
+            ns_system_department
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+            and company_id = #{companyId}
+            <!-- <if test="departmentParentId != null">
+                 and department_parent_id = #{departmentParentId}
+            </if> -->
+            and department_name = #{departmentName}
+            <if test="departmentId != null">
+                 and department_id != #{departmentId}
+            </if>
+    </select>
+    
+	<select id="listById" parameterType="java.util.List" resultMap="NsSystemDepartmentResultMap">
+        select
+            <include refid="NsSystemDepartment_Column_List" />
+        from
+            ns_system_department
+        where is_deleted = 0
+            and department_id in
+             <foreach collection="list" item="departmentId" open="(" separator="," close=")">
+                #{departmentId}
+             </foreach>
+    </select>
+	<update id="updateByIdSelective" parameterType="com.newsee.system.entity.NsSystemDepartment">
+		update ns_system_department
+		<set>
+			<if test="enterpriseId != null">
+			  enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="groupId != null">
+			  group_id = #{groupId, jdbcType=BIGINT },
+			</if>
+			<if test="companyId != null">
+			  company_id = #{companyId, jdbcType=BIGINT },
+			</if>
+			<if test="departmentParentId != null">
+			  department_parent_id = #{departmentParentId, jdbcType=BIGINT },
+			</if>
+			<if test="departmentCode != null">
+              department_code = #{departmentCode, jdbcType=VARCHAR },
+            </if>
+			<if test="departmentName != null">
+			  department_name = #{departmentName, jdbcType=VARCHAR },
+			</if>
+			<if test="departmentShortName != null">
+			  department_short_name = #{departmentShortName, jdbcType=VARCHAR },
+			</if>
+			<if test="departmentLegalName != null">
+			  department_legal_name = #{departmentLegalName, jdbcType=VARCHAR },
+			</if>
+			<if test="departmentType != null">
+			  department_type = #{departmentType, jdbcType=TINYINT },
+			</if>
+			<if test="departmentPath != null">
+			  department_path = #{departmentPath, jdbcType=VARCHAR },
+			</if>
+			<if test="departmentEnablestate != null">
+			  department_enablestate = #{departmentEnablestate, jdbcType=TINYINT },
+			</if>
+			<if test="departmentManagerId != null">
+			  department_manager_id = #{departmentManagerId, jdbcType=BIGINT },
+			</if>
+			<if test="departmentBuildDate != null">
+			  department_build_date = #{departmentBuildDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="departmentNature != null">
+			  department_nature = #{departmentNature, jdbcType=INTEGER },
+			</if>
+			<if test="orderNo != null">
+			  order_no = #{orderNo, jdbcType=INTEGER },
+			</if>
+			<if test="isDeleted != null">
+			  is_deleted = #{isDeleted, jdbcType=TINYINT },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  create_user_id = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  create_user_name = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  create_time = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  update_user_id = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  update_user_name = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  update_time = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+		</set>
+		where
+			department_id = #{departmentId}
+	</update>
+
+    <update id="updateById" parameterType="com.newsee.system.entity.NsSystemDepartment">
+        update ns_system_department
+            set
+              department_parent_id = #{departmentParentId, jdbcType=BIGINT },
+              department_code = #{departmentCode, jdbcType=VARCHAR },
+              department_name = #{departmentName, jdbcType=VARCHAR },
+              department_short_name = #{departmentShortName, jdbcType=VARCHAR },
+              department_legal_name = #{departmentLegalName, jdbcType=VARCHAR },
+              department_type = #{departmentType, jdbcType=TINYINT },
+              department_path = #{departmentPath, jdbcType=VARCHAR },
+              department_enablestate = #{departmentEnablestate, jdbcType=TINYINT },
+              department_manager_id = #{departmentManagerId, jdbcType=BIGINT },
+              department_build_date = #{departmentBuildDate, jdbcType=TIMESTAMP },
+              department_nature = #{departmentNature, jdbcType=INTEGER },
+              order_no = #{orderNo, jdbcType=INTEGER },
+              remark = #{remark, jdbcType=VARCHAR },
+              update_user_id = #{updateUserId, jdbcType=BIGINT },
+              update_user_name = #{updateUserName, jdbcType=VARCHAR },
+              update_time = NOW()
+        where
+            department_id = #{departmentId}
+    </update>	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_system_department 
+		where
+			department_id = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_system_department
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			department_id = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="departmentId"
+		parameterType="com.newsee.system.entity.NsSystemDepartment">
+		<selectKey resultType="java.lang.Long" keyProperty="departmentId"
+               order="AFTER">
+          SELECT
+          LAST_INSERT_ID()
+        </selectKey>
+		insert into ns_system_department
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="departmentParentId != null">
+				department_parent_id,
+			</if>
+			<if test="departmentCode != null">
+                department_code,
+            </if>
+			<if test="departmentName != null">
+				department_name,
+			</if>
+			<if test="departmentShortName != null">
+				department_short_name,
+			</if>
+			<if test="departmentLegalName != null">
+				department_legal_name,
+			</if>
+			<if test="departmentType != null">
+				department_type,
+			</if>
+			<if test="departmentPath != null">
+				department_path,
+			</if>
+			<if test="departmentEnablestate != null">
+				department_enablestate,
+			</if>
+			<if test="departmentManagerId != null">
+				department_manager_id,
+			</if>
+			<if test="departmentBuildDate != null">
+				department_build_date,
+			</if>
+			<if test="departmentNature != null">
+				department_nature,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				#{groupId, jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId, jdbcType=BIGINT},
+			</if>
+			<if test="departmentParentId != null">
+				#{departmentParentId, jdbcType=BIGINT},
+			</if>
+			<if test="departmentCode != null">
+                #{departmentCode, jdbcType=VARCHAR},
+            </if>
+			<if test="departmentName != null">
+				#{departmentName, jdbcType=VARCHAR},
+			</if>
+			<if test="departmentShortName != null">
+				#{departmentShortName, jdbcType=VARCHAR},
+			</if>
+			<if test="departmentLegalName != null">
+				#{departmentLegalName, jdbcType=VARCHAR},
+			</if>
+			<if test="departmentType != null">
+				#{departmentType, jdbcType=TINYINT},
+			</if>
+			<if test="departmentPath != null">
+				#{departmentPath, jdbcType=VARCHAR},
+			</if>
+			<if test="departmentEnablestate != null">
+				#{departmentEnablestate, jdbcType=TINYINT},
+			</if>
+			<if test="departmentManagerId != null">
+				#{departmentManagerId, jdbcType=BIGINT},
+			</if>
+			<if test="departmentBuildDate != null">
+				#{departmentBuildDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="departmentNature != null">
+				#{departmentNature, jdbcType=INTEGER},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo, jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted, jdbcType=TINYINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_system_department
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			group_id,
+			company_id,
+			department_parent_id,
+			department_code,
+			department_name,
+			department_short_name,
+			department_legal_name,
+			department_type,
+			department_path,
+			department_enablestate,
+			department_manager_id,
+			department_build_date,
+			department_nature,
+			order_no,
+			is_deleted,
+			remark,
+			create_user_id,
+			create_user_name,
+			create_time,
+			update_user_id,
+			update_user_name,
+			update_time,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.groupId, jdbcType=BIGINT},
+			#{item.companyId, jdbcType=BIGINT},
+			#{item.departmentParentId, jdbcType=BIGINT},
+			#{item.departmentCode, jdbcType=VARCHAR},
+			#{item.departmentName, jdbcType=VARCHAR},
+			#{item.departmentShortName, jdbcType=VARCHAR},
+			#{item.departmentLegalName, jdbcType=VARCHAR},
+			#{item.departmentType, jdbcType=TINYINT},
+			#{item.departmentPath, jdbcType=VARCHAR},
+			#{item.departmentEnablestate, jdbcType=TINYINT},
+			#{item.departmentManagerId, jdbcType=BIGINT},
+			#{item.departmentBuildDate, jdbcType=TIMESTAMP},
+			#{item.departmentNature, jdbcType=INTEGER},
+			#{item.orderNo, jdbcType=INTEGER},
+			#{item.isDeleted, jdbcType=TINYINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerCustomerCarMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerCustomerCar" >
+    <id column="owner_car_id" property="ownerCarId" jdbcType="BIGINT" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+    <result column="parking_permit" property="parkingPermit" jdbcType="VARCHAR" />
+    <result column="vehicle_brand_id" property="vehicleBrandId" jdbcType="VARCHAR" />
+    <result column="car_color_id" property="carColorId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_current_use" property="isCurrentUse" jdbcType="VARCHAR" />
+    <result column="is_fixed_parking" property="isFixedParking" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="sys_time" property="sysTime" jdbcType="TIMESTAMP" />
+    <!-- 备用字段 -->
+    <result column="column0" property="column0" jdbcType="VARCHAR" />
+    <result column="column1" property="column1" jdbcType="VARCHAR" />
+    <result column="column2" property="column2" jdbcType="VARCHAR" />
+    <result column="column3" property="column3" jdbcType="VARCHAR" />
+    <result column="column4" property="column4" jdbcType="VARCHAR" />
+    <result column="column5" property="column5" jdbcType="VARCHAR" />
+    <result column="column6" property="column6" jdbcType="VARCHAR" />
+    <result column="column7" property="column7" jdbcType="VARCHAR" />
+    <result column="column8" property="column8" jdbcType="VARCHAR" />
+    <result column="column9" property="column9" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.newsee.owner.vo.CarVo" >
+    <id column="owner_car_id" property="ownerCarId" jdbcType="BIGINT" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+    <result column="parking_permit" property="parkingPermit" jdbcType="VARCHAR" />
+    <result column="vehicle_brand_id" property="vehicleBrandId" jdbcType="VARCHAR" />
+    <result column="car_color_id" property="carColorId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_current_use" property="isCurrentUse" jdbcType="VARCHAR" />
+    <result column="is_fixed_parking" property="isFixedParking" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <!-- 备用字段 -->
+    <result column="column0" property="column0" jdbcType="VARCHAR" />
+    <result column="column1" property="column1" jdbcType="VARCHAR" />
+    <result column="column2" property="column2" jdbcType="VARCHAR" />
+    <result column="column3" property="column3" jdbcType="VARCHAR" />
+    <result column="column4" property="column4" jdbcType="VARCHAR" />
+    <result column="column5" property="column5" jdbcType="VARCHAR" />
+    <result column="column6" property="column6" jdbcType="VARCHAR" />
+    <result column="column7" property="column7" jdbcType="VARCHAR" />
+    <result column="column8" property="column8" jdbcType="VARCHAR" />
+    <result column="column9" property="column9" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    owner_car_id, enterprise_id,organization_id,owner_id, car_number, parking_permit, vehicle_brand_id, car_color_id, 
+    remark, is_current_use, is_fixed_parking, is_deleted, create_user_id,create_user_name, create_time, 
+    update_user_id,update_user_name, update_time, sys_time
+    , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_car
+    where owner_car_id = #{ownerCarId,jdbcType=BIGINT} and is_deleted = 0
+  </select>
+  <select id="loadByCarNumber" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_car
+    where car_number = #{carNumber,jdbcType=VARCHAR} and organization_id = #{organizationId,jdbcType=BIGINT}
+    <if test="ownerCarId != null">
+        and owner_car_id != #{ownerCarId,jdbcType=BIGINT}
+    </if>
+     and is_deleted = 0
+  </select>
+  <select id="listOwnerCar" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_car
+    where owner_id = #{ownerId,jdbcType=BIGINT} and is_deleted = 0
+  </select>
+  <select id="listCarByHouseId" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    select 
+    car.owner_car_id, car.enterprise_id,organization_id,owner_id, car.car_number, car.parking_permit, car.vehicle_brand_id, 
+    car.car_color_id, car.remark, car.is_current_use, car.is_fixed_parking, car.is_deleted, car.create_user_id,car.create_user_name, 
+    car.create_time, car.update_user_id,car.update_user_name, car.update_time, car.sys_time
+    , car.column0, car.column1, car.column2, car.column3, car.column4, car.column5, car.column6, car.column7, car.column8, car.column9
+    from owner_customer_car car
+    inner join owner_customer_car_carport_relationship relation on relation.owner_car_id = car.owner_car_id
+    where relation.house_id = #{houseId,jdbcType=BIGINT} and car.is_deleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_customer_car
+    where owner_car_id = #{ownerCarId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerCustomerCar" >
+    insert into owner_customer_car (owner_car_id,enterprise_id,organization_id, owner_id, car_number, 
+      parking_permit, vehicle_brand_id, car_color_id, 
+      remark, is_current_use, is_fixed_parking, 
+      is_deleted, create_user_id,create_user_name, create_time, 
+      update_user_id,update_user_name, update_time, sys_time
+      , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9
+      )
+    values (#{ownerCarId,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT},#{organizationId,jdbcType=BIGINT},
+      #{ownerId,jdbcType=BIGINT}, #{carNumber,jdbcType=VARCHAR}, 
+      #{parkingPermit,jdbcType=VARCHAR}, #{vehicleBrandId,jdbcType=VARCHAR}, #{carColorId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isCurrentUse,jdbcType=VARCHAR}, #{isFixedParking,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT},#{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT},#{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{sysTime,jdbcType=TIMESTAMP}
+      , #{column0,jdbcType=VARCHAR}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}
+      , #{column4,jdbcType=VARCHAR}, #{column5,jdbcType=VARCHAR}, #{column6,jdbcType=VARCHAR}, #{column7,jdbcType=VARCHAR}
+      , #{column8,jdbcType=VARCHAR}, #{column9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerCustomerCar" useGeneratedKeys="true" keyProperty="ownerCarId">
+    insert into owner_customer_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        enterprise_id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="carNumber != null" >
+        car_number,
+      </if>
+      <if test="parkingPermit != null" >
+        parking_permit,
+      </if>
+      <if test="vehicleBrandId != null" >
+        vehicle_brand_id,
+      </if>
+      <if test="carColorId != null" >
+        car_color_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isCurrentUse != null" >
+        is_current_use,
+      </if>
+      <if test="isFixedParking != null" >
+        is_fixed_parking,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="column0 != null">
+        column0,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+      <if test="column4 != null">
+        column4,
+      </if>
+      <if test="column5 != null">
+        column5,
+      </if>
+      <if test="column6 != null">
+        column6,
+      </if>
+      <if test="column7 != null">
+        column7,
+      </if>
+      <if test="column8 != null">
+        column8,
+      </if>
+      <if test="column9 != null">
+        column9,
+      </if>      
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_time,
+        update_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="carNumber != null" >
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingPermit != null" >
+        #{parkingPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleBrandId != null" >
+        #{vehicleBrandId,jdbcType=VARCHAR},
+      </if>
+      <if test="carColorId != null" >
+        #{carColorId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentUse != null" >
+        #{isCurrentUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isFixedParking != null" >
+        #{isFixedParking,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="column0 != null">
+        #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        NOW(),
+        NOW()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerCustomerCar" >
+    update owner_customer_car
+    <set >
+      <if test="enterpriseId != null" >
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="carNumber != null" >
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingPermit != null" >
+        parking_permit = #{parkingPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleBrandId != null" >
+        vehicle_brand_id = #{vehicleBrandId,jdbcType=VARCHAR},
+      </if>
+      <if test="carColorId != null" >
+        car_color_id = #{carColorId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentUse != null" >
+        is_current_use = #{isCurrentUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isFixedParking != null" >
+        is_fixed_parking = #{isFixedParking,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        update_time = NOW()
+    </set>
+    where owner_car_id = #{ownerCarId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerCustomerCar" >
+    update owner_customer_car
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      owner_id = #{ownerId,jdbcType=BIGINT},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      parking_permit = #{parkingPermit,jdbcType=VARCHAR},
+      vehicle_brand_id = #{vehicleBrandId,jdbcType=VARCHAR},
+      car_color_id = #{carColorId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_current_use = #{isCurrentUse,jdbcType=VARCHAR},
+      is_fixed_parking = #{isFixedParking,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      column0 = #{column0,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR},
+      column4 = #{column4,jdbcType=VARCHAR},
+      column5 = #{column5,jdbcType=VARCHAR},
+      column6 = #{column6,jdbcType=VARCHAR},
+      column7 = #{column7,jdbcType=VARCHAR},
+      column8 = #{column8,jdbcType=VARCHAR},
+      column9 = #{column9,jdbcType=VARCHAR}
+    where owner_car_id = #{ownerCarId,jdbcType=BIGINT}
+  </update>
+  <update id="deleteOwnerCar" parameterType="java.util.Map" >
+    update owner_customer_car
+    set 
+      is_deleted = 1,
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW()
+    where owner_car_id in 
+    <foreach collection="list" item="ownerCarId" open="(" separator="," close=")">
+        #{ownerCarId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  
+  <update id="deleteOwnerCarByOwnerId" parameterType="java.util.Map" >
+    update owner_customer_car
+    set 
+      is_deleted = 1,
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW()
+    where owner_id in 
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="VoResultMap">
+    select 
+        car.owner_car_id,car.enterprise_id,car.organization_id, car.owner_id, car.car_number, car.parking_permit, 
+        car.vehicle_brand_id, car.car_color_id, 
+        car.remark, car.is_current_use, car.is_fixed_parking, car.is_deleted, car.create_user_id,car.create_user_name, car.create_time, 
+        car.update_user_id,car.update_user_name, car.update_time
+        , car.column0, car.column1, car.column2, car.column3, car.column4, car.column5, 
+        car.column6, car.column7, car.column8, car.column9,owner.owner_name,owner.mobile,owner.certificate
+    from owner_customer_car car,
+    (select owner_id,owner_name,mobile,certificate from owner_customer_result 
+    where enterprise_id = #{searchVo.enterpriseId,jdbcType=BIGINT}
+        <choose>
+            <when test="searchVo.seeOrganizationIdList != null and searchVo.seeUserId != null">
+                and (organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                    or create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT})
+            </when>
+            <otherwise>
+                <if test="searchVo.seeOrganizationIdList != null">
+                    and organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                </if>
+                <if test="searchVo.seeUserId != null">
+                    and create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT}
+                </if>
+            </otherwise>
+        </choose>
+    ) owner
+    <where>
+        car.is_deleted = 0 and car.owner_id = owner.owner_id
+        <if test="searchCarIdList != null">
+            and car.owner_car_id in
+            <foreach collection="searchCarIdList" item="ownerCarId" open="(" separator="," close=")">
+                #{ownerCarId,jdbcType=BIGINT}
+            </foreach>
+        </if>
+        <if test="ownerIdList != null">
+            and car.owner_id in
+            <foreach collection="ownerIdList" item="ownerId" open="(" separator="," close=")">
+                #{ownerId,jdbcType=BIGINT}
+            </foreach>
+        </if>
+        <if test="searchVo.mainSearch != null and searchVo.mainSearch != ''">
+            and (LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, car.car_number)>0 
+                or LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, owner.owner_name)>0)
+        </if>
+        <if test="searchVo.enterpriseId != null">
+            and car.enterprise_id = #{searchVo.enterpriseId,jdbcType=BIGINT}
+        </if>
+<!--         <if test="searchVo.organizationId != null">
+            and car.organization_id = #{searchVo.organizationId,jdbcType=BIGINT}
+        </if> -->
+        <choose>
+            <when test="searchVo.seeOrganizationIdList != null and searchVo.seeUserId != null">
+                and (organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                    or create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT})
+            </when>
+            <otherwise>
+                <if test="searchVo.seeOrganizationIdList != null">
+                    and organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                </if>
+                <if test="searchVo.seeUserId != null">
+                    and create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT}
+                </if>
+            </otherwise>
+        </choose>
+        <if test="searchVo.filterList != null">
+            <foreach collection="searchVo.filterList" item="item">
+               <choose>
+                   <when test="item.comparison != null and item.comparison == 'NULL'">
+                       and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                       and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                       and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                       and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                       and ${item.fieldUnderLineName} = #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                       and ${item.fieldUnderLineName} != #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                   </when>
+               </choose>
+            </foreach>
+        </if>
+
+        <choose>
+         <when test="searchVo.orderFieldUnderLineName != null and searchVo.orderFieldUnderLineName != ''">
+            order by CONVERT(${searchVo.orderFieldUnderLineName} USING gbk)
+           <if test="searchVo.orderBy != null and searchVo.orderBy != ''">
+               ${searchVo.orderBy}
+           </if>
+         </when>
+         <otherwise>
+            order by car.update_time DESC
+         </otherwise>
+        </choose>
+    </where>
+  </select>
+</mapper>

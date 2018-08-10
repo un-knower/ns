@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.BillBillUsedMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.BillBillUsed" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="BillDetailID" property="billdetailid" jdbcType="BIGINT" />
+    <result column="BillNum" property="billnum" jdbcType="VARCHAR" />
+    <result column="BillDirection" property="billdirection" jdbcType="TINYINT" />
+    <result column="BillMoneyType" property="billmoneytype" jdbcType="VARCHAR" />
+    <result column="BillTitle" property="billtitle" jdbcType="VARCHAR" />
+    <result column="UsedDate" property="useddate" jdbcType="TIMESTAMP" />
+    <result column="BillFund" property="billfund" jdbcType="DECIMAL" />
+    <result column="IsUsed" property="isused" jdbcType="TINYINT" />
+    <result column="IsCheck" property="ischeck" jdbcType="TINYINT" />
+    <result column="CheckUserID" property="checkuserid" jdbcType="BIGINT" />
+    <result column="CheckDate" property="checkdate" jdbcType="TIMESTAMP" />
+    <result column="IsDestroy" property="isdestroy" jdbcType="TINYINT" />
+    <result column="DestroyDate" property="destroydate" jdbcType="TIMESTAMP" />
+    <result column="OpDate" property="opdate" jdbcType="TIMESTAMP" />
+    <result column="DealUserID" property="dealuserid" jdbcType="BIGINT" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CustomerID" property="customerid" jdbcType="BIGINT" />
+    <result column="BillType" property="billtype" jdbcType="VARCHAR" />
+    <result column="DrawDepartmentID" property="drawdepartmentid" jdbcType="VARCHAR" />
+    <result column="IsPrinted" property="isprinted" jdbcType="TINYINT" />
+    <result column="HouseList" property="houselist" jdbcType="VARCHAR" />
+    <result column="OpUserID" property="opuserid" jdbcType="VARCHAR" />
+    <result column="DestroyUserID" property="destroyuserid" jdbcType="VARCHAR" />
+    <result column="DrawDate" property="drawdate" jdbcType="TIMESTAMP" />
+    <result column="DrawUserID" property="drawuserid" jdbcType="BIGINT" />
+    <result column="AccountBook" property="accountbook" jdbcType="INTEGER" />
+    <result column="IsDayClosing" property="isdayclosing" jdbcType="INTEGER" />
+    <result column="CorrectStatus" property="correctstatus" jdbcType="INTEGER" />
+    <result column="RefBillType" property="refbilltype" jdbcType="VARCHAR" />
+    <result column="RefBillNum" property="refbillnum" jdbcType="VARCHAR" />
+    <result column="AddRemark" property="addremark" jdbcType="VARCHAR" />
+    <result column="DrawID" property="drawid" jdbcType="BIGINT" />
+    <result column="VoucherNum" property="vouchernum" jdbcType="VARCHAR" />
+    <result column="CheckOperateDate" property="checkoperatedate" jdbcType="TIMESTAMP" />
+    <result column="SatelliteCards" property="satellitecards" jdbcType="VARCHAR" />
+    <result column="IsChange" property="ischange" jdbcType="TINYINT" />
+    <result column="ChangeDate" property="changedate" jdbcType="TIMESTAMP" />
+    <result column="ChangeUserID" property="changeuserid" jdbcType="BIGINT" />
+    <result column="EnterAccountUserID" property="enteraccountuserid" jdbcType="BIGINT" />
+    <result column="EnterAccountDate" property="enteraccountdate" jdbcType="TIMESTAMP" />
+    <result column="BillCode" property="billcode" jdbcType="VARCHAR" />
+    <result column="BillTaxID" property="billtaxid" jdbcType="BIGINT" />
+    <result column="HandlingCharge" property="handlingcharge" jdbcType="DECIMAL" />
+    <result column="ImportBatchID" property="importbatchid" jdbcType="BIGINT" />
+    <result column="BatchDestoryId" property="batchdestoryid" jdbcType="BIGINT" />
+    <result column="UseUserID" property="useuserid" jdbcType="BIGINT" />
+    <result column="IsRecycle" property="isrecycle" jdbcType="TINYINT" />
+    <result column="RecycleDate" property="recycledate" jdbcType="TIMESTAMP" />
+    <result column="RecycleUserID" property="recycleuserid" jdbcType="BIGINT" />
+    <result column="TaxAmount" property="taxamount" jdbcType="DECIMAL" />
+    <result column="NotTaxAmount" property="nottaxamount" jdbcType="DECIMAL" />
+    <result column="IsUpload" property="isupload" jdbcType="INTEGER" />
+    <result column="ResBillNo" property="resbillno" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.newsee.owner.entity.BillBillUsedWithBLOBs" extends="BaseResultMap" >
+    <result column="NewBillTitle" property="newbilltitle" jdbcType="LONGVARCHAR" />
+    <result column="SpecialRemark" property="specialremark" jdbcType="LONGVARCHAR" />
+    <result column="BillJPGUrl" property="billjpgurl" jdbcType="LONGVARCHAR" />
+    <result column="BillPDFUrl" property="billpdfurl" jdbcType="LONGVARCHAR" />
+    <result column="BillJPG" property="billjpg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BillDetailID, BillNum, BillDirection, BillMoneyType, BillTitle, UsedDate, BillFund, 
+    IsUsed, IsCheck, CheckUserID, CheckDate, IsDestroy, DestroyDate, OpDate, DealUserID, 
+    Remark, CustomerID, BillType, DrawDepartmentID, IsPrinted, HouseList, OpUserID, DestroyUserID, 
+    DrawDate, DrawUserID, AccountBook, IsDayClosing, CorrectStatus, RefBillType, RefBillNum, 
+    AddRemark, DrawID, VoucherNum, CheckOperateDate, SatelliteCards, IsChange, ChangeDate, 
+    ChangeUserID, EnterAccountUserID, EnterAccountDate, BillCode, BillTaxID, HandlingCharge, 
+    ImportBatchID, BatchDestoryId, UseUserID, IsRecycle, RecycleDate, RecycleUserID, 
+    TaxAmount, NotTaxAmount, IsUpload, ResBillNo
+  </sql>
+  <sql id="Blob_Column_List" >
+    NewBillTitle, SpecialRemark, BillJPGUrl, BillPDFUrl, BillJPG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from Bill_BillUsed
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Bill_BillUsed
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.BillBillUsedWithBLOBs" >
+    insert into Bill_BillUsed (ID, BillDetailID, BillNum, 
+      BillDirection, BillMoneyType, BillTitle, 
+      UsedDate, BillFund, IsUsed, 
+      IsCheck, CheckUserID, CheckDate, 
+      IsDestroy, DestroyDate, OpDate, 
+      DealUserID, Remark, CustomerID, 
+      BillType, DrawDepartmentID, IsPrinted, 
+      HouseList, OpUserID, DestroyUserID, 
+      DrawDate, DrawUserID, AccountBook, 
+      IsDayClosing, CorrectStatus, RefBillType, 
+      RefBillNum, AddRemark, DrawID, 
+      VoucherNum, CheckOperateDate, SatelliteCards, 
+      IsChange, ChangeDate, ChangeUserID, 
+      EnterAccountUserID, EnterAccountDate, 
+      BillCode, BillTaxID, HandlingCharge, 
+      ImportBatchID, BatchDestoryId, UseUserID, 
+      IsRecycle, RecycleDate, RecycleUserID, 
+      TaxAmount, NotTaxAmount, IsUpload, 
+      ResBillNo, NewBillTitle, SpecialRemark, 
+      BillJPGUrl, BillPDFUrl, BillJPG
+      )
+    values (#{id,jdbcType=BIGINT}, #{billdetailid,jdbcType=BIGINT}, #{billnum,jdbcType=VARCHAR}, 
+      #{billdirection,jdbcType=TINYINT}, #{billmoneytype,jdbcType=VARCHAR}, #{billtitle,jdbcType=VARCHAR}, 
+      #{useddate,jdbcType=TIMESTAMP}, #{billfund,jdbcType=DECIMAL}, #{isused,jdbcType=TINYINT}, 
+      #{ischeck,jdbcType=TINYINT}, #{checkuserid,jdbcType=BIGINT}, #{checkdate,jdbcType=TIMESTAMP}, 
+      #{isdestroy,jdbcType=TINYINT}, #{destroydate,jdbcType=TIMESTAMP}, #{opdate,jdbcType=TIMESTAMP}, 
+      #{dealuserid,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{customerid,jdbcType=BIGINT}, 
+      #{billtype,jdbcType=VARCHAR}, #{drawdepartmentid,jdbcType=VARCHAR}, #{isprinted,jdbcType=TINYINT}, 
+      #{houselist,jdbcType=VARCHAR}, #{opuserid,jdbcType=VARCHAR}, #{destroyuserid,jdbcType=VARCHAR}, 
+      #{drawdate,jdbcType=TIMESTAMP}, #{drawuserid,jdbcType=BIGINT}, #{accountbook,jdbcType=INTEGER}, 
+      #{isdayclosing,jdbcType=INTEGER}, #{correctstatus,jdbcType=INTEGER}, #{refbilltype,jdbcType=VARCHAR}, 
+      #{refbillnum,jdbcType=VARCHAR}, #{addremark,jdbcType=VARCHAR}, #{drawid,jdbcType=BIGINT}, 
+      #{vouchernum,jdbcType=VARCHAR}, #{checkoperatedate,jdbcType=TIMESTAMP}, #{satellitecards,jdbcType=VARCHAR}, 
+      #{ischange,jdbcType=TINYINT}, #{changedate,jdbcType=TIMESTAMP}, #{changeuserid,jdbcType=BIGINT}, 
+      #{enteraccountuserid,jdbcType=BIGINT}, #{enteraccountdate,jdbcType=TIMESTAMP}, 
+      #{billcode,jdbcType=VARCHAR}, #{billtaxid,jdbcType=BIGINT}, #{handlingcharge,jdbcType=DECIMAL}, 
+      #{importbatchid,jdbcType=BIGINT}, #{batchdestoryid,jdbcType=BIGINT}, #{useuserid,jdbcType=BIGINT}, 
+      #{isrecycle,jdbcType=TINYINT}, #{recycledate,jdbcType=TIMESTAMP}, #{recycleuserid,jdbcType=BIGINT}, 
+      #{taxamount,jdbcType=DECIMAL}, #{nottaxamount,jdbcType=DECIMAL}, #{isupload,jdbcType=INTEGER}, 
+      #{resbillno,jdbcType=VARCHAR}, #{newbilltitle,jdbcType=LONGVARCHAR}, #{specialremark,jdbcType=LONGVARCHAR}, 
+      #{billjpgurl,jdbcType=LONGVARCHAR}, #{billpdfurl,jdbcType=LONGVARCHAR}, #{billjpg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.BillBillUsedWithBLOBs" >
+    insert into Bill_BillUsed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="billdetailid != null" >
+        BillDetailID,
+      </if>
+      <if test="billnum != null" >
+        BillNum,
+      </if>
+      <if test="billdirection != null" >
+        BillDirection,
+      </if>
+      <if test="billmoneytype != null" >
+        BillMoneyType,
+      </if>
+      <if test="billtitle != null" >
+        BillTitle,
+      </if>
+      <if test="useddate != null" >
+        UsedDate,
+      </if>
+      <if test="billfund != null" >
+        BillFund,
+      </if>
+      <if test="isused != null" >
+        IsUsed,
+      </if>
+      <if test="ischeck != null" >
+        IsCheck,
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID,
+      </if>
+      <if test="checkdate != null" >
+        CheckDate,
+      </if>
+      <if test="isdestroy != null" >
+        IsDestroy,
+      </if>
+      <if test="destroydate != null" >
+        DestroyDate,
+      </if>
+      <if test="opdate != null" >
+        OpDate,
+      </if>
+      <if test="dealuserid != null" >
+        DealUserID,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="customerid != null" >
+        CustomerID,
+      </if>
+      <if test="billtype != null" >
+        BillType,
+      </if>
+      <if test="drawdepartmentid != null" >
+        DrawDepartmentID,
+      </if>
+      <if test="isprinted != null" >
+        IsPrinted,
+      </if>
+      <if test="houselist != null" >
+        HouseList,
+      </if>
+      <if test="opuserid != null" >
+        OpUserID,
+      </if>
+      <if test="destroyuserid != null" >
+        DestroyUserID,
+      </if>
+      <if test="drawdate != null" >
+        DrawDate,
+      </if>
+      <if test="drawuserid != null" >
+        DrawUserID,
+      </if>
+      <if test="accountbook != null" >
+        AccountBook,
+      </if>
+      <if test="isdayclosing != null" >
+        IsDayClosing,
+      </if>
+      <if test="correctstatus != null" >
+        CorrectStatus,
+      </if>
+      <if test="refbilltype != null" >
+        RefBillType,
+      </if>
+      <if test="refbillnum != null" >
+        RefBillNum,
+      </if>
+      <if test="addremark != null" >
+        AddRemark,
+      </if>
+      <if test="drawid != null" >
+        DrawID,
+      </if>
+      <if test="vouchernum != null" >
+        VoucherNum,
+      </if>
+      <if test="checkoperatedate != null" >
+        CheckOperateDate,
+      </if>
+      <if test="satellitecards != null" >
+        SatelliteCards,
+      </if>
+      <if test="ischange != null" >
+        IsChange,
+      </if>
+      <if test="changedate != null" >
+        ChangeDate,
+      </if>
+      <if test="changeuserid != null" >
+        ChangeUserID,
+      </if>
+      <if test="enteraccountuserid != null" >
+        EnterAccountUserID,
+      </if>
+      <if test="enteraccountdate != null" >
+        EnterAccountDate,
+      </if>
+      <if test="billcode != null" >
+        BillCode,
+      </if>
+      <if test="billtaxid != null" >
+        BillTaxID,
+      </if>
+      <if test="handlingcharge != null" >
+        HandlingCharge,
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID,
+      </if>
+      <if test="batchdestoryid != null" >
+        BatchDestoryId,
+      </if>
+      <if test="useuserid != null" >
+        UseUserID,
+      </if>
+      <if test="isrecycle != null" >
+        IsRecycle,
+      </if>
+      <if test="recycledate != null" >
+        RecycleDate,
+      </if>
+      <if test="recycleuserid != null" >
+        RecycleUserID,
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount,
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount,
+      </if>
+      <if test="isupload != null" >
+        IsUpload,
+      </if>
+      <if test="resbillno != null" >
+        ResBillNo,
+      </if>
+      <if test="newbilltitle != null" >
+        NewBillTitle,
+      </if>
+      <if test="specialremark != null" >
+        SpecialRemark,
+      </if>
+      <if test="billjpgurl != null" >
+        BillJPGUrl,
+      </if>
+      <if test="billpdfurl != null" >
+        BillPDFUrl,
+      </if>
+      <if test="billjpg != null" >
+        BillJPG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="billdetailid != null" >
+        #{billdetailid,jdbcType=BIGINT},
+      </if>
+      <if test="billnum != null" >
+        #{billnum,jdbcType=VARCHAR},
+      </if>
+      <if test="billdirection != null" >
+        #{billdirection,jdbcType=TINYINT},
+      </if>
+      <if test="billmoneytype != null" >
+        #{billmoneytype,jdbcType=VARCHAR},
+      </if>
+      <if test="billtitle != null" >
+        #{billtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="useddate != null" >
+        #{useddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billfund != null" >
+        #{billfund,jdbcType=DECIMAL},
+      </if>
+      <if test="isused != null" >
+        #{isused,jdbcType=TINYINT},
+      </if>
+      <if test="ischeck != null" >
+        #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        #{checkuserid,jdbcType=BIGINT},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdestroy != null" >
+        #{isdestroy,jdbcType=TINYINT},
+      </if>
+      <if test="destroydate != null" >
+        #{destroydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opdate != null" >
+        #{opdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealuserid != null" >
+        #{dealuserid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="billtype != null" >
+        #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="drawdepartmentid != null" >
+        #{drawdepartmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="isprinted != null" >
+        #{isprinted,jdbcType=TINYINT},
+      </if>
+      <if test="houselist != null" >
+        #{houselist,jdbcType=VARCHAR},
+      </if>
+      <if test="opuserid != null" >
+        #{opuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="destroyuserid != null" >
+        #{destroyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="drawdate != null" >
+        #{drawdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drawuserid != null" >
+        #{drawuserid,jdbcType=BIGINT},
+      </if>
+      <if test="accountbook != null" >
+        #{accountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isdayclosing != null" >
+        #{isdayclosing,jdbcType=INTEGER},
+      </if>
+      <if test="correctstatus != null" >
+        #{correctstatus,jdbcType=INTEGER},
+      </if>
+      <if test="refbilltype != null" >
+        #{refbilltype,jdbcType=VARCHAR},
+      </if>
+      <if test="refbillnum != null" >
+        #{refbillnum,jdbcType=VARCHAR},
+      </if>
+      <if test="addremark != null" >
+        #{addremark,jdbcType=VARCHAR},
+      </if>
+      <if test="drawid != null" >
+        #{drawid,jdbcType=BIGINT},
+      </if>
+      <if test="vouchernum != null" >
+        #{vouchernum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoperatedate != null" >
+        #{checkoperatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="satellitecards != null" >
+        #{satellitecards,jdbcType=VARCHAR},
+      </if>
+      <if test="ischange != null" >
+        #{ischange,jdbcType=TINYINT},
+      </if>
+      <if test="changedate != null" >
+        #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeuserid != null" >
+        #{changeuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountuserid != null" >
+        #{enteraccountuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountdate != null" >
+        #{enteraccountdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="billtaxid != null" >
+        #{billtaxid,jdbcType=BIGINT},
+      </if>
+      <if test="handlingcharge != null" >
+        #{handlingcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="importbatchid != null" >
+        #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="batchdestoryid != null" >
+        #{batchdestoryid,jdbcType=BIGINT},
+      </if>
+      <if test="useuserid != null" >
+        #{useuserid,jdbcType=BIGINT},
+      </if>
+      <if test="isrecycle != null" >
+        #{isrecycle,jdbcType=TINYINT},
+      </if>
+      <if test="recycledate != null" >
+        #{recycledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recycleuserid != null" >
+        #{recycleuserid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="isupload != null" >
+        #{isupload,jdbcType=INTEGER},
+      </if>
+      <if test="resbillno != null" >
+        #{resbillno,jdbcType=VARCHAR},
+      </if>
+      <if test="newbilltitle != null" >
+        #{newbilltitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specialremark != null" >
+        #{specialremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billjpgurl != null" >
+        #{billjpgurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billpdfurl != null" >
+        #{billpdfurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billjpg != null" >
+        #{billjpg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.BillBillUsedWithBLOBs" >
+    update Bill_BillUsed
+    <set >
+      <if test="billdetailid != null" >
+        BillDetailID = #{billdetailid,jdbcType=BIGINT},
+      </if>
+      <if test="billnum != null" >
+        BillNum = #{billnum,jdbcType=VARCHAR},
+      </if>
+      <if test="billdirection != null" >
+        BillDirection = #{billdirection,jdbcType=TINYINT},
+      </if>
+      <if test="billmoneytype != null" >
+        BillMoneyType = #{billmoneytype,jdbcType=VARCHAR},
+      </if>
+      <if test="billtitle != null" >
+        BillTitle = #{billtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="useddate != null" >
+        UsedDate = #{useddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billfund != null" >
+        BillFund = #{billfund,jdbcType=DECIMAL},
+      </if>
+      <if test="isused != null" >
+        IsUsed = #{isused,jdbcType=TINYINT},
+      </if>
+      <if test="ischeck != null" >
+        IsCheck = #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID = #{checkuserid,jdbcType=BIGINT},
+      </if>
+      <if test="checkdate != null" >
+        CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdestroy != null" >
+        IsDestroy = #{isdestroy,jdbcType=TINYINT},
+      </if>
+      <if test="destroydate != null" >
+        DestroyDate = #{destroydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opdate != null" >
+        OpDate = #{opdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealuserid != null" >
+        DealUserID = #{dealuserid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        CustomerID = #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="billtype != null" >
+        BillType = #{billtype,jdbcType=VARCHAR},
+      </if>
+      <if test="drawdepartmentid != null" >
+        DrawDepartmentID = #{drawdepartmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="isprinted != null" >
+        IsPrinted = #{isprinted,jdbcType=TINYINT},
+      </if>
+      <if test="houselist != null" >
+        HouseList = #{houselist,jdbcType=VARCHAR},
+      </if>
+      <if test="opuserid != null" >
+        OpUserID = #{opuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="destroyuserid != null" >
+        DestroyUserID = #{destroyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="drawdate != null" >
+        DrawDate = #{drawdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drawuserid != null" >
+        DrawUserID = #{drawuserid,jdbcType=BIGINT},
+      </if>
+      <if test="accountbook != null" >
+        AccountBook = #{accountbook,jdbcType=INTEGER},
+      </if>
+      <if test="isdayclosing != null" >
+        IsDayClosing = #{isdayclosing,jdbcType=INTEGER},
+      </if>
+      <if test="correctstatus != null" >
+        CorrectStatus = #{correctstatus,jdbcType=INTEGER},
+      </if>
+      <if test="refbilltype != null" >
+        RefBillType = #{refbilltype,jdbcType=VARCHAR},
+      </if>
+      <if test="refbillnum != null" >
+        RefBillNum = #{refbillnum,jdbcType=VARCHAR},
+      </if>
+      <if test="addremark != null" >
+        AddRemark = #{addremark,jdbcType=VARCHAR},
+      </if>
+      <if test="drawid != null" >
+        DrawID = #{drawid,jdbcType=BIGINT},
+      </if>
+      <if test="vouchernum != null" >
+        VoucherNum = #{vouchernum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoperatedate != null" >
+        CheckOperateDate = #{checkoperatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="satellitecards != null" >
+        SatelliteCards = #{satellitecards,jdbcType=VARCHAR},
+      </if>
+      <if test="ischange != null" >
+        IsChange = #{ischange,jdbcType=TINYINT},
+      </if>
+      <if test="changedate != null" >
+        ChangeDate = #{changedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeuserid != null" >
+        ChangeUserID = #{changeuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountuserid != null" >
+        EnterAccountUserID = #{enteraccountuserid,jdbcType=BIGINT},
+      </if>
+      <if test="enteraccountdate != null" >
+        EnterAccountDate = #{enteraccountdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billcode != null" >
+        BillCode = #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="billtaxid != null" >
+        BillTaxID = #{billtaxid,jdbcType=BIGINT},
+      </if>
+      <if test="handlingcharge != null" >
+        HandlingCharge = #{handlingcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="batchdestoryid != null" >
+        BatchDestoryId = #{batchdestoryid,jdbcType=BIGINT},
+      </if>
+      <if test="useuserid != null" >
+        UseUserID = #{useuserid,jdbcType=BIGINT},
+      </if>
+      <if test="isrecycle != null" >
+        IsRecycle = #{isrecycle,jdbcType=TINYINT},
+      </if>
+      <if test="recycledate != null" >
+        RecycleDate = #{recycledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recycleuserid != null" >
+        RecycleUserID = #{recycleuserid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="isupload != null" >
+        IsUpload = #{isupload,jdbcType=INTEGER},
+      </if>
+      <if test="resbillno != null" >
+        ResBillNo = #{resbillno,jdbcType=VARCHAR},
+      </if>
+      <if test="newbilltitle != null" >
+        NewBillTitle = #{newbilltitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="specialremark != null" >
+        SpecialRemark = #{specialremark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billjpgurl != null" >
+        BillJPGUrl = #{billjpgurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billpdfurl != null" >
+        BillPDFUrl = #{billpdfurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billjpg != null" >
+        BillJPG = #{billjpg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.newsee.owner.entity.BillBillUsedWithBLOBs" >
+    update Bill_BillUsed
+    set BillDetailID = #{billdetailid,jdbcType=BIGINT},
+      BillNum = #{billnum,jdbcType=VARCHAR},
+      BillDirection = #{billdirection,jdbcType=TINYINT},
+      BillMoneyType = #{billmoneytype,jdbcType=VARCHAR},
+      BillTitle = #{billtitle,jdbcType=VARCHAR},
+      UsedDate = #{useddate,jdbcType=TIMESTAMP},
+      BillFund = #{billfund,jdbcType=DECIMAL},
+      IsUsed = #{isused,jdbcType=TINYINT},
+      IsCheck = #{ischeck,jdbcType=TINYINT},
+      CheckUserID = #{checkuserid,jdbcType=BIGINT},
+      CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      IsDestroy = #{isdestroy,jdbcType=TINYINT},
+      DestroyDate = #{destroydate,jdbcType=TIMESTAMP},
+      OpDate = #{opdate,jdbcType=TIMESTAMP},
+      DealUserID = #{dealuserid,jdbcType=BIGINT},
+      Remark = #{remark,jdbcType=VARCHAR},
+      CustomerID = #{customerid,jdbcType=BIGINT},
+      BillType = #{billtype,jdbcType=VARCHAR},
+      DrawDepartmentID = #{drawdepartmentid,jdbcType=VARCHAR},
+      IsPrinted = #{isprinted,jdbcType=TINYINT},
+      HouseList = #{houselist,jdbcType=VARCHAR},
+      OpUserID = #{opuserid,jdbcType=VARCHAR},
+      DestroyUserID = #{destroyuserid,jdbcType=VARCHAR},
+      DrawDate = #{drawdate,jdbcType=TIMESTAMP},
+      DrawUserID = #{drawuserid,jdbcType=BIGINT},
+      AccountBook = #{accountbook,jdbcType=INTEGER},
+      IsDayClosing = #{isdayclosing,jdbcType=INTEGER},
+      CorrectStatus = #{correctstatus,jdbcType=INTEGER},
+      RefBillType = #{refbilltype,jdbcType=VARCHAR},
+      RefBillNum = #{refbillnum,jdbcType=VARCHAR},
+      AddRemark = #{addremark,jdbcType=VARCHAR},
+      DrawID = #{drawid,jdbcType=BIGINT},
+      VoucherNum = #{vouchernum,jdbcType=VARCHAR},
+      CheckOperateDate = #{checkoperatedate,jdbcType=TIMESTAMP},
+      SatelliteCards = #{satellitecards,jdbcType=VARCHAR},
+      IsChange = #{ischange,jdbcType=TINYINT},
+      ChangeDate = #{changedate,jdbcType=TIMESTAMP},
+      ChangeUserID = #{changeuserid,jdbcType=BIGINT},
+      EnterAccountUserID = #{enteraccountuserid,jdbcType=BIGINT},
+      EnterAccountDate = #{enteraccountdate,jdbcType=TIMESTAMP},
+      BillCode = #{billcode,jdbcType=VARCHAR},
+      BillTaxID = #{billtaxid,jdbcType=BIGINT},
+      HandlingCharge = #{handlingcharge,jdbcType=DECIMAL},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      BatchDestoryId = #{batchdestoryid,jdbcType=BIGINT},
+      UseUserID = #{useuserid,jdbcType=BIGINT},
+      IsRecycle = #{isrecycle,jdbcType=TINYINT},
+      RecycleDate = #{recycledate,jdbcType=TIMESTAMP},
+      RecycleUserID = #{recycleuserid,jdbcType=BIGINT},
+      TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      IsUpload = #{isupload,jdbcType=INTEGER},
+      ResBillNo = #{resbillno,jdbcType=VARCHAR},
+      NewBillTitle = #{newbilltitle,jdbcType=LONGVARCHAR},
+      SpecialRemark = #{specialremark,jdbcType=LONGVARCHAR},
+      BillJPGUrl = #{billjpgurl,jdbcType=LONGVARCHAR},
+      BillPDFUrl = #{billpdfurl,jdbcType=LONGVARCHAR},
+      BillJPG = #{billjpg,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.BillBillUsed" >
+    update Bill_BillUsed
+    set BillDetailID = #{billdetailid,jdbcType=BIGINT},
+      BillNum = #{billnum,jdbcType=VARCHAR},
+      BillDirection = #{billdirection,jdbcType=TINYINT},
+      BillMoneyType = #{billmoneytype,jdbcType=VARCHAR},
+      BillTitle = #{billtitle,jdbcType=VARCHAR},
+      UsedDate = #{useddate,jdbcType=TIMESTAMP},
+      BillFund = #{billfund,jdbcType=DECIMAL},
+      IsUsed = #{isused,jdbcType=TINYINT},
+      IsCheck = #{ischeck,jdbcType=TINYINT},
+      CheckUserID = #{checkuserid,jdbcType=BIGINT},
+      CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      IsDestroy = #{isdestroy,jdbcType=TINYINT},
+      DestroyDate = #{destroydate,jdbcType=TIMESTAMP},
+      OpDate = #{opdate,jdbcType=TIMESTAMP},
+      DealUserID = #{dealuserid,jdbcType=BIGINT},
+      Remark = #{remark,jdbcType=VARCHAR},
+      CustomerID = #{customerid,jdbcType=BIGINT},
+      BillType = #{billtype,jdbcType=VARCHAR},
+      DrawDepartmentID = #{drawdepartmentid,jdbcType=VARCHAR},
+      IsPrinted = #{isprinted,jdbcType=TINYINT},
+      HouseList = #{houselist,jdbcType=VARCHAR},
+      OpUserID = #{opuserid,jdbcType=VARCHAR},
+      DestroyUserID = #{destroyuserid,jdbcType=VARCHAR},
+      DrawDate = #{drawdate,jdbcType=TIMESTAMP},
+      DrawUserID = #{drawuserid,jdbcType=BIGINT},
+      AccountBook = #{accountbook,jdbcType=INTEGER},
+      IsDayClosing = #{isdayclosing,jdbcType=INTEGER},
+      CorrectStatus = #{correctstatus,jdbcType=INTEGER},
+      RefBillType = #{refbilltype,jdbcType=VARCHAR},
+      RefBillNum = #{refbillnum,jdbcType=VARCHAR},
+      AddRemark = #{addremark,jdbcType=VARCHAR},
+      DrawID = #{drawid,jdbcType=BIGINT},
+      VoucherNum = #{vouchernum,jdbcType=VARCHAR},
+      CheckOperateDate = #{checkoperatedate,jdbcType=TIMESTAMP},
+      SatelliteCards = #{satellitecards,jdbcType=VARCHAR},
+      IsChange = #{ischange,jdbcType=TINYINT},
+      ChangeDate = #{changedate,jdbcType=TIMESTAMP},
+      ChangeUserID = #{changeuserid,jdbcType=BIGINT},
+      EnterAccountUserID = #{enteraccountuserid,jdbcType=BIGINT},
+      EnterAccountDate = #{enteraccountdate,jdbcType=TIMESTAMP},
+      BillCode = #{billcode,jdbcType=VARCHAR},
+      BillTaxID = #{billtaxid,jdbcType=BIGINT},
+      HandlingCharge = #{handlingcharge,jdbcType=DECIMAL},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      BatchDestoryId = #{batchdestoryid,jdbcType=BIGINT},
+      UseUserID = #{useuserid,jdbcType=BIGINT},
+      IsRecycle = #{isrecycle,jdbcType=TINYINT},
+      RecycleDate = #{recycledate,jdbcType=TIMESTAMP},
+      RecycleUserID = #{recycleuserid,jdbcType=BIGINT},
+      TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      IsUpload = #{isupload,jdbcType=INTEGER},
+      ResBillNo = #{resbillno,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

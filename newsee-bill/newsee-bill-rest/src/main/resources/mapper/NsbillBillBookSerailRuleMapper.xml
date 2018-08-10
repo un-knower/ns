@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.bill.dao.NsbillBillBookSerailRuleMapper">
+
+	<resultMap id="NsbillBillBookSerailRuleResultMap" type="com.newsee.bill.entity.NsbillBillBookSerailRule">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="billType" column="BillType" jdbcType="VARCHAR"/>
+			<result property="serialRule" column="SerialRule" jdbcType="VARCHAR"/>
+			<result property="simpleName" column="SimpleName" jdbcType="VARCHAR"/>
+			<result property="pageAmount" column="PageAmount" jdbcType="VARCHAR"/>
+			<result property="limit" column="Limit" jdbcType="VARCHAR"/>
+			<result property="quantum" column="Quantum" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="isDelete" column="IsDelete" jdbcType="BIGINT"/>
+			<result property="rollType" column="RollType" jdbcType="VARCHAR"/>
+			<result property="taxType" column="TaxType" jdbcType="VARCHAR"/>
+			<result property="dztaxType" column="DZTaxType" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsbillBillBookSerailRule_Column_List">
+		Id,EnterpriseId,OrganizationId,BillType,SerialRule,SimpleName,PageAmount,Limit,Quantum,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,IsDelete,RollType,TaxType,DZTaxType
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsbillBillBookSerailRuleResultMap">
+	    select 
+	        <include refid="NsbillBillBookSerailRule_Column_List" />
+	    from 
+	       NS_Bill_BillBookSerailRule
+	    <where>
+	        is_deleted = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldUnderLineName} IS NULL or #{item.fieldUnderLineName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldUnderLineName} IS NOT NULL or #{item.fieldUnderLineName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldUnderLineName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldUnderLineName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldUnderLineName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldUnderLineName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldUnderLineName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsbillBillBookSerailRuleResultMap">
+		select
+			<include refid="NsbillBillBookSerailRule_Column_List" />
+		from
+			NS_Bill_BillBookSerailRule
+		where
+			Id = #{id}
+	</select>
+	
+	
+	<select id="ListBillRuleInfo" parameterType="com.newsee.bill.entity.NsbillBillBookSerailRule" resultMap="NsbillBillBookSerailRuleResultMap">
+		select
+			<include refid="NsbillBillBookSerailRule_Column_List" />
+		from
+			NS_Bill_BillBookSerailRule
+		where
+			 EnterpriseId = #{enterpriseId}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.bill.entity.NsbillBillBookSerailRule">
+		update NS_Bill_BillBookSerailRule
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="billType != null">
+			  BillType = #{billType, jdbcType=VARCHAR },
+			</if>
+			<if test="serialRule != null">
+			  SerialRule = #{serialRule, jdbcType=VARCHAR },
+			</if>
+			<if test="simpleName != null">
+			  SimpleName = #{simpleName, jdbcType=VARCHAR },
+			</if>
+			<if test="pageAmount != null">
+			  PageAmount = #{pageAmount, jdbcType=VARCHAR },
+			</if>
+			<if test="limit != null">
+			  Limit = #{limit, jdbcType=VARCHAR },
+			</if>
+			<if test="quantum != null">
+			  Quantum = #{quantum, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="isDelete != null">
+			  IsDelete = #{isDelete, jdbcType=BIGINT },
+			</if>
+			<if test="rollType != null">
+			  RollType = #{rollType, jdbcType=VARCHAR },
+			</if>
+			<if test="taxType != null">
+			  TaxType = #{taxType, jdbcType=VARCHAR },
+			</if>
+			<if test="dztaxType != null">
+			  DZTaxType = #{dztaxType, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from NS_Bill_BillBookSerailRule 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from NS_Bill_BillBookSerailRule
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.bill.entity.NsbillBillBookSerailRule">
+		insert into NS_Bill_BillBookSerailRule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="billType != null">
+				BillType,
+			</if>
+			<if test="serialRule != null">
+				SerialRule,
+			</if>
+			<if test="simpleName != null">
+				SimpleName,
+			</if>
+			<if test="pageAmount != null">
+				PageAmount,
+			</if>
+			<if test="limit != null">
+				Limit,
+			</if>
+			<if test="quantum != null">
+				Quantum,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="isDelete != null">
+				IsDelete,
+			</if>
+			<if test="rollType != null">
+				RollType,
+			</if>
+			<if test="taxType != null">
+				TaxType,
+			</if>
+			<if test="dztaxType != null">
+				DZTaxType,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="billType != null">
+				#{billType, jdbcType=VARCHAR},
+			</if>
+			<if test="serialRule != null">
+				#{serialRule, jdbcType=VARCHAR},
+			</if>
+			<if test="simpleName != null">
+				#{simpleName, jdbcType=VARCHAR},
+			</if>
+			<if test="pageAmount != null">
+				#{pageAmount, jdbcType=VARCHAR},
+			</if>
+			<if test="limit != null">
+				#{limit, jdbcType=VARCHAR},
+			</if>
+			<if test="quantum != null">
+				#{quantum, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=BIGINT},
+			</if>
+			<if test="rollType != null">
+				#{rollType, jdbcType=VARCHAR},
+			</if>
+			<if test="taxType != null">
+				#{taxType, jdbcType=VARCHAR},
+			</if>
+			<if test="dztaxType != null">
+				#{dztaxType, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into NS_Bill_BillBookSerailRule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			BillType,
+			SerialRule,
+			SimpleName,
+			PageAmount,
+			Limit,
+			Quantum,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			IsDelete,
+			RollType,
+			TaxType,
+			DZTaxType,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.billType, jdbcType=VARCHAR},
+			#{item.serialRule, jdbcType=VARCHAR},
+			#{item.simpleName, jdbcType=VARCHAR},
+			#{item.pageAmount, jdbcType=VARCHAR},
+			#{item.limit, jdbcType=VARCHAR},
+			#{item.quantum, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.isDelete, jdbcType=BIGINT},
+			#{item.rollType, jdbcType=VARCHAR},
+			#{item.taxType, jdbcType=VARCHAR},
+			#{item.dztaxType, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

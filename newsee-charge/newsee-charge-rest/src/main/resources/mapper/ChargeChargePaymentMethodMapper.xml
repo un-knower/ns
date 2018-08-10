@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeChargePaymentMethodMapper">
+
+    <resultMap id="ChargeChargePaymentMethodResultMap" type="com.newsee.charge.entity.ChargeChargePaymentMethod">
+        <id property="id" column="Id" jdbcType="BIGINT"/>
+        <result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+        <result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+        <result property="organizationName" column="OrganizationName" jdbcType="VARCHAR"/>
+        <result property="methodCode" column="MethodCode" jdbcType="VARCHAR"/>
+        <result property="methodName" column="MethodName" jdbcType="VARCHAR"/>
+        <result property="methodType" column="MethodType" jdbcType="VARCHAR"/>
+        <result property="accountName" column="AccountName" jdbcType="VARCHAR"/>
+        <result property="appId" column="AppId" jdbcType="VARCHAR"/>
+        <result property="coooperId" column="CoooperId" jdbcType="VARCHAR"/>
+        <result property="otherSideCooperId" column="OtherSideCooperId" jdbcType="VARCHAR"/>
+        <result property="publicKey" column="PublicKey" jdbcType="VARCHAR"/>
+        <result property="privateKey" column="PrivateKey" jdbcType="VARCHAR"/>
+        <result property="isWork" column="IsWork" jdbcType="TINYINT"/>
+        <result property="remark" column="Remark" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+        <result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+        <result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="ChargeChargePaymentMethod_Column_List">
+		Id,EnterpriseId,OrganizationId,OrganizationName,MethodCode,MethodName,MethodType,AccountName,AppId,CoooperId,OtherSideCooperId,PublicKey,PrivateKey,IsWork,Remark,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime
+	</sql>
+
+    <select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeChargePaymentMethodResultMap">
+        select
+        <include refid="ChargeChargePaymentMethod_Column_List"/>
+        from
+        Charge_ChargePaymentMethod
+        <where>
+            IsDelete =0
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, MethodName)>0
+            </if>
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationIdList != null and organizationIdList.size()!=0">
+                and OrganizationId in
+                <foreach collection="organizationIdList" item="orgId" index="index" open="(" close=")" separator=",">
+                    #{orgId}
+                </foreach>
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                    <choose>
+                        <when test="item.comparison != null and item.comparison == 'NULL'">
+                            and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                            and (${item.fieldName} IS NOT NULL and ${item.fieldName} != '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldName})=0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                            and ${item.fieldName} &gt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                            and ${item.fieldName} &lt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type != 'date'">
+                            and ${item.fieldName} = #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type == 'date'">
+                            and to_days(${item.fieldName}) = to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                            and ${item.fieldName} != #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type != 'date'">
+                            and ${item.fieldName} &gt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type == 'date'">
+                            and to_days(${item.fieldName}) &gt;= to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type != 'date'">
+                            and ${item.fieldName} &lt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type == 'date'">
+                            and to_days(${item.fieldName}) &lt;= to_days(#{item.fieldValue})
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+             order by  iswork desc, id desc
+            <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+                 ,${orderFieldName}
+                <if test="orderBy != null and orderBy != ''">
+                    ${orderBy}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="ChargeChargePaymentMethodResultMap">
+        select
+        <include refid="ChargeChargePaymentMethod_Column_List"/>
+        from
+        Charge_ChargePaymentMethod
+        where
+        Id = #{id}
+    </select>
+
+    <select id="selectByCode" parameterType="java.util.Map" resultMap="ChargeChargePaymentMethodResultMap">
+        select
+        <include refid="ChargeChargePaymentMethod_Column_List"/>
+        from
+        Charge_ChargePaymentMethod
+        where
+        EnterpriseId = #{enterpriseId}
+        AND MethodCode = #{methodCode}
+        AND IsWork = 1
+        AND IsDelete =0
+        <if test="id != null">
+            AND Id = #{id}
+        </if>
+    </select>
+
+    <update id="updateById" parameterType="com.newsee.charge.entity.ChargeChargePaymentMethod">
+        update Charge_ChargePaymentMethod
+        <set>
+            <if test="enterpriseId != null">
+                EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+                OrganizationId = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationName != null">
+                OrganizationName = #{organizationName, jdbcType=VARCHAR },
+            </if>
+            <if test="methodCode != null">
+                MethodCode = #{methodCode, jdbcType=VARCHAR },
+            </if>
+            <if test="methodName != null">
+                MethodName = #{methodName, jdbcType=VARCHAR },
+            </if>
+            <if test="methodType != null">
+                MethodType = #{methodType, jdbcType=VARCHAR },
+            </if>
+            <if test="accountName != null">
+                AccountName = #{accountName, jdbcType=VARCHAR },
+            </if>
+            <if test="appId != null">
+                AppId = #{appId, jdbcType=VARCHAR },
+            </if>
+            <if test="coooperId != null">
+                CoooperId = #{coooperId, jdbcType=VARCHAR },
+            </if>
+            <if test="otherSideCooperId != null">
+                OtherSideCooperId = #{otherSideCooperId, jdbcType=VARCHAR },
+            </if>
+            <if test="publicKey != null">
+                PublicKey = #{publicKey, jdbcType=VARCHAR },
+            </if>
+            <if test="privateKey != null">
+                PrivateKey = #{privateKey, jdbcType=VARCHAR },
+            </if>
+            <if test="isWork != null">
+                IsWork = #{isWork, jdbcType=TINYINT },
+            </if>
+            <if test="remark != null">
+                Remark = #{remark, jdbcType=VARCHAR },
+            </if>
+            <if test="createUserId != null">
+                CreateUserId = #{createUserId, jdbcType=BIGINT },
+            </if>
+            <if test="createUserName != null">
+                CreateUserName = #{createUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="createTime != null">
+                CreateTime = #{createTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="updateTime != null">
+                UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="sysTime != null">
+                SysTime = #{sysTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="isDelete != null">
+                IsDelete = #{isDelete, jdbcType=BIGINT },
+            </if>
+        </set>
+        where
+        Id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+		update Charge_ChargePaymentMethod
+		set IsDelete = 1
+		where
+			Id = #{id}
+	</delete>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        update Charge_ChargePaymentMethod
+        set IsDelete = 1
+        where
+        Id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.newsee.charge.entity.ChargeChargePaymentMethod">
+        insert into Charge_ChargePaymentMethod
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="enterpriseId != null">
+                EnterpriseId,
+            </if>
+            <if test="organizationId != null">
+                OrganizationId,
+            </if>
+            <if test="organizationName != null">
+                OrganizationName,
+            </if>
+            <if test="methodCode != null">
+                MethodCode,
+            </if>
+            <if test="methodName != null">
+                MethodName,
+            </if>
+            <if test="methodType != null">
+                MethodType,
+            </if>
+            <if test="accountName != null">
+                AccountName,
+            </if>
+            <if test="appId != null">
+                AppId,
+            </if>
+            <if test="coooperId != null">
+                CoooperId,
+            </if>
+            <if test="otherSideCooperId != null">
+                OtherSideCooperId,
+            </if>
+            <if test="publicKey != null">
+                PublicKey,
+            </if>
+            <if test="privateKey != null">
+                PrivateKey,
+            </if>
+            <if test="isWork != null">
+                IsWork,
+            </if>
+            <if test="remark != null">
+                Remark,
+            </if>
+            <if test="createUserId != null">
+                CreateUserId,
+            </if>
+            <if test="createUserName != null">
+                CreateUserName,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId,
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName,
+            </if>
+            <if test="updateTime != null">
+                UpdateTime,
+            </if>
+            <if test="sysTime != null">
+                SysTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="enterpriseId != null">
+                #{enterpriseId, jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId, jdbcType=BIGINT},
+            </if>
+            <if test="organizationName != null">
+                #{organizationName, jdbcType=VARCHAR},
+            </if>
+            <if test="methodCode != null">
+                #{methodCode, jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                #{methodName, jdbcType=VARCHAR},
+            </if>
+            <if test="methodType != null">
+                #{methodType, jdbcType=TINYINT},
+            </if>
+            <if test="accountName != null">
+                #{accountName, jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null">
+                #{appId, jdbcType=VARCHAR},
+            </if>
+            <if test="coooperId != null">
+                #{coooperId, jdbcType=VARCHAR},
+            </if>
+            <if test="otherSideCooperId != null">
+                #{otherSideCooperId, jdbcType=VARCHAR},
+            </if>
+            <if test="publicKey != null">
+                #{publicKey, jdbcType=VARCHAR},
+            </if>
+            <if test="privateKey != null">
+                #{privateKey, jdbcType=VARCHAR},
+            </if>
+            <if test="isWork != null">
+                #{isWork, jdbcType=TINYINT},
+            </if>
+            <if test="remark != null">
+                #{remark, jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId, jdbcType=BIGINT},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId, jdbcType=BIGINT},
+            </if>
+            <if test="updateUserName != null">
+                #{updateUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="sysTime != null">
+                #{sysTime, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into Charge_ChargePaymentMethod
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            EnterpriseId,
+            OrganizationId,
+            OrganizationName,
+            MethodCode,
+            MethodName,
+            MethodType,
+            AccountName,
+            AppId,
+            CoooperId,
+            OtherSideCooperId,
+            PublicKey,
+            PrivateKey,
+            IsWork,
+            Remark,
+            CreateUserId,
+            CreateUserName,
+            CreateTime,
+            UpdateUserId,
+            UpdateUserName,
+            UpdateTime,
+            SysTime,
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.enterpriseId, jdbcType=BIGINT},
+            #{item.organizationId, jdbcType=BIGINT},
+            #{item.organizationName, jdbcType=VARCHAR},
+            #{item.methodCode, jdbcType=VARCHAR},
+            #{item.methodName, jdbcType=VARCHAR},
+            #{item.methodType, jdbcType=TINYINT},
+            #{item.accountName, jdbcType=VARCHAR},
+            #{item.appId, jdbcType=VARCHAR},
+            #{item.coooperId, jdbcType=VARCHAR},
+            #{item.otherSideCooperId, jdbcType=VARCHAR},
+            #{item.publicKey, jdbcType=VARCHAR},
+            #{item.privateKey, jdbcType=VARCHAR},
+            #{item.isWork, jdbcType=TINYINT},
+            #{item.remark, jdbcType=VARCHAR},
+            #{item.createUserId, jdbcType=BIGINT},
+            #{item.createUserName, jdbcType=VARCHAR},
+            #{item.createTime, jdbcType=TIMESTAMP},
+            #{item.updateUserId, jdbcType=BIGINT},
+            #{item.updateUserName, jdbcType=VARCHAR},
+            #{item.updateTime, jdbcType=TIMESTAMP},
+            #{item.sysTime, jdbcType=TIMESTAMP},
+            )
+        </foreach>
+    </insert>
+
+</mapper>

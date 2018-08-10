@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHousePrecinctExtendInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHousePrecinctExtendInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="developer" property="developer" jdbcType="BIGINT" />
+    <result column="builder" property="builder" jdbcType="VARCHAR" />
+    <result column="start_work_time" property="startWorkTime" jdbcType="DATE" />
+    <result column="complete_time" property="completeTime" jdbcType="DATE" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="DATE" />
+    <result column="take_over_time" property="takeOverTime" jdbcType="DATE" />
+    <result column="quit_time" property="quitTime" jdbcType="DATE" />
+    <result column="building_area" property="buildingArea" jdbcType="BIGINT" />
+    <result column="floor_area" property="floorArea" jdbcType="BIGINT" />
+    <result column="ground_area" property="groundArea" jdbcType="BIGINT" />
+    <result column="underground_area" property="undergroundArea" jdbcType="BIGINT" />
+    <result column="charge_area" property="chargeArea" jdbcType="BIGINT" />
+    <result column="delivery_area" property="deliveryArea" jdbcType="BIGINT" />
+    <result column="green_area" property="greenArea" jdbcType="BIGINT" />
+    <result column="assist_area" property="assistArea" jdbcType="BIGINT" />
+    <result column="greening_rate" property="greeningRate" jdbcType="BIGINT" />
+    <result column="plot_ratio" property="plotRatio" jdbcType="BIGINT" />
+    <result column="households" property="households" jdbcType="INTEGER" />
+    <result column="check_in_households" property="checkInHouseholds" jdbcType="INTEGER" />
+    <result column="ground_parking_space" property="groundParkingSpace" jdbcType="INTEGER" />
+    <result column="ground_parking_charge_standard" property="groundParkingChargeStandard" jdbcType="VARCHAR" />
+    <result column="temp_parking_space" property="tempParkingSpace" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, developer, builder, start_work_time, complete_time, delivery_time, take_over_time, 
+    quit_time, building_area, floor_area, ground_area, underground_area, charge_area, 
+    delivery_area, green_area, assist_area, greening_rate, plot_ratio, households, check_in_households, 
+    ground_parking_space, ground_parking_charge_standard, temp_parking_space, create_user_id, 
+    create_time, update_user_id, update_time,create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_precinct_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_precinct_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHousePrecinctExtendInfo" >
+    insert into owner_house_precinct_extend_info (house_id, developer, builder, 
+      start_work_time, complete_time, delivery_time, 
+      take_over_time, quit_time, building_area, 
+      floor_area, ground_area, underground_area, 
+      charge_area, delivery_area, green_area, 
+      assist_area, greening_rate, plot_ratio, 
+      households, check_in_households, ground_parking_space, 
+      ground_parking_charge_standard, temp_parking_space, 
+      create_user_id, create_time, update_user_id, 
+      update_time,create_user_name, update_user_name
+      )
+    values (#{houseId,jdbcType=BIGINT}, #{developer,jdbcType=BIGINT}, #{builder,jdbcType=VARCHAR}, 
+      #{startWorkTime,jdbcType=DATE}, #{completeTime,jdbcType=DATE}, #{deliveryTime,jdbcType=DATE}, 
+      #{takeOverTime,jdbcType=DATE}, #{quitTime,jdbcType=DATE}, #{buildingArea,jdbcType=BIGINT}, 
+      #{floorArea,jdbcType=BIGINT}, #{groundArea,jdbcType=BIGINT}, #{undergroundArea,jdbcType=BIGINT}, 
+      #{chargeArea,jdbcType=BIGINT}, #{deliveryArea,jdbcType=BIGINT}, #{greenArea,jdbcType=BIGINT}, 
+      #{assistArea,jdbcType=BIGINT}, #{greeningRate,jdbcType=BIGINT}, #{plotRatio,jdbcType=BIGINT}, 
+      #{households,jdbcType=INTEGER}, #{checkInHouseholds,jdbcType=INTEGER}, #{groundParkingSpace,jdbcType=INTEGER}, 
+      #{groundParkingChargeStandard,jdbcType=VARCHAR}, #{tempParkingSpace,jdbcType=INTEGER}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctExtendInfo" >
+    insert into owner_house_precinct_extend_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="developer != null" >
+        developer,
+      </if>
+      <if test="builder != null" >
+        builder,
+      </if>
+      <if test="startWorkTime != null" >
+        start_work_time,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="takeOverTime != null" >
+        take_over_time,
+      </if>
+      <if test="quitTime != null" >
+        quit_time,
+      </if>
+      <if test="buildingArea != null" >
+        building_area,
+      </if>
+      <if test="floorArea != null" >
+        floor_area,
+      </if>
+      <if test="groundArea != null" >
+        ground_area,
+      </if>
+      <if test="undergroundArea != null" >
+        underground_area,
+      </if>
+      <if test="chargeArea != null" >
+        charge_area,
+      </if>
+      <if test="deliveryArea != null" >
+        delivery_area,
+      </if>
+      <if test="greenArea != null" >
+        green_area,
+      </if>
+      <if test="assistArea != null" >
+        assist_area,
+      </if>
+      <if test="greeningRate != null" >
+        greening_rate,
+      </if>
+      <if test="plotRatio != null" >
+        plot_ratio,
+      </if>
+      <if test="households != null" >
+        households,
+      </if>
+      <if test="checkInHouseholds != null" >
+        check_in_households,
+      </if>
+      <if test="groundParkingSpace != null" >
+        ground_parking_space,
+      </if>
+      <if test="groundParkingChargeStandard != null" >
+        ground_parking_charge_standard,
+      </if>
+      <if test="tempParkingSpace != null" >
+        temp_parking_space,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="developer != null" >
+        #{developer,jdbcType=BIGINT},
+      </if>
+      <if test="builder != null" >
+        #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null" >
+        #{startWorkTime,jdbcType=DATE},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=DATE},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="takeOverTime != null" >
+        #{takeOverTime,jdbcType=DATE},
+      </if>
+      <if test="quitTime != null" >
+        #{quitTime,jdbcType=DATE},
+      </if>
+      <if test="buildingArea != null" >
+        #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="floorArea != null" >
+        #{floorArea,jdbcType=BIGINT},
+      </if>
+      <if test="groundArea != null" >
+        #{groundArea,jdbcType=BIGINT},
+      </if>
+      <if test="undergroundArea != null" >
+        #{undergroundArea,jdbcType=BIGINT},
+      </if>
+      <if test="chargeArea != null" >
+        #{chargeArea,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryArea != null" >
+        #{deliveryArea,jdbcType=BIGINT},
+      </if>
+      <if test="greenArea != null" >
+        #{greenArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistArea != null" >
+        #{assistArea,jdbcType=BIGINT},
+      </if>
+      <if test="greeningRate != null" >
+        #{greeningRate,jdbcType=BIGINT},
+      </if>
+      <if test="plotRatio != null" >
+        #{plotRatio,jdbcType=BIGINT},
+      </if>
+      <if test="households != null" >
+        #{households,jdbcType=INTEGER},
+      </if>
+      <if test="checkInHouseholds != null" >
+        #{checkInHouseholds,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingSpace != null" >
+        #{groundParkingSpace,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingChargeStandard != null" >
+        #{groundParkingChargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="tempParkingSpace != null" >
+        #{tempParkingSpace,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctExtendInfo" >
+    update owner_house_precinct_extend_info
+    <set >
+      <if test="developer != null" >
+        developer = #{developer,jdbcType=BIGINT},
+      </if>
+      <if test="builder != null" >
+        builder = #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null" >
+        start_work_time = #{startWorkTime,jdbcType=DATE},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=DATE},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="takeOverTime != null" >
+        take_over_time = #{takeOverTime,jdbcType=DATE},
+      </if>
+      <if test="quitTime != null" >
+        quit_time = #{quitTime,jdbcType=DATE},
+      </if>
+      <if test="buildingArea != null" >
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="floorArea != null" >
+        floor_area = #{floorArea,jdbcType=BIGINT},
+      </if>
+      <if test="groundArea != null" >
+        ground_area = #{groundArea,jdbcType=BIGINT},
+      </if>
+      <if test="undergroundArea != null" >
+        underground_area = #{undergroundArea,jdbcType=BIGINT},
+      </if>
+      <if test="chargeArea != null" >
+        charge_area = #{chargeArea,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryArea != null" >
+        delivery_area = #{deliveryArea,jdbcType=BIGINT},
+      </if>
+      <if test="greenArea != null" >
+        green_area = #{greenArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistArea != null" >
+        assist_area = #{assistArea,jdbcType=BIGINT},
+      </if>
+      <if test="greeningRate != null" >
+        greening_rate = #{greeningRate,jdbcType=BIGINT},
+      </if>
+      <if test="plotRatio != null" >
+        plot_ratio = #{plotRatio,jdbcType=BIGINT},
+      </if>
+      <if test="households != null" >
+        households = #{households,jdbcType=INTEGER},
+      </if>
+      <if test="checkInHouseholds != null" >
+        check_in_households = #{checkInHouseholds,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingSpace != null" >
+        ground_parking_space = #{groundParkingSpace,jdbcType=INTEGER},
+      </if>
+      <if test="groundParkingChargeStandard != null" >
+        ground_parking_charge_standard = #{groundParkingChargeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="tempParkingSpace != null" >
+        temp_parking_space = #{tempParkingSpace,jdbcType=INTEGER},
+      </if>
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now(),
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHousePrecinctExtendInfo" >
+    update owner_house_precinct_extend_info
+    set developer = #{developer,jdbcType=BIGINT},
+      builder = #{builder,jdbcType=VARCHAR},
+      start_work_time = #{startWorkTime,jdbcType=DATE},
+      complete_time = #{completeTime,jdbcType=DATE},
+      delivery_time = #{deliveryTime,jdbcType=DATE},
+      take_over_time = #{takeOverTime,jdbcType=DATE},
+      quit_time = #{quitTime,jdbcType=DATE},
+      building_area = #{buildingArea,jdbcType=BIGINT},
+      floor_area = #{floorArea,jdbcType=BIGINT},
+      ground_area = #{groundArea,jdbcType=BIGINT},
+      underground_area = #{undergroundArea,jdbcType=BIGINT},
+      charge_area = #{chargeArea,jdbcType=BIGINT},
+      delivery_area = #{deliveryArea,jdbcType=BIGINT},
+      green_area = #{greenArea,jdbcType=BIGINT},
+      assist_area = #{assistArea,jdbcType=BIGINT},
+      greening_rate = #{greeningRate,jdbcType=BIGINT},
+      plot_ratio = #{plotRatio,jdbcType=BIGINT},
+      households = #{households,jdbcType=INTEGER},
+      check_in_households = #{checkInHouseholds,jdbcType=INTEGER},
+      ground_parking_space = #{groundParkingSpace,jdbcType=INTEGER},
+      ground_parking_charge_standard = #{groundParkingChargeStandard,jdbcType=VARCHAR},
+      temp_parking_space = #{tempParkingSpace,jdbcType=INTEGER},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+</mapper>

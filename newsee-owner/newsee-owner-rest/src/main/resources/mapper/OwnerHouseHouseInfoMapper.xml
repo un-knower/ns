@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHouseHouseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseHouseInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="room_no" property="roomNo" jdbcType="VARCHAR" />
+    <result column="room_short_name" property="roomShortName" jdbcType="VARCHAR" />
+    <result column="main_house_flag" property="mainHouseFlag" jdbcType="TINYINT" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="floor_num" property="floorNum" jdbcType="VARCHAR" />
+    <result column="room_type_id" property="roomTypeId" jdbcType="VARCHAR" />
+    <result column="mnemonic" property="mnemonic" jdbcType="VARCHAR" />
+    <result column="charging_area" property="chargingArea" jdbcType="BIGINT" />
+    <result column="building_area" property="buildingArea" jdbcType="BIGINT" />
+    <result column="assist_charging_area" property="assistChargingArea" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, room_no, room_short_name, 
+    main_house_flag, floor, floor_num, room_type_id, mnemonic, charging_area, building_area, 
+    assist_charging_area, create_user_id, create_time, update_user_id, update_time, remark,
+    create_user_name, update_user_name
+</sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_house_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_house_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseHouseInfo" >
+    insert into owner_house_house_info (house_id,
+      room_no, room_short_name,  main_house_flag, floor, 
+      floor_num, room_type_id, mnemonic, 
+      charging_area, building_area, assist_charging_area, 
+      create_user_id, create_time, update_user_id, 
+      update_time, remark,create_user_name, update_user_name
+      )
+    values (#{houseId,jdbcType=BIGINT},
+      #{roomNo,jdbcType=VARCHAR}, #{roomShortName,jdbcType=VARCHAR}, #{mainHouseFlag,jdbcType=TINYINT}, #{floor,jdbcType=INTEGER}, 
+      #{floorNum,jdbcType=VARCHAR}, #{roomTypeId,jdbcType=VARCHAR}, #{mnemonic,jdbcType=VARCHAR}, 
+      #{chargingArea,jdbcType=BIGINT}, #{buildingArea,jdbcType=BIGINT}, #{assistChargingArea,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+      #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseHouseInfo" >
+    insert into owner_house_house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="roomNo != null" >
+        room_no,
+      </if>
+      <if test="roomShortName != null" >
+        room_short_name,
+      </if>
+      <if test="mainHouseFlag != null" >
+        main_house_flag,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="floorNum != null" >
+        floor_num,
+      </if>
+      <if test="roomTypeId != null" >
+        room_type_id,
+      </if>
+      <if test="mnemonic != null" >
+        mnemonic,
+      </if>
+      <if test="chargingArea != null" >
+        charging_area,
+      </if>
+      <if test="buildingArea != null" >
+        building_area,
+      </if>
+      <if test="assistChargingArea != null" >
+        assist_charging_area,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="roomNo != null" >
+        #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomShortName != null" >
+        #{roomShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseFlag != null" >
+        #{mainHouseFlag,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null" >
+        #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="roomTypeId != null" >
+        #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonic != null" >
+        #{mnemonic,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null" >
+        #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null" >
+        #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null" >
+        #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseHouseInfo" >
+    update owner_house_house_info
+    <set >
+      <if test="roomNo != null" >
+        room_no = #{roomNo,jdbcType=VARCHAR},
+      </if>
+      <if test="roomShortName != null" >
+        room_short_name = #{roomShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseFlag != null" >
+        main_house_flag = #{mainHouseFlag,jdbcType=TINYINT},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null" >
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="roomTypeId != null" >
+        room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonic != null" >
+        mnemonic = #{mnemonic,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null" >
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null" >
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null" >
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseHouseInfo" >
+    update owner_house_house_info
+    set
+      room_no = #{roomNo,jdbcType=VARCHAR},
+      room_short_name = #{roomShortName,jdbcType=VARCHAR},
+      main_house_flag = #{mainHouseFlag,jdbcType=TINYINT},
+      floor = #{floor,jdbcType=INTEGER},
+      floor_num = #{floorNum,jdbcType=VARCHAR},
+      room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      mnemonic = #{mnemonic,jdbcType=VARCHAR},
+      charging_area = #{chargingArea,jdbcType=BIGINT},
+      building_area = #{buildingArea,jdbcType=BIGINT},
+      assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+
+  <select id="listHouseInfoListByHouseId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from owner_house_house_info
+    where 1=1
+    <if test="houseIdList !=null">
+      AND house_id in
+      <foreach collection="houseIdList" open="(" separator="," close=")"
+               item="houseId" index="index">
+        #{houseId,jdbcType=BIGINT}
+      </foreach>
+    </if>
+  </select>
+
+  <insert id="batchInsertHouseInfoList">
+    insert into owner_house_house_info (house_id,
+      room_no, room_short_name,main_house_flag, floor,
+      floor_num, room_type_id, mnemonic,
+      charging_area, building_area, assist_charging_area,
+      create_user_id, create_time, update_user_id,
+      update_time, remark,create_user_name, update_user_name
+      )
+    values
+    <foreach collection="list" item="house" index="index" separator=",">
+      (#{house.houseId,jdbcType=BIGINT},
+      #{house.roomNo,jdbcType=VARCHAR},
+      #{house.roomShortName,jdbcType=VARCHAR},
+      #{house.mainHouseFlag,jdbcType=TINYINT},
+      #{house.floor,jdbcType=INTEGER},
+      #{house.floorNum,jdbcType=VARCHAR},
+      #{house.roomTypeId,jdbcType=VARCHAR},
+      #{house.mnemonic,jdbcType=VARCHAR},
+      #{house.chargingArea,jdbcType=BIGINT},
+      #{house.buildingArea,jdbcType=BIGINT},
+      #{house.assistChargingArea,jdbcType=BIGINT},
+      #{house.createUserId,jdbcType=BIGINT},
+      now(),
+      #{house.createUserId,jdbcType=BIGINT},
+      now(),
+      #{house.remark,jdbcType=VARCHAR},
+      #{house.createUserName,jdbcType=VARCHAR}, #{house.updateUserName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <select id="loadHouseByShortName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+	    info.house_id, info.room_no, info.room_short_name, 
+	    info.main_house_flag, info.floor, info.floor_num, info.room_type_id, info.mnemonic, info.charging_area, info.building_area, 
+	    info.assist_charging_area, info.create_user_id, info.create_time, info.update_user_id, info.update_time, info.remark
+    from owner_house_house_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.room_short_name = #{shortName,jdbcType=VARCHAR}
+        <if test="precinctId != null and precinctId != 0">
+           and base.precinct_id = #{precinctId,jdbcType=BIGINT} 
+        </if>
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0 and base.is_block_up = false
+    </where> 
+  </select>
+  <select id="loadHouseByNo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.room_no, info.room_short_name, 
+        info.main_house_flag, info.floor, info.floor_num, info.room_type_id, info.mnemonic, info.charging_area, info.building_area, 
+        info.assist_charging_area, info.create_user_id, info.create_time, info.update_user_id, info.update_time, info.remark
+    from owner_house_house_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.room_no = #{no,jdbcType=VARCHAR}
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0 and base.is_block_up = false
+    </where> 
+  </select>
+</mapper>

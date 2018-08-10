@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.bill.dao.NsbillBillUsedMapper">
+
+	<resultMap id="NsbillBillUsedResultMap" type="com.newsee.bill.entity.NsbillBillUsed">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="billDetailId" column="BillDetailId" jdbcType="BIGINT"/>
+			<result property="billNum" column="BillNum" jdbcType="VARCHAR"/>
+			<result property="billDirectiontiny" column="BillDirectiontiny" jdbcType="INTEGER"/>
+			<result property="billType" column="BillType" jdbcType="VARCHAR"/>
+			<result property="billMoneyType" column="BillMoneyType" jdbcType="VARCHAR"/>
+			<result property="billTitle" column="BillTitle" jdbcType="VARCHAR"/>
+			<result property="usedDate" column="UsedDate" jdbcType="TIMESTAMP"/>
+			<result property="billFund" column="BillFund" jdbcType="DECIMAL"/>
+			<result property="billStatus" column="BillStatus" jdbcType="VARCHAR"/>
+			<result property="isUsed" column="IsUsed" jdbcType="TINYINT"/>
+			<result property="isCheck" column="IsCheck" jdbcType="TINYINT"/>
+			<result property="checkUserId" column="CheckUserId" jdbcType="BIGINT"/>
+			<result property="checkDate" column="CheckDate" jdbcType="TIMESTAMP"/>
+			<result property="isDestroy" column="IsDestroy" jdbcType="TINYINT"/>
+			<result property="destroyDate" column="DestroyDate" jdbcType="TIMESTAMP"/>
+			<result property="opDate" column="OpDate" jdbcType="TIMESTAMP"/>
+			<result property="dealUserId" column="DealUserId" jdbcType="BIGINT"/>
+			<result property="remark" column="Remark" jdbcType="VARCHAR"/>
+			<result property="customerId" column="CustomerId" jdbcType="BIGINT"/>
+			<result property="accountBook" column="AccountBook" jdbcType="INTEGER"/>
+			<result property="addRemark" column="AddRemark" jdbcType="VARCHAR"/>
+			<result property="changeDate" column="ChangeDate" jdbcType="TIMESTAMP"/>
+			<result property="changeUserId" column="ChangeUserId" jdbcType="BIGINT"/>
+			<result property="checkOperateDate" column="CheckOperateDate" jdbcType="TIMESTAMP"/>
+			<result property="correctStatus" column="CorrectStatus" jdbcType="INTEGER"/>
+			<result property="destroyUserId" column="DestroyUserId" jdbcType="BIGINT"/>
+			<result property="drawDate" column="DrawDate" jdbcType="TIMESTAMP"/>
+			<result property="drawDepartmentId" column="DrawDepartmentId" jdbcType="VARCHAR"/>
+			<result property="drawId" column="DrawId" jdbcType="BIGINT"/>
+			<result property="drawUserId" column="DrawUserId" jdbcType="BIGINT"/>
+			<result property="handlingCharge" column="HandlingCharge" jdbcType="DECIMAL"/>
+			<result property="houseList" column="HouseList" jdbcType="VARCHAR"/>
+			<result property="isChange" column="IsChange" jdbcType="TINYINT"/>
+			<result property="isDayClosing" column="IsDayClosing" jdbcType="INTEGER"/>
+			<result property="isPrinted" column="IsPrinted" jdbcType="TINYINT"/>
+			<result property="opUserId" column="OpUserId" jdbcType="BIGINT"/>
+			<result property="refBillNum" column="RefBillNum" jdbcType="VARCHAR"/>
+			<result property="refBillType" column="RefBillType" jdbcType="VARCHAR"/>
+			<result property="satelliteCards" column="SatelliteCards" jdbcType="VARCHAR"/>
+			<result property="voucherNum" column="VoucherNum" jdbcType="VARCHAR"/>
+			<result property="importBatchId" column="ImportBatchID" jdbcType="BIGINT"/>
+			<result property="batchDestoryId" column="BatchDestoryId" jdbcType="BIGINT"/>
+			<result property="enterAccountUserId" column="EnterAccountUserID" jdbcType="BIGINT"/>
+			<result property="enterAccountDate" column="EnterAccountDate" jdbcType="DATE"/>
+			<result property="billCode" column="BillCode" jdbcType="VARCHAR"/>
+			<result property="billTaxId" column="BillTaxID" jdbcType="BIGINT"/>
+			<result property="newBillTitle" column="NewBillTitle" jdbcType="VARCHAR"/>
+			<result property="useUserId" column="UseUserID" jdbcType="BIGINT"/>
+			<result property="isRecycle" column="IsRecycle" jdbcType="VARCHAR"/>
+			<result property="recycleDate" column="RecycleDate" jdbcType="DATE"/>
+			<result property="recycleUserId" column="RecycleUserID" jdbcType="BIGINT"/>
+			<result property="taxAmount" column="TaxAmount" jdbcType="DECIMAL"/>
+			<result property="notTaxAmount" column="NotTaxAmount" jdbcType="DECIMAL"/>
+			<result property="isUpload" column="IsUpload" jdbcType="VARCHAR"/>
+			<result property="resBillNo" column="ResBillNo" jdbcType="VARCHAR"/>
+			<result property="specialRemark" column="SpecialRemark" jdbcType="VARCHAR"/>
+			<result property="billJpgurl" column="BillJPGUrl" jdbcType="VARCHAR"/>
+			<result property="billPdfurl" column="BillPDFUrl" jdbcType="VARCHAR"/>
+			<result property="billJpg" column="BillJPG" jdbcType="VARCHAR"/>
+			<result property="printNum" column="PrintNum" jdbcType="BIGINT"/>
+			<result property="customerTaxCode" column="CustomerTaxCode" jdbcType="VARCHAR"/>
+			<result property="customerBankAccount" column="CustomerBankAccount" jdbcType="VARCHAR"/>
+			<result property="customerAddressPhone" column="CustomerAddressPhone" jdbcType="VARCHAR"/>
+			<result property="fpqqlsh" column="Fpqqlsh" jdbcType="VARCHAR"/>
+			<result property="billOrderNo" column="BillOrderNo" jdbcType="VARCHAR"/>
+			<result property="billTaxNo" column="BillTaxNo" jdbcType="VARCHAR"/>
+			<result property="billIdentity" column="BillIdentity" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="isDelete" column="IsDelete" jdbcType="INTEGER"/>
+			<result property="customerName" column="CustomerName" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsbillBillUsed_Column_List">
+		Id,BillDetailId,BillNum,BillDirectiontiny,BillType,BillMoneyType,BillTitle,UsedDate,BillFund,BillStatus,IsUsed,IsCheck,CheckUserId,CheckDate,IsDestroy,DestroyDate,OpDate,DealUserId,Remark,CustomerId,AccountBook,AddRemark,ChangeDate,ChangeUserId,CheckOperateDate,CorrectStatus,DestroyUserId,DrawDate,DrawDepartmentId,DrawId,DrawUserId,HandlingCharge,HouseList,IsChange,IsDayClosing,IsPrinted,OpUserId,RefBillNum,RefBillType,SatelliteCards,VoucherNum,ImportBatchID,BatchDestoryId,EnterAccountUserID,EnterAccountDate,BillCode,BillTaxID,NewBillTitle,UseUserID,IsRecycle,RecycleDate,RecycleUserID,TaxAmount,NotTaxAmount,IsUpload,ResBillNo,SpecialRemark,BillJPGUrl,BillPDFUrl,BillJPG,PrintNum,CustomerTaxCode,CustomerBankAccount,CustomerAddressPhone,Fpqqlsh,BillOrderNo,BillTaxNo,BillIdentity,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,IsDelete,CustomerName
+	</sql>
+
+    <select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsbillBillUsedResultMap">
+        select
+        <include refid="NsbillBillUsed_Column_List"/>
+        from
+        NS_Bill_BillUsed
+        <where>
+            IsDelete = 0
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0
+            </if>
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and OrganizationId = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                    <choose>
+                        <when test="item.comparison != null and item.comparison == 'NULL'">
+                            and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                            and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldName})=0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                            and ${item.fieldName} &gt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                            and ${item.fieldName} &lt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type!='date'">
+                            and ${item.fieldName} = #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type=='date'">
+                            and to_days(${item.fieldName}) = to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL' and item.type!='date'">
+                            and ${item.fieldName} != #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL' and item.type=='date'">
+                            and to_days(${item.fieldName}) != to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type!='date'">
+                            and ${item.fieldName} &gt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type=='date'">
+                            and to_days(${item.fieldName}) &gt;= to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type!='date'">
+                            and ${item.fieldName} &lt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type=='date'">
+                            and to_days(${item.fieldName}) &lt;= to_days(#{item.fieldValue})
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+            <if test="otherConditions!=null">
+                <if test="otherConditions.billType!=null and otherConditions.billType.size()>0">
+                    and BillType in
+                    <foreach collection="otherConditions.billType" item="item" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="otherConditions.billStatus!=null and otherConditions.billStatus.size()>0">
+                    and BillStatus in
+                    <foreach collection="otherConditions.billStatus" item="item" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="otherConditions.payMethod!=null and otherConditions.payMethod.size()>0">
+                    and PayMethod in
+                    <foreach collection="otherConditions.payMethod" item="item" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="otherConditions.billStartNum != null and otherConditions.billStartNum != ''">
+                    and BillNum &gt;= #{otherConditions.billStartNum}
+                </if>
+                <if test="otherConditions.billEndNum != null and otherConditions.billEndNum!=''">
+                    and BillNum &lt;= #{otherConditions.billEndNum}
+                </if>
+                <if test="otherConditions.usedStartDate != null">
+                    and UsedDate &gt;= #{otherConditions.usedStartDate}
+                </if>
+                <if test="otherConditions.usedEndDate != null">
+                    and UsedDate &lt;= #{otherConditions.usedEndDate}
+                </if>
+                <if test="otherConditions.billStartNum != null and otherConditions.billStartNum!=''">
+                    and BillNum &gt;= #{otherConditions.billStartNum}
+                </if>
+                <if test="otherConditions.billCode != null and otherConditions.billCode!=''">
+                    and BillCode like CONCAT('%', #{otherConditions.billCode}, '%')
+                </if>
+            </if>
+
+            <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+                order by ${fieldName}
+                <if test="orderBy != null and orderBy != ''">
+                    ${orderBy}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="NsbillBillUsedResultMap">
+        select
+        <include refid="NsbillBillUsed_Column_List"/>
+        from
+        NS_Bill_BillUsed
+        where
+        Id = #{id}
+    </select>
+    
+    <select id="selectByIds" parameterType="java.util.List" resultMap="NsbillBillUsedResultMap">
+        select
+        <include refid="NsbillBillUsed_Column_List"/>
+        from
+        NS_Bill_BillUsed
+        where
+        Id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
+    <select id="listCheckBillUseManBatch" parameterType="com.newsee.bill.vo.BillUseManSearchVo" resultMap="NsbillBillUsedResultMap">
+        SELECT
+          <include refid="NsbillBillUsed_Column_List"></include>
+        FROM NS_Bill_BillUsed
+        <where>
+            IsDelete = 0
+            and IsCheck = #{isCheck}
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId}
+            </if>
+            <if test="organizationId != null">
+                and OrganizationId = #{organizationId}
+            </if>
+            <if test="billStartNum != null and billStartNum!=''">
+                and BillNum &gt;= #{billStartNum}
+            </if>
+            <if test="billEndNum != null and billEndNum!=''">
+                and BillNum &lt;= #{billEndNum}
+            </if>
+            <if test="checkStartDate != null">
+                and CheckDate &gt;= #{checkStartDate}
+            </if>
+            <if test="checkEndDate != null">
+                and CheckDate &lt;= #{checkEndDate}
+            </if>
+            <if test="billType != null and billType.size() >0">
+                and BillType in
+                <foreach collection="billType" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="houseId != null">
+                and HouseList like CONCAT('%/', #{path}, '/%')
+            </if>
+            <if test="usedUserId != null">
+                and UseUserID = #{usedUserId}
+            </if>
+            <if test="billStatus != null and billStatus.size() >0">
+                and BillStatus in
+                <foreach collection="billStatus" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="usedStartDate != null">
+                and UsedDate &gt;= #{usedStartDate}
+            </if>
+            <if test="usedEndDate != null">
+                and UsedDate &lt;= #{usedEndDate}
+            </if>
+            <if test="accountBook != null">
+                and AccountBook = #{accountBook}
+            </if>
+            <if test="payMethod != null and payMethod.size() > 0">
+                and PayMethod in
+                <foreach collection="payMethod" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="billCode != null and billCode!=''">
+                and BillCode like CONCAT('%', #{billCode}, '%')
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectByCode" parameterType="com.newsee.bill.vo.BillUseManSearchVo" resultMap="NsbillBillUsedResultMap">
+        SELECT
+          <include refid="NsbillBillUsed_Column_List"></include>
+        FROM NS_Bill_BillUsed
+        <where>
+            IsDelete = 0
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId}
+            </if>
+            <if test="organizationId != null">
+                and OrganizationId = #{organizationId}
+            </if>
+            <if test="billCode != null and billCode!=''">
+                and BillCode like CONCAT('%', #{billCode}, '%')
+            </if>
+        </where>
+    </select>
+    
+    <resultMap id="NsBillCheckBillUsedResultMap" type="com.newsee.bill.vo.BillUseManCheckVo">
+        <result property="billType" column="BillType" jdbcType="VARCHAR"/>
+        <result property="drawNum" column="DrawNum" jdbcType="BIGINT"/>
+        <result property="usedNum" column="UsedNum" jdbcType="BIGINT"/>
+        <result property="destroyNum" column="DestroyNum" jdbcType="BIGINT"/>
+        <result property="checkedNum" column="CheckedNum" jdbcType="BIGINT"/>
+        <result property="billFund" column="BillFund" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="listCheckBillUseManBatchGroupBy" parameterType="com.newsee.bill.vo.BillUseManSearchVo" resultMap="NsBillCheckBillUsedResultMap">
+        SELECT
+        BillType,COUNT(id) AS UsedNum,SUM(BillFund) AS BillFund
+        FROM NS_Bill_BillUsed
+        <where>
+            IsDelete = 0
+            and IsCheck = #{isCheck}
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId}
+            </if>
+            <if test="organizationId != null">
+                and OrganizationId = #{organizationId}
+            </if>
+            <if test="billStartNum != null and billStartNum!=''">
+                and BillNum &gt;= #{billStartNum}
+            </if>
+            <if test="billEndNum != null and billEndNum!=''">
+                and BillNum &lt;= #{billEndNum}
+            </if>
+            <if test="checkStartDate != null">
+                and CheckDate &gt;= #{checkStartDate}
+            </if>
+            <if test="checkEndDate != null">
+                and CheckDate &lt;= #{checkEndDate}
+            </if>
+            <if test="billType != null and billType.size() >0">
+                and BillType in
+                <foreach collection="billType" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="houseId != null">
+                and HouseList like CONCAT('%/', #{path}, '/%')
+            </if>
+            <if test="usedUserId != null">
+                and UseUserID = #{usedUserId}
+            </if>
+            <if test="billStatus != null and billStatus.size() >0">
+                and BillStatus in
+                <foreach collection="billStatus" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="usedStartDate != null">
+                and UsedDate &gt;= #{usedStartDate}
+            </if>
+            <if test="usedEndDate != null">
+                and UsedDate &lt;= #{usedEndDate}
+            </if>
+            <if test="accountBook != null">
+                and AccountBook = #{accountBook}
+            </if>
+            <if test="payMethod != null and payMethod.size() > 0">
+                and PayMethod in
+                <foreach collection="payMethod" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="billCode != null and billCode!=''">
+                and BillCode = #{billCode}
+            </if>
+        </where>
+        GROUP BY BillType
+    </select>
+
+    <update id="enableBill" parameterType="com.newsee.bill.entity.NsbillBillUsed">
+        update NS_Bill_BillUsed
+        <set>
+            BillStatus=#{billStatus}
+        </set>
+        where
+        id in
+        <foreach collection="ids" open="(" close=")" separator="," item="item">
+            ${item}
+        </foreach>
+    </update>
+
+    <update id="checkBillUseMan" parameterType="com.newsee.bill.entity.NsbillBillUsed">
+        update NS_Bill_BillUsed
+        <set>
+            <if test="checkDate!=null">
+                CheckDate = #{checkDate},
+            </if>
+            <if test="remark!=null">
+                Remark = #{remark},
+            </if>
+            <if test="billStatus!=null and billStatus!=''">
+                BillStatus = #{billStatus},
+            </if>
+            <if test="isCheck!=null">
+                IsCheck = #{isCheck}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateById" parameterType="com.newsee.bill.entity.NsbillBillUsed">
+        update NS_Bill_BillUsed
+        <set>
+            <if test="billDetailId != null">
+                BillDetailId = #{billDetailId, jdbcType=BIGINT },
+            </if>
+            <if test="billNum != null">
+                BillNum = #{billNum, jdbcType=VARCHAR },
+            </if>
+            <if test="billDirectiontiny != null">
+                BillDirectiontiny = #{billDirectiontiny, jdbcType=INTEGER },
+            </if>
+            <if test="billType != null">
+                BillType = #{billType, jdbcType=VARCHAR },
+            </if>
+            <if test="billMoneyType != null">
+                BillMoneyType = #{billMoneyType, jdbcType=VARCHAR },
+            </if>
+            <if test="billTitle != null">
+                BillTitle = #{billTitle, jdbcType=VARCHAR },
+            </if>
+            <if test="usedDate != null">
+                UsedDate = #{usedDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="billFund != null">
+                BillFund = #{billFund, jdbcType=DECIMAL },
+            </if>
+            <if test="isUsed != null">
+                IsUsed = #{isUsed, jdbcType=TINYINT },
+            </if>
+            <if test="isCheck != null">
+                IsCheck = #{isCheck, jdbcType=TINYINT },
+            </if>
+            <if test="checkUserId != null">
+                CheckUserId = #{checkUserId, jdbcType=BIGINT },
+            </if>
+            <if test="checkDate != null">
+                CheckDate = #{checkDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="isDestroy != null">
+                IsDestroy = #{isDestroy, jdbcType=TINYINT },
+            </if>
+            <if test="destroyDate != null">
+                DestroyDate = #{destroyDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="opDate != null">
+                OpDate = #{opDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="dealUserId != null">
+                DealUserId = #{dealUserId, jdbcType=BIGINT },
+            </if>
+            <if test="remark != null">
+                Remark = #{remark, jdbcType=VARCHAR },
+            </if>
+            <if test="customerId != null">
+                CustomerId = #{customerId, jdbcType=BIGINT },
+            </if>
+            <if test="accountBook != null">
+                AccountBook = #{accountBook, jdbcType=INTEGER },
+            </if>
+            <if test="addRemark != null">
+                AddRemark = #{addRemark, jdbcType=VARCHAR },
+            </if>
+            <if test="changeDate != null">
+                ChangeDate = #{changeDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="changeUserId != null">
+                ChangeUserId = #{changeUserId, jdbcType=BIGINT },
+            </if>
+            <if test="checkOperateDate != null">
+                CheckOperateDate = #{checkOperateDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="correctStatus != null">
+                CorrectStatus = #{correctStatus, jdbcType=INTEGER },
+            </if>
+            <if test="destroyUserId != null">
+                DestroyUserId = #{destroyUserId, jdbcType=BIGINT },
+            </if>
+            <if test="drawDate != null">
+                DrawDate = #{drawDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="drawDepartmentId != null">
+                DrawDepartmentId = #{drawDepartmentId, jdbcType=VARCHAR },
+            </if>
+            <if test="drawId != null">
+                DrawId = #{drawId, jdbcType=BIGINT },
+            </if>
+            <if test="drawUserId != null">
+                DrawUserId = #{drawUserId, jdbcType=BIGINT },
+            </if>
+            <if test="handlingCharge != null">
+                HandlingCharge = #{handlingCharge, jdbcType=DECIMAL },
+            </if>
+            <if test="houseList != null">
+                HouseList = #{houseList, jdbcType=VARCHAR },
+            </if>
+            <if test="isChange != null">
+                IsChange = #{isChange, jdbcType=TINYINT },
+            </if>
+            <if test="isDayClosing != null">
+                IsDayClosing = #{isDayClosing, jdbcType=INTEGER },
+            </if>
+            <if test="isPrinted != null">
+                IsPrinted = #{isPrinted, jdbcType=TINYINT },
+            </if>
+            <if test="opUserId != null">
+                OpUserId = #{opUserId, jdbcType=BIGINT },
+            </if>
+            <if test="refBillNum != null">
+                RefBillNum = #{refBillNum, jdbcType=VARCHAR },
+            </if>
+            <if test="refBillType != null">
+                RefBillType = #{refBillType, jdbcType=VARCHAR },
+            </if>
+            <if test="satelliteCards != null">
+                SatelliteCards = #{satelliteCards, jdbcType=VARCHAR },
+            </if>
+            <if test="voucherNum != null">
+                VoucherNum = #{voucherNum, jdbcType=VARCHAR },
+            </if>
+            <if test="importBatchId != null">
+                ImportBatchID = #{importBatchId, jdbcType=BIGINT },
+            </if>
+            <if test="batchDestoryId != null">
+                BatchDestoryId = #{batchDestoryId, jdbcType=BIGINT },
+            </if>
+            <if test="enterAccountUserId != null">
+                EnterAccountUserID = #{enterAccountUserId, jdbcType=BIGINT },
+            </if>
+            <if test="enterAccountDate != null">
+                EnterAccountDate = #{enterAccountDate, jdbcType=DATE },
+            </if>
+            <if test="billCode != null">
+                BillCode = #{billCode, jdbcType=VARCHAR },
+            </if>
+            <if test="billTaxId != null">
+                BillTaxID = #{billTaxId, jdbcType=BIGINT },
+            </if>
+            <if test="newBillTitle != null">
+                NewBillTitle = #{newBillTitle, jdbcType=VARCHAR },
+            </if>
+            <if test="useUserId != null">
+                UseUserID = #{useUserId, jdbcType=BIGINT },
+            </if>
+            <if test="isRecycle != null">
+                IsRecycle = #{isRecycle, jdbcType=VARCHAR },
+            </if>
+            <if test="recycleDate != null">
+                RecycleDate = #{recycleDate, jdbcType=DATE },
+            </if>
+            <if test="recycleUserId != null">
+                RecycleUserID = #{recycleUserId, jdbcType=BIGINT },
+            </if>
+            <if test="taxAmount != null">
+                TaxAmount = #{taxAmount, jdbcType=DECIMAL },
+            </if>
+            <if test="notTaxAmount != null">
+                NotTaxAmount = #{notTaxAmount, jdbcType=DECIMAL },
+            </if>
+            <if test="isUpload != null">
+                IsUpload = #{isUpload, jdbcType=VARCHAR },
+            </if>
+            <if test="resBillNo != null">
+                ResBillNo = #{resBillNo, jdbcType=VARCHAR },
+            </if>
+            <if test="specialRemark != null">
+                SpecialRemark = #{specialRemark, jdbcType=VARCHAR },
+            </if>
+            <if test="billJpgurl != null">
+                BillJPGUrl = #{billJpgurl, jdbcType=VARCHAR },
+            </if>
+            <if test="billPdfurl != null">
+                BillPDFUrl = #{billPdfurl, jdbcType=VARCHAR },
+            </if>
+            <if test="billJpg != null">
+                BillJPG = #{billJpg, jdbcType=VARCHAR },
+            </if>
+            <if test="printNum != null">
+                PrintNum = #{printNum, jdbcType=BIGINT },
+            </if>
+            <if test="customerTaxCode != null">
+                CustomerTaxCode = #{customerTaxCode, jdbcType=VARCHAR },
+            </if>
+            <if test="customerBankAccount != null">
+                CustomerBankAccount = #{customerBankAccount, jdbcType=VARCHAR },
+            </if>
+            <if test="customerAddressPhone != null">
+                CustomerAddressPhone = #{customerAddressPhone, jdbcType=VARCHAR },
+            </if>
+            <if test="fpqqlsh != null">
+                Fpqqlsh = #{fpqqlsh, jdbcType=VARCHAR },
+            </if>
+            <if test="billOrderNo != null">
+                BillOrderNo = #{billOrderNo, jdbcType=VARCHAR },
+            </if>
+            <if test="billTaxNo != null">
+                BillTaxNo = #{billTaxNo, jdbcType=VARCHAR },
+            </if>
+            <if test="billIdentity != null">
+                BillIdentity = #{billIdentity, jdbcType=VARCHAR },
+            </if>
+            <if test="createUserId != null">
+                CreateUserId = #{createUserId, jdbcType=BIGINT },
+            </if>
+            <if test="createUserName != null">
+                CreateUserName = #{createUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="createTime != null">
+                CreateTime = #{createTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="updateTime != null">
+                UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="isDelete != null">
+                IsDelete = #{isDelete, jdbcType=INTEGER },
+            </if>
+        </set>
+        where
+        Id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+		delete from NS_Bill_BillUsed 
+		where
+			Id = #{id}
+	</delete>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from NS_Bill_BillUsed
+        where
+        Id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.newsee.bill.entity.NsbillBillUsed">
+        insert into NS_Bill_BillUsed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="billDetailId != null">
+                BillDetailId,
+            </if>
+            <if test="billNum != null">
+                BillNum,
+            </if>
+            <if test="billDirectiontiny != null">
+                BillDirectiontiny,
+            </if>
+            <if test="billType != null">
+                BillType,
+            </if>
+            <if test="billMoneyType != null">
+                BillMoneyType,
+            </if>
+            <if test="billTitle != null">
+                BillTitle,
+            </if>
+            <if test="usedDate != null">
+                UsedDate,
+            </if>
+            <if test="billFund != null">
+                BillFund,
+            </if>
+            <if test="isUsed != null">
+                IsUsed,
+            </if>
+            <if test="isCheck != null">
+                IsCheck,
+            </if>
+            <if test="checkUserId != null">
+                CheckUserId,
+            </if>
+            <if test="checkDate != null">
+                CheckDate,
+            </if>
+            <if test="isDestroy != null">
+                IsDestroy,
+            </if>
+            <if test="destroyDate != null">
+                DestroyDate,
+            </if>
+            <if test="opDate != null">
+                OpDate,
+            </if>
+            <if test="dealUserId != null">
+                DealUserId,
+            </if>
+            <if test="remark != null">
+                Remark,
+            </if>
+            <if test="customerId != null">
+                CustomerId,
+            </if>
+            <if test="accountBook != null">
+                AccountBook,
+            </if>
+            <if test="addRemark != null">
+                AddRemark,
+            </if>
+            <if test="changeDate != null">
+                ChangeDate,
+            </if>
+            <if test="changeUserId != null">
+                ChangeUserId,
+            </if>
+            <if test="checkOperateDate != null">
+                CheckOperateDate,
+            </if>
+            <if test="correctStatus != null">
+                CorrectStatus,
+            </if>
+            <if test="destroyUserId != null">
+                DestroyUserId,
+            </if>
+            <if test="drawDate != null">
+                DrawDate,
+            </if>
+            <if test="drawDepartmentId != null">
+                DrawDepartmentId,
+            </if>
+            <if test="drawId != null">
+                DrawId,
+            </if>
+            <if test="drawUserId != null">
+                DrawUserId,
+            </if>
+            <if test="handlingCharge != null">
+                HandlingCharge,
+            </if>
+            <if test="houseList != null">
+                HouseList,
+            </if>
+            <if test="isChange != null">
+                IsChange,
+            </if>
+            <if test="isDayClosing != null">
+                IsDayClosing,
+            </if>
+            <if test="isPrinted != null">
+                IsPrinted,
+            </if>
+            <if test="opUserId != null">
+                OpUserId,
+            </if>
+            <if test="refBillNum != null">
+                RefBillNum,
+            </if>
+            <if test="refBillType != null">
+                RefBillType,
+            </if>
+            <if test="satelliteCards != null">
+                SatelliteCards,
+            </if>
+            <if test="voucherNum != null">
+                VoucherNum,
+            </if>
+            <if test="importBatchId != null">
+                ImportBatchID,
+            </if>
+            <if test="batchDestoryId != null">
+                BatchDestoryId,
+            </if>
+            <if test="enterAccountUserId != null">
+                EnterAccountUserID,
+            </if>
+            <if test="enterAccountDate != null">
+                EnterAccountDate,
+            </if>
+            <if test="billCode != null">
+                BillCode,
+            </if>
+            <if test="billTaxId != null">
+                BillTaxID,
+            </if>
+            <if test="newBillTitle != null">
+                NewBillTitle,
+            </if>
+            <if test="useUserId != null">
+                UseUserID,
+            </if>
+            <if test="isRecycle != null">
+                IsRecycle,
+            </if>
+            <if test="recycleDate != null">
+                RecycleDate,
+            </if>
+            <if test="recycleUserId != null">
+                RecycleUserID,
+            </if>
+            <if test="taxAmount != null">
+                TaxAmount,
+            </if>
+            <if test="notTaxAmount != null">
+                NotTaxAmount,
+            </if>
+            <if test="isUpload != null">
+                IsUpload,
+            </if>
+            <if test="resBillNo != null">
+                ResBillNo,
+            </if>
+            <if test="specialRemark != null">
+                SpecialRemark,
+            </if>
+            <if test="billJpgurl != null">
+                BillJPGUrl,
+            </if>
+            <if test="billPdfurl != null">
+                BillPDFUrl,
+            </if>
+            <if test="billJpg != null">
+                BillJPG,
+            </if>
+            <if test="printNum != null">
+                PrintNum,
+            </if>
+            <if test="customerTaxCode != null">
+                CustomerTaxCode,
+            </if>
+            <if test="customerBankAccount != null">
+                CustomerBankAccount,
+            </if>
+            <if test="customerAddressPhone != null">
+                CustomerAddressPhone,
+            </if>
+            <if test="fpqqlsh != null">
+                Fpqqlsh,
+            </if>
+            <if test="billOrderNo != null">
+                BillOrderNo,
+            </if>
+            <if test="billTaxNo != null">
+                BillTaxNo,
+            </if>
+            <if test="billIdentity != null">
+                BillIdentity,
+            </if>
+            <if test="createUserId != null">
+                CreateUserId,
+            </if>
+            <if test="createUserName != null">
+                CreateUserName,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId,
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName,
+            </if>
+            <if test="updateTime != null">
+                UpdateTime,
+            </if>
+            <if test="isDelete != null">
+                IsDelete,
+            </if>
+            <if test="customerName != null">
+                CustomerName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="billDetailId != null">
+                #{billDetailId, jdbcType=BIGINT},
+            </if>
+            <if test="billNum != null">
+                #{billNum, jdbcType=VARCHAR},
+            </if>
+            <if test="billDirectiontiny != null">
+                #{billDirectiontiny, jdbcType=INTEGER},
+            </if>
+            <if test="billType != null">
+                #{billType, jdbcType=VARCHAR},
+            </if>
+            <if test="billMoneyType != null">
+                #{billMoneyType, jdbcType=VARCHAR},
+            </if>
+            <if test="billTitle != null">
+                #{billTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="usedDate != null">
+                #{usedDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="billFund != null">
+                #{billFund, jdbcType=DECIMAL},
+            </if>
+            <if test="isUsed != null">
+                #{isUsed, jdbcType=TINYINT},
+            </if>
+            <if test="isCheck != null">
+                #{isCheck, jdbcType=TINYINT},
+            </if>
+            <if test="checkUserId != null">
+                #{checkUserId, jdbcType=BIGINT},
+            </if>
+            <if test="checkDate != null">
+                #{checkDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDestroy != null">
+                #{isDestroy, jdbcType=TINYINT},
+            </if>
+            <if test="destroyDate != null">
+                #{destroyDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="opDate != null">
+                #{opDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="dealUserId != null">
+                #{dealUserId, jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                #{remark, jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                #{customerId, jdbcType=BIGINT},
+            </if>
+            <if test="accountBook != null">
+                #{accountBook, jdbcType=INTEGER},
+            </if>
+            <if test="addRemark != null">
+                #{addRemark, jdbcType=VARCHAR},
+            </if>
+            <if test="changeDate != null">
+                #{changeDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="changeUserId != null">
+                #{changeUserId, jdbcType=BIGINT},
+            </if>
+            <if test="checkOperateDate != null">
+                #{checkOperateDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="correctStatus != null">
+                #{correctStatus, jdbcType=INTEGER},
+            </if>
+            <if test="destroyUserId != null">
+                #{destroyUserId, jdbcType=BIGINT},
+            </if>
+            <if test="drawDate != null">
+                #{drawDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="drawDepartmentId != null">
+                #{drawDepartmentId, jdbcType=VARCHAR},
+            </if>
+            <if test="drawId != null">
+                #{drawId, jdbcType=BIGINT},
+            </if>
+            <if test="drawUserId != null">
+                #{drawUserId, jdbcType=BIGINT},
+            </if>
+            <if test="handlingCharge != null">
+                #{handlingCharge, jdbcType=DECIMAL},
+            </if>
+            <if test="houseList != null">
+                #{houseList, jdbcType=VARCHAR},
+            </if>
+            <if test="isChange != null">
+                #{isChange, jdbcType=TINYINT},
+            </if>
+            <if test="isDayClosing != null">
+                #{isDayClosing, jdbcType=INTEGER},
+            </if>
+            <if test="isPrinted != null">
+                #{isPrinted, jdbcType=TINYINT},
+            </if>
+            <if test="opUserId != null">
+                #{opUserId, jdbcType=BIGINT},
+            </if>
+            <if test="refBillNum != null">
+                #{refBillNum, jdbcType=VARCHAR},
+            </if>
+            <if test="refBillType != null">
+                #{refBillType, jdbcType=VARCHAR},
+            </if>
+            <if test="satelliteCards != null">
+                #{satelliteCards, jdbcType=VARCHAR},
+            </if>
+            <if test="voucherNum != null">
+                #{voucherNum, jdbcType=VARCHAR},
+            </if>
+            <if test="importBatchId != null">
+                #{importBatchId, jdbcType=BIGINT},
+            </if>
+            <if test="batchDestoryId != null">
+                #{batchDestoryId, jdbcType=BIGINT},
+            </if>
+            <if test="enterAccountUserId != null">
+                #{enterAccountUserId, jdbcType=BIGINT},
+            </if>
+            <if test="enterAccountDate != null">
+                #{enterAccountDate, jdbcType=DATE},
+            </if>
+            <if test="billCode != null">
+                #{billCode, jdbcType=VARCHAR},
+            </if>
+            <if test="billTaxId != null">
+                #{billTaxId, jdbcType=BIGINT},
+            </if>
+            <if test="newBillTitle != null">
+                #{newBillTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="useUserId != null">
+                #{useUserId, jdbcType=BIGINT},
+            </if>
+            <if test="isRecycle != null">
+                #{isRecycle, jdbcType=VARCHAR},
+            </if>
+            <if test="recycleDate != null">
+                #{recycleDate, jdbcType=DATE},
+            </if>
+            <if test="recycleUserId != null">
+                #{recycleUserId, jdbcType=BIGINT},
+            </if>
+            <if test="taxAmount != null">
+                #{taxAmount, jdbcType=DECIMAL},
+            </if>
+            <if test="notTaxAmount != null">
+                #{notTaxAmount, jdbcType=DECIMAL},
+            </if>
+            <if test="isUpload != null">
+                #{isUpload, jdbcType=VARCHAR},
+            </if>
+            <if test="resBillNo != null">
+                #{resBillNo, jdbcType=VARCHAR},
+            </if>
+            <if test="specialRemark != null">
+                #{specialRemark, jdbcType=VARCHAR},
+            </if>
+            <if test="billJpgurl != null">
+                #{billJpgurl, jdbcType=VARCHAR},
+            </if>
+            <if test="billPdfurl != null">
+                #{billPdfurl, jdbcType=VARCHAR},
+            </if>
+            <if test="billJpg != null">
+                #{billJpg, jdbcType=VARCHAR},
+            </if>
+            <if test="printNum != null">
+                #{printNum, jdbcType=BIGINT},
+            </if>
+            <if test="customerTaxCode != null">
+                #{customerTaxCode, jdbcType=VARCHAR},
+            </if>
+            <if test="customerBankAccount != null">
+                #{customerBankAccount, jdbcType=VARCHAR},
+            </if>
+            <if test="customerAddressPhone != null">
+                #{customerAddressPhone, jdbcType=VARCHAR},
+            </if>
+            <if test="fpqqlsh != null">
+                #{fpqqlsh, jdbcType=VARCHAR},
+            </if>
+            <if test="billOrderNo != null">
+                #{billOrderNo, jdbcType=VARCHAR},
+            </if>
+            <if test="billTaxNo != null">
+                #{billTaxNo, jdbcType=VARCHAR},
+            </if>
+            <if test="billIdentity != null">
+                #{billIdentity, jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId, jdbcType=BIGINT},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId, jdbcType=BIGINT},
+            </if>
+            <if test="updateUserName != null">
+                #{updateUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=INTEGER},
+            </if>
+            <if test="customerName != null">
+                #{customer, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into NS_Bill_BillUsed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            BillDetailId,
+            BillNum,
+            BillDirectiontiny,
+            BillType,
+            BillMoneyType,
+            BillTitle,
+            UsedDate,
+            BillFund,
+            IsUsed,
+            IsCheck,
+            CheckUserId,
+            CheckDate,
+            IsDestroy,
+            DestroyDate,
+            OpDate,
+            DealUserId,
+            Remark,
+            CustomerId,
+            AccountBook,
+            AddRemark,
+            ChangeDate,
+            ChangeUserId,
+            CheckOperateDate,
+            CorrectStatus,
+            DestroyUserId,
+            DrawDate,
+            DrawDepartmentId,
+            DrawId,
+            DrawUserId,
+            HandlingCharge,
+            HouseList,
+            IsChange,
+            IsDayClosing,
+            IsPrinted,
+            OpUserId,
+            RefBillNum,
+            RefBillType,
+            SatelliteCards,
+            VoucherNum,
+            ImportBatchID,
+            BatchDestoryId,
+            EnterAccountUserID,
+            EnterAccountDate,
+            BillCode,
+            BillTaxID,
+            NewBillTitle,
+            UseUserID,
+            IsRecycle,
+            RecycleDate,
+            RecycleUserID,
+            TaxAmount,
+            NotTaxAmount,
+            IsUpload,
+            ResBillNo,
+            SpecialRemark,
+            BillJPGUrl,
+            BillPDFUrl,
+            BillJPG,
+            PrintNum,
+            CustomerTaxCode,
+            CustomerBankAccount,
+            CustomerAddressPhone,
+            Fpqqlsh,
+            BillOrderNo,
+            BillTaxNo,
+            BillIdentity,
+            CreateUserId,
+            CreateUserName,
+            CreateTime,
+            UpdateUserId,
+            UpdateUserName,
+            UpdateTime,
+            IsDelete,
+            CustomerName
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.billDetailId, jdbcType=BIGINT},
+            #{item.billNum, jdbcType=VARCHAR},
+            #{item.billDirectiontiny, jdbcType=INTEGER},
+            #{item.billType, jdbcType=VARCHAR},
+            #{item.billMoneyType, jdbcType=VARCHAR},
+            #{item.billTitle, jdbcType=VARCHAR},
+            #{item.usedDate, jdbcType=TIMESTAMP},
+            #{item.billFund, jdbcType=DECIMAL},
+            #{item.isUsed, jdbcType=TINYINT},
+            #{item.isCheck, jdbcType=TINYINT},
+            #{item.checkUserId, jdbcType=BIGINT},
+            #{item.checkDate, jdbcType=TIMESTAMP},
+            #{item.isDestroy, jdbcType=TINYINT},
+            #{item.destroyDate, jdbcType=TIMESTAMP},
+            #{item.opDate, jdbcType=TIMESTAMP},
+            #{item.dealUserId, jdbcType=BIGINT},
+            #{item.remark, jdbcType=VARCHAR},
+            #{item.customerId, jdbcType=BIGINT},
+            #{item.accountBook, jdbcType=INTEGER},
+            #{item.addRemark, jdbcType=VARCHAR},
+            #{item.changeDate, jdbcType=TIMESTAMP},
+            #{item.changeUserId, jdbcType=BIGINT},
+            #{item.checkOperateDate, jdbcType=TIMESTAMP},
+            #{item.correctStatus, jdbcType=INTEGER},
+            #{item.destroyUserId, jdbcType=BIGINT},
+            #{item.drawDate, jdbcType=TIMESTAMP},
+            #{item.drawDepartmentId, jdbcType=VARCHAR},
+            #{item.drawId, jdbcType=BIGINT},
+            #{item.drawUserId, jdbcType=BIGINT},
+            #{item.handlingCharge, jdbcType=DECIMAL},
+            #{item.houseList, jdbcType=VARCHAR},
+            #{item.isChange, jdbcType=TINYINT},
+            #{item.isDayClosing, jdbcType=INTEGER},
+            #{item.isPrinted, jdbcType=TINYINT},
+            #{item.opUserId, jdbcType=BIGINT},
+            #{item.refBillNum, jdbcType=VARCHAR},
+            #{item.refBillType, jdbcType=VARCHAR},
+            #{item.satelliteCards, jdbcType=VARCHAR},
+            #{item.voucherNum, jdbcType=VARCHAR},
+            #{item.importBatchId, jdbcType=BIGINT},
+            #{item.batchDestoryId, jdbcType=BIGINT},
+            #{item.enterAccountUserId, jdbcType=BIGINT},
+            #{item.enterAccountDate, jdbcType=DATE},
+            #{item.billCode, jdbcType=VARCHAR},
+            #{item.billTaxId, jdbcType=BIGINT},
+            #{item.newBillTitle, jdbcType=VARCHAR},
+            #{item.useUserId, jdbcType=BIGINT},
+            #{item.isRecycle, jdbcType=VARCHAR},
+            #{item.recycleDate, jdbcType=DATE},
+            #{item.recycleUserId, jdbcType=BIGINT},
+            #{item.taxAmount, jdbcType=DECIMAL},
+            #{item.notTaxAmount, jdbcType=DECIMAL},
+            #{item.isUpload, jdbcType=VARCHAR},
+            #{item.resBillNo, jdbcType=VARCHAR},
+            #{item.specialRemark, jdbcType=VARCHAR},
+            #{item.billJpgurl, jdbcType=VARCHAR},
+            #{item.billPdfurl, jdbcType=VARCHAR},
+            #{item.billJpg, jdbcType=VARCHAR},
+            #{item.printNum, jdbcType=BIGINT},
+            #{item.customerTaxCode, jdbcType=VARCHAR},
+            #{item.customerBankAccount, jdbcType=VARCHAR},
+            #{item.customerAddressPhone, jdbcType=VARCHAR},
+            #{item.fpqqlsh, jdbcType=VARCHAR},
+            #{item.billOrderNo, jdbcType=VARCHAR},
+            #{item.billTaxNo, jdbcType=VARCHAR},
+            #{item.billIdentity, jdbcType=VARCHAR},
+            #{item.createUserId, jdbcType=BIGINT},
+            #{item.createUserName, jdbcType=VARCHAR},
+            #{item.createTime, jdbcType=TIMESTAMP},
+            #{item.updateUserId, jdbcType=BIGINT},
+            #{item.updateUserName, jdbcType=VARCHAR},
+            #{item.updateTime, jdbcType=TIMESTAMP},
+            #{item.isDelete, jdbcType=INTEGER},
+            #{item.customerName, jdbcType=VARCHAR},
+            )
+        </foreach>
+    </insert>
+
+</mapper>

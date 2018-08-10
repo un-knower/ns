@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.WyglChargeCustomerChargeDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.WyglChargeCustomerChargeDetail" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CustomerID" property="customerid" jdbcType="BIGINT" />
+    <result column="HouseID" property="houseid" jdbcType="BIGINT" />
+    <result column="MeterID" property="meterid" jdbcType="BIGINT" />
+    <result column="DummyMeterID" property="dummymeterid" jdbcType="BIGINT" />
+    <result column="ChargeItemID" property="chargeitemid" jdbcType="BIGINT" />
+    <result column="ChargeID" property="chargeid" jdbcType="BIGINT" />
+    <result column="ShouldChargeDate" property="shouldchargedate" jdbcType="TIMESTAMP" />
+    <result column="CalcStartDate" property="calcstartdate" jdbcType="TIMESTAMP" />
+    <result column="CalcEndDate" property="calcenddate" jdbcType="TIMESTAMP" />
+    <result column="Price" property="price" jdbcType="DECIMAL" />
+    <result column="Amount" property="amount" jdbcType="DECIMAL" />
+    <result column="ChargeSum" property="chargesum" jdbcType="DECIMAL" />
+    <result column="Discount" property="discount" jdbcType="DECIMAL" />
+    <result column="DelaySum" property="delaysum" jdbcType="DECIMAL" />
+    <result column="DelayDays" property="delaydays" jdbcType="INTEGER" />
+    <result column="DelayDiscount" property="delaydiscount" jdbcType="DECIMAL" />
+    <result column="ActualChargeSum" property="actualchargesum" jdbcType="DECIMAL" />
+    <result column="Rate" property="rate" jdbcType="DECIMAL" />
+    <result column="IsCheck" property="ischeck" jdbcType="TINYINT" />
+    <result column="CheckUserID" property="checkuserid" jdbcType="INTEGER" />
+    <result column="CheckDate" property="checkdate" jdbcType="TIMESTAMP" />
+    <result column="DelayDate" property="delaydate" jdbcType="TIMESTAMP" />
+    <result column="ShouldPaid" property="shouldpaid" jdbcType="DECIMAL" />
+    <result column="PaidChargeSum" property="paidchargesum" jdbcType="DECIMAL" />
+    <result column="IsPaid" property="ispaid" jdbcType="TINYINT" />
+    <result column="PaidDate" property="paiddate" jdbcType="TIMESTAMP" />
+    <result column="ChargeSource" property="chargesource" jdbcType="VARCHAR" />
+    <result column="PaidCustomerType" property="paidcustomertype" jdbcType="VARCHAR" />
+    <result column="LastReadDegree" property="lastreaddegree" jdbcType="DECIMAL" />
+    <result column="CurrentReadDegree" property="currentreaddegree" jdbcType="DECIMAL" />
+    <result column="UseDegrees" property="usedegrees" jdbcType="DECIMAL" />
+    <result column="Dynameter" property="dynameter" jdbcType="DECIMAL" />
+    <result column="ServicesID" property="servicesid" jdbcType="BIGINT" />
+    <result column="IsEdit" property="isedit" jdbcType="TINYINT" />
+    <result column="IsClosing" property="isclosing" jdbcType="TINYINT" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="DiscountType" property="discounttype" jdbcType="VARCHAR" />
+    <result column="PrecinctID" property="precinctid" jdbcType="BIGINT" />
+    <result column="AccountBook" property="accountbook" jdbcType="BIGINT" />
+    <result column="IsCloseStat" property="isclosestat" jdbcType="INTEGER" />
+    <result column="FrozenChargeSum" property="frozenchargesum" jdbcType="DECIMAL" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="IsPaidCustomerTypeUpdate" property="ispaidcustomertypeupdate" jdbcType="INTEGER" />
+    <result column="IsBadDebt" property="isbaddebt" jdbcType="INTEGER" />
+    <result column="BadDebtDate" property="baddebtdate" jdbcType="TIMESTAMP" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="ManualHouseName" property="manualhousename" jdbcType="VARCHAR" />
+    <result column="ManualCustomerName" property="manualcustomername" jdbcType="VARCHAR" />
+    <result column="ManualAutoID" property="manualautoid" jdbcType="VARCHAR" />
+    <result column="ManualSatelliteCardID" property="manualsatellitecardid" jdbcType="VARCHAR" />
+    <result column="ContractID" property="contractid" jdbcType="BIGINT" />
+    <result column="VirtualChargeSum" property="virtualchargesum" jdbcType="DECIMAL" />
+    <result column="RoomStatusForVirtual" property="roomstatusforvirtual" jdbcType="VARCHAR" />
+    <result column="IsRentProfit" property="isrentprofit" jdbcType="TINYINT" />
+    <result column="DelayPaidSum" property="delaypaidsum" jdbcType="DECIMAL" />
+    <result column="ContractType" property="contracttype" jdbcType="INTEGER" />
+    <result column="IsOut" property="isout" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="RentContractHouseID" property="rentcontracthouseid" jdbcType="BIGINT" />
+    <result column="ImportBatchID" property="importbatchid" jdbcType="BIGINT" />
+    <result column="IsAlipayCharge" property="isalipaycharge" jdbcType="INTEGER" />
+    <result column="OldChargeSum" property="oldchargesum" jdbcType="DECIMAL" />
+    <result column="IsUpdateArea" property="isupdatearea" jdbcType="INTEGER" />
+    <result column="UpdateAreaID" property="updateareaid" jdbcType="BIGINT" />
+    <result column="CustomerChangeDate" property="customerchangedate" jdbcType="TIMESTAMP" />
+    <result column="CustomerChangeFlag" property="customerchangeflag" jdbcType="INTEGER" />
+    <result column="IsSplit" property="issplit" jdbcType="TINYINT" />
+    <result column="BeforeSplitID" property="beforesplitid" jdbcType="BIGINT" />
+    <result column="DiscountCheckID" property="discountcheckid" jdbcType="VARCHAR" />
+    <result column="IsHandUp" property="ishandup" jdbcType="TINYINT" />
+    <result column="BillNo" property="billno" jdbcType="VARCHAR" />
+    <result column="ModifyCount" property="modifycount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CustomerID, HouseID, MeterID, DummyMeterID, ChargeItemID, ChargeID, ShouldChargeDate, 
+    CalcStartDate, CalcEndDate, Price, Amount, ChargeSum, Discount, DelaySum, DelayDays, 
+    DelayDiscount, ActualChargeSum, Rate, IsCheck, CheckUserID, CheckDate, DelayDate, 
+    ShouldPaid, PaidChargeSum, IsPaid, PaidDate, ChargeSource, PaidCustomerType, LastReadDegree, 
+    CurrentReadDegree, UseDegrees, Dynameter, ServicesID, IsEdit, IsClosing, Remark, 
+    DiscountType, PrecinctID, AccountBook, IsCloseStat, FrozenChargeSum, UserID, IsPaidCustomerTypeUpdate, 
+    IsBadDebt, BadDebtDate, CreateDate, ManualHouseName, ManualCustomerName, ManualAutoID, 
+    ManualSatelliteCardID, ContractID, VirtualChargeSum, RoomStatusForVirtual, IsRentProfit, 
+    DelayPaidSum, ContractType, IsOut, UpdateTime, RentContractHouseID, ImportBatchID, 
+    IsAlipayCharge, OldChargeSum, IsUpdateArea, UpdateAreaID, CustomerChangeDate, CustomerChangeFlag, 
+    IsSplit, BeforeSplitID, DiscountCheckID, IsHandUp, BillNo, ModifyCount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Wygl_Charge_CustomerChargeDetail
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Wygl_Charge_CustomerChargeDetail
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.WyglChargeCustomerChargeDetail" >
+    insert into Wygl_Charge_CustomerChargeDetail (ID, CustomerID, HouseID, 
+      MeterID, DummyMeterID, ChargeItemID, 
+      ChargeID, ShouldChargeDate, CalcStartDate, 
+      CalcEndDate, Price, Amount, 
+      ChargeSum, Discount, DelaySum, 
+      DelayDays, DelayDiscount, ActualChargeSum, 
+      Rate, IsCheck, CheckUserID, 
+      CheckDate, DelayDate, ShouldPaid, 
+      PaidChargeSum, IsPaid, PaidDate, 
+      ChargeSource, PaidCustomerType, LastReadDegree, 
+      CurrentReadDegree, UseDegrees, Dynameter, 
+      ServicesID, IsEdit, IsClosing, 
+      Remark, DiscountType, PrecinctID, 
+      AccountBook, IsCloseStat, FrozenChargeSum, 
+      UserID, IsPaidCustomerTypeUpdate, IsBadDebt, 
+      BadDebtDate, CreateDate, ManualHouseName, 
+      ManualCustomerName, ManualAutoID, ManualSatelliteCardID, 
+      ContractID, VirtualChargeSum, RoomStatusForVirtual, 
+      IsRentProfit, DelayPaidSum, ContractType, 
+      IsOut, UpdateTime, RentContractHouseID, 
+      ImportBatchID, IsAlipayCharge, OldChargeSum, 
+      IsUpdateArea, UpdateAreaID, CustomerChangeDate, 
+      CustomerChangeFlag, IsSplit, BeforeSplitID, 
+      DiscountCheckID, IsHandUp, BillNo, 
+      ModifyCount)
+    values (#{id,jdbcType=BIGINT}, #{customerid,jdbcType=BIGINT}, #{houseid,jdbcType=BIGINT}, 
+      #{meterid,jdbcType=BIGINT}, #{dummymeterid,jdbcType=BIGINT}, #{chargeitemid,jdbcType=BIGINT}, 
+      #{chargeid,jdbcType=BIGINT}, #{shouldchargedate,jdbcType=TIMESTAMP}, #{calcstartdate,jdbcType=TIMESTAMP}, 
+      #{calcenddate,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{chargesum,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, #{delaysum,jdbcType=DECIMAL}, 
+      #{delaydays,jdbcType=INTEGER}, #{delaydiscount,jdbcType=DECIMAL}, #{actualchargesum,jdbcType=DECIMAL}, 
+      #{rate,jdbcType=DECIMAL}, #{ischeck,jdbcType=TINYINT}, #{checkuserid,jdbcType=INTEGER}, 
+      #{checkdate,jdbcType=TIMESTAMP}, #{delaydate,jdbcType=TIMESTAMP}, #{shouldpaid,jdbcType=DECIMAL}, 
+      #{paidchargesum,jdbcType=DECIMAL}, #{ispaid,jdbcType=TINYINT}, #{paiddate,jdbcType=TIMESTAMP}, 
+      #{chargesource,jdbcType=VARCHAR}, #{paidcustomertype,jdbcType=VARCHAR}, #{lastreaddegree,jdbcType=DECIMAL}, 
+      #{currentreaddegree,jdbcType=DECIMAL}, #{usedegrees,jdbcType=DECIMAL}, #{dynameter,jdbcType=DECIMAL}, 
+      #{servicesid,jdbcType=BIGINT}, #{isedit,jdbcType=TINYINT}, #{isclosing,jdbcType=TINYINT}, 
+      #{remark,jdbcType=VARCHAR}, #{discounttype,jdbcType=VARCHAR}, #{precinctid,jdbcType=BIGINT}, 
+      #{accountbook,jdbcType=BIGINT}, #{isclosestat,jdbcType=INTEGER}, #{frozenchargesum,jdbcType=DECIMAL}, 
+      #{userid,jdbcType=INTEGER}, #{ispaidcustomertypeupdate,jdbcType=INTEGER}, #{isbaddebt,jdbcType=INTEGER}, 
+      #{baddebtdate,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, #{manualhousename,jdbcType=VARCHAR}, 
+      #{manualcustomername,jdbcType=VARCHAR}, #{manualautoid,jdbcType=VARCHAR}, #{manualsatellitecardid,jdbcType=VARCHAR}, 
+      #{contractid,jdbcType=BIGINT}, #{virtualchargesum,jdbcType=DECIMAL}, #{roomstatusforvirtual,jdbcType=VARCHAR}, 
+      #{isrentprofit,jdbcType=TINYINT}, #{delaypaidsum,jdbcType=DECIMAL}, #{contracttype,jdbcType=INTEGER}, 
+      #{isout,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}, #{rentcontracthouseid,jdbcType=BIGINT}, 
+      #{importbatchid,jdbcType=BIGINT}, #{isalipaycharge,jdbcType=INTEGER}, #{oldchargesum,jdbcType=DECIMAL}, 
+      #{isupdatearea,jdbcType=INTEGER}, #{updateareaid,jdbcType=BIGINT}, #{customerchangedate,jdbcType=TIMESTAMP}, 
+      #{customerchangeflag,jdbcType=INTEGER}, #{issplit,jdbcType=TINYINT}, #{beforesplitid,jdbcType=BIGINT}, 
+      #{discountcheckid,jdbcType=VARCHAR}, #{ishandup,jdbcType=TINYINT}, #{billno,jdbcType=VARCHAR}, 
+      #{modifycount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.WyglChargeCustomerChargeDetail" >
+    insert into Wygl_Charge_CustomerChargeDetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="customerid != null" >
+        CustomerID,
+      </if>
+      <if test="houseid != null" >
+        HouseID,
+      </if>
+      <if test="meterid != null" >
+        MeterID,
+      </if>
+      <if test="dummymeterid != null" >
+        DummyMeterID,
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID,
+      </if>
+      <if test="chargeid != null" >
+        ChargeID,
+      </if>
+      <if test="shouldchargedate != null" >
+        ShouldChargeDate,
+      </if>
+      <if test="calcstartdate != null" >
+        CalcStartDate,
+      </if>
+      <if test="calcenddate != null" >
+        CalcEndDate,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="amount != null" >
+        Amount,
+      </if>
+      <if test="chargesum != null" >
+        ChargeSum,
+      </if>
+      <if test="discount != null" >
+        Discount,
+      </if>
+      <if test="delaysum != null" >
+        DelaySum,
+      </if>
+      <if test="delaydays != null" >
+        DelayDays,
+      </if>
+      <if test="delaydiscount != null" >
+        DelayDiscount,
+      </if>
+      <if test="actualchargesum != null" >
+        ActualChargeSum,
+      </if>
+      <if test="rate != null" >
+        Rate,
+      </if>
+      <if test="ischeck != null" >
+        IsCheck,
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID,
+      </if>
+      <if test="checkdate != null" >
+        CheckDate,
+      </if>
+      <if test="delaydate != null" >
+        DelayDate,
+      </if>
+      <if test="shouldpaid != null" >
+        ShouldPaid,
+      </if>
+      <if test="paidchargesum != null" >
+        PaidChargeSum,
+      </if>
+      <if test="ispaid != null" >
+        IsPaid,
+      </if>
+      <if test="paiddate != null" >
+        PaidDate,
+      </if>
+      <if test="chargesource != null" >
+        ChargeSource,
+      </if>
+      <if test="paidcustomertype != null" >
+        PaidCustomerType,
+      </if>
+      <if test="lastreaddegree != null" >
+        LastReadDegree,
+      </if>
+      <if test="currentreaddegree != null" >
+        CurrentReadDegree,
+      </if>
+      <if test="usedegrees != null" >
+        UseDegrees,
+      </if>
+      <if test="dynameter != null" >
+        Dynameter,
+      </if>
+      <if test="servicesid != null" >
+        ServicesID,
+      </if>
+      <if test="isedit != null" >
+        IsEdit,
+      </if>
+      <if test="isclosing != null" >
+        IsClosing,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="discounttype != null" >
+        DiscountType,
+      </if>
+      <if test="precinctid != null" >
+        PrecinctID,
+      </if>
+      <if test="accountbook != null" >
+        AccountBook,
+      </if>
+      <if test="isclosestat != null" >
+        IsCloseStat,
+      </if>
+      <if test="frozenchargesum != null" >
+        FrozenChargeSum,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="ispaidcustomertypeupdate != null" >
+        IsPaidCustomerTypeUpdate,
+      </if>
+      <if test="isbaddebt != null" >
+        IsBadDebt,
+      </if>
+      <if test="baddebtdate != null" >
+        BadDebtDate,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName,
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName,
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID,
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID,
+      </if>
+      <if test="contractid != null" >
+        ContractID,
+      </if>
+      <if test="virtualchargesum != null" >
+        VirtualChargeSum,
+      </if>
+      <if test="roomstatusforvirtual != null" >
+        RoomStatusForVirtual,
+      </if>
+      <if test="isrentprofit != null" >
+        IsRentProfit,
+      </if>
+      <if test="delaypaidsum != null" >
+        DelayPaidSum,
+      </if>
+      <if test="contracttype != null" >
+        ContractType,
+      </if>
+      <if test="isout != null" >
+        IsOut,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="rentcontracthouseid != null" >
+        RentContractHouseID,
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID,
+      </if>
+      <if test="isalipaycharge != null" >
+        IsAlipayCharge,
+      </if>
+      <if test="oldchargesum != null" >
+        OldChargeSum,
+      </if>
+      <if test="isupdatearea != null" >
+        IsUpdateArea,
+      </if>
+      <if test="updateareaid != null" >
+        UpdateAreaID,
+      </if>
+      <if test="customerchangedate != null" >
+        CustomerChangeDate,
+      </if>
+      <if test="customerchangeflag != null" >
+        CustomerChangeFlag,
+      </if>
+      <if test="issplit != null" >
+        IsSplit,
+      </if>
+      <if test="beforesplitid != null" >
+        BeforeSplitID,
+      </if>
+      <if test="discountcheckid != null" >
+        DiscountCheckID,
+      </if>
+      <if test="ishandup != null" >
+        IsHandUp,
+      </if>
+      <if test="billno != null" >
+        BillNo,
+      </if>
+      <if test="modifycount != null" >
+        ModifyCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="dummymeterid != null" >
+        #{dummymeterid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeitemid != null" >
+        #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="shouldchargedate != null" >
+        #{shouldchargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="calcstartdate != null" >
+        #{calcstartdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="calcenddate != null" >
+        #{calcenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="chargesum != null" >
+        #{chargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaysum != null" >
+        #{delaysum,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydays != null" >
+        #{delaydays,jdbcType=INTEGER},
+      </if>
+      <if test="delaydiscount != null" >
+        #{delaydiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="actualchargesum != null" >
+        #{actualchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="ischeck != null" >
+        #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        #{checkuserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delaydate != null" >
+        #{delaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldpaid != null" >
+        #{shouldpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="paidchargesum != null" >
+        #{paidchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="ispaid != null" >
+        #{ispaid,jdbcType=TINYINT},
+      </if>
+      <if test="paiddate != null" >
+        #{paiddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargesource != null" >
+        #{chargesource,jdbcType=VARCHAR},
+      </if>
+      <if test="paidcustomertype != null" >
+        #{paidcustomertype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastreaddegree != null" >
+        #{lastreaddegree,jdbcType=DECIMAL},
+      </if>
+      <if test="currentreaddegree != null" >
+        #{currentreaddegree,jdbcType=DECIMAL},
+      </if>
+      <if test="usedegrees != null" >
+        #{usedegrees,jdbcType=DECIMAL},
+      </if>
+      <if test="dynameter != null" >
+        #{dynameter,jdbcType=DECIMAL},
+      </if>
+      <if test="servicesid != null" >
+        #{servicesid,jdbcType=BIGINT},
+      </if>
+      <if test="isedit != null" >
+        #{isedit,jdbcType=TINYINT},
+      </if>
+      <if test="isclosing != null" >
+        #{isclosing,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="discounttype != null" >
+        #{discounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctid != null" >
+        #{precinctid,jdbcType=BIGINT},
+      </if>
+      <if test="accountbook != null" >
+        #{accountbook,jdbcType=BIGINT},
+      </if>
+      <if test="isclosestat != null" >
+        #{isclosestat,jdbcType=INTEGER},
+      </if>
+      <if test="frozenchargesum != null" >
+        #{frozenchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="ispaidcustomertypeupdate != null" >
+        #{ispaidcustomertypeupdate,jdbcType=INTEGER},
+      </if>
+      <if test="isbaddebt != null" >
+        #{isbaddebt,jdbcType=INTEGER},
+      </if>
+      <if test="baddebtdate != null" >
+        #{baddebtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manualhousename != null" >
+        #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="contractid != null" >
+        #{contractid,jdbcType=BIGINT},
+      </if>
+      <if test="virtualchargesum != null" >
+        #{virtualchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="roomstatusforvirtual != null" >
+        #{roomstatusforvirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="isrentprofit != null" >
+        #{isrentprofit,jdbcType=TINYINT},
+      </if>
+      <if test="delaypaidsum != null" >
+        #{delaypaidsum,jdbcType=DECIMAL},
+      </if>
+      <if test="contracttype != null" >
+        #{contracttype,jdbcType=INTEGER},
+      </if>
+      <if test="isout != null" >
+        #{isout,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentcontracthouseid != null" >
+        #{rentcontracthouseid,jdbcType=BIGINT},
+      </if>
+      <if test="importbatchid != null" >
+        #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="isalipaycharge != null" >
+        #{isalipaycharge,jdbcType=INTEGER},
+      </if>
+      <if test="oldchargesum != null" >
+        #{oldchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="isupdatearea != null" >
+        #{isupdatearea,jdbcType=INTEGER},
+      </if>
+      <if test="updateareaid != null" >
+        #{updateareaid,jdbcType=BIGINT},
+      </if>
+      <if test="customerchangedate != null" >
+        #{customerchangedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerchangeflag != null" >
+        #{customerchangeflag,jdbcType=INTEGER},
+      </if>
+      <if test="issplit != null" >
+        #{issplit,jdbcType=TINYINT},
+      </if>
+      <if test="beforesplitid != null" >
+        #{beforesplitid,jdbcType=BIGINT},
+      </if>
+      <if test="discountcheckid != null" >
+        #{discountcheckid,jdbcType=VARCHAR},
+      </if>
+      <if test="ishandup != null" >
+        #{ishandup,jdbcType=TINYINT},
+      </if>
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="modifycount != null" >
+        #{modifycount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.WyglChargeCustomerChargeDetail" >
+    update Wygl_Charge_CustomerChargeDetail
+    <set >
+      <if test="customerid != null" >
+        CustomerID = #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        HouseID = #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        MeterID = #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="dummymeterid != null" >
+        DummyMeterID = #{dummymeterid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        ChargeID = #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="shouldchargedate != null" >
+        ShouldChargeDate = #{shouldchargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="calcstartdate != null" >
+        CalcStartDate = #{calcstartdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="calcenddate != null" >
+        CalcEndDate = #{calcenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        Amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="chargesum != null" >
+        ChargeSum = #{chargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        Discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="delaysum != null" >
+        DelaySum = #{delaysum,jdbcType=DECIMAL},
+      </if>
+      <if test="delaydays != null" >
+        DelayDays = #{delaydays,jdbcType=INTEGER},
+      </if>
+      <if test="delaydiscount != null" >
+        DelayDiscount = #{delaydiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="actualchargesum != null" >
+        ActualChargeSum = #{actualchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        Rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="ischeck != null" >
+        IsCheck = #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="checkuserid != null" >
+        CheckUserID = #{checkuserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkdate != null" >
+        CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delaydate != null" >
+        DelayDate = #{delaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldpaid != null" >
+        ShouldPaid = #{shouldpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="paidchargesum != null" >
+        PaidChargeSum = #{paidchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="ispaid != null" >
+        IsPaid = #{ispaid,jdbcType=TINYINT},
+      </if>
+      <if test="paiddate != null" >
+        PaidDate = #{paiddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargesource != null" >
+        ChargeSource = #{chargesource,jdbcType=VARCHAR},
+      </if>
+      <if test="paidcustomertype != null" >
+        PaidCustomerType = #{paidcustomertype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastreaddegree != null" >
+        LastReadDegree = #{lastreaddegree,jdbcType=DECIMAL},
+      </if>
+      <if test="currentreaddegree != null" >
+        CurrentReadDegree = #{currentreaddegree,jdbcType=DECIMAL},
+      </if>
+      <if test="usedegrees != null" >
+        UseDegrees = #{usedegrees,jdbcType=DECIMAL},
+      </if>
+      <if test="dynameter != null" >
+        Dynameter = #{dynameter,jdbcType=DECIMAL},
+      </if>
+      <if test="servicesid != null" >
+        ServicesID = #{servicesid,jdbcType=BIGINT},
+      </if>
+      <if test="isedit != null" >
+        IsEdit = #{isedit,jdbcType=TINYINT},
+      </if>
+      <if test="isclosing != null" >
+        IsClosing = #{isclosing,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="discounttype != null" >
+        DiscountType = #{discounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctid != null" >
+        PrecinctID = #{precinctid,jdbcType=BIGINT},
+      </if>
+      <if test="accountbook != null" >
+        AccountBook = #{accountbook,jdbcType=BIGINT},
+      </if>
+      <if test="isclosestat != null" >
+        IsCloseStat = #{isclosestat,jdbcType=INTEGER},
+      </if>
+      <if test="frozenchargesum != null" >
+        FrozenChargeSum = #{frozenchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="ispaidcustomertypeupdate != null" >
+        IsPaidCustomerTypeUpdate = #{ispaidcustomertypeupdate,jdbcType=INTEGER},
+      </if>
+      <if test="isbaddebt != null" >
+        IsBadDebt = #{isbaddebt,jdbcType=INTEGER},
+      </if>
+      <if test="baddebtdate != null" >
+        BadDebtDate = #{baddebtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="contractid != null" >
+        ContractID = #{contractid,jdbcType=BIGINT},
+      </if>
+      <if test="virtualchargesum != null" >
+        VirtualChargeSum = #{virtualchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="roomstatusforvirtual != null" >
+        RoomStatusForVirtual = #{roomstatusforvirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="isrentprofit != null" >
+        IsRentProfit = #{isrentprofit,jdbcType=TINYINT},
+      </if>
+      <if test="delaypaidsum != null" >
+        DelayPaidSum = #{delaypaidsum,jdbcType=DECIMAL},
+      </if>
+      <if test="contracttype != null" >
+        ContractType = #{contracttype,jdbcType=INTEGER},
+      </if>
+      <if test="isout != null" >
+        IsOut = #{isout,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentcontracthouseid != null" >
+        RentContractHouseID = #{rentcontracthouseid,jdbcType=BIGINT},
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="isalipaycharge != null" >
+        IsAlipayCharge = #{isalipaycharge,jdbcType=INTEGER},
+      </if>
+      <if test="oldchargesum != null" >
+        OldChargeSum = #{oldchargesum,jdbcType=DECIMAL},
+      </if>
+      <if test="isupdatearea != null" >
+        IsUpdateArea = #{isupdatearea,jdbcType=INTEGER},
+      </if>
+      <if test="updateareaid != null" >
+        UpdateAreaID = #{updateareaid,jdbcType=BIGINT},
+      </if>
+      <if test="customerchangedate != null" >
+        CustomerChangeDate = #{customerchangedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerchangeflag != null" >
+        CustomerChangeFlag = #{customerchangeflag,jdbcType=INTEGER},
+      </if>
+      <if test="issplit != null" >
+        IsSplit = #{issplit,jdbcType=TINYINT},
+      </if>
+      <if test="beforesplitid != null" >
+        BeforeSplitID = #{beforesplitid,jdbcType=BIGINT},
+      </if>
+      <if test="discountcheckid != null" >
+        DiscountCheckID = #{discountcheckid,jdbcType=VARCHAR},
+      </if>
+      <if test="ishandup != null" >
+        IsHandUp = #{ishandup,jdbcType=TINYINT},
+      </if>
+      <if test="billno != null" >
+        BillNo = #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="modifycount != null" >
+        ModifyCount = #{modifycount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.WyglChargeCustomerChargeDetail" >
+    update Wygl_Charge_CustomerChargeDetail
+    set CustomerID = #{customerid,jdbcType=BIGINT},
+      HouseID = #{houseid,jdbcType=BIGINT},
+      MeterID = #{meterid,jdbcType=BIGINT},
+      DummyMeterID = #{dummymeterid,jdbcType=BIGINT},
+      ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      ChargeID = #{chargeid,jdbcType=BIGINT},
+      ShouldChargeDate = #{shouldchargedate,jdbcType=TIMESTAMP},
+      CalcStartDate = #{calcstartdate,jdbcType=TIMESTAMP},
+      CalcEndDate = #{calcenddate,jdbcType=TIMESTAMP},
+      Price = #{price,jdbcType=DECIMAL},
+      Amount = #{amount,jdbcType=DECIMAL},
+      ChargeSum = #{chargesum,jdbcType=DECIMAL},
+      Discount = #{discount,jdbcType=DECIMAL},
+      DelaySum = #{delaysum,jdbcType=DECIMAL},
+      DelayDays = #{delaydays,jdbcType=INTEGER},
+      DelayDiscount = #{delaydiscount,jdbcType=DECIMAL},
+      ActualChargeSum = #{actualchargesum,jdbcType=DECIMAL},
+      Rate = #{rate,jdbcType=DECIMAL},
+      IsCheck = #{ischeck,jdbcType=TINYINT},
+      CheckUserID = #{checkuserid,jdbcType=INTEGER},
+      CheckDate = #{checkdate,jdbcType=TIMESTAMP},
+      DelayDate = #{delaydate,jdbcType=TIMESTAMP},
+      ShouldPaid = #{shouldpaid,jdbcType=DECIMAL},
+      PaidChargeSum = #{paidchargesum,jdbcType=DECIMAL},
+      IsPaid = #{ispaid,jdbcType=TINYINT},
+      PaidDate = #{paiddate,jdbcType=TIMESTAMP},
+      ChargeSource = #{chargesource,jdbcType=VARCHAR},
+      PaidCustomerType = #{paidcustomertype,jdbcType=VARCHAR},
+      LastReadDegree = #{lastreaddegree,jdbcType=DECIMAL},
+      CurrentReadDegree = #{currentreaddegree,jdbcType=DECIMAL},
+      UseDegrees = #{usedegrees,jdbcType=DECIMAL},
+      Dynameter = #{dynameter,jdbcType=DECIMAL},
+      ServicesID = #{servicesid,jdbcType=BIGINT},
+      IsEdit = #{isedit,jdbcType=TINYINT},
+      IsClosing = #{isclosing,jdbcType=TINYINT},
+      Remark = #{remark,jdbcType=VARCHAR},
+      DiscountType = #{discounttype,jdbcType=VARCHAR},
+      PrecinctID = #{precinctid,jdbcType=BIGINT},
+      AccountBook = #{accountbook,jdbcType=BIGINT},
+      IsCloseStat = #{isclosestat,jdbcType=INTEGER},
+      FrozenChargeSum = #{frozenchargesum,jdbcType=DECIMAL},
+      UserID = #{userid,jdbcType=INTEGER},
+      IsPaidCustomerTypeUpdate = #{ispaidcustomertypeupdate,jdbcType=INTEGER},
+      IsBadDebt = #{isbaddebt,jdbcType=INTEGER},
+      BadDebtDate = #{baddebtdate,jdbcType=TIMESTAMP},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      ContractID = #{contractid,jdbcType=BIGINT},
+      VirtualChargeSum = #{virtualchargesum,jdbcType=DECIMAL},
+      RoomStatusForVirtual = #{roomstatusforvirtual,jdbcType=VARCHAR},
+      IsRentProfit = #{isrentprofit,jdbcType=TINYINT},
+      DelayPaidSum = #{delaypaidsum,jdbcType=DECIMAL},
+      ContractType = #{contracttype,jdbcType=INTEGER},
+      IsOut = #{isout,jdbcType=INTEGER},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      RentContractHouseID = #{rentcontracthouseid,jdbcType=BIGINT},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      IsAlipayCharge = #{isalipaycharge,jdbcType=INTEGER},
+      OldChargeSum = #{oldchargesum,jdbcType=DECIMAL},
+      IsUpdateArea = #{isupdatearea,jdbcType=INTEGER},
+      UpdateAreaID = #{updateareaid,jdbcType=BIGINT},
+      CustomerChangeDate = #{customerchangedate,jdbcType=TIMESTAMP},
+      CustomerChangeFlag = #{customerchangeflag,jdbcType=INTEGER},
+      IsSplit = #{issplit,jdbcType=TINYINT},
+      BeforeSplitID = #{beforesplitid,jdbcType=BIGINT},
+      DiscountCheckID = #{discountcheckid,jdbcType=VARCHAR},
+      IsHandUp = #{ishandup,jdbcType=TINYINT},
+      BillNo = #{billno,jdbcType=VARCHAR},
+      ModifyCount = #{modifycount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="loadList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Wygl_Charge_CustomerChargeDetail
+    where 1=1
+    <if test="CustomerID!=null">
+      AND CustomerID = #{CustomerID}
+    </if>
+    <if test="IsPaid!=null">
+      AND IsPaid = #{IsPaid}
+    </if>
+  </select>
+
+  <update id="updateByCustomerId">
+    update Wygl_Charge_CustomerChargeDetail
+    set
+      IsPaid = TRUE
+    where CustomerID = #{customerId,jdbcType=BIGINT}
+  </update>
+</mapper>

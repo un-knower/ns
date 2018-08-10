@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.fastdfs.dao.NsSystemFileMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.fastdfs.entity.NsSystemFile">
+    <id column="file_id" jdbcType="BIGINT" property="fileId" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_group" jdbcType="VARCHAR" property="fileGroup" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="file_full_path" jdbcType="VARCHAR" property="fileFullPath" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <result column="file_code" jdbcType="VARCHAR" property="fileCode"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    file_id, enterprise_id, file_code, organization_id, file_name, file_group, path,file_full_path,file_type, is_deleted, create_user_id, 
+    create_time, update_user_id, update_time, sys_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_file
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </select>
+  <select id="listFileByType" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_file
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT} and organization_id = #{organizationId,jdbcType=BIGINT}
+     and file_type = #{type,jdbcType=INTEGER}
+  </select>
+  <!-- 获取文件 -->
+  <select id="selectFile" parameterType="java.util.Map" resultMap="BaseResultMap">
+  select 
+    file_id, enterprise_id, file_code, organization_id, file_name, file_group, path,file_full_path,file_type
+    from ns_system_file
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT} 
+    <if test="organizationId != null">
+	    and organization_id = #{organizationId,jdbcType=BIGINT}
+    </if>
+    <if test="type != null">
+        and file_type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="fileCode != null">
+        and file_code = #{fileCode,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ns_system_file
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.fastdfs.entity.NsSystemFile">
+    insert into ns_system_file (file_id, enterprise_id, organization_id, 
+      file_name, file_group, path,file_full_path,file_type, 
+      is_deleted, create_user_id, create_time, 
+      update_user_id, update_time, sys_time,file_code
+      )
+    values (#{fileId,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileGroup,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{fileFullPath,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER},
+      #{isDeleted,jdbcType=TINYINT}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{sysTime,jdbcType=TIMESTAMP},#{fileCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.fastdfs.entity.NsSystemFile">
+    insert into ns_system_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileGroup != null">
+        file_group,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="fileFullPath != null">
+        file_full_path,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+        create_time,
+        update_time,
+        <if test="fileCode != null">
+            file_code,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileGroup != null">
+        #{fileGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFullPath != null">
+        #{fileFullPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+        NOW(),
+        NOW(),
+        <if test="fileCode != null">
+            #{fileCode,jdbcType=VARCHAR},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.fastdfs.entity.NsSystemFile">
+    update ns_system_file
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileGroup != null">
+        file_group = #{fileGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFullPath != null">
+        file_full_path = #{fileFullPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileCode != null">
+            file_code = #{fileCode,jdbcType=VARCHAR},
+        </if>
+    </set>
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.fastdfs.entity.NsSystemFile">
+    update ns_system_file
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_group = #{fileGroup,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      file_full_path = #{fileFullPath,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      file_code = #{fileCode,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+</mapper>

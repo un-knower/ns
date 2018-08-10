@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossMsgRecordMapper">
+
+	<resultMap id="NsSossMsgRecordResultMap" type="com.newsee.soss.entity.NsSossMsgRecord">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="msgId" column="msgID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="msgType" column="msgType" jdbcType="VARCHAR"/>
+			<result property="isRead" column="isRead" jdbcType="VARCHAR"/>
+			<result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+			<result property="sendType" column="sendType" jdbcType="VARCHAR"/>
+			<result property="iconCode" column="iconCode" jdbcType="VARCHAR"/>
+			<result property="imageCode" column="imageCode" jdbcType="VARCHAR"/>
+			<result property="content" column="content" jdbcType="VARCHAR"/>
+			<result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossMsgRecord_Column_List">
+		id,msgID,enterpriseID,msgType,isRead,isDelete,sendType,iconCode,imageCode,content,createTime
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSossMsgRecordResultMap">
+	    select 
+	        <include refid="NsSossMsgRecord_Column_List" />
+	    from 
+	       ns_soss_msgRecord
+	    <where>
+	        isDelete = 0
+	        <if test="enterpriseId != null">
+                AND enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, msgType)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldUnderLineName} IS NULL or #{item.fieldUnderLineName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldUnderLineName} IS NOT NULL or #{item.fieldUnderLineName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldUnderLineName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldUnderLineName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldUnderLineName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldUnderLineName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldUnderLineName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossMsgRecordResultMap">
+		select
+			<include refid="NsSossMsgRecord_Column_List" />
+		from
+			ns_soss_msgRecord
+		where
+			id = #{id}
+	</select>
+	
+	<!-- 查询消息记录信息 -->
+	<select id="selectMsgRecordList" parameterType="java.util.Map" resultMap="NsSossMsgRecordResultMap">
+	   SELECT
+            <include refid="NsSossMsgRecord_Column_List" />
+        FROM
+            ns_soss_msgRecord
+        WHERE isDelete = 0
+        <if test="enterpriseId != null">
+	        AND enterpriseID = #{enterpriseId}
+        </if>
+        <if test="msgType != null">
+			AND msgType = #{msgType}
+        </if>
+        <if test="isRead != null">
+			AND isRead = #{isRead}
+        </if>
+		ORDER BY createTime DESC
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossMsgRecord">
+		update ns_soss_msgRecord
+		<set>
+			<if test="msgId != null">
+			  msgID = #{msgId, jdbcType=BIGINT },
+			</if>
+			<if test="enterpriseId != null">
+			  enterpriseID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="msgType != null">
+			  msgType = #{msgType, jdbcType=VARCHAR },
+			</if>
+			<if test="isRead != null">
+			  isRead = #{isRead, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelete != null">
+			  isDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+			<if test="sendType != null">
+			  sendType = #{sendType, jdbcType=VARCHAR },
+			</if>
+			<if test="iconCode != null">
+			  iconCode = #{iconCode, jdbcType=VARCHAR },
+			</if>
+			<if test="imageCode != null">
+			  imageCode = #{imageCode, jdbcType=VARCHAR },
+			</if>
+			<if test="content != null">
+			  content = #{content, jdbcType=VARCHAR },
+			</if>
+			  createTime = now(),
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update ns_soss_msgRecord 
+		<set>
+		  isDelete = 1
+		</set>
+		where
+			id = #{id}
+	</delete>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		update ns_soss_msgRecord 
+        <set>
+          isDelete = 1
+        </set>
+		where
+			id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossMsgRecord">
+		insert into ns_soss_msgRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="msgId != null">
+				msgID,
+			</if>
+			<if test="enterpriseId != null">
+				enterpriseID,
+			</if>
+			<if test="msgType != null">
+				msgType,
+			</if>
+			<if test="isRead != null">
+				isRead,
+			</if>
+			<if test="isDelete != null">
+				isDelete,
+			</if>
+			<if test="sendType != null">
+				sendType,
+			</if>
+			<if test="iconCode != null">
+				iconCode,
+			</if>
+			<if test="imageCode != null">
+				imageCode,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+				createTime,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="msgId != null">
+				#{msgId, jdbcType=BIGINT},
+			</if>
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="msgType != null">
+				#{msgType, jdbcType=VARCHAR},
+			</if>
+			<if test="isRead != null">
+				#{isRead, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+			<if test="sendType != null">
+				#{sendType, jdbcType=VARCHAR},
+			</if>
+			<if test="iconCode != null">
+				#{iconCode, jdbcType=VARCHAR},
+			</if>
+			<if test="imageCode != null">
+				#{imageCode, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content, jdbcType=VARCHAR},
+			</if>
+			now()
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_msgRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			msgID,
+			enterpriseID,
+			msgType,
+			isRead,
+			isDelete,
+			sendType,
+			iconCode,
+			imageCode,
+			content,
+			createTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.msgId, jdbcType=BIGINT},
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.msgType, jdbcType=VARCHAR},
+			#{item.isRead, jdbcType=VARCHAR},
+			#{item.isDelete, jdbcType=INTEGER},
+			#{item.sendType, jdbcType=VARCHAR},
+			#{item.iconCode, jdbcType=VARCHAR},
+			#{item.imageCode, jdbcType=VARCHAR},
+			#{item.content, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

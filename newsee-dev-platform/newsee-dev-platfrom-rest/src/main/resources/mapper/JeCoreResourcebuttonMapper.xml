@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.devplatform.dao.JeCoreResourcebuttonMapper">
+
+	<resultMap id="JeCoreResourcebuttonResultMap" type="com.newsee.devplatform.entity.JeCoreResourcebutton">
+			<id property="jeCoreResourcebuttonId" column="JE_CORE_RESOURCEBUTTON_ID" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonFuncinfoId" column="RESOURCEBUTTON_FUNCINFO_ID" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonBigiconcls" column="RESOURCEBUTTON_BIGICONCLS" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonCode" column="RESOURCEBUTTON_CODE" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonConfiginfo" column="RESOURCEBUTTON_CONFIGINFO" jdbcType="LONGVARCHAR"/>
+			<result property="resourcebuttonDisabled" column="RESOURCEBUTTON_DISABLED" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonFireevent" column="RESOURCEBUTTON_FIREEVENT" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonFormbind" column="RESOURCEBUTTON_FORMBIND" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonHidden" column="RESOURCEBUTTON_HIDDEN" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonIconcls" column="RESOURCEBUTTON_ICONCLS" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonInterpreter" column="RESOURCEBUTTON_INTERPRETER" jdbcType="LONGVARCHAR"/>
+			<result property="resourcebuttonJslistener" column="RESOURCEBUTTON_JSLISTENER" jdbcType="LONGVARCHAR"/>
+			<result property="resourcebuttonMsg" column="RESOURCEBUTTON_MSG" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonName" column="RESOURCEBUTTON_NAME" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonNameEn" column="RESOURCEBUTTON_NAME_EN" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonNewfuncid" column="RESOURCEBUTTON_NEWFUNCID" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonNoreadonly" column="RESOURCEBUTTON_NOREADONLY" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonSysmode" column="RESOURCEBUTTON_SYSMODE" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonType" column="RESOURCEBUTTON_TYPE" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonWfendedenable" column="RESOURCEBUTTON_WFENDEDENABLE" jdbcType="VARCHAR"/>
+			<result property="resourcebuttonXtype" column="RESOURCEBUTTON_XTYPE" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="JeCoreResourcebutton_Column_List">
+		JE_CORE_RESOURCEBUTTON_ID,RESOURCEBUTTON_FUNCINFO_ID,RESOURCEBUTTON_BIGICONCLS,RESOURCEBUTTON_CODE,RESOURCEBUTTON_CONFIGINFO,RESOURCEBUTTON_DISABLED,RESOURCEBUTTON_FIREEVENT,RESOURCEBUTTON_FORMBIND,RESOURCEBUTTON_HIDDEN,RESOURCEBUTTON_ICONCLS,RESOURCEBUTTON_INTERPRETER,RESOURCEBUTTON_JSLISTENER,RESOURCEBUTTON_MSG,RESOURCEBUTTON_NAME,RESOURCEBUTTON_NAME_EN,RESOURCEBUTTON_NEWFUNCID,RESOURCEBUTTON_NOREADONLY,RESOURCEBUTTON_SYSMODE,RESOURCEBUTTON_TYPE,RESOURCEBUTTON_WFENDEDENABLE,RESOURCEBUTTON_XTYPE,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_ORDERINDEX,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.String" resultMap="JeCoreResourcebuttonResultMap">
+		select
+			<include refid="JeCoreResourcebutton_Column_List" />
+		from
+			je_core_resourcebutton
+		where
+			JE_CORE_RESOURCEBUTTON_ID = #{jeCoreResourcebuttonId}
+	</select>
+	
+	<select id="selectByFuncIds" parameterType="java.util.Map" resultMap="JeCoreResourcebuttonResultMap">
+		select
+			<include refid="JeCoreResourcebutton_Column_List" />
+		from
+			je_core_resourcebutton
+		where
+			1=1
+			<if test="funcIds != null and funcIds.size() > 0">
+				AND RESOURCEBUTTON_FUNCINFO_ID IN 
+				<foreach collection="funcIds" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="latestSyncTime != null">
+				AND sys_time &gt;= #{latestSyncTime}
+			</if>
+	</select>
+	
+	<select id="selectByFunctionId" parameterType="java.lang.String" resultMap="JeCoreResourcebuttonResultMap">
+        select
+            <include refid="JeCoreResourcebutton_Column_List" />
+        from
+            je_core_resourcebutton
+        where
+            RESOURCEBUTTON_FUNCINFO_ID = #{jeCoreResourcebuttonId}
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.devplatform.entity.JeCoreResourcebutton">
+		update je_core_resourcebutton
+		<set>
+			<if test="resourcebuttonFuncinfoId != null">
+			  RESOURCEBUTTON_FUNCINFO_ID = #{resourcebuttonFuncinfoId, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonBigiconcls != null">
+			  RESOURCEBUTTON_BIGICONCLS = #{resourcebuttonBigiconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonCode != null">
+			  RESOURCEBUTTON_CODE = #{resourcebuttonCode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonConfiginfo != null">
+			  RESOURCEBUTTON_CONFIGINFO = #{resourcebuttonConfiginfo, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcebuttonDisabled != null">
+			  RESOURCEBUTTON_DISABLED = #{resourcebuttonDisabled, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonFireevent != null">
+			  RESOURCEBUTTON_FIREEVENT = #{resourcebuttonFireevent, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonFormbind != null">
+			  RESOURCEBUTTON_FORMBIND = #{resourcebuttonFormbind, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonHidden != null">
+			  RESOURCEBUTTON_HIDDEN = #{resourcebuttonHidden, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonIconcls != null">
+			  RESOURCEBUTTON_ICONCLS = #{resourcebuttonIconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonInterpreter != null">
+			  RESOURCEBUTTON_INTERPRETER = #{resourcebuttonInterpreter, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcebuttonJslistener != null">
+			  RESOURCEBUTTON_JSLISTENER = #{resourcebuttonJslistener, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcebuttonMsg != null">
+			  RESOURCEBUTTON_MSG = #{resourcebuttonMsg, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonName != null">
+			  RESOURCEBUTTON_NAME = #{resourcebuttonName, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonNameEn != null">
+			  RESOURCEBUTTON_NAME_EN = #{resourcebuttonNameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonNewfuncid != null">
+			  RESOURCEBUTTON_NEWFUNCID = #{resourcebuttonNewfuncid, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonNoreadonly != null">
+			  RESOURCEBUTTON_NOREADONLY = #{resourcebuttonNoreadonly, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonSysmode != null">
+			  RESOURCEBUTTON_SYSMODE = #{resourcebuttonSysmode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonType != null">
+			  RESOURCEBUTTON_TYPE = #{resourcebuttonType, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonWfendedenable != null">
+			  RESOURCEBUTTON_WFENDEDENABLE = #{resourcebuttonWfendedenable, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcebuttonXtype != null">
+			  RESOURCEBUTTON_XTYPE = #{resourcebuttonXtype, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			RESOURCEBUTTON_FUNCINFO_ID = #{jeCoreResourcebuttonId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from je_core_resourcebutton 
+		where
+			RESOURCEBUTTON_FUNCINFO_ID = #{jeCoreResourcebuttonId}
+	</delete>
+	
+	<insert id="insert"	parameterType="com.newsee.devplatform.entity.JeCoreResourcebutton">
+		insert into je_core_resourcebutton
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcebuttonId != null">
+				JE_CORE_RESOURCEBUTTON_ID,
+			</if>
+			<if test="resourcebuttonFuncinfoId != null">
+				RESOURCEBUTTON_FUNCINFO_ID,
+			</if>
+			<if test="resourcebuttonBigiconcls != null">
+				RESOURCEBUTTON_BIGICONCLS,
+			</if>
+			<if test="resourcebuttonCode != null">
+				RESOURCEBUTTON_CODE,
+			</if>
+			<if test="resourcebuttonConfiginfo != null">
+				RESOURCEBUTTON_CONFIGINFO,
+			</if>
+			<if test="resourcebuttonDisabled != null">
+				RESOURCEBUTTON_DISABLED,
+			</if>
+			<if test="resourcebuttonFireevent != null">
+				RESOURCEBUTTON_FIREEVENT,
+			</if>
+			<if test="resourcebuttonFormbind != null">
+				RESOURCEBUTTON_FORMBIND,
+			</if>
+			<if test="resourcebuttonHidden != null">
+				RESOURCEBUTTON_HIDDEN,
+			</if>
+			<if test="resourcebuttonIconcls != null">
+				RESOURCEBUTTON_ICONCLS,
+			</if>
+			<if test="resourcebuttonInterpreter != null">
+				RESOURCEBUTTON_INTERPRETER,
+			</if>
+			<if test="resourcebuttonJslistener != null">
+				RESOURCEBUTTON_JSLISTENER,
+			</if>
+			<if test="resourcebuttonMsg != null">
+				RESOURCEBUTTON_MSG,
+			</if>
+			<if test="resourcebuttonName != null">
+				RESOURCEBUTTON_NAME,
+			</if>
+			<if test="resourcebuttonNameEn != null">
+				RESOURCEBUTTON_NAME_EN,
+			</if>
+			<if test="resourcebuttonNewfuncid != null">
+				RESOURCEBUTTON_NEWFUNCID,
+			</if>
+			<if test="resourcebuttonNoreadonly != null">
+				RESOURCEBUTTON_NOREADONLY,
+			</if>
+			<if test="resourcebuttonSysmode != null">
+				RESOURCEBUTTON_SYSMODE,
+			</if>
+			<if test="resourcebuttonType != null">
+				RESOURCEBUTTON_TYPE,
+			</if>
+			<if test="resourcebuttonWfendedenable != null">
+				RESOURCEBUTTON_WFENDEDENABLE,
+			</if>
+			<if test="resourcebuttonXtype != null">
+				RESOURCEBUTTON_XTYPE,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcebuttonId != null">
+				#{jeCoreResourcebuttonId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonFuncinfoId != null">
+				#{resourcebuttonFuncinfoId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonBigiconcls != null">
+				#{resourcebuttonBigiconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonCode != null">
+				#{resourcebuttonCode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonConfiginfo != null">
+				#{resourcebuttonConfiginfo, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcebuttonDisabled != null">
+				#{resourcebuttonDisabled, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonFireevent != null">
+				#{resourcebuttonFireevent, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonFormbind != null">
+				#{resourcebuttonFormbind, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonHidden != null">
+				#{resourcebuttonHidden, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonIconcls != null">
+				#{resourcebuttonIconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonInterpreter != null">
+				#{resourcebuttonInterpreter, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcebuttonJslistener != null">
+				#{resourcebuttonJslistener, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcebuttonMsg != null">
+				#{resourcebuttonMsg, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonName != null">
+				#{resourcebuttonName, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonNameEn != null">
+				#{resourcebuttonNameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonNewfuncid != null">
+				#{resourcebuttonNewfuncid, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonNoreadonly != null">
+				#{resourcebuttonNoreadonly, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonSysmode != null">
+				#{resourcebuttonSysmode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonType != null">
+				#{resourcebuttonType, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonWfendedenable != null">
+				#{resourcebuttonWfendedenable, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcebuttonXtype != null">
+				#{resourcebuttonXtype, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

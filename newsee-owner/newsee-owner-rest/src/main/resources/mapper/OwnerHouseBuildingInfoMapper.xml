@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHouseBuildingInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseBuildingInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="building_no" property="buildingNo" jdbcType="VARCHAR" />
+    <result column="building_short_name" property="buildingShortName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, building_no, building_short_name, remark, create_user_id, create_time, 
+    update_user_id, update_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_building_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_building_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseBuildingInfo" >
+    insert into owner_house_building_info (house_id, building_no, building_short_name, 
+      remark, create_user_id, create_time, 
+      update_user_id, update_time, create_user_name, update_user_name)
+    values (#{houseId,jdbcType=BIGINT}, #{buildingNo,jdbcType=VARCHAR}, #{buildingShortName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseBuildingInfo" >
+    insert into owner_house_building_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="buildingNo != null" >
+        building_no,
+      </if>
+      <if test="buildingShortName != null" >
+        building_short_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="buildingNo != null" >
+        #{buildingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingShortName != null" >
+        #{buildingShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+        #{updateUserId,jdbcType=BIGINT},
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseBuildingInfo" >
+    update owner_house_building_info
+    <set >
+      <if test="buildingNo != null" >
+        building_no = #{buildingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingShortName != null" >
+        building_short_name = #{buildingShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now(),
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseBuildingInfo" >
+    update owner_house_building_info
+    set building_no = #{buildingNo,jdbcType=VARCHAR},
+      building_short_name = #{buildingShortName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <select id="loadHouseByShortName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.building_no, info.building_short_name, info.remark, info.create_user_id, info.create_time, 
+        info.update_user_id, info.update_time
+    from owner_house_building_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.building_short_name = #{shortName,jdbcType=VARCHAR}
+        <if test="precinctId != null and precinctId != 0">
+           and base.precinct_id = #{precinctId,jdbcType=BIGINT} 
+        </if>
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0
+    </where> 
+  </select>
+  <select id="loadHouseByNo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.building_no, info.building_short_name, info.remark, info.create_user_id, info.create_time, 
+        info.update_user_id, info.update_time
+    from owner_house_building_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.building_no = #{no,jdbcType=VARCHAR}
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0
+    </where> 
+  </select> 
+</mapper>

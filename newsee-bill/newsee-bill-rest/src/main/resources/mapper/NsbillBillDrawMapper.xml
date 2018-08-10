@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.bill.dao.NsbillBillDrawMapper">
+
+	<resultMap id="NsbillBillDrawResultMap" type="com.newsee.bill.entity.NsbillBillDraw">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="billDetailId" column="BillDetailID" jdbcType="BIGINT"/>
+			<result property="drawDate" column="DrawDate" jdbcType="TIMESTAMP"/>
+			<result property="dealUserId" column="DealUserID" jdbcType="BIGINT"/>
+			<result property="dealUserName" column="DealUserName" jdbcType="VARCHAR"/>
+			<result property="drawDepartmentId" column="DrawDepartmentID" jdbcType="VARCHAR"/>
+			<result property="drawDepartmentName" column="DrawDepartmentName" jdbcType="BIGINT"/>
+			<result property="drawUserId" column="DrawUserID" jdbcType="BIGINT"/>
+			<result property="drawUserName" column="DrawUserName" jdbcType="VARCHAR"/>
+			<result property="drawNum" column="DrawNum" jdbcType="BIGINT"/>
+			<result property="remark" column="Remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="isDelete" column="IsDelete" jdbcType="BIGINT"/>
+			<result property="subjectCode" column="SubjectCode" jdbcType="VARCHAR"/>
+			<result property="precinctId" column="PrecinctID" jdbcType="BIGINT"/>
+			<result property="useUserId" column="UseUserID" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsbillBillDraw_Column_List">
+		Id,EnterpriseId,OrganizationId,BillDetailID,DrawDate,DealUserID,DealUserName,DrawDepartmentID,DrawDepartmentName,DrawUserID,DrawUserName,DrawNum,Remark,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,IsDelete,SubjectCode,PrecinctID,UseUserID
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsbillBillDrawResultMap">
+	    select 
+	        <include refid="NsbillBillDraw_Column_List" />
+	    from 
+	       NS_Bill_BillDraw
+	    <where>
+	        is_deleted = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldUnderLineName} IS NULL or #{item.fieldUnderLineName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldUnderLineName} IS NOT NULL or #{item.fieldUnderLineName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldUnderLineName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldUnderLineName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldUnderLineName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldUnderLineName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldUnderLineName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsbillBillDrawResultMap">
+		select
+			<include refid="NsbillBillDraw_Column_List" />
+		from
+			NS_Bill_BillDraw
+		where
+			Id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.bill.entity.NsbillBillDraw">
+		update NS_Bill_BillDraw
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="billDetailId != null">
+			  BillDetailID = #{billDetailId, jdbcType=BIGINT },
+			</if>
+			<if test="drawDate != null">
+			  DrawDate = #{drawDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="dealUserId != null">
+			  DealUserID = #{dealUserId, jdbcType=BIGINT },
+			</if>
+			<if test="dealUserName != null">
+			  DealUserName = #{dealUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="drawDepartmentId != null">
+			  DrawDepartmentID = #{drawDepartmentId, jdbcType=VARCHAR },
+			</if>
+			<if test="drawDepartmentName != null">
+			  DrawDepartmentName = #{drawDepartmentName, jdbcType=BIGINT },
+			</if>
+			<if test="drawUserId != null">
+			  DrawUserID = #{drawUserId, jdbcType=BIGINT },
+			</if>
+			<if test="drawUserName != null">
+			  DrawUserName = #{drawUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="drawNum != null">
+			  DrawNum = #{drawNum, jdbcType=BIGINT },
+			</if>
+			<if test="remark != null">
+			  Remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="isDelete != null">
+			  IsDelete = #{isDelete, jdbcType=BIGINT },
+			</if>
+			<if test="subjectCode != null">
+			  SubjectCode = #{subjectCode, jdbcType=VARCHAR },
+			</if>
+			<if test="precinctId != null">
+			  PrecinctID = #{precinctId, jdbcType=BIGINT },
+			</if>
+			<if test="useUserId != null">
+			  UseUserID = #{useUserId, jdbcType=BIGINT },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from NS_Bill_BillDraw 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from NS_Bill_BillDraw
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.bill.entity.NsbillBillDraw">
+		insert into NS_Bill_BillDraw
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="billDetailId != null">
+				BillDetailID,
+			</if>
+			<if test="drawDate != null">
+				DrawDate,
+			</if>
+			<if test="dealUserId != null">
+				DealUserID,
+			</if>
+			<if test="dealUserName != null">
+				DealUserName,
+			</if>
+			<if test="drawDepartmentId != null">
+				DrawDepartmentID,
+			</if>
+			<if test="drawDepartmentName != null">
+				DrawDepartmentName,
+			</if>
+			<if test="drawUserId != null">
+				DrawUserID,
+			</if>
+			<if test="drawUserName != null">
+				DrawUserName,
+			</if>
+			<if test="drawNum != null">
+				DrawNum,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="isDelete != null">
+				IsDelete,
+			</if>
+			<if test="subjectCode != null">
+				SubjectCode,
+			</if>
+			<if test="precinctId != null">
+				PrecinctID,
+			</if>
+			<if test="useUserId != null">
+				UseUserID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="billDetailId != null">
+				#{billDetailId, jdbcType=BIGINT},
+			</if>
+			<if test="drawDate != null">
+				#{drawDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="dealUserId != null">
+				#{dealUserId, jdbcType=BIGINT},
+			</if>
+			<if test="dealUserName != null">
+				#{dealUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="drawDepartmentId != null">
+				#{drawDepartmentId, jdbcType=VARCHAR},
+			</if>
+			<if test="drawDepartmentName != null">
+				#{drawDepartmentName, jdbcType=BIGINT},
+			</if>
+			<if test="drawUserId != null">
+				#{drawUserId, jdbcType=BIGINT},
+			</if>
+			<if test="drawUserName != null">
+				#{drawUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="drawNum != null">
+				#{drawNum, jdbcType=BIGINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=BIGINT},
+			</if>
+			<if test="subjectCode != null">
+				#{subjectCode, jdbcType=VARCHAR},
+			</if>
+			<if test="precinctId != null">
+				#{precinctId, jdbcType=BIGINT},
+			</if>
+			<if test="useUserId != null">
+				#{useUserId, jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into NS_Bill_BillDraw
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			BillDetailID,
+			DrawDate,
+			DealUserID,
+			DealUserName,
+			DrawDepartmentID,
+			DrawDepartmentName,
+			DrawUserID,
+			DrawUserName,
+			DrawNum,
+			Remark,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			IsDelete,
+			SubjectCode,
+			PrecinctID,
+			UseUserID,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.billDetailId, jdbcType=BIGINT},
+			#{item.drawDate, jdbcType=TIMESTAMP},
+			#{item.dealUserId, jdbcType=BIGINT},
+			#{item.dealUserName, jdbcType=VARCHAR},
+			#{item.drawDepartmentId, jdbcType=VARCHAR},
+			#{item.drawDepartmentName, jdbcType=BIGINT},
+			#{item.drawUserId, jdbcType=BIGINT},
+			#{item.drawUserName, jdbcType=VARCHAR},
+			#{item.drawNum, jdbcType=BIGINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.isDelete, jdbcType=BIGINT},
+			#{item.subjectCode, jdbcType=VARCHAR},
+			#{item.precinctId, jdbcType=BIGINT},
+			#{item.useUserId, jdbcType=BIGINT},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

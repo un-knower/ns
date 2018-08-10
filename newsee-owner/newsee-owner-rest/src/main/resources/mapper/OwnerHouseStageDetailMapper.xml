@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseStageDetailMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseStageDetail">
+    <id column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="old_owner_id" jdbcType="BIGINT" property="oldOwnerId" />
+    <result column="house_operate_type" jdbcType="VARCHAR" property="houseOperateType" />
+    <result column="is_sublet" jdbcType="TINYINT" property="isSublet" />
+    <result column="is_now_detail" jdbcType="VARCHAR" property="isNowDetail" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="previous_detail_id" jdbcType="BIGINT" property="previousDetailId" />
+    <result column="house_stage" jdbcType="VARCHAR" property="houseStage" />
+    <result column="rent_stage" property="rentStage" jdbcType="VARCHAR" />
+    <result column="decorate_stage" property="decorateStage" jdbcType="VARCHAR" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <!-- 备用字段 -->
+    <result column="column0" property="column0" jdbcType="VARCHAR" />
+    <result column="column1" property="column1" jdbcType="VARCHAR" />
+    <result column="column2" property="column2" jdbcType="VARCHAR" />
+    <result column="column3" property="column3" jdbcType="VARCHAR" />
+    <result column="column4" property="column4" jdbcType="VARCHAR" />
+    <result column="column5" property="column5" jdbcType="VARCHAR" />
+    <result column="column6" property="column6" jdbcType="VARCHAR" />
+    <result column="column7" property="column7" jdbcType="VARCHAR" />
+    <result column="column8" property="column8" jdbcType="VARCHAR" />
+    <result column="column9" property="column9" jdbcType="VARCHAR" /> 
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />   
+  </resultMap>
+  <sql id="Base_Column_List">
+    detail_id, house_id, old_owner_id, house_operate_type, is_sublet,is_now_detail, handle_time, previous_detail_id, house_stage,rent_stage,decorate_stage,
+    remark, is_deleted, create_user_id, create_time, update_user_id, update_time, sys_time
+     , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9,
+     create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <select id="listStageByHouseId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_detail
+    where house_id = #{houseId,jdbcType=BIGINT} and is_deleted = false
+  </select>
+  <select id="listStage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_detail
+    where house_id = #{houseId,jdbcType=BIGINT} 
+    and house_operate_type in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    <if test="isNowDetail != null">
+        and is_now_detail = #{isNowDetail,jdbcType=VARCHAR}
+    </if>
+    and is_deleted = false
+    order by detail_id
+  </select>
+  <select id="loadRentForSublet" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_detail
+    where house_id = #{houseId,jdbcType=BIGINT} and previous_detail_id = #{detailId,jdbcType=BIGINT}
+    and is_sublet = true and house_operate_type = 5 and is_deleted = false
+  </select>
+  <select id="loadDetail" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_detail
+    where house_id = #{houseId,jdbcType=BIGINT}
+    and house_operate_type in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+     and is_deleted = false and is_now_detail = 1
+  </select>
+  
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseStageDetail">
+    insert into owner_house_stage_detail (house_id, old_owner_id, 
+      house_operate_type, is_sublet,is_now_detail, handle_time, previous_detail_id, house_stage,rent_stage,decorate_stage,
+      remark, is_deleted, create_user_id, 
+      create_time, update_user_id, update_time, 
+      sys_time
+      , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9,
+      create_user_name, update_user_name
+      )
+    values (#{houseId,jdbcType=BIGINT}, #{oldOwnerId,jdbcType=BIGINT}, 
+      #{houseOperateType,jdbcType=VARCHAR}, #{isSublet,jdbcType=TINYINT}, #{isNowDetail,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, #{previousDetailId,jdbcType=BIGINT}, 
+      #{houseStage,jdbcType=VARCHAR},#{rentStage,jdbcType=VARCHAR},#{decorateStage,jdbcType=VARCHAR},
+       #{remark,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{sysTime,jdbcType=TIMESTAMP}
+      , #{column0,jdbcType=VARCHAR}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}
+      , #{column4,jdbcType=VARCHAR}, #{column5,jdbcType=VARCHAR}, #{column6,jdbcType=VARCHAR}, #{column7,jdbcType=VARCHAR}
+      , #{column8,jdbcType=VARCHAR}, #{column9,jdbcType=VARCHAR},#{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseStageDetail" useGeneratedKeys="true" keyProperty="detailId">
+    insert into owner_house_stage_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="oldOwnerId != null">
+        old_owner_id,
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type,
+      </if>
+      <if test="isSublet != null">
+        is_sublet,
+      </if>
+      <if test="isNowDetail != null">
+        is_now_detail,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="previousDetailId != null">
+        previous_detail_id,
+      </if>
+      <if test="houseStage != null">
+        house_stage,
+      </if>
+      <if test="rentStage != null">
+        rent_stage,
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+      <if test="column0 != null">
+        column0,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+      <if test="column4 != null">
+        column4,
+      </if>
+      <if test="column5 != null">
+        column5,
+      </if>
+      <if test="column6 != null">
+        column6,
+      </if>
+      <if test="column7 != null">
+        column7,
+      </if>
+      <if test="column8 != null">
+        column8,
+      </if>
+      <if test="column9 != null">
+        column9,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="oldOwnerId != null">
+        #{oldOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="houseOperateType != null">
+        #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSublet != null">
+        #{isSublet,jdbcType=TINYINT},
+      </if>
+      <if test="isNowDetail != null">
+        #{isNowDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="previousDetailId != null">
+        #{previousDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStage != null">
+        #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStage != null">
+        #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="column0 != null">
+        #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseStageDetail">
+    update owner_house_stage_detail
+    <set>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="oldOwnerId != null">
+        old_owner_id = #{oldOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSublet != null">
+        is_sublet = #{isSublet,jdbcType=TINYINT},
+      </if>
+      <if test="isNowDetail != null">
+        is_now_detail = #{isNowDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="previousDetailId != null">
+        previous_detail_id = #{previousDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStage != null">
+        house_stage = #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStage != null">
+        rent_stage = #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        update_time = NOW(),
+        sys_time = NOW()
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseStageDetail">
+    update owner_house_stage_detail
+    set house_id = #{houseId,jdbcType=BIGINT},
+      old_owner_id = #{oldOwnerId,jdbcType=BIGINT},
+      house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      is_sublet = #{isSublet,jdbcType=TINYINT},
+      is_now_detail = #{isNowDetail,jdbcType=VARCHAR},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      previous_detail_id = #{previousDetailId,jdbcType=BIGINT},
+      house_stage = #{houseStage,jdbcType=VARCHAR},
+      rent_stage = #{rentStage,jdbcType=VARCHAR},
+      decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      column0 = #{column0,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR},
+      column4 = #{column4,jdbcType=VARCHAR},
+      column5 = #{column5,jdbcType=VARCHAR},
+      column6 = #{column6,jdbcType=VARCHAR},
+      column7 = #{column7,jdbcType=VARCHAR},
+      column8 = #{column8,jdbcType=VARCHAR},
+      column9 = #{column9,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="deleteStageDetail" parameterType="java.util.Map">
+    update owner_house_stage_detail
+    set 
+      is_deleted = true,
+      update_user_id = #{userId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateNowDetail" parameterType="java.util.Map">
+    update owner_house_stage_detail
+    set 
+      is_now_detail = #{isNowDetail,jdbcType=VARCHAR}
+<!--       update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR} -->
+<!--       update_time = NOW() -->
+    where house_id = #{houseId,jdbcType=BIGINT}  
+    <if test="houseOperateTypeList != null">
+	    and house_operate_type in 
+	    <foreach collection="houseOperateTypeList" item="item" open="(" separator="," close=")">
+	        #{item,jdbcType=VARCHAR}
+	    </foreach>    
+    </if>
+  </update>
+</mapper>

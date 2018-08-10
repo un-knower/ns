@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeCalcLogMapper">
+
+    <resultMap id="ChargeCalcLogResultMap" type="com.newsee.charge.entity.ChargeCalcLog">
+        <id property="id" column="Id" jdbcType="BIGINT"/>
+        <result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+        <result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+        <result property="taskId" column="TaskId" jdbcType="BIGINT"/>
+        <result property="description" column="Description" jdbcType="VARCHAR"/>
+        <result property="amount" column="Amount" jdbcType="DOUBLE"/>
+        <result property="isSuccess" column="IsSuccess" jdbcType="BIGINT"/>
+        <result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+        <result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+        <result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="IsDelete" jdbcType="BIGINT"/>
+        <result property="sequence" column="Sequence" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="ChargeCalcLog_Column_List">
+		Id,EnterpriseId,OrganizationId,Sequence,TaskId,Description,Amount,IsSuccess,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime,IsDelete
+	</sql>
+
+    <select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeCalcLogResultMap">
+        select
+        <include refid="ChargeCalcLog_Column_List"/>
+        from
+        Charge_CalcLog
+        <where>
+            IsDelete = 0
+            <if test="id != null">
+                and TaskId = #{id}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, Description)>0
+            </if>
+            <if test="enterpriseId != null">
+                and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and OrganizationId = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                    <choose>
+                        <when test="item.comparison != null and item.comparison == 'NULL'">
+                            and (#{item.fieldUnderLineName} IS NULL or #{item.fieldUnderLineName} = '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                            and (#{item.fieldUnderLineName} IS NOT NULL or #{item.fieldUnderLineName} != '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                            and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})=0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LIKE'">
+                            and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})>0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                            and #{item.fieldUnderLineName} &gt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                            and #{item.fieldUnderLineName} &lt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                            and #{item.fieldUnderLineName} = #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                            and #{item.fieldUnderLineName} != #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                            and #{item.fieldUnderLineName} &gt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                            and #{item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+
+            <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+                order by ${orderFieldUnderLineName}
+                <if test="orderBy != null and orderBy != ''">
+                    ${orderBy}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="ChargeCalcLogResultMap">
+        select
+        <include refid="ChargeCalcLog_Column_List"/>
+        from
+        Charge_CalcLog
+        where
+        Id = #{id}
+    </select>
+
+    <update id="updateById" parameterType="com.newsee.charge.entity.ChargeCalcLog">
+        update Charge_CalcLog
+        <set>
+            <if test="enterpriseId != null">
+                EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+                OrganizationId = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="taskId != null">
+                TaskId = #{taskId, jdbcType=BIGINT },
+            </if>
+            <if test="description != null">
+                Description = #{description, jdbcType=VARCHAR },
+            </if>
+            <if test="amount != null">
+                Amount = #{amount, jdbcType=DOUBLE },
+            </if>
+            <if test="isSuccess != null">
+                IsSuccess = #{isSuccess, jdbcType=BIGINT },
+            </if>
+            <if test="createUserId != null">
+                CreateUserId = #{createUserId, jdbcType=BIGINT },
+            </if>
+            <if test="createUserName != null">
+                CreateUserName = #{createUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="createTime != null">
+                CreateTime = #{createTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="updateTime != null">
+                UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="sysTime != null">
+                SysTime = #{sysTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="isDelete != null">
+                IsDelete = #{isDelete, jdbcType=BIGINT },
+            </if>
+            <if test="sequence != null">
+                Sequence = #{sequence, jdbcType=BIGINT },
+            </if>
+        </set>
+        where
+        Id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+		delete from Charge_CalcLog 
+		where
+			Id = #{id}
+	</delete>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from Charge_CalcLog
+        where
+        Id in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.newsee.charge.entity.ChargeCalcLog">
+        insert into Charge_CalcLog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="enterpriseId != null">
+                EnterpriseId,
+            </if>
+            <if test="organizationId != null">
+                OrganizationId,
+            </if>
+            <if test="taskId != null">
+                TaskId,
+            </if>
+            <if test="description != null">
+                Description,
+            </if>
+            <if test="amount != null">
+                Amount,
+            </if>
+            <if test="isSuccess != null">
+                IsSuccess,
+            </if>
+            <if test="createUserId != null">
+                CreateUserId,
+            </if>
+            <if test="createUserName != null">
+                CreateUserName,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId,
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName,
+            </if>
+            <if test="updateTime != null">
+                UpdateTime,
+            </if>
+            <if test="sysTime != null">
+                SysTime,
+            </if>
+            <if test="isDelete != null">
+                IsDelete,
+            </if>
+            <if test="sequence != null">
+                sequence,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="enterpriseId != null">
+                #{enterpriseId, jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId, jdbcType=BIGINT},
+            </if>
+            <if test="taskId != null">
+                #{taskId, jdbcType=BIGINT},
+            </if>
+            <if test="description != null">
+                #{description, jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount, jdbcType=DOUBLE},
+            </if>
+            <if test="isSuccess != null">
+                #{isSuccess, jdbcType=BIGINT},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId, jdbcType=BIGINT},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId, jdbcType=BIGINT},
+            </if>
+            <if test="updateUserName != null">
+                #{updateUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="sysTime != null">
+                #{sysTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete, jdbcType=BIGINT},
+            </if>
+            <if test="sequence != null">
+                #{sequence, jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into Charge_CalcLog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            EnterpriseId,
+            OrganizationId,
+            TaskId,
+            Description,
+            Amount,
+            IsSuccess,
+            CreateUserId,
+            CreateUserName,
+            CreateTime,
+            UpdateUserId,
+            UpdateUserName,
+            UpdateTime,
+            SysTime,
+            IsDelete,
+            sequence,
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.enterpriseId, jdbcType=BIGINT},
+            #{item.organizationId, jdbcType=BIGINT},
+            #{item.taskId, jdbcType=BIGINT},
+            #{item.description, jdbcType=VARCHAR},
+            #{item.amount, jdbcType=DOUBLE},
+            #{item.isSuccess, jdbcType=BIGINT},
+            #{item.createUserId, jdbcType=BIGINT},
+            #{item.createUserName, jdbcType=VARCHAR},
+            #{item.createTime, jdbcType=TIMESTAMP},
+            #{item.updateUserId, jdbcType=BIGINT},
+            #{item.updateUserName, jdbcType=VARCHAR},
+            #{item.updateTime, jdbcType=TIMESTAMP},
+            #{item.sysTime, jdbcType=TIMESTAMP},
+            #{item.isDelete, jdbcType=BIGINT},
+            #{item.sequence, jdbcType=BIGINT},
+            )
+        </foreach>
+    </insert>
+
+</mapper>

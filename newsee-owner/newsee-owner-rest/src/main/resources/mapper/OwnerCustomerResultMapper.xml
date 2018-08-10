@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerCustomerResultMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerCustomerResult">
+    <id column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="precinct_id" jdbcType="BIGINT" property="precinctId" />
+    <result column="precinct_name" jdbcType="VARCHAR" property="precinctName" />
+    <result column="main_house_name" jdbcType="VARCHAR" property="mainHouseName" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="owner_type" jdbcType="VARCHAR" property="ownerType" />
+    <!-- <result column="owner_type_name" jdbcType="VARCHAR" property="ownerTypeName" /> -->
+    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+    <!-- <result column="owner_property_name" jdbcType="VARCHAR" property="ownerPropertyName" /> -->
+    <result column="owner_level" jdbcType="VARCHAR" property="ownerLevel" />
+    <!-- <result column="owner_level_name" jdbcType="VARCHAR" property="ownerLevelName" /> -->
+    <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />
+    <!-- <result column="certificate_type_name" jdbcType="VARCHAR" property="certificateTypeName" /> -->
+    <result column="certificate" jdbcType="VARCHAR" property="certificate" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <!-- <result column="gender_name" jdbcType="VARCHAR" property="genderName" /> -->
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="marital_status" jdbcType="VARCHAR" property="maritalStatus" />
+    <!-- <result column="marital_status_name" jdbcType="VARCHAR" property="maritalStatusName" /> -->
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <!-- <result column="education_name" jdbcType="VARCHAR" property="educationName" /> -->
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <!-- <result column="region_name" jdbcType="VARCHAR" property="regionName" /> -->
+    <result column="trade_id" jdbcType="VARCHAR" property="tradeId" />
+    <!-- <result column="trade_name" jdbcType="VARCHAR" property="tradeName" /> -->
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <!-- <result column="nation_name" jdbcType="VARCHAR" property="nationName" /> -->
+    <result column="interests_ids" jdbcType="VARCHAR" property="interestsIds" />
+    <!-- <result column="interests_names" jdbcType="VARCHAR" property="interestsNames" /> -->
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="street_id" jdbcType="INTEGER" property="streetId" />
+    <result column="regional_info" jdbcType="VARCHAR" property="regionalInfo" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="company_phone" jdbcType="VARCHAR" property="companyPhone" />
+    <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="emergency_contact" jdbcType="VARCHAR" property="emergencyContact" />
+    <result column="emergency_contact_phone" jdbcType="VARCHAR" property="emergencyContactPhone" />
+    <result column="legal_representative" jdbcType="VARCHAR" property="legalRepresentative" />
+    <result column="company_properyty" jdbcType="VARCHAR" property="companyProperyty" />
+    <result column="people_counts" jdbcType="INTEGER" property="peopleCounts" />
+    <result column="registered_address" jdbcType="VARCHAR" property="registeredAddress" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="linkman_phone" jdbcType="VARCHAR" property="linkmanPhone" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="has_family" jdbcType="VARCHAR" property="hasFamily" />
+    <!-- 备用字段 -->
+    <result column="column0" property="column0" jdbcType="VARCHAR" />
+    <result column="column1" property="column1" jdbcType="VARCHAR" />
+    <result column="column2" property="column2" jdbcType="VARCHAR" />
+    <result column="column3" property="column3" jdbcType="VARCHAR" />
+    <result column="column4" property="column4" jdbcType="VARCHAR" />
+    <result column="column5" property="column5" jdbcType="VARCHAR" />
+    <result column="column6" property="column6" jdbcType="VARCHAR" />
+    <result column="column7" property="column7" jdbcType="VARCHAR" />
+    <result column="column8" property="column8" jdbcType="VARCHAR" />
+    <result column="column9" property="column9" jdbcType="VARCHAR" />   
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" /> 
+  </resultMap>
+  <sql id="Base_Column_List">
+    owner_id, enterprise_id, organization_id, precinct_id, precinct_name, main_house_name, owner_name, owner_type,
+    owner_property, owner_level, certificate_type,
+    certificate, is_deleted, create_user_id, 
+    create_time, update_user_id, update_time, sys_time, mobile, phone, gender, age, birthday, 
+    marital_status, education, region, trade_id,
+    native_place, nation, interests_ids,
+    remark, province_id, city_id, area_id, street_id, regional_info, 
+    address, company, company_phone, company_address, email, qq, emergency_contact, emergency_contact_phone, 
+    legal_representative, company_properyty, people_counts, registered_address, fax, 
+    linkman, linkman_phone, pic_url, has_family
+    , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_result
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from owner_customer_result
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+  </delete>
+  <delete id="batchDeleteByOwnerId" parameterType="java.util.List">
+    delete from owner_customer_result
+    where owner_id in 
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerCustomerResult">
+    insert into owner_customer_result (owner_id, enterprise_id, organization_id, 
+      precinct_id, precinct_name, main_house_name, owner_name, 
+      owner_type, owner_property, owner_level, 
+      certificate_type, certificate, is_deleted, 
+      create_user_id, create_time, update_user_id, 
+      update_time, sys_time, mobile, 
+      phone, gender, age, 
+      birthday, marital_status, education, 
+      region, trade_id, native_place, 
+      nation, interests_ids, remark, 
+      province_id, city_id, 
+      area_id, street_id, regional_info, 
+      address, company, company_phone, 
+      company_address, email, qq, 
+      emergency_contact, emergency_contact_phone, 
+      legal_representative, company_properyty, 
+      people_counts, registered_address, fax, 
+      linkman, linkman_phone, pic_url, has_family
+      , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9,create_user_name, update_user_name
+      )
+    values (#{ownerId,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, 
+      #{precinctId,jdbcType=BIGINT}, #{precinctName,jdbcType=VARCHAR}, #{mainHouseName,jdbcType=VARCHAR}, 
+      #{ownerName,jdbcType=VARCHAR}, #{ownerType,jdbcType=VARCHAR},
+      #{ownerProperty,jdbcType=VARCHAR}, #{ownerLevel,jdbcType=VARCHAR},
+      #{certificateType,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{sysTime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{maritalStatus,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{tradeId,jdbcType=VARCHAR},
+      #{nativePlace,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{interestsIds,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+      #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{regionalInfo,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{companyPhone,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{emergencyContact,jdbcType=VARCHAR}, #{emergencyContactPhone,jdbcType=VARCHAR}, 
+      #{legalRepresentative,jdbcType=VARCHAR}, #{companyProperyty,jdbcType=VARCHAR}, 
+      #{peopleCounts,jdbcType=INTEGER}, #{registeredAddress,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{linkmanPhone,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{hasFamily,jdbcType=VARCHAR}
+      , #{column0,jdbcType=VARCHAR}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}
+      , #{column4,jdbcType=VARCHAR}, #{column5,jdbcType=VARCHAR}, #{column6,jdbcType=VARCHAR}, #{column7,jdbcType=VARCHAR}
+      , #{column8,jdbcType=VARCHAR}, #{column9,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerCustomerResult">
+    insert into owner_customer_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="precinctId != null">
+        precinct_id,
+      </if>
+      <if test="precinctName != null">
+        precinct_name,
+      </if>
+      <if test="mainHouseName != null">
+        main_house_name,
+      </if>
+      <if test="ownerName != null">
+        owner_name,
+      </if>
+      <if test="ownerType != null">
+        owner_type,
+      </if>
+      <if test="ownerProperty != null">
+        owner_property,
+      </if>
+      <if test="ownerLevel != null">
+        owner_level,
+      </if>
+      <if test="certificateType != null">
+        certificate_type,
+      </if>
+      <if test="certificate != null">
+        certificate,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="maritalStatus != null">
+        marital_status,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="tradeId != null">
+        trade_id,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="interestsIds != null">
+        interests_ids,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="streetId != null">
+        street_id,
+      </if>
+      <if test="regionalInfo != null">
+        regional_info,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="companyPhone != null">
+        company_phone,
+      </if>
+      <if test="companyAddress != null">
+        company_address,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="emergencyContact != null">
+        emergency_contact,
+      </if>
+      <if test="emergencyContactPhone != null">
+        emergency_contact_phone,
+      </if>
+      <if test="legalRepresentative != null">
+        legal_representative,
+      </if>
+      <if test="companyProperyty != null">
+        company_properyty,
+      </if>
+      <if test="peopleCounts != null">
+        people_counts,
+      </if>
+      <if test="registeredAddress != null">
+        registered_address,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="hasFamily != null">
+        has_family,
+      </if>
+      <if test="column0 != null">
+        column0,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+      <if test="column4 != null">
+        column4,
+      </if>
+      <if test="column5 != null">
+        column5,
+      </if>
+      <if test="column6 != null">
+        column6,
+      </if>
+      <if test="column7 != null">
+        column7,
+      </if>
+      <if test="column8 != null">
+        column8,
+      </if>
+      <if test="column9 != null">
+        column9,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctName != null">
+        #{precinctName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseName != null">
+        #{mainHouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null">
+        #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerProperty != null">
+        #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerLevel != null">
+        #{ownerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maritalStatus != null">
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeId != null">
+        #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="interestsIds != null">
+        #{interestsIds,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null">
+        #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="regionalInfo != null">
+        #{regionalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null">
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null">
+        #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactPhone != null">
+        #{emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null">
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProperyty != null">
+        #{companyProperyty,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleCounts != null">
+        #{peopleCounts,jdbcType=INTEGER},
+      </if>
+      <if test="registeredAddress != null">
+        #{registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hasFamily != null">
+        #{hasFamily,jdbcType=VARCHAR},
+      </if>
+      <if test="column0 != null">
+        #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerCustomerResult">
+    update owner_customer_result
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctName != null">
+        precinct_name = #{precinctName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseName != null">
+        main_house_name = #{mainHouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null">
+        owner_type = #{ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerProperty != null">
+        owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerLevel != null">
+        owner_level = #{ownerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        certificate_type = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maritalStatus != null">
+        marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeId != null">
+        trade_id = #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="interestsIds != null">
+        interests_ids = #{interestsIds,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null">
+        street_id = #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="regionalInfo != null">
+        regional_info = #{regionalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null">
+        company_phone = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null">
+        emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactPhone != null">
+        emergency_contact_phone = #{emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null">
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="companyProperyty != null">
+        company_properyty = #{companyProperyty,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleCounts != null">
+        people_counts = #{peopleCounts,jdbcType=INTEGER},
+      </if>
+      <if test="registeredAddress != null">
+        registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null">
+        linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hasFamily != null">
+        has_family = #{hasFamily,jdbcType=VARCHAR},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerCustomerResult">
+    update owner_customer_result
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      precinct_name = #{precinctName,jdbcType=VARCHAR},
+      main_house_name = #{mainHouseName,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      owner_type = #{ownerType,jdbcType=VARCHAR},
+      owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      owner_level = #{ownerLevel,jdbcType=VARCHAR},
+      certificate_type = #{certificateType,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = NOW(),
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      trade_id = #{tradeId,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      interests_ids = #{interestsIds,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      area_id = #{areaId,jdbcType=INTEGER},
+      street_id = #{streetId,jdbcType=INTEGER},
+      regional_info = #{regionalInfo,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      company_phone = #{companyPhone,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      emergency_contact_phone = #{emergencyContactPhone,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      company_properyty = #{companyProperyty,jdbcType=VARCHAR},
+      people_counts = #{peopleCounts,jdbcType=INTEGER},
+      registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linkman_phone = #{linkmanPhone,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      has_family = #{hasFamily,jdbcType=VARCHAR},
+      column0 = #{column0,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR},
+      column4 = #{column4,jdbcType=VARCHAR},
+      column5 = #{column5,jdbcType=VARCHAR},
+      column6 = #{column6,jdbcType=VARCHAR},
+      column7 = #{column7,jdbcType=VARCHAR},
+      column8 = #{column8,jdbcType=VARCHAR},
+      column9 = #{column9,jdbcType=VARCHAR},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR}
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+  </update>
+  <select id="listResultBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+        <include refid="Base_Column_List" />
+    from owner_customer_result
+    <where>
+        is_deleted = 0
+        <if test="ownerIdList != null">
+            and owner_id in 
+            <foreach collection="ownerIdList" item="ownerId" open="(" separator="," close=")">
+                #{ownerId,jdbcType=BIGINT}
+            </foreach>
+        </if>
+        <if test="precinctListForNoHouse != null">
+            and (
+            <foreach collection="precinctListForNoHouse" index="index" item="precinctId">
+                <if test="index != 0">
+                    or
+                </if>
+                LOCATE(concat("/",#{precinctId,jdbcType=VARCHAR},"/"), precinct_id)>0 
+            </foreach>
+            )
+        </if>
+        <if test="searchVo.mainSearch != null and searchVo.mainSearch != ''">
+            and (LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, owner_name)>0 or 
+            LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, mobile)>0 )
+        </if>
+        <if test="searchVo.enterpriseId != null">
+            and enterprise_id = #{searchVo.enterpriseId,jdbcType=BIGINT}
+        </if>
+<!--         <if test="searchVo.organizationId != null">
+            and organization_id = #{searchVo.organizationId,jdbcType=BIGINT}
+        </if> -->
+        <if test="searchVo.seeOrganizationIdList != null and searchVo.seeUserId != null"></if>
+        <choose>
+            <when test="searchVo.seeOrganizationIdList != null and searchVo.seeUserId != null">
+                and (organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                    or create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT})
+            </when>
+            <otherwise>
+                <if test="searchVo.seeOrganizationIdList != null">
+		            and organization_id in
+		            <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+		                #{organizationId,jdbcType=BIGINT}
+		            </foreach>
+		        </if>
+		        <if test="searchVo.seeUserId != null">
+		            and create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT}
+		        </if>
+            </otherwise>
+        </choose>
+        <if test="searchVo.filterList != null">
+            <foreach collection="searchVo.filterList" item="item">
+               <choose>
+                   <when test="item.comparison != null and item.comparison == 'NULL'">
+                       and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                       and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                       and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                       and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                       and ${item.fieldUnderLineName} = #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                       and ${item.fieldUnderLineName} != #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                   </when>
+               </choose>
+            </foreach>
+        </if>
+
+        <!-- <if test="searchVo.orderFieldUnderLineName != null and searchVo.orderFieldUnderLineName != ''">
+           order by ${searchVo.orderFieldUnderLineName}
+           <if test="searchVo.orderBy != null and searchVo.orderBy != ''">
+               ${searchVo.orderBy}
+           </if>
+        </if> -->
+        <choose>
+         <when test="searchVo.orderFieldUnderLineName != null and searchVo.orderFieldUnderLineName != ''">
+            order by CONVERT(${searchVo.orderFieldUnderLineName} USING gbk)
+           <if test="searchVo.orderBy != null and searchVo.orderBy != ''">
+               ${searchVo.orderBy}
+           </if>
+         </when>
+         <otherwise>
+            order by update_time DESC
+         </otherwise>
+        </choose>
+    </where>
+  </select>
+  <update id="updateBatch" parameterType="java.util.Map">
+    update owner_customer_result
+    <set>
+      <if test="ownerCustomerResult.enterpriseId != null">
+        enterprise_id = #{ownerCustomerResult.enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCustomerResult.organizationId != null">
+        organization_id = #{ownerCustomerResult.organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCustomerResult.precinctId != null">
+        precinct_id = #{ownerCustomerResult.precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCustomerResult.precinctName != null">
+        precinct_name = #{ownerCustomerResult.precinctName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.mainHouseName != null">
+        main_house_name = #{ownerCustomerResult.mainHouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.ownerName != null">
+        owner_name = #{ownerCustomerResult.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.ownerType != null">
+        owner_type = #{ownerCustomerResult.ownerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.ownerProperty != null">
+        owner_property = #{ownerCustomerResult.ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.ownerLevel != null">
+        owner_level = #{ownerCustomerResult.ownerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.certificateType != null">
+        certificate_type = #{ownerCustomerResult.certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.certificate != null">
+        certificate = #{ownerCustomerResult.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.isDeleted != null">
+        is_deleted = #{ownerCustomerResult.isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="ownerCustomerResult.updateUserId != null">
+        update_user_id = #{ownerCustomerResult.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCustomerResult.updateTime != null">
+        update_time = #{ownerCustomerResult.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerCustomerResult.mobile != null">
+        mobile = #{ownerCustomerResult.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.phone != null">
+        phone = #{ownerCustomerResult.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.gender != null">
+        gender = #{ownerCustomerResult.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.age != null">
+        age = #{ownerCustomerResult.age,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.birthday != null">
+        birthday = #{ownerCustomerResult.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerCustomerResult.maritalStatus != null">
+        marital_status = #{ownerCustomerResult.maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.education != null">
+        education = #{ownerCustomerResult.education,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.region != null">
+        region = #{ownerCustomerResult.region,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.tradeId != null">
+        trade_id = #{ownerCustomerResult.tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.nativePlace != null">
+        native_place = #{ownerCustomerResult.nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.nation != null">
+        nation = #{ownerCustomerResult.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.interestsIds != null">
+        interests_ids = #{ownerCustomerResult.interestsIds,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.remark != null">
+        remark = #{ownerCustomerResult.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.provinceId != null">
+        province_id = #{ownerCustomerResult.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.cityId != null">
+        city_id = #{ownerCustomerResult.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.areaId != null">
+        area_id = #{ownerCustomerResult.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.streetId != null">
+        street_id = #{ownerCustomerResult.streetId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.regionalInfo != null">
+        regional_info = #{ownerCustomerResult.regionalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.address != null">
+        address = #{ownerCustomerResult.address,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.company != null">
+        company = #{ownerCustomerResult.company,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.companyPhone != null">
+        company_phone = #{ownerCustomerResult.companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.companyAddress != null">
+        company_address = #{ownerCustomerResult.companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.email != null">
+        email = #{ownerCustomerResult.email,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.qq != null">
+        qq = #{ownerCustomerResult.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.emergencyContact != null">
+        emergency_contact = #{ownerCustomerResult.emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.emergencyContactPhone != null">
+        emergency_contact_phone = #{ownerCustomerResult.emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.legalRepresentative != null">
+        legal_representative = #{ownerCustomerResult.legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.companyProperyty != null">
+        company_properyty = #{ownerCustomerResult.companyProperyty,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.peopleCounts != null">
+        people_counts = #{ownerCustomerResult.peopleCounts,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCustomerResult.registeredAddress != null">
+        registered_address = #{ownerCustomerResult.registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.fax != null">
+        fax = #{ownerCustomerResult.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.linkman != null">
+        linkman = #{ownerCustomerResult.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.linkmanPhone != null">
+        linkman_phone = #{ownerCustomerResult.linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.picUrl != null">
+        pic_url = #{ownerCustomerResult.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCustomerResult.hasFamily != null">
+        has_family = #{ownerCustomerResult.hasFamily,jdbcType=VARCHAR},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where owner_id in 
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach> 
+  </update>
+</mapper>

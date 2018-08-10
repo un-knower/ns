@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreResourcetableMapper">
+
+	<resultMap id="NsCoreResourcetableResultMap" type="com.newsee.system.entity.NsCoreResourcetable">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="jeCoreResourcetableId" column="JE_CORE_RESOURCETABLE_ID" jdbcType="VARCHAR"/>
+			<result property="resourcetableChildtablecodes" column="RESOURCETABLE_CHILDTABLECODES" jdbcType="LONGVARCHAR"/>
+			<result property="resourcetableIconcls" column="RESOURCETABLE_ICONCLS" jdbcType="VARCHAR"/>
+			<result property="resourcetableImplwf" column="RESOURCETABLE_IMPLWF" jdbcType="VARCHAR"/>
+			<result property="resourcetableIscreate" column="RESOURCETABLE_ISCREATE" jdbcType="VARCHAR"/>
+			<result property="resourcetableIsuseforeignkey" column="RESOURCETABLE_ISUSEFOREIGNKEY" jdbcType="VARCHAR"/>
+			<result property="resourcetableMoreroot" column="RESOURCETABLE_MOREROOT" jdbcType="VARCHAR"/>
+			<result property="resourcetableNodeinfo" column="RESOURCETABLE_NODEINFO" jdbcType="VARCHAR"/>
+			<result property="resourcetableNodeinfotype" column="RESOURCETABLE_NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcetableOldtablecode" column="RESOURCETABLE_OLDTABLECODE" jdbcType="VARCHAR"/>
+			<result property="resourcetableParenttablecodes" column="RESOURCETABLE_PARENTTABLECODES" jdbcType="VARCHAR"/>
+			<result property="resourcetablePkcode" column="RESOURCETABLE_PKCODE" jdbcType="VARCHAR"/>
+			<result property="resourcetableRemark" column="RESOURCETABLE_REMARK" jdbcType="VARCHAR"/>
+			<result property="resourcetableSql" column="RESOURCETABLE_SQL" jdbcType="LONGVARCHAR"/>
+			<result property="resourcetableTablecode" column="RESOURCETABLE_TABLECODE" jdbcType="VARCHAR"/>
+			<result property="resourcetableTablename" column="RESOURCETABLE_TABLENAME" jdbcType="VARCHAR"/>
+			<result property="resourcetableTablenote" column="RESOURCETABLE_TABLENOTE" jdbcType="LONGVARCHAR"/>
+			<result property="resourcetableType" column="RESOURCETABLE_TYPE" jdbcType="VARCHAR"/>
+			<result property="resourcetableUsefunc" column="RESOURCETABLE_USEFUNC" jdbcType="LONGVARCHAR"/>
+			<result property="syDisabled" column="SY_DISABLED" jdbcType="VARCHAR"/>
+			<result property="syJecore" column="SY_JECORE" jdbcType="VARCHAR"/>
+			<result property="syJesys" column="SY_JESYS" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syLayer" column="SY_LAYER" jdbcType="INTEGER"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syNodetype" column="SY_NODETYPE" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syParent" column="SY_PARENT" jdbcType="VARCHAR"/>
+			<result property="syParentpath" column="SY_PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPath" column="SY_PATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="syTreeorderindex" column="SY_TREEORDERINDEX" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreResourcetable_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,JE_CORE_RESOURCETABLE_ID,RESOURCETABLE_CHILDTABLECODES,RESOURCETABLE_ICONCLS,RESOURCETABLE_IMPLWF,RESOURCETABLE_ISCREATE,RESOURCETABLE_ISUSEFOREIGNKEY,RESOURCETABLE_MOREROOT,RESOURCETABLE_NODEINFO,RESOURCETABLE_NODEINFOTYPE,RESOURCETABLE_OLDTABLECODE,RESOURCETABLE_PARENTTABLECODES,RESOURCETABLE_PKCODE,RESOURCETABLE_REMARK,RESOURCETABLE_SQL,RESOURCETABLE_TABLECODE,RESOURCETABLE_TABLENAME,RESOURCETABLE_TABLENOTE,RESOURCETABLE_TYPE,RESOURCETABLE_USEFUNC,SY_DISABLED,SY_JECORE,SY_JESYS,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_LAYER,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_NODETYPE,SY_ORDERINDEX,SY_PARENT,SY_PARENTPATH,SY_PATH,SY_PDID,SY_PIID,SY_STATUS,SY_TREEORDERINDEX
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreResourcetableResultMap">
+		select
+			<include refid="NsCoreResourcetable_Column_List" />
+		from
+			ns_core_resourcetable
+		where
+			ID = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreResourcetable">
+		update ns_core_resourcetable
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="jeCoreResourcetableId != null">
+			  JE_CORE_RESOURCETABLE_ID = #{jeCoreResourcetableId, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableChildtablecodes != null">
+			  RESOURCETABLE_CHILDTABLECODES = #{resourcetableChildtablecodes, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcetableIconcls != null">
+			  RESOURCETABLE_ICONCLS = #{resourcetableIconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableImplwf != null">
+			  RESOURCETABLE_IMPLWF = #{resourcetableImplwf, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableIscreate != null">
+			  RESOURCETABLE_ISCREATE = #{resourcetableIscreate, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableIsuseforeignkey != null">
+			  RESOURCETABLE_ISUSEFOREIGNKEY = #{resourcetableIsuseforeignkey, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableMoreroot != null">
+			  RESOURCETABLE_MOREROOT = #{resourcetableMoreroot, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableNodeinfo != null">
+			  RESOURCETABLE_NODEINFO = #{resourcetableNodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableNodeinfotype != null">
+			  RESOURCETABLE_NODEINFOTYPE = #{resourcetableNodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableOldtablecode != null">
+			  RESOURCETABLE_OLDTABLECODE = #{resourcetableOldtablecode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableParenttablecodes != null">
+			  RESOURCETABLE_PARENTTABLECODES = #{resourcetableParenttablecodes, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetablePkcode != null">
+			  RESOURCETABLE_PKCODE = #{resourcetablePkcode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableRemark != null">
+			  RESOURCETABLE_REMARK = #{resourcetableRemark, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableSql != null">
+			  RESOURCETABLE_SQL = #{resourcetableSql, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcetableTablecode != null">
+			  RESOURCETABLE_TABLECODE = #{resourcetableTablecode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableTablename != null">
+			  RESOURCETABLE_TABLENAME = #{resourcetableTablename, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableTablenote != null">
+			  RESOURCETABLE_TABLENOTE = #{resourcetableTablenote, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcetableType != null">
+			  RESOURCETABLE_TYPE = #{resourcetableType, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcetableUsefunc != null">
+			  RESOURCETABLE_USEFUNC = #{resourcetableUsefunc, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syDisabled != null">
+			  SY_DISABLED = #{syDisabled, jdbcType=VARCHAR },
+			</if>
+			<if test="syJecore != null">
+			  SY_JECORE = #{syJecore, jdbcType=VARCHAR },
+			</if>
+			<if test="syJesys != null">
+			  SY_JESYS = #{syJesys, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syLayer != null">
+			  SY_LAYER = #{syLayer, jdbcType=INTEGER },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syNodetype != null">
+			  SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syParent != null">
+			  SY_PARENT = #{syParent, jdbcType=VARCHAR },
+			</if>
+			<if test="syParentpath != null">
+			  SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPath != null">
+			  SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="syTreeorderindex != null">
+			  SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_resourcetable 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_resourcetable
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreResourcetable">
+		insert into ns_core_resourcetable
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="jeCoreResourcetableId != null">
+				JE_CORE_RESOURCETABLE_ID,
+			</if>
+			<if test="resourcetableChildtablecodes != null">
+				RESOURCETABLE_CHILDTABLECODES,
+			</if>
+			<if test="resourcetableIconcls != null">
+				RESOURCETABLE_ICONCLS,
+			</if>
+			<if test="resourcetableImplwf != null">
+				RESOURCETABLE_IMPLWF,
+			</if>
+			<if test="resourcetableIscreate != null">
+				RESOURCETABLE_ISCREATE,
+			</if>
+			<if test="resourcetableIsuseforeignkey != null">
+				RESOURCETABLE_ISUSEFOREIGNKEY,
+			</if>
+			<if test="resourcetableMoreroot != null">
+				RESOURCETABLE_MOREROOT,
+			</if>
+			<if test="resourcetableNodeinfo != null">
+				RESOURCETABLE_NODEINFO,
+			</if>
+			<if test="resourcetableNodeinfotype != null">
+				RESOURCETABLE_NODEINFOTYPE,
+			</if>
+			<if test="resourcetableOldtablecode != null">
+				RESOURCETABLE_OLDTABLECODE,
+			</if>
+			<if test="resourcetableParenttablecodes != null">
+				RESOURCETABLE_PARENTTABLECODES,
+			</if>
+			<if test="resourcetablePkcode != null">
+				RESOURCETABLE_PKCODE,
+			</if>
+			<if test="resourcetableRemark != null">
+				RESOURCETABLE_REMARK,
+			</if>
+			<if test="resourcetableSql != null">
+				RESOURCETABLE_SQL,
+			</if>
+			<if test="resourcetableTablecode != null">
+				RESOURCETABLE_TABLECODE,
+			</if>
+			<if test="resourcetableTablename != null">
+				RESOURCETABLE_TABLENAME,
+			</if>
+			<if test="resourcetableTablenote != null">
+				RESOURCETABLE_TABLENOTE,
+			</if>
+			<if test="resourcetableType != null">
+				RESOURCETABLE_TYPE,
+			</if>
+			<if test="resourcetableUsefunc != null">
+				RESOURCETABLE_USEFUNC,
+			</if>
+			<if test="syDisabled != null">
+				SY_DISABLED,
+			</if>
+			<if test="syJecore != null">
+				SY_JECORE,
+			</if>
+			<if test="syJesys != null">
+				SY_JESYS,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syLayer != null">
+				SY_LAYER,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syNodetype != null">
+				SY_NODETYPE,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syParent != null">
+				SY_PARENT,
+			</if>
+			<if test="syParentpath != null">
+				SY_PARENTPATH,
+			</if>
+			<if test="syPath != null">
+				SY_PATH,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="syTreeorderindex != null">
+				SY_TREEORDERINDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="jeCoreResourcetableId != null">
+				#{jeCoreResourcetableId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableChildtablecodes != null">
+				#{resourcetableChildtablecodes, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcetableIconcls != null">
+				#{resourcetableIconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableImplwf != null">
+				#{resourcetableImplwf, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableIscreate != null">
+				#{resourcetableIscreate, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableIsuseforeignkey != null">
+				#{resourcetableIsuseforeignkey, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableMoreroot != null">
+				#{resourcetableMoreroot, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableNodeinfo != null">
+				#{resourcetableNodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableNodeinfotype != null">
+				#{resourcetableNodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableOldtablecode != null">
+				#{resourcetableOldtablecode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableParenttablecodes != null">
+				#{resourcetableParenttablecodes, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetablePkcode != null">
+				#{resourcetablePkcode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableRemark != null">
+				#{resourcetableRemark, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableSql != null">
+				#{resourcetableSql, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcetableTablecode != null">
+				#{resourcetableTablecode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableTablename != null">
+				#{resourcetableTablename, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableTablenote != null">
+				#{resourcetableTablenote, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcetableType != null">
+				#{resourcetableType, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcetableUsefunc != null">
+				#{resourcetableUsefunc, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syDisabled != null">
+				#{syDisabled, jdbcType=VARCHAR},
+			</if>
+			<if test="syJecore != null">
+				#{syJecore, jdbcType=VARCHAR},
+			</if>
+			<if test="syJesys != null">
+				#{syJesys, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syLayer != null">
+				#{syLayer, jdbcType=INTEGER},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syNodetype != null">
+				#{syNodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syParent != null">
+				#{syParent, jdbcType=VARCHAR},
+			</if>
+			<if test="syParentpath != null">
+				#{syParentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPath != null">
+				#{syPath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="syTreeorderindex != null">
+				#{syTreeorderindex, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_resourcetable
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			JE_CORE_RESOURCETABLE_ID,
+			RESOURCETABLE_CHILDTABLECODES,
+			RESOURCETABLE_ICONCLS,
+			RESOURCETABLE_IMPLWF,
+			RESOURCETABLE_ISCREATE,
+			RESOURCETABLE_ISUSEFOREIGNKEY,
+			RESOURCETABLE_MOREROOT,
+			RESOURCETABLE_NODEINFO,
+			RESOURCETABLE_NODEINFOTYPE,
+			RESOURCETABLE_OLDTABLECODE,
+			RESOURCETABLE_PARENTTABLECODES,
+			RESOURCETABLE_PKCODE,
+			RESOURCETABLE_REMARK,
+			RESOURCETABLE_SQL,
+			RESOURCETABLE_TABLECODE,
+			RESOURCETABLE_TABLENAME,
+			RESOURCETABLE_TABLENOTE,
+			RESOURCETABLE_TYPE,
+			RESOURCETABLE_USEFUNC,
+			SY_DISABLED,
+			SY_JECORE,
+			SY_JESYS,
+			SY_AUDFLAG,
+			SY_CREATEORG,
+			SY_CREATEORGNAME,
+			SY_CREATETIME,
+			SY_CREATEUSER,
+			SY_CREATEUSERNAME,
+			SY_FLAG,
+			SY_LAYER,
+			SY_MODIFYORG,
+			SY_MODIFYORGNAME,
+			SY_MODIFYTIME,
+			SY_MODIFYUSER,
+			SY_MODIFYUSERNAME,
+			SY_NODETYPE,
+			SY_ORDERINDEX,
+			SY_PARENT,
+			SY_PARENTPATH,
+			SY_PATH,
+			SY_PDID,
+			SY_PIID,
+			SY_STATUS,
+			SY_TREEORDERINDEX,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.jeCoreResourcetableId, jdbcType=VARCHAR},
+			#{item.resourcetableChildtablecodes, jdbcType=LONGVARCHAR},
+			#{item.resourcetableIconcls, jdbcType=VARCHAR},
+			#{item.resourcetableImplwf, jdbcType=VARCHAR},
+			#{item.resourcetableIscreate, jdbcType=VARCHAR},
+			#{item.resourcetableIsuseforeignkey, jdbcType=VARCHAR},
+			#{item.resourcetableMoreroot, jdbcType=VARCHAR},
+			#{item.resourcetableNodeinfo, jdbcType=VARCHAR},
+			#{item.resourcetableNodeinfotype, jdbcType=VARCHAR},
+			#{item.resourcetableOldtablecode, jdbcType=VARCHAR},
+			#{item.resourcetableParenttablecodes, jdbcType=VARCHAR},
+			#{item.resourcetablePkcode, jdbcType=VARCHAR},
+			#{item.resourcetableRemark, jdbcType=VARCHAR},
+			#{item.resourcetableSql, jdbcType=LONGVARCHAR},
+			#{item.resourcetableTablecode, jdbcType=VARCHAR},
+			#{item.resourcetableTablename, jdbcType=VARCHAR},
+			#{item.resourcetableTablenote, jdbcType=LONGVARCHAR},
+			#{item.resourcetableType, jdbcType=VARCHAR},
+			#{item.resourcetableUsefunc, jdbcType=LONGVARCHAR},
+			#{item.syDisabled, jdbcType=VARCHAR},
+			#{item.syJecore, jdbcType=VARCHAR},
+			#{item.syJesys, jdbcType=VARCHAR},
+			#{item.syAudflag, jdbcType=VARCHAR},
+			#{item.syCreateorg, jdbcType=VARCHAR},
+			#{item.syCreateorgname, jdbcType=VARCHAR},
+			#{item.syCreatetime, jdbcType=VARCHAR},
+			#{item.syCreateuser, jdbcType=VARCHAR},
+			#{item.syCreateusername, jdbcType=VARCHAR},
+			#{item.syFlag, jdbcType=VARCHAR},
+			#{item.syLayer, jdbcType=INTEGER},
+			#{item.syModifyorg, jdbcType=VARCHAR},
+			#{item.syModifyorgname, jdbcType=VARCHAR},
+			#{item.syModifytime, jdbcType=VARCHAR},
+			#{item.syModifyuser, jdbcType=VARCHAR},
+			#{item.syModifyusername, jdbcType=VARCHAR},
+			#{item.syNodetype, jdbcType=VARCHAR},
+			#{item.syOrderindex, jdbcType=INTEGER},
+			#{item.syParent, jdbcType=VARCHAR},
+			#{item.syParentpath, jdbcType=LONGVARCHAR},
+			#{item.syPath, jdbcType=LONGVARCHAR},
+			#{item.syPdid, jdbcType=VARCHAR},
+			#{item.syPiid, jdbcType=VARCHAR},
+			#{item.syStatus, jdbcType=VARCHAR},
+			#{item.syTreeorderindex, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

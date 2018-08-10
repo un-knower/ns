@@ -1,0 +1,1597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.devplatform.dao.JeCoreFuncinfoMapper">
+
+	<resultMap id="JeCoreFuncinfoResultMap" type="com.newsee.devplatform.entity.JeCoreFuncinfo">
+			<id property="jeCoreFuncinfoId" column="JE_CORE_FUNCINFO_ID" jdbcType="VARCHAR"/>
+			<result property="funcinfoAttachmentpath" column="FUNCINFO_ATTACHMENTPATH" jdbcType="VARCHAR"/>
+			<result property="funcinfoBigbutton" column="FUNCINFO_BIGBUTTON" jdbcType="VARCHAR"/>
+			<result property="funcinfoBookmarkconfig" column="FUNCINFO_BOOKMARKCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoChartsopen" column="FUNCINFO_CHARTSOPEN" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckstatus" column="FUNCINFO_CHECKSTATUS" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckuser" column="FUNCINFO_CHECKUSER" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckusercode" column="FUNCINFO_CHECKUSERCODE" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckuserid" column="FUNCINFO_CHECKUSERID" jdbcType="VARCHAR"/>
+			<result property="funcinfoChildfilter" column="FUNCINFO_CHILDFILTER" jdbcType="VARCHAR"/>
+			<result property="funcinfoChildrefresh" column="FUNCINFO_CHILDREFRESH" jdbcType="VARCHAR"/>
+			<result property="funcinfoChildshowtype" column="FUNCINFO_CHILDSHOWTYPE" jdbcType="VARCHAR"/>
+			<result property="funcinfoColumnlazy" column="FUNCINFO_COLUMNLAZY" jdbcType="VARCHAR"/>
+			<result property="funcinfoCombine" column="FUNCINFO_COMBINE" jdbcType="VARCHAR"/>
+			<result property="funcinfoCxclselmodel" column="FUNCINFO_CXCLSELMODEL" jdbcType="VARCHAR"/>
+			<result property="funcinfoDatasource" column="FUNCINFO_DATASOURCE" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoDdorder" column="FUNCINFO_DDORDER" jdbcType="VARCHAR"/>
+			<result property="funcinfoEnableformprint" column="FUNCINFO_ENABLEFORMPRINT" jdbcType="VARCHAR"/>
+			<result property="funcinfoExpandentityname" column="FUNCINFO_EXPANDENTITYNAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoExpandjs" column="FUNCINFO_EXPANDJS" jdbcType="VARCHAR"/>
+			<result property="funcinfoExpandpanels" column="FUNCINFO_EXPANDPANELS" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFieldbordercolor" column="FUNCINFO_FIELDBORDERCOLOR" jdbcType="VARCHAR"/>
+			<result property="funcinfoFieldlazy" column="FUNCINFO_FIELDLAZY" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormbgcolor" column="FUNCINFO_FORMBGCOLOR" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormcols" column="FUNCINFO_FORMCOLS" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormdefwidth" column="FUNCINFO_FORMDEFWIDTH" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormjslistener" column="FUNCINFO_FORMJSLISTENER" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFormlabelwidth" column="FUNCINFO_FORMLABELWIDTH" jdbcType="INTEGER"/>
+			<result property="funcinfoFormlabelwidthEn" column="FUNCINFO_FORMLABELWIDTH_EN" jdbcType="INTEGER"/>
+			<result property="funcinfoFormlazy" column="FUNCINFO_FORMLAZY" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormminwidth" column="FUNCINFO_FORMMINWIDTH" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormpaging" column="FUNCINFO_FORMPAGING" jdbcType="VARCHAR"/>
+			<result property="funcinfoFormpagingconfig" column="FUNCINFO_FORMPAGINGCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFormtitle" column="FUNCINFO_FORMTITLE" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFormtitletype" column="FUNCINFO_FORMTITLETYPE" jdbcType="VARCHAR"/>
+			<result property="funcinfoFuncaction" column="FUNCINFO_FUNCACTION" jdbcType="VARCHAR"/>
+			<result property="funcinfoFunccode" column="FUNCINFO_FUNCCODE" jdbcType="VARCHAR"/>
+			<result property="funcinfoFuncdic" column="FUNCINFO_FUNCDIC" jdbcType="VARCHAR"/>
+			<result property="funcinfoFuncdicconfig" column="FUNCINFO_FUNCDICCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFuncname" column="FUNCINFO_FUNCNAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoFuncnameEn" column="FUNCINFO_FUNCNAME_EN" jdbcType="VARCHAR"/>
+			<result property="funcinfoFuncremark" column="FUNCINFO_FUNCREMARK" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoFunctype" column="FUNCINFO_FUNCTYPE" jdbcType="VARCHAR"/>
+			<result property="funcinfoGridchildss" column="FUNCINFO_GRIDCHILDSS" jdbcType="VARCHAR"/>
+			<result property="funcinfoGridjslistener" column="FUNCINFO_GRIDJSLISTENER" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGridprintinfo" column="FUNCINFO_GRIDPRINTINFO" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGridrowtip" column="FUNCINFO_GRIDROWTIP" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGridtip" column="FUNCINFO_GRIDTIP" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGridtipEn" column="FUNCINFO_GRIDTIP_EN" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGroupfield" column="FUNCINFO_GROUPFIELD" jdbcType="VARCHAR"/>
+			<result property="funcinfoGroupfieldtpl" column="FUNCINFO_GROUPFIELDTPL" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoGroupformopen" column="FUNCINFO_GROUPFORMOPEN" jdbcType="VARCHAR"/>
+			<result property="funcinfoGuidelocation" column="FUNCINFO_GUIDELOCATION" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoHelp" column="FUNCINFO_HELP" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoHideformtbar" column="FUNCINFO_HIDEFORMTBAR" jdbcType="VARCHAR"/>
+			<result property="funcinfoHidegridtbar" column="FUNCINFO_HIDEGRIDTBAR" jdbcType="VARCHAR"/>
+			<result property="funcinfoIcon" column="FUNCINFO_ICON" jdbcType="VARCHAR"/>
+			<result property="funcinfoIconcls" column="FUNCINFO_ICONCLS" jdbcType="VARCHAR"/>
+			<result property="funcinfoIdname" column="FUNCINFO_IDNAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoInserttype" column="FUNCINFO_INSERTTYPE" jdbcType="VARCHAR"/>
+			<result property="funcinfoIsbookmark" column="FUNCINFO_ISBOOKMARK" jdbcType="VARCHAR"/>
+			<result property="funcinfoIscomplete" column="FUNCINFO_ISCOMPLETE" jdbcType="VARCHAR"/>
+			<result property="funcinfoIsgridtree" column="FUNCINFO_ISGRIDTREE" jdbcType="VARCHAR"/>
+			<result property="funcinfoLabelbgcolor" column="FUNCINFO_LABELBGCOLOR" jdbcType="VARCHAR"/>
+			<result property="funcinfoListform" column="FUNCINFO_LISTFORM" jdbcType="VARCHAR"/>
+			<result property="funcinfoLodopconfig" column="FUNCINFO_LODOPCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoLodopprint" column="FUNCINFO_LODOPPRINT" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoMultiquery" column="FUNCINFO_MULTIQUERY" jdbcType="VARCHAR"/>
+			<result property="funcinfoMultiselect" column="FUNCINFO_MULTISELECT" jdbcType="VARCHAR"/>
+			<result property="funcinfoNewfuncid" column="FUNCINFO_NEWFUNCID" jdbcType="VARCHAR"/>
+			<result property="funcinfoNodeinfo" column="FUNCINFO_NODEINFO" jdbcType="VARCHAR"/>
+			<result property="funcinfoNodeinfotype" column="FUNCINFO_NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="funcinfoOcform" column="FUNCINFO_OCFORM" jdbcType="VARCHAR"/>
+			<result property="funcinfoOnetoform" column="FUNCINFO_ONETOFORM" jdbcType="VARCHAR"/>
+			<result property="funcinfoOpenform" column="FUNCINFO_OPENFORM" jdbcType="VARCHAR"/>
+			<result property="funcinfoOrdersql" column="FUNCINFO_ORDERSQL" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoOrdersqlDes" column="FUNCINFO_ORDERSQL_DES" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoPagesize" column="FUNCINFO_PAGESIZE" jdbcType="INTEGER"/>
+			<result property="funcinfoPermconfig" column="FUNCINFO_PERMCONFIG" jdbcType="VARCHAR"/>
+			<result property="funcinfoPkname" column="FUNCINFO_PKNAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoQuerywidth" column="FUNCINFO_QUERYWIDTH" jdbcType="INTEGER"/>
+			<result property="funcinfoReportfile" column="FUNCINFO_REPORTFILE" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeedeptids" column="FUNCINFO_SEEDEPTIDS" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeedeptnames" column="FUNCINFO_SEEDEPTNAMES" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeeroleids" column="FUNCINFO_SEEROLEIDS" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeerolenames" column="FUNCINFO_SEEROLENAMES" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeesentryids" column="FUNCINFO_SEESENTRYIDS" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeesentrynames" column="FUNCINFO_SEESENTRYNAMES" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeeuserids" column="FUNCINFO_SEEUSERIDS" jdbcType="VARCHAR"/>
+			<result property="funcinfoSeeusernames" column="FUNCINFO_SEEUSERNAMES" jdbcType="VARCHAR"/>
+			<result property="funcinfoSubsystemId" column="FUNCINFO_SUBSYSTEM_ID" jdbcType="VARCHAR"/>
+			<result property="funcinfoSysmode" column="FUNCINFO_SYSMODE" jdbcType="VARCHAR"/>
+			<result property="funcinfoSystemname" column="FUNCINFO_SYSTEMNAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoTableform" column="FUNCINFO_TABLEFORM" jdbcType="VARCHAR"/>
+			<result property="funcinfoTableformheight" column="FUNCINFO_TABLEFORMHEIGHT" jdbcType="VARCHAR"/>
+			<result property="funcinfoTableformprint" column="FUNCINFO_TABLEFORMPRINT" jdbcType="VARCHAR"/>
+			<result property="funcinfoTableformtpl" column="FUNCINFO_TABLEFORMTPL" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoTableformwidth" column="FUNCINFO_TABLEFORMWIDTH" jdbcType="VARCHAR"/>
+			<result property="funcinfoTableformwidth2" column="FUNCINFO_TABLEFORMWIDTH2" jdbcType="VARCHAR"/>
+			<result property="funcinfoTablename" column="FUNCINFO_TABLENAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoTablestyle" column="FUNCINFO_TABLESTYLE" jdbcType="VARCHAR"/>
+			<result property="funcinfoTreerefresh" column="FUNCINFO_TREEREFRESH" jdbcType="VARCHAR"/>
+			<result property="funcinfoTreetip" column="FUNCINFO_TREETIP" jdbcType="VARCHAR"/>
+			<result property="funcinfoTreetipEn" column="FUNCINFO_TREETIP_EN" jdbcType="VARCHAR"/>
+			<result property="funcinfoUsedatalog" column="FUNCINFO_USEDATALOG" jdbcType="VARCHAR"/>
+			<result property="funcinfoUsefiles" column="FUNCINFO_USEFILES" jdbcType="VARCHAR"/>
+			<result property="funcinfoUseguide" column="FUNCINFO_USEGUIDE" jdbcType="VARCHAR"/>
+			<result property="funcinfoUsewf" column="FUNCINFO_USEWF" jdbcType="VARCHAR"/>
+			<result property="funcinfoVersion" column="FUNCINFO_VERSION" jdbcType="VARCHAR"/>
+			<result property="funcinfoWheresql" column="FUNCINFO_WHERESQL" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoWheresqlDes" column="FUNCINFO_WHERESQL_DES" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoWinformwh" column="FUNCINFO_WINFORMWH" jdbcType="VARCHAR"/>
+			<result property="syJecore" column="SY_JECORE" jdbcType="VARCHAR"/>
+			<result property="syJesys" column="SY_JESYS" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syLayer" column="SY_LAYER" jdbcType="INTEGER"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syNodetype" column="SY_NODETYPE" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syParent" column="SY_PARENT" jdbcType="VARCHAR"/>
+			<result property="syParentpath" column="SY_PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPath" column="SY_PATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="syTreeorderindex" column="SY_TREEORDERINDEX" jdbcType="VARCHAR"/>
+			<result property="funcinfoGridbuffered" column="FUNCINFO_GRIDBUFFERED" jdbcType="VARCHAR"/>
+			<result property="funcinfoGridtimeout" column="FUNCINFO_GRIDTIMEOUT" jdbcType="INTEGER"/>
+			<result property="funcinfoGridrowtipshow" column="FUNCINFO_GRIDROWTIPSHOW" jdbcType="VARCHAR"/>
+			<result property="funcinfoGridhides" column="FUNCINFO_GRIDHIDES" jdbcType="VARCHAR"/>
+			<result property="funcinfoCrudtablename" column="FUNCINFO_CRUDTABLENAME" jdbcType="VARCHAR"/>
+			<result property="funcinfoVersionDev" column="FUNCINFO_VERSION_DEV" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckuserDev" column="FUNCINFO_CHECKUSER_DEV" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckuseridDev" column="FUNCINFO_CHECKUSERID_DEV" jdbcType="VARCHAR"/>
+			<result property="funcinfoCheckstatusDev" column="FUNCINFO_CHECKSTATUS_DEV" jdbcType="VARCHAR"/>
+			<result property="funcinfoSfxdb" column="FUNCINFO_SFXDB" jdbcType="VARCHAR"/>
+			<result property="funcinfoUsewflog" column="FUNCINFO_USEWFLOG" jdbcType="VARCHAR"/>
+			<result property="funcinfoChildheight" column="FUNCINFO_CHILDHEIGHT" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoUsecjglnames" column="FUNCINFO_USECJGLNAMES" jdbcType="LONGVARCHAR"/>
+			<result property="funcinfoUsetreegrid" column="FUNCINFO_USETREEGRID" jdbcType="VARCHAR"/>
+			<result property="funcinfoUsecjglids" column="FUNCINFO_USECJGLIDS" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="JeCoreFuncinfo_Column_List">
+		JE_CORE_FUNCINFO_ID,FUNCINFO_ATTACHMENTPATH,FUNCINFO_BIGBUTTON,FUNCINFO_BOOKMARKCONFIG,FUNCINFO_CHARTSOPEN,FUNCINFO_CHECKSTATUS,FUNCINFO_CHECKUSER,FUNCINFO_CHECKUSERCODE,FUNCINFO_CHECKUSERID,FUNCINFO_CHILDFILTER,FUNCINFO_CHILDREFRESH,FUNCINFO_CHILDSHOWTYPE,FUNCINFO_COLUMNLAZY,FUNCINFO_COMBINE,FUNCINFO_CXCLSELMODEL,FUNCINFO_DATASOURCE,FUNCINFO_DDORDER,FUNCINFO_ENABLEFORMPRINT,FUNCINFO_EXPANDENTITYNAME,FUNCINFO_EXPANDJS,FUNCINFO_EXPANDPANELS,FUNCINFO_FIELDBORDERCOLOR,FUNCINFO_FIELDLAZY,FUNCINFO_FORMBGCOLOR,FUNCINFO_FORMCOLS,FUNCINFO_FORMDEFWIDTH,FUNCINFO_FORMJSLISTENER,FUNCINFO_FORMLABELWIDTH,FUNCINFO_FORMLABELWIDTH_EN,FUNCINFO_FORMLAZY,FUNCINFO_FORMMINWIDTH,FUNCINFO_FORMPAGING,FUNCINFO_FORMPAGINGCONFIG,FUNCINFO_FORMTITLE,FUNCINFO_FORMTITLETYPE,FUNCINFO_FUNCACTION,FUNCINFO_FUNCCODE,FUNCINFO_FUNCDIC,FUNCINFO_FUNCDICCONFIG,FUNCINFO_FUNCNAME,FUNCINFO_FUNCNAME_EN,FUNCINFO_FUNCREMARK,FUNCINFO_FUNCTYPE,FUNCINFO_GRIDCHILDSS,FUNCINFO_GRIDJSLISTENER,FUNCINFO_GRIDPRINTINFO,FUNCINFO_GRIDROWTIP,FUNCINFO_GRIDTIP,FUNCINFO_GRIDTIP_EN,FUNCINFO_GROUPFIELD,FUNCINFO_GROUPFIELDTPL,FUNCINFO_GROUPFORMOPEN,FUNCINFO_GUIDELOCATION,FUNCINFO_HELP,FUNCINFO_HIDEFORMTBAR,FUNCINFO_HIDEGRIDTBAR,FUNCINFO_ICON,FUNCINFO_ICONCLS,FUNCINFO_IDNAME,FUNCINFO_INSERTTYPE,FUNCINFO_ISBOOKMARK,FUNCINFO_ISCOMPLETE,FUNCINFO_ISGRIDTREE,FUNCINFO_LABELBGCOLOR,FUNCINFO_LISTFORM,FUNCINFO_LODOPCONFIG,FUNCINFO_LODOPPRINT,FUNCINFO_MULTIQUERY,FUNCINFO_MULTISELECT,FUNCINFO_NEWFUNCID,FUNCINFO_NODEINFO,FUNCINFO_NODEINFOTYPE,FUNCINFO_OCFORM,FUNCINFO_ONETOFORM,FUNCINFO_OPENFORM,FUNCINFO_ORDERSQL,FUNCINFO_ORDERSQL_DES,FUNCINFO_PAGESIZE,FUNCINFO_PERMCONFIG,FUNCINFO_PKNAME,FUNCINFO_QUERYWIDTH,FUNCINFO_REPORTFILE,FUNCINFO_SEEDEPTIDS,FUNCINFO_SEEDEPTNAMES,FUNCINFO_SEEROLEIDS,FUNCINFO_SEEROLENAMES,FUNCINFO_SEESENTRYIDS,FUNCINFO_SEESENTRYNAMES,FUNCINFO_SEEUSERIDS,FUNCINFO_SEEUSERNAMES,FUNCINFO_SUBSYSTEM_ID,FUNCINFO_SYSMODE,FUNCINFO_SYSTEMNAME,FUNCINFO_TABLEFORM,FUNCINFO_TABLEFORMHEIGHT,FUNCINFO_TABLEFORMPRINT,FUNCINFO_TABLEFORMTPL,FUNCINFO_TABLEFORMWIDTH,FUNCINFO_TABLEFORMWIDTH2,FUNCINFO_TABLENAME,FUNCINFO_TABLESTYLE,FUNCINFO_TREEREFRESH,FUNCINFO_TREETIP,FUNCINFO_TREETIP_EN,FUNCINFO_USEDATALOG,FUNCINFO_USEFILES,FUNCINFO_USEGUIDE,FUNCINFO_USEWF,FUNCINFO_VERSION,FUNCINFO_WHERESQL,FUNCINFO_WHERESQL_DES,FUNCINFO_WINFORMWH,SY_JECORE,SY_JESYS,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_LAYER,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_NODETYPE,SY_ORDERINDEX,SY_PARENT,SY_PARENTPATH,SY_PATH,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS,SY_TREEORDERINDEX,FUNCINFO_GRIDBUFFERED,FUNCINFO_GRIDTIMEOUT,FUNCINFO_GRIDROWTIPSHOW,FUNCINFO_GRIDHIDES,FUNCINFO_CRUDTABLENAME,FUNCINFO_VERSION_DEV,FUNCINFO_CHECKUSER_DEV,FUNCINFO_CHECKUSERID_DEV,FUNCINFO_CHECKSTATUS_DEV,FUNCINFO_SFXDB,FUNCINFO_USEWFLOG,FUNCINFO_CHILDHEIGHT,FUNCINFO_USECJGLNAMES,FUNCINFO_USETREEGRID,FUNCINFO_USECJGLIDS
+	</sql>
+	
+	<select id="selectByFuncId" parameterType="java.lang.String" resultMap="JeCoreFuncinfoResultMap">
+		select
+			<include refid="JeCoreFuncinfo_Column_List" />
+		from
+			je_core_funcinfo
+		where
+			JE_CORE_FUNCINFO_ID = #{funcId}
+	</select>
+	
+	<select id="selectByFuncCodes" parameterType="java.util.List" resultMap="JeCoreFuncinfoResultMap">
+		select
+			<include refid="JeCoreFuncinfo_Column_List" />
+		from
+			je_core_funcinfo
+		where
+			FUNCINFO_FUNCCODE IN 
+			<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.devplatform.entity.JeCoreFuncinfo">
+		update je_core_funcinfo
+		<set>
+			<if test="jeCoreFuncinfoId != null">
+			  JE_CORE_FUNCINFO_ID = #{jeCoreFuncinfoId, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoAttachmentpath != null">
+			  FUNCINFO_ATTACHMENTPATH = #{funcinfoAttachmentpath, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoBigbutton != null">
+			  FUNCINFO_BIGBUTTON = #{funcinfoBigbutton, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoBookmarkconfig != null">
+			  FUNCINFO_BOOKMARKCONFIG = #{funcinfoBookmarkconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoChartsopen != null">
+			  FUNCINFO_CHARTSOPEN = #{funcinfoChartsopen, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckstatus != null">
+			  FUNCINFO_CHECKSTATUS = #{funcinfoCheckstatus, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckuser != null">
+			  FUNCINFO_CHECKUSER = #{funcinfoCheckuser, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckusercode != null">
+			  FUNCINFO_CHECKUSERCODE = #{funcinfoCheckusercode, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckuserid != null">
+			  FUNCINFO_CHECKUSERID = #{funcinfoCheckuserid, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoChildfilter != null">
+			  FUNCINFO_CHILDFILTER = #{funcinfoChildfilter, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoChildrefresh != null">
+			  FUNCINFO_CHILDREFRESH = #{funcinfoChildrefresh, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoChildshowtype != null">
+			  FUNCINFO_CHILDSHOWTYPE = #{funcinfoChildshowtype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoColumnlazy != null">
+			  FUNCINFO_COLUMNLAZY = #{funcinfoColumnlazy, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCombine != null">
+			  FUNCINFO_COMBINE = #{funcinfoCombine, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCxclselmodel != null">
+			  FUNCINFO_CXCLSELMODEL = #{funcinfoCxclselmodel, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoDatasource != null">
+			  FUNCINFO_DATASOURCE = #{funcinfoDatasource, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoDdorder != null">
+			  FUNCINFO_DDORDER = #{funcinfoDdorder, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoEnableformprint != null">
+			  FUNCINFO_ENABLEFORMPRINT = #{funcinfoEnableformprint, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoExpandentityname != null">
+			  FUNCINFO_EXPANDENTITYNAME = #{funcinfoExpandentityname, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoExpandjs != null">
+			  FUNCINFO_EXPANDJS = #{funcinfoExpandjs, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoExpandpanels != null">
+			  FUNCINFO_EXPANDPANELS = #{funcinfoExpandpanels, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFieldbordercolor != null">
+			  FUNCINFO_FIELDBORDERCOLOR = #{funcinfoFieldbordercolor, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFieldlazy != null">
+			  FUNCINFO_FIELDLAZY = #{funcinfoFieldlazy, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormbgcolor != null">
+			  FUNCINFO_FORMBGCOLOR = #{funcinfoFormbgcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormcols != null">
+			  FUNCINFO_FORMCOLS = #{funcinfoFormcols, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormdefwidth != null">
+			  FUNCINFO_FORMDEFWIDTH = #{funcinfoFormdefwidth, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormjslistener != null">
+			  FUNCINFO_FORMJSLISTENER = #{funcinfoFormjslistener, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFormlabelwidth != null">
+			  FUNCINFO_FORMLABELWIDTH = #{funcinfoFormlabelwidth, jdbcType=INTEGER },
+			</if>
+			<if test="funcinfoFormlabelwidthEn != null">
+			  FUNCINFO_FORMLABELWIDTH_EN = #{funcinfoFormlabelwidthEn, jdbcType=INTEGER },
+			</if>
+			<if test="funcinfoFormlazy != null">
+			  FUNCINFO_FORMLAZY = #{funcinfoFormlazy, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormminwidth != null">
+			  FUNCINFO_FORMMINWIDTH = #{funcinfoFormminwidth, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormpaging != null">
+			  FUNCINFO_FORMPAGING = #{funcinfoFormpaging, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFormpagingconfig != null">
+			  FUNCINFO_FORMPAGINGCONFIG = #{funcinfoFormpagingconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFormtitle != null">
+			  FUNCINFO_FORMTITLE = #{funcinfoFormtitle, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFormtitletype != null">
+			  FUNCINFO_FORMTITLETYPE = #{funcinfoFormtitletype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFuncaction != null">
+			  FUNCINFO_FUNCACTION = #{funcinfoFuncaction, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFunccode != null">
+			  FUNCINFO_FUNCCODE = #{funcinfoFunccode, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFuncdic != null">
+			  FUNCINFO_FUNCDIC = #{funcinfoFuncdic, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFuncdicconfig != null">
+			  FUNCINFO_FUNCDICCONFIG = #{funcinfoFuncdicconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFuncname != null">
+			  FUNCINFO_FUNCNAME = #{funcinfoFuncname, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFuncnameEn != null">
+			  FUNCINFO_FUNCNAME_EN = #{funcinfoFuncnameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoFuncremark != null">
+			  FUNCINFO_FUNCREMARK = #{funcinfoFuncremark, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoFunctype != null">
+			  FUNCINFO_FUNCTYPE = #{funcinfoFunctype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGridchildss != null">
+			  FUNCINFO_GRIDCHILDSS = #{funcinfoGridchildss, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGridjslistener != null">
+			  FUNCINFO_GRIDJSLISTENER = #{funcinfoGridjslistener, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGridprintinfo != null">
+			  FUNCINFO_GRIDPRINTINFO = #{funcinfoGridprintinfo, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGridrowtip != null">
+			  FUNCINFO_GRIDROWTIP = #{funcinfoGridrowtip, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGridtip != null">
+			  FUNCINFO_GRIDTIP = #{funcinfoGridtip, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGridtipEn != null">
+			  FUNCINFO_GRIDTIP_EN = #{funcinfoGridtipEn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGroupfield != null">
+			  FUNCINFO_GROUPFIELD = #{funcinfoGroupfield, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGroupfieldtpl != null">
+			  FUNCINFO_GROUPFIELDTPL = #{funcinfoGroupfieldtpl, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoGroupformopen != null">
+			  FUNCINFO_GROUPFORMOPEN = #{funcinfoGroupformopen, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGuidelocation != null">
+			  FUNCINFO_GUIDELOCATION = #{funcinfoGuidelocation, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoHelp != null">
+			  FUNCINFO_HELP = #{funcinfoHelp, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoHideformtbar != null">
+			  FUNCINFO_HIDEFORMTBAR = #{funcinfoHideformtbar, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoHidegridtbar != null">
+			  FUNCINFO_HIDEGRIDTBAR = #{funcinfoHidegridtbar, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIcon != null">
+			  FUNCINFO_ICON = #{funcinfoIcon, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIconcls != null">
+			  FUNCINFO_ICONCLS = #{funcinfoIconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIdname != null">
+			  FUNCINFO_IDNAME = #{funcinfoIdname, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoInserttype != null">
+			  FUNCINFO_INSERTTYPE = #{funcinfoInserttype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIsbookmark != null">
+			  FUNCINFO_ISBOOKMARK = #{funcinfoIsbookmark, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIscomplete != null">
+			  FUNCINFO_ISCOMPLETE = #{funcinfoIscomplete, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoIsgridtree != null">
+			  FUNCINFO_ISGRIDTREE = #{funcinfoIsgridtree, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoLabelbgcolor != null">
+			  FUNCINFO_LABELBGCOLOR = #{funcinfoLabelbgcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoListform != null">
+			  FUNCINFO_LISTFORM = #{funcinfoListform, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoLodopconfig != null">
+			  FUNCINFO_LODOPCONFIG = #{funcinfoLodopconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoLodopprint != null">
+			  FUNCINFO_LODOPPRINT = #{funcinfoLodopprint, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoMultiquery != null">
+			  FUNCINFO_MULTIQUERY = #{funcinfoMultiquery, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoMultiselect != null">
+			  FUNCINFO_MULTISELECT = #{funcinfoMultiselect, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoNewfuncid != null">
+			  FUNCINFO_NEWFUNCID = #{funcinfoNewfuncid, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoNodeinfo != null">
+			  FUNCINFO_NODEINFO = #{funcinfoNodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoNodeinfotype != null">
+			  FUNCINFO_NODEINFOTYPE = #{funcinfoNodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoOcform != null">
+			  FUNCINFO_OCFORM = #{funcinfoOcform, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoOnetoform != null">
+			  FUNCINFO_ONETOFORM = #{funcinfoOnetoform, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoOpenform != null">
+			  FUNCINFO_OPENFORM = #{funcinfoOpenform, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoOrdersql != null">
+			  FUNCINFO_ORDERSQL = #{funcinfoOrdersql, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoOrdersqlDes != null">
+			  FUNCINFO_ORDERSQL_DES = #{funcinfoOrdersqlDes, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoPagesize != null">
+			  FUNCINFO_PAGESIZE = #{funcinfoPagesize, jdbcType=INTEGER },
+			</if>
+			<if test="funcinfoPermconfig != null">
+			  FUNCINFO_PERMCONFIG = #{funcinfoPermconfig, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoPkname != null">
+			  FUNCINFO_PKNAME = #{funcinfoPkname, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoQuerywidth != null">
+			  FUNCINFO_QUERYWIDTH = #{funcinfoQuerywidth, jdbcType=INTEGER },
+			</if>
+			<if test="funcinfoReportfile != null">
+			  FUNCINFO_REPORTFILE = #{funcinfoReportfile, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeedeptids != null">
+			  FUNCINFO_SEEDEPTIDS = #{funcinfoSeedeptids, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeedeptnames != null">
+			  FUNCINFO_SEEDEPTNAMES = #{funcinfoSeedeptnames, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeeroleids != null">
+			  FUNCINFO_SEEROLEIDS = #{funcinfoSeeroleids, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeerolenames != null">
+			  FUNCINFO_SEEROLENAMES = #{funcinfoSeerolenames, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeesentryids != null">
+			  FUNCINFO_SEESENTRYIDS = #{funcinfoSeesentryids, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeesentrynames != null">
+			  FUNCINFO_SEESENTRYNAMES = #{funcinfoSeesentrynames, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeeuserids != null">
+			  FUNCINFO_SEEUSERIDS = #{funcinfoSeeuserids, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSeeusernames != null">
+			  FUNCINFO_SEEUSERNAMES = #{funcinfoSeeusernames, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSubsystemId != null">
+			  FUNCINFO_SUBSYSTEM_ID = #{funcinfoSubsystemId, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSysmode != null">
+			  FUNCINFO_SYSMODE = #{funcinfoSysmode, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSystemname != null">
+			  FUNCINFO_SYSTEMNAME = #{funcinfoSystemname, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTableform != null">
+			  FUNCINFO_TABLEFORM = #{funcinfoTableform, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTableformheight != null">
+			  FUNCINFO_TABLEFORMHEIGHT = #{funcinfoTableformheight, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTableformprint != null">
+			  FUNCINFO_TABLEFORMPRINT = #{funcinfoTableformprint, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTableformtpl != null">
+			  FUNCINFO_TABLEFORMTPL = #{funcinfoTableformtpl, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoTableformwidth != null">
+			  FUNCINFO_TABLEFORMWIDTH = #{funcinfoTableformwidth, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTableformwidth2 != null">
+			  FUNCINFO_TABLEFORMWIDTH2 = #{funcinfoTableformwidth2, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTablename != null">
+			  FUNCINFO_TABLENAME = #{funcinfoTablename, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTablestyle != null">
+			  FUNCINFO_TABLESTYLE = #{funcinfoTablestyle, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTreerefresh != null">
+			  FUNCINFO_TREEREFRESH = #{funcinfoTreerefresh, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTreetip != null">
+			  FUNCINFO_TREETIP = #{funcinfoTreetip, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoTreetipEn != null">
+			  FUNCINFO_TREETIP_EN = #{funcinfoTreetipEn, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUsedatalog != null">
+			  FUNCINFO_USEDATALOG = #{funcinfoUsedatalog, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUsefiles != null">
+			  FUNCINFO_USEFILES = #{funcinfoUsefiles, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUseguide != null">
+			  FUNCINFO_USEGUIDE = #{funcinfoUseguide, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUsewf != null">
+			  FUNCINFO_USEWF = #{funcinfoUsewf, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoVersion != null">
+			  FUNCINFO_VERSION = #{funcinfoVersion, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoWheresql != null">
+			  FUNCINFO_WHERESQL = #{funcinfoWheresql, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoWheresqlDes != null">
+			  FUNCINFO_WHERESQL_DES = #{funcinfoWheresqlDes, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoWinformwh != null">
+			  FUNCINFO_WINFORMWH = #{funcinfoWinformwh, jdbcType=VARCHAR },
+			</if>
+			<if test="syJecore != null">
+			  SY_JECORE = #{syJecore, jdbcType=VARCHAR },
+			</if>
+			<if test="syJesys != null">
+			  SY_JESYS = #{syJesys, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syLayer != null">
+			  SY_LAYER = #{syLayer, jdbcType=INTEGER },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syNodetype != null">
+			  SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syParent != null">
+			  SY_PARENT = #{syParent, jdbcType=VARCHAR },
+			</if>
+			<if test="syParentpath != null">
+			  SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPath != null">
+			  SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="syTreeorderindex != null">
+			  SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGridbuffered != null">
+			  FUNCINFO_GRIDBUFFERED = #{funcinfoGridbuffered, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGridtimeout != null">
+			  FUNCINFO_GRIDTIMEOUT = #{funcinfoGridtimeout, jdbcType=INTEGER },
+			</if>
+			<if test="funcinfoGridrowtipshow != null">
+			  FUNCINFO_GRIDROWTIPSHOW = #{funcinfoGridrowtipshow, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoGridhides != null">
+			  FUNCINFO_GRIDHIDES = #{funcinfoGridhides, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCrudtablename != null">
+			  FUNCINFO_CRUDTABLENAME = #{funcinfoCrudtablename, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoVersionDev != null">
+			  FUNCINFO_VERSION_DEV = #{funcinfoVersionDev, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckuserDev != null">
+			  FUNCINFO_CHECKUSER_DEV = #{funcinfoCheckuserDev, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckuseridDev != null">
+			  FUNCINFO_CHECKUSERID_DEV = #{funcinfoCheckuseridDev, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoCheckstatusDev != null">
+			  FUNCINFO_CHECKSTATUS_DEV = #{funcinfoCheckstatusDev, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoSfxdb != null">
+			  FUNCINFO_SFXDB = #{funcinfoSfxdb, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUsewflog != null">
+			  FUNCINFO_USEWFLOG = #{funcinfoUsewflog, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoChildheight != null">
+			  FUNCINFO_CHILDHEIGHT = #{funcinfoChildheight, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoUsecjglnames != null">
+			  FUNCINFO_USECJGLNAMES = #{funcinfoUsecjglnames, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="funcinfoUsetreegrid != null">
+			  FUNCINFO_USETREEGRID = #{funcinfoUsetreegrid, jdbcType=VARCHAR },
+			</if>
+			<if test="funcinfoUsecjglids != null">
+			  FUNCINFO_USECJGLIDS = #{funcinfoUsecjglids, jdbcType=LONGVARCHAR },
+			</if>
+		</set>
+		where
+			JE_CORE_FUNCINFO_ID = #{jeCoreFuncinfoId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from je_core_funcinfo 
+		where
+			JE_CORE_FUNCINFO_ID = #{jeCoreFuncinfoId}
+	</delete>
+	
+	
+	<insert id="insert" parameterType="com.newsee.devplatform.entity.JeCoreFuncinfo">
+		insert into je_core_funcinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jeCoreFuncinfoId != null">
+				JE_CORE_FUNCINFO_ID,
+			</if>
+			<if test="funcinfoAttachmentpath != null">
+				FUNCINFO_ATTACHMENTPATH,
+			</if>
+			<if test="funcinfoBigbutton != null">
+				FUNCINFO_BIGBUTTON,
+			</if>
+			<if test="funcinfoBookmarkconfig != null">
+				FUNCINFO_BOOKMARKCONFIG,
+			</if>
+			<if test="funcinfoChartsopen != null">
+				FUNCINFO_CHARTSOPEN,
+			</if>
+			<if test="funcinfoCheckstatus != null">
+				FUNCINFO_CHECKSTATUS,
+			</if>
+			<if test="funcinfoCheckuser != null">
+				FUNCINFO_CHECKUSER,
+			</if>
+			<if test="funcinfoCheckusercode != null">
+				FUNCINFO_CHECKUSERCODE,
+			</if>
+			<if test="funcinfoCheckuserid != null">
+				FUNCINFO_CHECKUSERID,
+			</if>
+			<if test="funcinfoChildfilter != null">
+				FUNCINFO_CHILDFILTER,
+			</if>
+			<if test="funcinfoChildrefresh != null">
+				FUNCINFO_CHILDREFRESH,
+			</if>
+			<if test="funcinfoChildshowtype != null">
+				FUNCINFO_CHILDSHOWTYPE,
+			</if>
+			<if test="funcinfoColumnlazy != null">
+				FUNCINFO_COLUMNLAZY,
+			</if>
+			<if test="funcinfoCombine != null">
+				FUNCINFO_COMBINE,
+			</if>
+			<if test="funcinfoCxclselmodel != null">
+				FUNCINFO_CXCLSELMODEL,
+			</if>
+			<if test="funcinfoDatasource != null">
+				FUNCINFO_DATASOURCE,
+			</if>
+			<if test="funcinfoDdorder != null">
+				FUNCINFO_DDORDER,
+			</if>
+			<if test="funcinfoEnableformprint != null">
+				FUNCINFO_ENABLEFORMPRINT,
+			</if>
+			<if test="funcinfoExpandentityname != null">
+				FUNCINFO_EXPANDENTITYNAME,
+			</if>
+			<if test="funcinfoExpandjs != null">
+				FUNCINFO_EXPANDJS,
+			</if>
+			<if test="funcinfoExpandpanels != null">
+				FUNCINFO_EXPANDPANELS,
+			</if>
+			<if test="funcinfoFieldbordercolor != null">
+				FUNCINFO_FIELDBORDERCOLOR,
+			</if>
+			<if test="funcinfoFieldlazy != null">
+				FUNCINFO_FIELDLAZY,
+			</if>
+			<if test="funcinfoFormbgcolor != null">
+				FUNCINFO_FORMBGCOLOR,
+			</if>
+			<if test="funcinfoFormcols != null">
+				FUNCINFO_FORMCOLS,
+			</if>
+			<if test="funcinfoFormdefwidth != null">
+				FUNCINFO_FORMDEFWIDTH,
+			</if>
+			<if test="funcinfoFormjslistener != null">
+				FUNCINFO_FORMJSLISTENER,
+			</if>
+			<if test="funcinfoFormlabelwidth != null">
+				FUNCINFO_FORMLABELWIDTH,
+			</if>
+			<if test="funcinfoFormlabelwidthEn != null">
+				FUNCINFO_FORMLABELWIDTH_EN,
+			</if>
+			<if test="funcinfoFormlazy != null">
+				FUNCINFO_FORMLAZY,
+			</if>
+			<if test="funcinfoFormminwidth != null">
+				FUNCINFO_FORMMINWIDTH,
+			</if>
+			<if test="funcinfoFormpaging != null">
+				FUNCINFO_FORMPAGING,
+			</if>
+			<if test="funcinfoFormpagingconfig != null">
+				FUNCINFO_FORMPAGINGCONFIG,
+			</if>
+			<if test="funcinfoFormtitle != null">
+				FUNCINFO_FORMTITLE,
+			</if>
+			<if test="funcinfoFormtitletype != null">
+				FUNCINFO_FORMTITLETYPE,
+			</if>
+			<if test="funcinfoFuncaction != null">
+				FUNCINFO_FUNCACTION,
+			</if>
+			<if test="funcinfoFunccode != null">
+				FUNCINFO_FUNCCODE,
+			</if>
+			<if test="funcinfoFuncdic != null">
+				FUNCINFO_FUNCDIC,
+			</if>
+			<if test="funcinfoFuncdicconfig != null">
+				FUNCINFO_FUNCDICCONFIG,
+			</if>
+			<if test="funcinfoFuncname != null">
+				FUNCINFO_FUNCNAME,
+			</if>
+			<if test="funcinfoFuncnameEn != null">
+				FUNCINFO_FUNCNAME_EN,
+			</if>
+			<if test="funcinfoFuncremark != null">
+				FUNCINFO_FUNCREMARK,
+			</if>
+			<if test="funcinfoFunctype != null">
+				FUNCINFO_FUNCTYPE,
+			</if>
+			<if test="funcinfoGridchildss != null">
+				FUNCINFO_GRIDCHILDSS,
+			</if>
+			<if test="funcinfoGridjslistener != null">
+				FUNCINFO_GRIDJSLISTENER,
+			</if>
+			<if test="funcinfoGridprintinfo != null">
+				FUNCINFO_GRIDPRINTINFO,
+			</if>
+			<if test="funcinfoGridrowtip != null">
+				FUNCINFO_GRIDROWTIP,
+			</if>
+			<if test="funcinfoGridtip != null">
+				FUNCINFO_GRIDTIP,
+			</if>
+			<if test="funcinfoGridtipEn != null">
+				FUNCINFO_GRIDTIP_EN,
+			</if>
+			<if test="funcinfoGroupfield != null">
+				FUNCINFO_GROUPFIELD,
+			</if>
+			<if test="funcinfoGroupfieldtpl != null">
+				FUNCINFO_GROUPFIELDTPL,
+			</if>
+			<if test="funcinfoGroupformopen != null">
+				FUNCINFO_GROUPFORMOPEN,
+			</if>
+			<if test="funcinfoGuidelocation != null">
+				FUNCINFO_GUIDELOCATION,
+			</if>
+			<if test="funcinfoHelp != null">
+				FUNCINFO_HELP,
+			</if>
+			<if test="funcinfoHideformtbar != null">
+				FUNCINFO_HIDEFORMTBAR,
+			</if>
+			<if test="funcinfoHidegridtbar != null">
+				FUNCINFO_HIDEGRIDTBAR,
+			</if>
+			<if test="funcinfoIcon != null">
+				FUNCINFO_ICON,
+			</if>
+			<if test="funcinfoIconcls != null">
+				FUNCINFO_ICONCLS,
+			</if>
+			<if test="funcinfoIdname != null">
+				FUNCINFO_IDNAME,
+			</if>
+			<if test="funcinfoInserttype != null">
+				FUNCINFO_INSERTTYPE,
+			</if>
+			<if test="funcinfoIsbookmark != null">
+				FUNCINFO_ISBOOKMARK,
+			</if>
+			<if test="funcinfoIscomplete != null">
+				FUNCINFO_ISCOMPLETE,
+			</if>
+			<if test="funcinfoIsgridtree != null">
+				FUNCINFO_ISGRIDTREE,
+			</if>
+			<if test="funcinfoLabelbgcolor != null">
+				FUNCINFO_LABELBGCOLOR,
+			</if>
+			<if test="funcinfoListform != null">
+				FUNCINFO_LISTFORM,
+			</if>
+			<if test="funcinfoLodopconfig != null">
+				FUNCINFO_LODOPCONFIG,
+			</if>
+			<if test="funcinfoLodopprint != null">
+				FUNCINFO_LODOPPRINT,
+			</if>
+			<if test="funcinfoMultiquery != null">
+				FUNCINFO_MULTIQUERY,
+			</if>
+			<if test="funcinfoMultiselect != null">
+				FUNCINFO_MULTISELECT,
+			</if>
+			<if test="funcinfoNewfuncid != null">
+				FUNCINFO_NEWFUNCID,
+			</if>
+			<if test="funcinfoNodeinfo != null">
+				FUNCINFO_NODEINFO,
+			</if>
+			<if test="funcinfoNodeinfotype != null">
+				FUNCINFO_NODEINFOTYPE,
+			</if>
+			<if test="funcinfoOcform != null">
+				FUNCINFO_OCFORM,
+			</if>
+			<if test="funcinfoOnetoform != null">
+				FUNCINFO_ONETOFORM,
+			</if>
+			<if test="funcinfoOpenform != null">
+				FUNCINFO_OPENFORM,
+			</if>
+			<if test="funcinfoOrdersql != null">
+				FUNCINFO_ORDERSQL,
+			</if>
+			<if test="funcinfoOrdersqlDes != null">
+				FUNCINFO_ORDERSQL_DES,
+			</if>
+			<if test="funcinfoPagesize != null">
+				FUNCINFO_PAGESIZE,
+			</if>
+			<if test="funcinfoPermconfig != null">
+				FUNCINFO_PERMCONFIG,
+			</if>
+			<if test="funcinfoPkname != null">
+				FUNCINFO_PKNAME,
+			</if>
+			<if test="funcinfoQuerywidth != null">
+				FUNCINFO_QUERYWIDTH,
+			</if>
+			<if test="funcinfoReportfile != null">
+				FUNCINFO_REPORTFILE,
+			</if>
+			<if test="funcinfoSeedeptids != null">
+				FUNCINFO_SEEDEPTIDS,
+			</if>
+			<if test="funcinfoSeedeptnames != null">
+				FUNCINFO_SEEDEPTNAMES,
+			</if>
+			<if test="funcinfoSeeroleids != null">
+				FUNCINFO_SEEROLEIDS,
+			</if>
+			<if test="funcinfoSeerolenames != null">
+				FUNCINFO_SEEROLENAMES,
+			</if>
+			<if test="funcinfoSeesentryids != null">
+				FUNCINFO_SEESENTRYIDS,
+			</if>
+			<if test="funcinfoSeesentrynames != null">
+				FUNCINFO_SEESENTRYNAMES,
+			</if>
+			<if test="funcinfoSeeuserids != null">
+				FUNCINFO_SEEUSERIDS,
+			</if>
+			<if test="funcinfoSeeusernames != null">
+				FUNCINFO_SEEUSERNAMES,
+			</if>
+			<if test="funcinfoSubsystemId != null">
+				FUNCINFO_SUBSYSTEM_ID,
+			</if>
+			<if test="funcinfoSysmode != null">
+				FUNCINFO_SYSMODE,
+			</if>
+			<if test="funcinfoSystemname != null">
+				FUNCINFO_SYSTEMNAME,
+			</if>
+			<if test="funcinfoTableform != null">
+				FUNCINFO_TABLEFORM,
+			</if>
+			<if test="funcinfoTableformheight != null">
+				FUNCINFO_TABLEFORMHEIGHT,
+			</if>
+			<if test="funcinfoTableformprint != null">
+				FUNCINFO_TABLEFORMPRINT,
+			</if>
+			<if test="funcinfoTableformtpl != null">
+				FUNCINFO_TABLEFORMTPL,
+			</if>
+			<if test="funcinfoTableformwidth != null">
+				FUNCINFO_TABLEFORMWIDTH,
+			</if>
+			<if test="funcinfoTableformwidth2 != null">
+				FUNCINFO_TABLEFORMWIDTH2,
+			</if>
+			<if test="funcinfoTablename != null">
+				FUNCINFO_TABLENAME,
+			</if>
+			<if test="funcinfoTablestyle != null">
+				FUNCINFO_TABLESTYLE,
+			</if>
+			<if test="funcinfoTreerefresh != null">
+				FUNCINFO_TREEREFRESH,
+			</if>
+			<if test="funcinfoTreetip != null">
+				FUNCINFO_TREETIP,
+			</if>
+			<if test="funcinfoTreetipEn != null">
+				FUNCINFO_TREETIP_EN,
+			</if>
+			<if test="funcinfoUsedatalog != null">
+				FUNCINFO_USEDATALOG,
+			</if>
+			<if test="funcinfoUsefiles != null">
+				FUNCINFO_USEFILES,
+			</if>
+			<if test="funcinfoUseguide != null">
+				FUNCINFO_USEGUIDE,
+			</if>
+			<if test="funcinfoUsewf != null">
+				FUNCINFO_USEWF,
+			</if>
+			<if test="funcinfoVersion != null">
+				FUNCINFO_VERSION,
+			</if>
+			<if test="funcinfoWheresql != null">
+				FUNCINFO_WHERESQL,
+			</if>
+			<if test="funcinfoWheresqlDes != null">
+				FUNCINFO_WHERESQL_DES,
+			</if>
+			<if test="funcinfoWinformwh != null">
+				FUNCINFO_WINFORMWH,
+			</if>
+			<if test="syJecore != null">
+				SY_JECORE,
+			</if>
+			<if test="syJesys != null">
+				SY_JESYS,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syLayer != null">
+				SY_LAYER,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syNodetype != null">
+				SY_NODETYPE,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syParent != null">
+				SY_PARENT,
+			</if>
+			<if test="syParentpath != null">
+				SY_PARENTPATH,
+			</if>
+			<if test="syPath != null">
+				SY_PATH,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="syTreeorderindex != null">
+				SY_TREEORDERINDEX,
+			</if>
+			<if test="funcinfoGridbuffered != null">
+				FUNCINFO_GRIDBUFFERED,
+			</if>
+			<if test="funcinfoGridtimeout != null">
+				FUNCINFO_GRIDTIMEOUT,
+			</if>
+			<if test="funcinfoGridrowtipshow != null">
+				FUNCINFO_GRIDROWTIPSHOW,
+			</if>
+			<if test="funcinfoGridhides != null">
+				FUNCINFO_GRIDHIDES,
+			</if>
+			<if test="funcinfoCrudtablename != null">
+				FUNCINFO_CRUDTABLENAME,
+			</if>
+			<if test="funcinfoVersionDev != null">
+				FUNCINFO_VERSION_DEV,
+			</if>
+			<if test="funcinfoCheckuserDev != null">
+				FUNCINFO_CHECKUSER_DEV,
+			</if>
+			<if test="funcinfoCheckuseridDev != null">
+				FUNCINFO_CHECKUSERID_DEV,
+			</if>
+			<if test="funcinfoCheckstatusDev != null">
+				FUNCINFO_CHECKSTATUS_DEV,
+			</if>
+			<if test="funcinfoSfxdb != null">
+				FUNCINFO_SFXDB,
+			</if>
+			<if test="funcinfoUsewflog != null">
+				FUNCINFO_USEWFLOG,
+			</if>
+			<if test="funcinfoChildheight != null">
+				FUNCINFO_CHILDHEIGHT,
+			</if>
+			<if test="funcinfoUsecjglnames != null">
+				FUNCINFO_USECJGLNAMES,
+			</if>
+			<if test="funcinfoUsetreegrid != null">
+				FUNCINFO_USETREEGRID,
+			</if>
+			<if test="funcinfoUsecjglids != null">
+				FUNCINFO_USECJGLIDS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="jeCoreFuncinfoId != null">
+				#{jeCoreFuncinfoId, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoAttachmentpath != null">
+				#{funcinfoAttachmentpath, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoBigbutton != null">
+				#{funcinfoBigbutton, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoBookmarkconfig != null">
+				#{funcinfoBookmarkconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoChartsopen != null">
+				#{funcinfoChartsopen, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckstatus != null">
+				#{funcinfoCheckstatus, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckuser != null">
+				#{funcinfoCheckuser, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckusercode != null">
+				#{funcinfoCheckusercode, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckuserid != null">
+				#{funcinfoCheckuserid, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoChildfilter != null">
+				#{funcinfoChildfilter, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoChildrefresh != null">
+				#{funcinfoChildrefresh, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoChildshowtype != null">
+				#{funcinfoChildshowtype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoColumnlazy != null">
+				#{funcinfoColumnlazy, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCombine != null">
+				#{funcinfoCombine, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCxclselmodel != null">
+				#{funcinfoCxclselmodel, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoDatasource != null">
+				#{funcinfoDatasource, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoDdorder != null">
+				#{funcinfoDdorder, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoEnableformprint != null">
+				#{funcinfoEnableformprint, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoExpandentityname != null">
+				#{funcinfoExpandentityname, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoExpandjs != null">
+				#{funcinfoExpandjs, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoExpandpanels != null">
+				#{funcinfoExpandpanels, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFieldbordercolor != null">
+				#{funcinfoFieldbordercolor, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFieldlazy != null">
+				#{funcinfoFieldlazy, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormbgcolor != null">
+				#{funcinfoFormbgcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormcols != null">
+				#{funcinfoFormcols, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormdefwidth != null">
+				#{funcinfoFormdefwidth, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormjslistener != null">
+				#{funcinfoFormjslistener, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFormlabelwidth != null">
+				#{funcinfoFormlabelwidth, jdbcType=INTEGER},
+			</if>
+			<if test="funcinfoFormlabelwidthEn != null">
+				#{funcinfoFormlabelwidthEn, jdbcType=INTEGER},
+			</if>
+			<if test="funcinfoFormlazy != null">
+				#{funcinfoFormlazy, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormminwidth != null">
+				#{funcinfoFormminwidth, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormpaging != null">
+				#{funcinfoFormpaging, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFormpagingconfig != null">
+				#{funcinfoFormpagingconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFormtitle != null">
+				#{funcinfoFormtitle, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFormtitletype != null">
+				#{funcinfoFormtitletype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFuncaction != null">
+				#{funcinfoFuncaction, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFunccode != null">
+				#{funcinfoFunccode, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFuncdic != null">
+				#{funcinfoFuncdic, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFuncdicconfig != null">
+				#{funcinfoFuncdicconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFuncname != null">
+				#{funcinfoFuncname, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFuncnameEn != null">
+				#{funcinfoFuncnameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoFuncremark != null">
+				#{funcinfoFuncremark, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoFunctype != null">
+				#{funcinfoFunctype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGridchildss != null">
+				#{funcinfoGridchildss, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGridjslistener != null">
+				#{funcinfoGridjslistener, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGridprintinfo != null">
+				#{funcinfoGridprintinfo, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGridrowtip != null">
+				#{funcinfoGridrowtip, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGridtip != null">
+				#{funcinfoGridtip, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGridtipEn != null">
+				#{funcinfoGridtipEn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGroupfield != null">
+				#{funcinfoGroupfield, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGroupfieldtpl != null">
+				#{funcinfoGroupfieldtpl, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoGroupformopen != null">
+				#{funcinfoGroupformopen, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGuidelocation != null">
+				#{funcinfoGuidelocation, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoHelp != null">
+				#{funcinfoHelp, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoHideformtbar != null">
+				#{funcinfoHideformtbar, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoHidegridtbar != null">
+				#{funcinfoHidegridtbar, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIcon != null">
+				#{funcinfoIcon, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIconcls != null">
+				#{funcinfoIconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIdname != null">
+				#{funcinfoIdname, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoInserttype != null">
+				#{funcinfoInserttype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIsbookmark != null">
+				#{funcinfoIsbookmark, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIscomplete != null">
+				#{funcinfoIscomplete, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoIsgridtree != null">
+				#{funcinfoIsgridtree, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoLabelbgcolor != null">
+				#{funcinfoLabelbgcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoListform != null">
+				#{funcinfoListform, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoLodopconfig != null">
+				#{funcinfoLodopconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoLodopprint != null">
+				#{funcinfoLodopprint, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoMultiquery != null">
+				#{funcinfoMultiquery, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoMultiselect != null">
+				#{funcinfoMultiselect, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoNewfuncid != null">
+				#{funcinfoNewfuncid, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoNodeinfo != null">
+				#{funcinfoNodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoNodeinfotype != null">
+				#{funcinfoNodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoOcform != null">
+				#{funcinfoOcform, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoOnetoform != null">
+				#{funcinfoOnetoform, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoOpenform != null">
+				#{funcinfoOpenform, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoOrdersql != null">
+				#{funcinfoOrdersql, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoOrdersqlDes != null">
+				#{funcinfoOrdersqlDes, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoPagesize != null">
+				#{funcinfoPagesize, jdbcType=INTEGER},
+			</if>
+			<if test="funcinfoPermconfig != null">
+				#{funcinfoPermconfig, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoPkname != null">
+				#{funcinfoPkname, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoQuerywidth != null">
+				#{funcinfoQuerywidth, jdbcType=INTEGER},
+			</if>
+			<if test="funcinfoReportfile != null">
+				#{funcinfoReportfile, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeedeptids != null">
+				#{funcinfoSeedeptids, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeedeptnames != null">
+				#{funcinfoSeedeptnames, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeeroleids != null">
+				#{funcinfoSeeroleids, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeerolenames != null">
+				#{funcinfoSeerolenames, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeesentryids != null">
+				#{funcinfoSeesentryids, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeesentrynames != null">
+				#{funcinfoSeesentrynames, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeeuserids != null">
+				#{funcinfoSeeuserids, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSeeusernames != null">
+				#{funcinfoSeeusernames, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSubsystemId != null">
+				#{funcinfoSubsystemId, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSysmode != null">
+				#{funcinfoSysmode, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSystemname != null">
+				#{funcinfoSystemname, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTableform != null">
+				#{funcinfoTableform, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTableformheight != null">
+				#{funcinfoTableformheight, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTableformprint != null">
+				#{funcinfoTableformprint, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTableformtpl != null">
+				#{funcinfoTableformtpl, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoTableformwidth != null">
+				#{funcinfoTableformwidth, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTableformwidth2 != null">
+				#{funcinfoTableformwidth2, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTablename != null">
+				#{funcinfoTablename, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTablestyle != null">
+				#{funcinfoTablestyle, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTreerefresh != null">
+				#{funcinfoTreerefresh, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTreetip != null">
+				#{funcinfoTreetip, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoTreetipEn != null">
+				#{funcinfoTreetipEn, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUsedatalog != null">
+				#{funcinfoUsedatalog, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUsefiles != null">
+				#{funcinfoUsefiles, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUseguide != null">
+				#{funcinfoUseguide, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUsewf != null">
+				#{funcinfoUsewf, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoVersion != null">
+				#{funcinfoVersion, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoWheresql != null">
+				#{funcinfoWheresql, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoWheresqlDes != null">
+				#{funcinfoWheresqlDes, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoWinformwh != null">
+				#{funcinfoWinformwh, jdbcType=VARCHAR},
+			</if>
+			<if test="syJecore != null">
+				#{syJecore, jdbcType=VARCHAR},
+			</if>
+			<if test="syJesys != null">
+				#{syJesys, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syLayer != null">
+				#{syLayer, jdbcType=INTEGER},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syNodetype != null">
+				#{syNodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syParent != null">
+				#{syParent, jdbcType=VARCHAR},
+			</if>
+			<if test="syParentpath != null">
+				#{syParentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPath != null">
+				#{syPath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="syTreeorderindex != null">
+				#{syTreeorderindex, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGridbuffered != null">
+				#{funcinfoGridbuffered, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGridtimeout != null">
+				#{funcinfoGridtimeout, jdbcType=INTEGER},
+			</if>
+			<if test="funcinfoGridrowtipshow != null">
+				#{funcinfoGridrowtipshow, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoGridhides != null">
+				#{funcinfoGridhides, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCrudtablename != null">
+				#{funcinfoCrudtablename, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoVersionDev != null">
+				#{funcinfoVersionDev, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckuserDev != null">
+				#{funcinfoCheckuserDev, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckuseridDev != null">
+				#{funcinfoCheckuseridDev, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoCheckstatusDev != null">
+				#{funcinfoCheckstatusDev, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoSfxdb != null">
+				#{funcinfoSfxdb, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUsewflog != null">
+				#{funcinfoUsewflog, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoChildheight != null">
+				#{funcinfoChildheight, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoUsecjglnames != null">
+				#{funcinfoUsecjglnames, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="funcinfoUsetreegrid != null">
+				#{funcinfoUsetreegrid, jdbcType=VARCHAR},
+			</if>
+			<if test="funcinfoUsecjglids != null">
+				#{funcinfoUsecjglids, jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

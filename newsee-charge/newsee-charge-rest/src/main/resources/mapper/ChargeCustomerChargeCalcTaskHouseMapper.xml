@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeCustomerChargeCalcTaskHouseMapper">
+
+	<resultMap id="ChargeCustomerChargeCalcTaskHouseResultMap" type="com.newsee.charge.entity.ChargeCustomerChargeCalcTaskHouse">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="taskId" column="TaskId" jdbcType="BIGINT"/>
+			<result property="houseId" column="HouseId" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeCustomerChargeCalcTaskHouse_Column_List">
+		Id,EnterpriseId,OrganizationId,TaskId,HouseId
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeCustomerChargeCalcTaskHouseResultMap">
+	    select 
+	        <include refid="ChargeCustomerChargeCalcTaskHouse_Column_List" />
+	    from 
+	       Charge_CustomerChargeCalcTask_House
+	    <where>
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldName} IS NULL or #{item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldName} IS NOT NULL and #{item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeCustomerChargeCalcTaskHouseResultMap">
+		select
+			<include refid="ChargeCustomerChargeCalcTaskHouse_Column_List" />
+		from
+			Charge_CustomerChargeCalcTask_House
+		where
+			Id = #{id}
+			and isDelete != 1
+	</select>
+	<select id="selectByTaskId" parameterType="java.lang.Long" resultMap="ChargeCustomerChargeCalcTaskHouseResultMap">
+		select
+			<include refid="ChargeCustomerChargeCalcTaskHouse_Column_List" />
+		from
+			Charge_CustomerChargeCalcTask_House
+		where
+			TaskId = #{id}
+			and isDelete !=1
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeCustomerChargeCalcTaskHouse">
+		update Charge_CustomerChargeCalcTask_House
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="taskId != null">
+			  TaskId = #{taskId, jdbcType=BIGINT },
+			</if>
+			<if test="houseId != null">
+			  HouseId = #{houseId, jdbcType=BIGINT },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<update id="deleteById" parameterType="java.lang.Long">
+		update  Charge_CustomerChargeCalcTask_House  set isDelete=1
+		where
+			TaskId = #{id}
+	</update>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		update  Charge_CustomerChargeCalcTask_House  set isDelete=1
+		where
+			TaskId in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeCustomerChargeCalcTaskHouse">
+		insert into Charge_CustomerChargeCalcTask_House
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="taskId != null">
+				TaskId,
+			</if>
+			<if test="houseId != null">
+				HouseId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="taskId != null">
+				#{taskId, jdbcType=BIGINT},
+			</if>
+			<if test="houseId != null">
+				#{houseId, jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_CustomerChargeCalcTask_House
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			TaskId,
+			HouseId,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.taskId, jdbcType=BIGINT},
+			#{item.houseId, jdbcType=BIGINT}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

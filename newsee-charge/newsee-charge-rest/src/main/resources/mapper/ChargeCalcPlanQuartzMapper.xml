@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeCalcPlanQuartzMapper">
+
+	<resultMap id="ChargeCalcPlanQuartzResultMap" type="com.newsee.charge.entity.ChargeCalcPlanQuartz">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="organizationId" column="organization_id" jdbcType="BIGINT"/>
+			<result property="planId" column="plan_id" jdbcType="BIGINT"/>
+			<result property="planCorn" column="plan_corn" jdbcType="VARCHAR"/>
+			<result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+			<result property="isWork" column="is_work" jdbcType="VARCHAR"/>
+			<result property="dbDataSource" column="db_data_source" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeCalcPlanQuartz_Column_List">
+		id,enterprise_id,organization_id,plan_id,plan_corn,job_name,is_work,db_data_source
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeCalcPlanQuartzResultMap">
+		select
+			<include refid="ChargeCalcPlanQuartz_Column_List" />
+		from
+			Charge_Calc_Plan_Quartz
+		where
+			id = #{id}
+	</select>
+	
+	<select id="selectByPlanId" parameterType="java.lang.Long" resultMap="ChargeCalcPlanQuartzResultMap">
+		select
+			<include refid="ChargeCalcPlanQuartz_Column_List" />
+		from
+			Charge_Calc_Plan_Quartz
+		where
+			plan_id = #{id}
+	</select>
+	
+	<select id="selectAllWorkedPlan" resultMap="ChargeCalcPlanQuartzResultMap">
+		select
+			<include refid="ChargeCalcPlanQuartz_Column_List" />
+		from
+			Charge_Calc_Plan_Quartz
+		where
+			is_work ='启用'
+	</select>
+	
+	<select id="selectAllPlan" resultMap="ChargeCalcPlanQuartzResultMap">
+		select 
+			<include refid="ChargeCalcPlanQuartz_Column_List" />
+		from
+			Charge_Calc_Plan_Quartz
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from Charge_Calc_Plan_Quartz 
+		where
+			id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from Charge_Calc_Plan_Quartz
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeCalcPlanQuartz">
+		insert into Charge_Calc_Plan_Quartz
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="organizationId != null">
+				organization_id,
+			</if>
+			<if test="planId != null">
+				plan_id,
+			</if>
+			<if test="planCorn != null">
+				plan_corn,
+			</if>
+			<if test="jobName != null">
+				job_name,
+			</if>
+			<if test="isWork != null">
+				is_work,
+			</if>
+			<if test="dbDataSource != null">
+				db_data_source,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="planId != null">
+				#{planId, jdbcType=BIGINT},
+			</if>
+			<if test="planCorn != null">
+				#{planCorn, jdbcType=VARCHAR},
+			</if>
+			<if test="jobName != null">
+				#{jobName, jdbcType=VARCHAR},
+			</if>
+			<if test="isWork != null">
+				#{isWork, jdbcType=VARCHAR},
+			</if>
+			<if test="dbDataSource != null">
+				#{dbDataSource, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeCalcPlanQuartz">
+		update Charge_Calc_Plan_Quartz
+		<set>
+			<if test="enterpriseId != null">
+				enterprise_id=#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				organization_id=#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="planId != null">
+				plan_id=#{planId, jdbcType=BIGINT},
+			</if>
+			<if test="planCorn != null">
+				plan_corn=#{planCorn, jdbcType=VARCHAR},
+			</if>
+			<if test="jobName != null">
+				job_name=#{jobName, jdbcType=VARCHAR},
+			</if>
+			<if test="isWork != null">
+				is_work=#{isWork, jdbcType=VARCHAR},
+			</if>
+			<if test="dbDataSource != null">
+				db_data_source=#{dbDataSource, jdbcType=VARCHAR},
+			</if>
+		</set>
+		where
+			plan_id = #{id}
+	</update>
+	
+	
+	<update id="planManager" parameterType="com.newsee.charge.entity.ChargeCalcPlanQuartz">
+		update Charge_Calc_Plan_Quartz
+		<set>
+				is_work=#{isWork, jdbcType=VARCHAR}
+		</set>
+		where
+			plan_id  in 
+			<foreach collection="ids" open="(" close=")"  separator="," item="item">
+			 ${item}
+			</foreach>
+	</update>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_Calc_Plan_Quartz
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			organization_id,
+			plan_id,
+			plan_corn,
+			job_name,
+			is_work,
+			db_data_source,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.planId, jdbcType=BIGINT},
+			#{item.planCorn, jdbcType=VARCHAR},
+			#{item.jobName, jdbcType=VARCHAR},
+			#{item.isWork, jdbcType=VARCHAR},
+			#{item.dbDataSource, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

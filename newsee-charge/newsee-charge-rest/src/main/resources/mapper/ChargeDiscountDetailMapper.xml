@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeDiscountDetailMapper">
+
+	<resultMap id="ChargeDiscountDetailResultMap" type="com.newsee.charge.entity.ChargeDiscountDetail">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="chargeDetailId" column="ChargeDetailId" jdbcType="BIGINT"/>
+			<result property="oldAmount" column="OldAmount" jdbcType="BIGINT"/>
+			<result property="newAmount" column="NewAmount" jdbcType="BIGINT"/>
+			<result property="oldShouldChargeSum" column="OldShouldChargeSum" jdbcType="BIGINT"/>
+			<result property="newShouldChargeSum" column="NewShouldChargeSum" jdbcType="BIGINT"/>
+			<result property="oldShouldChargeDate" column="OldShouldChargeDate" jdbcType="TIMESTAMP"/>
+			<result property="newShouldChargeDay" column="NewShouldChargeDay" jdbcType="TIMESTAMP"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="DATE"/>
+
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeDiscountDetail_Column_List">
+		Id,EnterpriseId,OrganizationId,ChargeDetailId,OldAmount,NewAmount,OldShouldChargeSum,NewShouldChargeSum,OldShouldChargeDate,NewShouldChargeDay,CreateUserId,CreateUserName,CreateTime
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeDiscountDetailResultMap">
+	    select 
+	        <include refid="ChargeDiscountDetail_Column_List" />
+	    from 
+	       Charge_DiscountDetail
+	    <where>
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldName} IS NULL or #{item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldName} IS NOT NULL and #{item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeDiscountDetailResultMap">
+		select
+			<include refid="ChargeDiscountDetail_Column_List" />
+		from
+			Charge_DiscountDetail
+		where
+			Id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeDiscountDetail">
+		update Charge_DiscountDetail
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeDetailId != null">
+			  ChargeDetailId = #{chargeDetailId, jdbcType=BIGINT },
+			</if>
+			<if test="oldAmount != null">
+			  OldAmount = #{oldAmount, jdbcType=BIGINT },
+			</if>
+			<if test="newAmount != null">
+			  NewAmount = #{newAmount, jdbcType=BIGINT },
+			</if>
+			<if test="oldShouldChargeSum != null">
+			  OldShouldChargeSum = #{oldShouldChargeSum, jdbcType=BIGINT },
+			</if>
+			<if test="newShouldChargeSum != null">
+			  NewShouldChargeSum = #{newShouldChargeSum, jdbcType=BIGINT },
+			</if>
+			<if test="oldShouldChargeDate != null">
+			  OldShouldChargeDate = #{oldShouldChargeDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="newShouldChargeDay != null">
+			  NewShouldChargeDay = #{newShouldChargeDay, jdbcType=TIMESTAMP },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=DATE },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from Charge_DiscountDetail 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from Charge_DiscountDetail
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeDiscountDetail">
+		insert into Charge_DiscountDetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="chargeDetailId != null">
+				ChargeDetailId,
+			</if>
+			<if test="oldAmount != null">
+				OldAmount,
+			</if>
+			<if test="newAmount != null">
+				NewAmount,
+			</if>
+			<if test="oldShouldChargeSum != null">
+				OldShouldChargeSum,
+			</if>
+			<if test="newShouldChargeSum != null">
+				NewShouldChargeSum,
+			</if>
+			<if test="oldShouldChargeDate != null">
+				OldShouldChargeDate,
+			</if>
+			<if test="newShouldChargeDay != null">
+				NewShouldChargeDay,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeDetailId != null">
+				#{chargeDetailId, jdbcType=BIGINT},
+			</if>
+			<if test="oldAmount != null">
+				#{oldAmount, jdbcType=BIGINT},
+			</if>
+			<if test="newAmount != null">
+				#{newAmount, jdbcType=BIGINT},
+			</if>
+			<if test="oldShouldChargeSum != null">
+				#{oldShouldChargeSum, jdbcType=BIGINT},
+			</if>
+			<if test="newShouldChargeSum != null">
+				#{newShouldChargeSum, jdbcType=BIGINT},
+			</if>
+			<if test="oldShouldChargeDate != null">
+				#{oldShouldChargeDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="newShouldChargeDay != null">
+				#{newShouldChargeDay, jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_DiscountDetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			ChargeDetailId,
+			OldAmount,
+			NewAmount,
+			OldShouldChargeSum,
+			NewShouldChargeSum,
+			OldShouldChargeDate,
+			NewShouldChargeDay,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.chargeDetailId, jdbcType=BIGINT},
+			#{item.oldAmount, jdbcType=BIGINT},
+			#{item.newAmount, jdbcType=BIGINT},
+			#{item.oldShouldChargeSum, jdbcType=BIGINT},
+			#{item.newShouldChargeSum, jdbcType=BIGINT},
+			#{item.oldShouldChargeDate, jdbcType=TIMESTAMP},
+			#{item.newShouldChargeDay, jdbcType=TIMESTAMP},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=DATE},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

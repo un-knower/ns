@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemRoleHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.system.entity.NsSystemRoleHouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="enterprise_id" property="enterpriseId" jdbcType="BIGINT" />
+    <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="house_type" property="houseType" jdbcType="TINYINT" />
+    <result column="isDelete" property="isdelete" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="createUserID" property="createuserid" jdbcType="BIGINT" />
+    <result column="createUserName" property="createusername" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateUserID" property="updateuserid" jdbcType="BIGINT" />
+    <result column="updateUserName" property="updateusername" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enterprise_id, organization_id, roleid, house_id, house_type, isDelete, remark, 
+    createUserID, createUserName, createTime, updateUserID, updateUserName, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_role_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByRoleid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_role_house
+    where roleid = #{id,jdbcType=VARCHAR}
+  </select>
+  
+ <select id="selectByRoleids" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_role_house
+    where 
+        roleid 
+    in
+       <foreach item="item" collection="list" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ns_system_role_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteByRoleid" parameterType="java.lang.String" >
+    delete from ns_system_role_house
+    where roleid = #{roleid,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.newsee.system.entity.NsSystemRoleHouse" >
+    insert into ns_system_role_house (id, enterprise_id, organization_id, 
+      roleid, house_id, house_type, 
+      isDelete, remark, createUserID, 
+      createUserName, createTime, updateUserID, 
+      updateUserName, updateTime)
+    values (#{id,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, 
+      #{roleid,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT}, #{houseType,jdbcType=TINYINT}, 
+      #{isdelete,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{createuserid,jdbcType=BIGINT}, 
+      #{createusername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updateuserid,jdbcType=BIGINT}, 
+      #{updateusername,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+        insert into ns_system_role_house
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	          enterprise_id, organization_id, 
+		      roleid, house_id, house_type, 
+		      isDelete, remark, createUserID, 
+		      createUserName, createTime, updateUserID, 
+		      updateUserName, updateTime
+	        </trim>
+        values
+	        <foreach collection="list" item="item" index="index" separator=",">
+		        (
+		          #{item.enterpriseId,jdbcType=BIGINT}, #{item.organizationId,jdbcType=BIGINT}, 
+			      #{item.roleid,jdbcType=VARCHAR}, #{item.houseId,jdbcType=BIGINT}, #{item.houseType,jdbcType=TINYINT}, 
+			      #{item.isdelete,jdbcType=TINYINT}, #{item.remark,jdbcType=VARCHAR}, #{item.createuserid,jdbcType=BIGINT}, 
+			      #{item.createusername,jdbcType=VARCHAR}, now(), #{item.updateuserid,jdbcType=BIGINT}, 
+			      #{item.updateusername,jdbcType=VARCHAR}, now()
+		        )
+	        </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.system.entity.NsSystemRoleHouse" >
+    insert into ns_system_role_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enterpriseId != null" >
+        enterprise_id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="houseType != null" >
+        house_type,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createuserid != null" >
+        createUserID,
+      </if>
+      <if test="createusername != null" >
+        createUserName,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updateuserid != null" >
+        updateUserID,
+      </if>
+      <if test="updateusername != null" >
+        updateUserName,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null" >
+        #{houseType,jdbcType=TINYINT},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createusername != null" >
+        #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        #{updateuserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateusername != null" >
+        #{updateusername,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.system.entity.NsSystemRoleHouse" >
+    update ns_system_role_house
+    <set >
+      <if test="enterpriseId != null" >
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null" >
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null" >
+        house_type = #{houseType,jdbcType=TINYINT},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        createUserID = #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createusername != null" >
+        createUserName = #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        updateUserID = #{updateuserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateusername != null" >
+        updateUserName = #{updateusername,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.system.entity.NsSystemRoleHouse" >
+    update ns_system_role_house
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      roleid = #{roleid,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=BIGINT},
+      house_type = #{houseType,jdbcType=TINYINT},
+      isDelete = #{isdelete,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      createUserID = #{createuserid,jdbcType=BIGINT},
+      createUserName = #{createusername,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateUserID = #{updateuserid,jdbcType=BIGINT},
+      updateUserName = #{updateusername,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

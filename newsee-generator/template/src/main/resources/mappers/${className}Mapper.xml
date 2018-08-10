@@ -1,0 +1,184 @@
+<#include "/macro.include"/>
+<#assign className = table.className>   
+<#assign classNameFirstLower = table.classNameFirstLower>   
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<#macro mapperEl value>${r"#{"}${value}}</#macro>
+<mapper namespace="${basepackage}.${subpackage}.dao.${className}Mapper">
+
+	<resultMap id="${className}ResultMap" type="${basepackage}.${subpackage}.entity.${className}">
+        <#list table.columns as column>
+		<#if column.pk>
+			<id property="${column.columnNameLower}" column="${column.sqlName}" jdbcType="${column.jdbcSqlTypeName}"/>
+		</#if>
+		<#if !column.pk>
+			<result property="${column.columnNameLower}" column="${column.sqlName}" jdbcType="${column.jdbcSqlTypeName}"/>
+		</#if>
+		</#list>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="${className}_Column_List">
+		<#list table.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="${className}ResultMap">
+	    select 
+	        <include refid="${className}_Column_List" />
+	    from 
+	       ${table.sqlName}
+	    <where>
+	        is_deleted = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(${r'#{'}mainSearch,jdbcType=VARCHAR${r'}'}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = ${r'#{'}enterpriseId,jdbcType=BIGINT${r'}'}
+	        </if>
+	        <if test="organizationId != null">
+	            and organization_id = ${r'#{'}organizationId,jdbcType=BIGINT${r'}'}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (${r'#{'}item.fieldUnderLineName${r'}'} IS NULL or ${r'#{'}item.fieldUnderLineName${r'}'} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (${r'#{'}item.fieldUnderLineName${r'}'} IS NOT NULL or ${r'#{'}item.fieldUnderLineName${r'}'} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(${r'#{'}item.fieldValue${r'}'}, ${r'#{'}item.fieldUnderLineName${r'}'})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(${r'#{'}item.fieldValue${r'}'}, ${r'#{'}item.fieldUnderLineName${r'}'})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} &gt; ${r'#{'}item.fieldValue${r'}'}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} &lt; ${r'#{'}item.fieldValue${r'}'}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} = ${r'#{'}item.fieldValue${r'}'}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} != ${r'#{'}item.fieldValue${r'}'}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} &gt;= ${r'#{'}item.fieldValue${r'}'}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and ${r'#{'}item.fieldUnderLineName${r'}'} &lt;= ${r'#{'}item.fieldValue${r'}'}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${r'${'}orderFieldUnderLineName${r'}'}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${r'${'}orderBy${r'}'}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="${className}ResultMap">
+		select
+			<include refid="${className}_Column_List" />
+		from
+			${table.sqlName}
+		where
+		<#list table.columns as column>
+		 	<#if column.pk>
+			${column.sqlName} = <@mapperEl "${column.columnNameLower}"/>
+		 	</#if>
+		</#list>
+	</select>
+	
+	<update id="updateById" parameterType="${basepackage}.${subpackage}.entity.${className}">
+		update ${table.sqlName}
+		<set>
+			<#list table.notPkColumns as column>
+			<if test="${column.columnNameFirstLower} != null">
+			  ${column.sqlName} = ${r'#{'}${column.columnNameFirstLower}, jdbcType=${column.jdbcSqlTypeName} ${r'}'},
+			</if>
+	        </#list>
+		</set>
+		where
+		<#list table.columns as column>
+		 	<#if column.pk>
+			${column.sqlName} = <@mapperEl "id"/>
+		 	</#if>
+		</#list>
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ${table.sqlName} 
+		where
+		<#list table.columns as column>
+		 	<#if column.pk>
+			${column.sqlName} = <@mapperEl "id"/>
+		 	</#if>
+		</#list>
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from ${table.sqlName}
+		where
+		<#list table.columns as column>
+		 	<#if column.pk>
+			${column.sqlName} in
+		 	</#if>
+		</#list>
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${r'${item}'}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="${basepackage}.${subpackage}.entity.${className}">
+		insert into ${table.sqlName}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<#list table.columns as column>
+		<#if !column.pk>
+			<if test="${column.columnNameFirstLower} != null">
+				${column.sqlName},
+			</if>
+		</#if>
+        </#list>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+	    <#list table.columns as column>
+	    <#if !column.pk>
+			<if test="${column.columnNameFirstLower} != null">
+				${r'#{'}${column.columnNameFirstLower}, jdbcType=${column.jdbcSqlTypeName}${r'},'}
+			</if>
+			</#if>
+        </#list>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ${table.sqlName}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<#list table.columns as column>
+			<#if !column.pk>
+			${column.sqlName},
+			</#if>
+        </#list>
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+	    <#list table.columns as column>
+	    	<#if !column.pk>
+			${r'#{item.'}${column.columnNameFirstLower}, jdbcType=${column.jdbcSqlTypeName}${r'},'}
+			</#if>
+        </#list>
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

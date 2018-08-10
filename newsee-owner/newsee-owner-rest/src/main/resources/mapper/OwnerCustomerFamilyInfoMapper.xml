@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerCustomerFamilyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerCustomerFamilyInfo" >
+    <id column="family_id" property="familyId" jdbcType="BIGINT" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="relation_owner_id" property="relationOwnerId" jdbcType="BIGINT" />
+    <result column="owner_relationship" property="ownerRelationship" jdbcType="VARCHAR" />
+    <result column="relation_owner_call" property="relationOwnerCall" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="sys_time" property="sysTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    family_id,owner_id, relation_owner_id, owner_relationship, relation_owner_call, is_deleted, 
+    create_user_id, create_time, update_user_id, update_time, sys_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.newsee.owner.entity.OwnerCustomerFamilyInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_family_info
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+      and relation_owner_id = #{relationOwnerId,jdbcType=BIGINT} and is_deleted = 0
+  </select>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerCustomerFamilyInfo" >
+    insert into owner_customer_family_info (owner_id, relation_owner_id, owner_relationship, 
+      relation_owner_call, is_deleted, create_user_id, 
+      create_time, update_user_id, update_time, 
+      sys_time, create_user_name, update_user_name)
+    values (#{ownerId,jdbcType=BIGINT}, #{relationOwnerId,jdbcType=BIGINT}, #{ownerRelationship,jdbcType=VARCHAR}, 
+      #{relationOwnerCall,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{sysTime,jdbcType=TIMESTAMP},#{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into owner_customer_family_info (owner_id, relation_owner_id, owner_relationship, 
+      relation_owner_call, is_deleted, create_user_id, 
+      create_time, update_user_id, update_time,create_user_name, update_user_name)
+    values 
+    <foreach collection="list" item="item" separator=",">
+	    (#{item.ownerId,jdbcType=BIGINT}, #{item.relationOwnerId,jdbcType=BIGINT}, #{item.ownerRelationship,jdbcType=VARCHAR}, 
+	    #{item.relationOwnerCall,jdbcType=VARCHAR}, 0, #{item.createUserId,jdbcType=BIGINT}, 
+	    NOW(), #{item.updateUserId,jdbcType=BIGINT}, NOW(),#{item.createUserName,jdbcType=VARCHAR}, #{item.updateUserName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerCustomerFamilyInfo" >
+    insert into owner_customer_family_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="relationOwnerId != null" >
+        relation_owner_id,
+      </if>
+      <if test="ownerRelationship != null" >
+        owner_relationship,
+      </if>
+      <if test="relationOwnerCall != null" >
+        relation_owner_call,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="sysTime != null" >
+        sys_time,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="relationOwnerId != null" >
+        #{relationOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerRelationship != null" >
+        #{ownerRelationship,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOwnerCall != null" >
+        #{relationOwnerCall,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null" >
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerCustomerFamilyInfo" >
+    update owner_customer_family_info
+    <set >
+      <if test="ownerRelationship != null" >
+        owner_relationship = #{ownerRelationship,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOwnerCall != null" >
+        relation_owner_call = #{relationOwnerCall,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        update_time = NOW()
+    </set>
+    where owner_id = #{ownerId,jdbcType=BIGINT}
+      and relation_owner_id = #{relationOwnerId,jdbcType=BIGINT}
+  </update>
+    <update id="updateByFamilyId" parameterType="com.newsee.owner.entity.OwnerCustomerFamilyInfo" >
+    update owner_customer_family_info
+    <set >
+      <if test="ownerRelationship != null" >
+        owner_relationship = #{ownerRelationship,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOwnerCall != null" >
+        relation_owner_call = #{relationOwnerCall,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        update_time = NOW()
+    </set>
+    where family_id = #{familyId,jdbcType=BIGINT}
+  </update>
+  <update id="deleteFamily" parameterType="java.util.Map" >
+    update owner_customer_family_info
+    set 
+      is_deleted = 1,
+      update_user_id = #{userId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where owner_id = #{ownerId,jdbcType=BIGINT}
+      and relation_owner_id = #{relationOwnerId,jdbcType=BIGINT} and is_deleted = 0
+  </update>
+  <update id="deleteFamilyByOwnerId" parameterType="java.util.Map" >
+    update owner_customer_family_info
+    set 
+      is_deleted = 1,
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW()
+    where relation_owner_id in 
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach>
+    and is_deleted = 0
+  </update>
+  <select id="listFamilyByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_family_info
+    where relation_owner_id = #{ownerId,jdbcType=BIGINT} and is_deleted = false
+  </select>
+  <select id="listAllFamilyByOwnerId" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    select 
+    relation_owner_id
+    from owner_customer_family_info
+    where relation_owner_id = #{ownerId,jdbcType=BIGINT}
+    and is_deleted = false
+  </select>
+  <select id="listAllFamily" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List"/>
+    from owner_customer_family_info
+    where owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach> 
+    and is_deleted = false
+  </select>
+  <select id="listAllOwnerByFamily" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    select 
+    relation_owner_id
+    from owner_customer_family_info family
+    inner join  owner_house_relationship relation on relation.owner_id = family.relation_owner_id
+    where family.owner_id = #{ownerId,jdbcType=BIGINT}
+    and family.is_deleted = false and relation.is_current_record = true and relation.is_deleted = false
+  </select>
+  <select id="listAllRentByFamily" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    select 
+    relation_owner_id
+    from owner_customer_family_info family
+    inner join owner_house_stage_extend_info_rent rent on rent.rent_owner_id = family.relation_owner_id
+    inner join owner_house_relationship relation on relation.owner_id = family.relation_owner_id
+    where family.owner_id = #{ownerId,jdbcType=BIGINT}
+    and family.is_deleted = false and relation.is_current_record = true and relation.is_deleted = false
+  </select>
+</mapper>

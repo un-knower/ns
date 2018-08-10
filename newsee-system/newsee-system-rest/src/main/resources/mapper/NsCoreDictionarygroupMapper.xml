@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreDictionarygroupMapper">
+
+	<resultMap id="NsCoreDictionarygroupResultMap" type="com.newsee.system.entity.NsCoreDictionarygroup">
+			<id property="dictionaryGroupId" column="dictionary_group_id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="organizationId" column="organization_id" jdbcType="BIGINT"/>
+			<result property="dictionaryGroupName" column="dictionary_group_name" jdbcType="VARCHAR"/>
+			<result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+			<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+			<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreDictionarygroup_Column_List">
+		dictionary_group_id,enterprise_id,organization_id,dictionary_group_name,is_deleted,remark,create_user_id,create_time,update_user_id,update_time
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreDictionarygroupResultMap">
+		select
+			<include refid="NsCoreDictionarygroup_Column_List" />
+		from
+			ns_core_dictionarygroup
+		where
+			dictionary_group_id = #{dictionaryGroupId}
+	</select>
+	
+	<select id="selectByOrganizationId" parameterType="java.lang.Long" resultMap="NsCoreDictionarygroupResultMap">
+        select
+            <include refid="NsCoreDictionarygroup_Column_List" />
+        from
+            ns_core_dictionarygroup
+        where
+             is_deleted = 0 
+        and  
+            (organization_id=0 
+           or organization_id = #{organizationId})
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreDictionarygroup">
+		update ns_core_dictionarygroup
+		<set>
+			<if test="enterpriseId != null">
+			  enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  organization_id = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="dictionaryGroupName != null">
+			  dictionary_group_name = #{dictionaryGroupName, jdbcType=VARCHAR },
+			</if>
+			<if test="isDeleted != null">
+			  is_deleted = #{isDeleted, jdbcType=TINYINT },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  create_user_id = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createTime != null">
+			  create_time = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  update_user_id = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateTime != null">
+			  update_time = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+		</set>
+		where
+			dictionary_group_id = #{dictionaryGroupId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_dictionarygroup 
+		where
+			dictionary_group_id = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update 
+		  ns_core_dictionarygroup
+		set
+		  is_deleted = 1,
+		  update_time = now()
+		where
+			dictionary_group_id = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="dictionaryGroupId"
+		parameterType="com.newsee.system.entity.NsCoreDictionarygroup">
+		insert into ns_core_dictionarygroup
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="organizationId != null">
+				organization_id,
+			</if>
+			<if test="dictionaryGroupName != null">
+				dictionary_group_name,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="dictionaryGroupName != null">
+				#{dictionaryGroupName, jdbcType=VARCHAR},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted, jdbcType=TINYINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_dictionarygroup
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			organization_id,
+			dictionary_group_name,
+			is_deleted,
+			remark,
+			create_user_id,
+			create_time,
+			update_user_id,
+			update_time,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.dictionaryGroupName, jdbcType=VARCHAR},
+			#{item.isDeleted, jdbcType=TINYINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

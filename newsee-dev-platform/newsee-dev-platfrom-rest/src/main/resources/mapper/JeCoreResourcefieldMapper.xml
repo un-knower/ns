@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.devplatform.dao.JeCoreResourcefieldMapper">
+
+	<resultMap id="JeCoreResourcefieldResultMap" type="com.newsee.devplatform.entity.JeCoreResourcefield">
+			<id property="jeCoreResourcefieldId" column="JE_CORE_RESOURCEFIELD_ID" jdbcType="VARCHAR"/>
+			<result property="resourcefieldFuncinfoId" column="RESOURCEFIELD_FUNCINFO_ID" jdbcType="VARCHAR"/>
+			<result property="resourcefieldAllowblank" column="RESOURCEFIELD_ALLOWBLANK" jdbcType="VARCHAR"/>
+			<result property="resourcefieldAllowblankexp" column="RESOURCEFIELD_ALLOWBLANKEXP" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldAllowblankexpfn" column="RESOURCEFIELD_ALLOWBLANKEXPFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldBgcolor" column="RESOURCEFIELD_BGCOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcefieldBinding" column="RESOURCEFIELD_BINDING" jdbcType="VARCHAR"/>
+			<result property="resourcefieldBindingfn" column="RESOURCEFIELD_BINDINGFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldCode" column="RESOURCEFIELD_CODE" jdbcType="VARCHAR"/>
+			<result property="resourcefieldCols" column="RESOURCEFIELD_COLS" jdbcType="INTEGER"/>
+			<result property="resourcefieldColspan" column="RESOURCEFIELD_COLSPAN" jdbcType="INTEGER"/>
+			<result property="resourcefieldConfiginfo" column="RESOURCEFIELD_CONFIGINFO" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldDescription" column="RESOURCEFIELD_DESCRIPTION" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldDisabled" column="RESOURCEFIELD_DISABLED" jdbcType="VARCHAR"/>
+			<result property="resourcefieldEditable" column="RESOURCEFIELD_EDITABLE" jdbcType="VARCHAR"/>
+			<result property="resourcefieldEmptytext" column="RESOURCEFIELD_EMPTYTEXT" jdbcType="VARCHAR"/>
+			<result property="resourcefieldEnableexp" column="RESOURCEFIELD_ENABLEEXP" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldEnableexpfn" column="RESOURCEFIELD_ENABLEEXPFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldEnabletip" column="RESOURCEFIELD_ENABLETIP" jdbcType="VARCHAR"/>
+			<result property="resourcefieldFieldcls" column="RESOURCEFIELD_FIELDCLS" jdbcType="VARCHAR"/>
+			<result property="resourcefieldFieldcolor" column="RESOURCEFIELD_FIELDCOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcefieldFieldlazy" column="RESOURCEFIELD_FIELDLAZY" jdbcType="VARCHAR"/>
+			<result property="resourcefieldFlex" column="RESOURCEFIELD_FLEX" jdbcType="VARCHAR"/>
+			<result property="resourcefieldGroupname" column="RESOURCEFIELD_GROUPNAME" jdbcType="VARCHAR"/>
+			<result property="resourcefieldHeight" column="RESOURCEFIELD_HEIGHT" jdbcType="VARCHAR"/>
+			<result property="resourcefieldHidden" column="RESOURCEFIELD_HIDDEN" jdbcType="VARCHAR"/>
+			<result property="resourcefieldHistory" column="RESOURCEFIELD_HISTORY" jdbcType="VARCHAR"/>
+			<result property="resourcefieldIfimpl" column="RESOURCEFIELD_IFIMPL" jdbcType="VARCHAR"/>
+			<result property="resourcefieldInterpreter" column="RESOURCEFIELD_INTERPRETER" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldInterpreterfn" column="RESOURCEFIELD_INTERPRETERFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldIspk" column="RESOURCEFIELD_ISPK" jdbcType="VARCHAR"/>
+			<result property="resourcefieldJslistener" column="RESOURCEFIELD_JSLISTENER" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldLabelcolor" column="RESOURCEFIELD_LABELCOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcefieldLocate" column="RESOURCEFIELD_LOCATE" jdbcType="VARCHAR"/>
+			<result property="resourcefieldMaxvalue" column="RESOURCEFIELD_MAXVALUE" jdbcType="INTEGER"/>
+			<result property="resourcefieldMinvalue" column="RESOURCEFIELD_MINVALUE" jdbcType="INTEGER"/>
+			<result property="resourcefieldName" column="RESOURCEFIELD_NAME" jdbcType="VARCHAR"/>
+			<result property="resourcefieldNameEn" column="RESOURCEFIELD_NAME_EN" jdbcType="VARCHAR"/>
+			<result property="resourcefieldNewfuncid" column="RESOURCEFIELD_NEWFUNCID" jdbcType="VARCHAR"/>
+			<result property="resourcefieldOtherconfig" column="RESOURCEFIELD_OTHERCONFIG" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldReadonly" column="RESOURCEFIELD_READONLY" jdbcType="VARCHAR"/>
+			<result property="resourcefieldReadonlyexp" column="RESOURCEFIELD_READONLYEXP" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldReadonlyexpfn" column="RESOURCEFIELD_READONLYEXPFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldRegex" column="RESOURCEFIELD_REGEX" jdbcType="VARCHAR"/>
+			<result property="resourcefieldRegextext" column="RESOURCEFIELD_REGEXTEXT" jdbcType="VARCHAR"/>
+			<result property="resourcefieldRemoved" column="RESOURCEFIELD_REMOVED" jdbcType="VARCHAR"/>
+			<result property="resourcefieldRowfield" column="RESOURCEFIELD_ROWFIELD" jdbcType="VARCHAR"/>
+			<result property="resourcefieldRowspan" column="RESOURCEFIELD_ROWSPAN" jdbcType="INTEGER"/>
+			<result property="resourcefieldStep" column="RESOURCEFIELD_STEP" jdbcType="INTEGER"/>
+			<result property="resourcefieldSysmode" column="RESOURCEFIELD_SYSMODE" jdbcType="VARCHAR"/>
+			<result property="resourcefieldUnitlisttpl" column="RESOURCEFIELD_UNITLISTTPL" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldUnittpl" column="RESOURCEFIELD_UNITTPL" jdbcType="VARCHAR"/>
+			<result property="resourcefieldValue" column="RESOURCEFIELD_VALUE" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldValuefn" column="RESOURCEFIELD_VALUEFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldVtype" column="RESOURCEFIELD_VTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcefieldVtypeconfig" column="RESOURCEFIELD_VTYPECONFIG" jdbcType="VARCHAR"/>
+			<result property="resourcefieldWheresql" column="RESOURCEFIELD_WHERESQL" jdbcType="VARCHAR"/>
+			<result property="resourcefieldWidth" column="RESOURCEFIELD_WIDTH" jdbcType="VARCHAR"/>
+			<result property="resourcefieldXtype" column="RESOURCEFIELD_XTYPE" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="resourcefieldVtypefn" column="RESOURCEFIELD_VTYPEFN" jdbcType="LONGVARCHAR"/>
+			<result property="resourcefieldLabelalign" column="RESOURCEFIELD_LABELALIGN" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="JeCoreResourcefield_Column_List">
+		JE_CORE_RESOURCEFIELD_ID,RESOURCEFIELD_FUNCINFO_ID,RESOURCEFIELD_ALLOWBLANK,RESOURCEFIELD_ALLOWBLANKEXP,RESOURCEFIELD_ALLOWBLANKEXPFN,RESOURCEFIELD_BGCOLOR,RESOURCEFIELD_BINDING,RESOURCEFIELD_BINDINGFN,RESOURCEFIELD_CODE,RESOURCEFIELD_COLS,RESOURCEFIELD_COLSPAN,RESOURCEFIELD_CONFIGINFO,RESOURCEFIELD_DESCRIPTION,RESOURCEFIELD_DISABLED,RESOURCEFIELD_EDITABLE,RESOURCEFIELD_EMPTYTEXT,RESOURCEFIELD_ENABLEEXP,RESOURCEFIELD_ENABLEEXPFN,RESOURCEFIELD_ENABLETIP,RESOURCEFIELD_FIELDCLS,RESOURCEFIELD_FIELDCOLOR,RESOURCEFIELD_FIELDLAZY,RESOURCEFIELD_FLEX,RESOURCEFIELD_GROUPNAME,RESOURCEFIELD_HEIGHT,RESOURCEFIELD_HIDDEN,RESOURCEFIELD_HISTORY,RESOURCEFIELD_IFIMPL,RESOURCEFIELD_INTERPRETER,RESOURCEFIELD_INTERPRETERFN,RESOURCEFIELD_ISPK,RESOURCEFIELD_JSLISTENER,RESOURCEFIELD_LABELCOLOR,RESOURCEFIELD_LOCATE,RESOURCEFIELD_MAXVALUE,RESOURCEFIELD_MINVALUE,RESOURCEFIELD_NAME,RESOURCEFIELD_NAME_EN,RESOURCEFIELD_NEWFUNCID,RESOURCEFIELD_OTHERCONFIG,RESOURCEFIELD_READONLY,RESOURCEFIELD_READONLYEXP,RESOURCEFIELD_READONLYEXPFN,RESOURCEFIELD_REGEX,RESOURCEFIELD_REGEXTEXT,RESOURCEFIELD_REMOVED,RESOURCEFIELD_ROWFIELD,RESOURCEFIELD_ROWSPAN,RESOURCEFIELD_STEP,RESOURCEFIELD_SYSMODE,RESOURCEFIELD_UNITLISTTPL,RESOURCEFIELD_UNITTPL,RESOURCEFIELD_VALUE,RESOURCEFIELD_VALUEFN,RESOURCEFIELD_VTYPE,RESOURCEFIELD_VTYPECONFIG,RESOURCEFIELD_WHERESQL,RESOURCEFIELD_WIDTH,RESOURCEFIELD_XTYPE,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_ORDERINDEX,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS,RESOURCEFIELD_VTYPEFN,RESOURCEFIELD_LABELALIGN
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.String" resultMap="JeCoreResourcefieldResultMap">
+		select
+			<include refid="JeCoreResourcefield_Column_List" />
+		from
+			je_core_resourcefield
+		where
+			JE_CORE_RESOURCEFIELD_ID = #{jeCoreResourcefieldId}
+	</select>
+	
+	<select id="selectByFuncIds" parameterType="java.util.Map" resultMap="JeCoreResourcefieldResultMap">
+		select
+			<include refid="JeCoreResourcefield_Column_List" />
+		from
+			je_core_resourcefield
+		where
+			1=1
+			<if test="funcIds != null and funcIds.size() > 0">
+				AND RESOURCEFIELD_FUNCINFO_ID IN 
+				<foreach collection="funcIds" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="latestSyncTime != null">
+				AND sys_time &gt;= #{latestSyncTime}
+			</if>
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.devplatform.entity.JeCoreResourcefield">
+		update je_core_resourcefield
+		<set>
+			<if test="resourcefieldFuncinfoId != null">
+			  RESOURCEFIELD_FUNCINFO_ID = #{resourcefieldFuncinfoId, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldAllowblank != null">
+			  RESOURCEFIELD_ALLOWBLANK = #{resourcefieldAllowblank, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldAllowblankexp != null">
+			  RESOURCEFIELD_ALLOWBLANKEXP = #{resourcefieldAllowblankexp, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldAllowblankexpfn != null">
+			  RESOURCEFIELD_ALLOWBLANKEXPFN = #{resourcefieldAllowblankexpfn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldBgcolor != null">
+			  RESOURCEFIELD_BGCOLOR = #{resourcefieldBgcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldBinding != null">
+			  RESOURCEFIELD_BINDING = #{resourcefieldBinding, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldBindingfn != null">
+			  RESOURCEFIELD_BINDINGFN = #{resourcefieldBindingfn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldCode != null">
+			  RESOURCEFIELD_CODE = #{resourcefieldCode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldCols != null">
+			  RESOURCEFIELD_COLS = #{resourcefieldCols, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldColspan != null">
+			  RESOURCEFIELD_COLSPAN = #{resourcefieldColspan, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldConfiginfo != null">
+			  RESOURCEFIELD_CONFIGINFO = #{resourcefieldConfiginfo, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldDescription != null">
+			  RESOURCEFIELD_DESCRIPTION = #{resourcefieldDescription, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldDisabled != null">
+			  RESOURCEFIELD_DISABLED = #{resourcefieldDisabled, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldEditable != null">
+			  RESOURCEFIELD_EDITABLE = #{resourcefieldEditable, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldEmptytext != null">
+			  RESOURCEFIELD_EMPTYTEXT = #{resourcefieldEmptytext, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldEnableexp != null">
+			  RESOURCEFIELD_ENABLEEXP = #{resourcefieldEnableexp, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldEnableexpfn != null">
+			  RESOURCEFIELD_ENABLEEXPFN = #{resourcefieldEnableexpfn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldEnabletip != null">
+			  RESOURCEFIELD_ENABLETIP = #{resourcefieldEnabletip, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldFieldcls != null">
+			  RESOURCEFIELD_FIELDCLS = #{resourcefieldFieldcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldFieldcolor != null">
+			  RESOURCEFIELD_FIELDCOLOR = #{resourcefieldFieldcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldFieldlazy != null">
+			  RESOURCEFIELD_FIELDLAZY = #{resourcefieldFieldlazy, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldFlex != null">
+			  RESOURCEFIELD_FLEX = #{resourcefieldFlex, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldGroupname != null">
+			  RESOURCEFIELD_GROUPNAME = #{resourcefieldGroupname, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldHeight != null">
+			  RESOURCEFIELD_HEIGHT = #{resourcefieldHeight, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldHidden != null">
+			  RESOURCEFIELD_HIDDEN = #{resourcefieldHidden, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldHistory != null">
+			  RESOURCEFIELD_HISTORY = #{resourcefieldHistory, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldIfimpl != null">
+			  RESOURCEFIELD_IFIMPL = #{resourcefieldIfimpl, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldInterpreter != null">
+			  RESOURCEFIELD_INTERPRETER = #{resourcefieldInterpreter, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldInterpreterfn != null">
+			  RESOURCEFIELD_INTERPRETERFN = #{resourcefieldInterpreterfn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldIspk != null">
+			  RESOURCEFIELD_ISPK = #{resourcefieldIspk, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldJslistener != null">
+			  RESOURCEFIELD_JSLISTENER = #{resourcefieldJslistener, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldLabelcolor != null">
+			  RESOURCEFIELD_LABELCOLOR = #{resourcefieldLabelcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldLocate != null">
+			  RESOURCEFIELD_LOCATE = #{resourcefieldLocate, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldMaxvalue != null">
+			  RESOURCEFIELD_MAXVALUE = #{resourcefieldMaxvalue, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldMinvalue != null">
+			  RESOURCEFIELD_MINVALUE = #{resourcefieldMinvalue, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldName != null">
+			  RESOURCEFIELD_NAME = #{resourcefieldName, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldNameEn != null">
+			  RESOURCEFIELD_NAME_EN = #{resourcefieldNameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldNewfuncid != null">
+			  RESOURCEFIELD_NEWFUNCID = #{resourcefieldNewfuncid, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldOtherconfig != null">
+			  RESOURCEFIELD_OTHERCONFIG = #{resourcefieldOtherconfig, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldReadonly != null">
+			  RESOURCEFIELD_READONLY = #{resourcefieldReadonly, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldReadonlyexp != null">
+			  RESOURCEFIELD_READONLYEXP = #{resourcefieldReadonlyexp, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldReadonlyexpfn != null">
+			  RESOURCEFIELD_READONLYEXPFN = #{resourcefieldReadonlyexpfn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldRegex != null">
+			  RESOURCEFIELD_REGEX = #{resourcefieldRegex, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldRegextext != null">
+			  RESOURCEFIELD_REGEXTEXT = #{resourcefieldRegextext, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldRemoved != null">
+			  RESOURCEFIELD_REMOVED = #{resourcefieldRemoved, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldRowfield != null">
+			  RESOURCEFIELD_ROWFIELD = #{resourcefieldRowfield, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldRowspan != null">
+			  RESOURCEFIELD_ROWSPAN = #{resourcefieldRowspan, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldStep != null">
+			  RESOURCEFIELD_STEP = #{resourcefieldStep, jdbcType=INTEGER },
+			</if>
+			<if test="resourcefieldSysmode != null">
+			  RESOURCEFIELD_SYSMODE = #{resourcefieldSysmode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldUnitlisttpl != null">
+			  RESOURCEFIELD_UNITLISTTPL = #{resourcefieldUnitlisttpl, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldUnittpl != null">
+			  RESOURCEFIELD_UNITTPL = #{resourcefieldUnittpl, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldValue != null">
+			  RESOURCEFIELD_VALUE = #{resourcefieldValue, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldValuefn != null">
+			  RESOURCEFIELD_VALUEFN = #{resourcefieldValuefn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldVtype != null">
+			  RESOURCEFIELD_VTYPE = #{resourcefieldVtype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldVtypeconfig != null">
+			  RESOURCEFIELD_VTYPECONFIG = #{resourcefieldVtypeconfig, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldWheresql != null">
+			  RESOURCEFIELD_WHERESQL = #{resourcefieldWheresql, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldWidth != null">
+			  RESOURCEFIELD_WIDTH = #{resourcefieldWidth, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldXtype != null">
+			  RESOURCEFIELD_XTYPE = #{resourcefieldXtype, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcefieldVtypefn != null">
+			  RESOURCEFIELD_VTYPEFN = #{resourcefieldVtypefn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcefieldLabelalign != null">
+			  RESOURCEFIELD_LABELALIGN = #{resourcefieldLabelalign, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			JE_CORE_RESOURCEFIELD_ID = #{jeCoreResourcefieldId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from je_core_resourcefield 
+		where
+			JE_CORE_RESOURCEFIELD_ID = #{jeCoreResourcefieldId}
+	</delete>
+	
+	<insert id="insert" parameterType="com.newsee.devplatform.entity.JeCoreResourcefield">
+		insert into je_core_resourcefield
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcefieldId != null">
+				JE_CORE_RESOURCEFIELD_ID,
+			</if>
+			<if test="resourcefieldFuncinfoId != null">
+				RESOURCEFIELD_FUNCINFO_ID,
+			</if>
+			<if test="resourcefieldAllowblank != null">
+				RESOURCEFIELD_ALLOWBLANK,
+			</if>
+			<if test="resourcefieldAllowblankexp != null">
+				RESOURCEFIELD_ALLOWBLANKEXP,
+			</if>
+			<if test="resourcefieldAllowblankexpfn != null">
+				RESOURCEFIELD_ALLOWBLANKEXPFN,
+			</if>
+			<if test="resourcefieldBgcolor != null">
+				RESOURCEFIELD_BGCOLOR,
+			</if>
+			<if test="resourcefieldBinding != null">
+				RESOURCEFIELD_BINDING,
+			</if>
+			<if test="resourcefieldBindingfn != null">
+				RESOURCEFIELD_BINDINGFN,
+			</if>
+			<if test="resourcefieldCode != null">
+				RESOURCEFIELD_CODE,
+			</if>
+			<if test="resourcefieldCols != null">
+				RESOURCEFIELD_COLS,
+			</if>
+			<if test="resourcefieldColspan != null">
+				RESOURCEFIELD_COLSPAN,
+			</if>
+			<if test="resourcefieldConfiginfo != null">
+				RESOURCEFIELD_CONFIGINFO,
+			</if>
+			<if test="resourcefieldDescription != null">
+				RESOURCEFIELD_DESCRIPTION,
+			</if>
+			<if test="resourcefieldDisabled != null">
+				RESOURCEFIELD_DISABLED,
+			</if>
+			<if test="resourcefieldEditable != null">
+				RESOURCEFIELD_EDITABLE,
+			</if>
+			<if test="resourcefieldEmptytext != null">
+				RESOURCEFIELD_EMPTYTEXT,
+			</if>
+			<if test="resourcefieldEnableexp != null">
+				RESOURCEFIELD_ENABLEEXP,
+			</if>
+			<if test="resourcefieldEnableexpfn != null">
+				RESOURCEFIELD_ENABLEEXPFN,
+			</if>
+			<if test="resourcefieldEnabletip != null">
+				RESOURCEFIELD_ENABLETIP,
+			</if>
+			<if test="resourcefieldFieldcls != null">
+				RESOURCEFIELD_FIELDCLS,
+			</if>
+			<if test="resourcefieldFieldcolor != null">
+				RESOURCEFIELD_FIELDCOLOR,
+			</if>
+			<if test="resourcefieldFieldlazy != null">
+				RESOURCEFIELD_FIELDLAZY,
+			</if>
+			<if test="resourcefieldFlex != null">
+				RESOURCEFIELD_FLEX,
+			</if>
+			<if test="resourcefieldGroupname != null">
+				RESOURCEFIELD_GROUPNAME,
+			</if>
+			<if test="resourcefieldHeight != null">
+				RESOURCEFIELD_HEIGHT,
+			</if>
+			<if test="resourcefieldHidden != null">
+				RESOURCEFIELD_HIDDEN,
+			</if>
+			<if test="resourcefieldHistory != null">
+				RESOURCEFIELD_HISTORY,
+			</if>
+			<if test="resourcefieldIfimpl != null">
+				RESOURCEFIELD_IFIMPL,
+			</if>
+			<if test="resourcefieldInterpreter != null">
+				RESOURCEFIELD_INTERPRETER,
+			</if>
+			<if test="resourcefieldInterpreterfn != null">
+				RESOURCEFIELD_INTERPRETERFN,
+			</if>
+			<if test="resourcefieldIspk != null">
+				RESOURCEFIELD_ISPK,
+			</if>
+			<if test="resourcefieldJslistener != null">
+				RESOURCEFIELD_JSLISTENER,
+			</if>
+			<if test="resourcefieldLabelcolor != null">
+				RESOURCEFIELD_LABELCOLOR,
+			</if>
+			<if test="resourcefieldLocate != null">
+				RESOURCEFIELD_LOCATE,
+			</if>
+			<if test="resourcefieldMaxvalue != null">
+				RESOURCEFIELD_MAXVALUE,
+			</if>
+			<if test="resourcefieldMinvalue != null">
+				RESOURCEFIELD_MINVALUE,
+			</if>
+			<if test="resourcefieldName != null">
+				RESOURCEFIELD_NAME,
+			</if>
+			<if test="resourcefieldNameEn != null">
+				RESOURCEFIELD_NAME_EN,
+			</if>
+			<if test="resourcefieldNewfuncid != null">
+				RESOURCEFIELD_NEWFUNCID,
+			</if>
+			<if test="resourcefieldOtherconfig != null">
+				RESOURCEFIELD_OTHERCONFIG,
+			</if>
+			<if test="resourcefieldReadonly != null">
+				RESOURCEFIELD_READONLY,
+			</if>
+			<if test="resourcefieldReadonlyexp != null">
+				RESOURCEFIELD_READONLYEXP,
+			</if>
+			<if test="resourcefieldReadonlyexpfn != null">
+				RESOURCEFIELD_READONLYEXPFN,
+			</if>
+			<if test="resourcefieldRegex != null">
+				RESOURCEFIELD_REGEX,
+			</if>
+			<if test="resourcefieldRegextext != null">
+				RESOURCEFIELD_REGEXTEXT,
+			</if>
+			<if test="resourcefieldRemoved != null">
+				RESOURCEFIELD_REMOVED,
+			</if>
+			<if test="resourcefieldRowfield != null">
+				RESOURCEFIELD_ROWFIELD,
+			</if>
+			<if test="resourcefieldRowspan != null">
+				RESOURCEFIELD_ROWSPAN,
+			</if>
+			<if test="resourcefieldStep != null">
+				RESOURCEFIELD_STEP,
+			</if>
+			<if test="resourcefieldSysmode != null">
+				RESOURCEFIELD_SYSMODE,
+			</if>
+			<if test="resourcefieldUnitlisttpl != null">
+				RESOURCEFIELD_UNITLISTTPL,
+			</if>
+			<if test="resourcefieldUnittpl != null">
+				RESOURCEFIELD_UNITTPL,
+			</if>
+			<if test="resourcefieldValue != null">
+				RESOURCEFIELD_VALUE,
+			</if>
+			<if test="resourcefieldValuefn != null">
+				RESOURCEFIELD_VALUEFN,
+			</if>
+			<if test="resourcefieldVtype != null">
+				RESOURCEFIELD_VTYPE,
+			</if>
+			<if test="resourcefieldVtypeconfig != null">
+				RESOURCEFIELD_VTYPECONFIG,
+			</if>
+			<if test="resourcefieldWheresql != null">
+				RESOURCEFIELD_WHERESQL,
+			</if>
+			<if test="resourcefieldWidth != null">
+				RESOURCEFIELD_WIDTH,
+			</if>
+			<if test="resourcefieldXtype != null">
+				RESOURCEFIELD_XTYPE,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="resourcefieldVtypefn != null">
+				RESOURCEFIELD_VTYPEFN,
+			</if>
+			<if test="resourcefieldLabelalign != null">
+				RESOURCEFIELD_LABELALIGN,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcefieldId != null">
+				#{jeCoreResourcefieldId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldFuncinfoId != null">
+				#{resourcefieldFuncinfoId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldAllowblank != null">
+				#{resourcefieldAllowblank, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldAllowblankexp != null">
+				#{resourcefieldAllowblankexp, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldAllowblankexpfn != null">
+				#{resourcefieldAllowblankexpfn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldBgcolor != null">
+				#{resourcefieldBgcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldBinding != null">
+				#{resourcefieldBinding, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldBindingfn != null">
+				#{resourcefieldBindingfn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldCode != null">
+				#{resourcefieldCode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldCols != null">
+				#{resourcefieldCols, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldColspan != null">
+				#{resourcefieldColspan, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldConfiginfo != null">
+				#{resourcefieldConfiginfo, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldDescription != null">
+				#{resourcefieldDescription, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldDisabled != null">
+				#{resourcefieldDisabled, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldEditable != null">
+				#{resourcefieldEditable, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldEmptytext != null">
+				#{resourcefieldEmptytext, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldEnableexp != null">
+				#{resourcefieldEnableexp, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldEnableexpfn != null">
+				#{resourcefieldEnableexpfn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldEnabletip != null">
+				#{resourcefieldEnabletip, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldFieldcls != null">
+				#{resourcefieldFieldcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldFieldcolor != null">
+				#{resourcefieldFieldcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldFieldlazy != null">
+				#{resourcefieldFieldlazy, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldFlex != null">
+				#{resourcefieldFlex, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldGroupname != null">
+				#{resourcefieldGroupname, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldHeight != null">
+				#{resourcefieldHeight, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldHidden != null">
+				#{resourcefieldHidden, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldHistory != null">
+				#{resourcefieldHistory, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldIfimpl != null">
+				#{resourcefieldIfimpl, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldInterpreter != null">
+				#{resourcefieldInterpreter, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldInterpreterfn != null">
+				#{resourcefieldInterpreterfn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldIspk != null">
+				#{resourcefieldIspk, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldJslistener != null">
+				#{resourcefieldJslistener, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldLabelcolor != null">
+				#{resourcefieldLabelcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldLocate != null">
+				#{resourcefieldLocate, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldMaxvalue != null">
+				#{resourcefieldMaxvalue, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldMinvalue != null">
+				#{resourcefieldMinvalue, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldName != null">
+				#{resourcefieldName, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldNameEn != null">
+				#{resourcefieldNameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldNewfuncid != null">
+				#{resourcefieldNewfuncid, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldOtherconfig != null">
+				#{resourcefieldOtherconfig, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldReadonly != null">
+				#{resourcefieldReadonly, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldReadonlyexp != null">
+				#{resourcefieldReadonlyexp, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldReadonlyexpfn != null">
+				#{resourcefieldReadonlyexpfn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldRegex != null">
+				#{resourcefieldRegex, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldRegextext != null">
+				#{resourcefieldRegextext, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldRemoved != null">
+				#{resourcefieldRemoved, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldRowfield != null">
+				#{resourcefieldRowfield, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldRowspan != null">
+				#{resourcefieldRowspan, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldStep != null">
+				#{resourcefieldStep, jdbcType=INTEGER},
+			</if>
+			<if test="resourcefieldSysmode != null">
+				#{resourcefieldSysmode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldUnitlisttpl != null">
+				#{resourcefieldUnitlisttpl, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldUnittpl != null">
+				#{resourcefieldUnittpl, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldValue != null">
+				#{resourcefieldValue, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldValuefn != null">
+				#{resourcefieldValuefn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldVtype != null">
+				#{resourcefieldVtype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldVtypeconfig != null">
+				#{resourcefieldVtypeconfig, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldWheresql != null">
+				#{resourcefieldWheresql, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldWidth != null">
+				#{resourcefieldWidth, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldXtype != null">
+				#{resourcefieldXtype, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcefieldVtypefn != null">
+				#{resourcefieldVtypefn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcefieldLabelalign != null">
+				#{resourcefieldLabelalign, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

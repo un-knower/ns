@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossServiceRecordMapper">
+
+	<resultMap id="NsSossServiceRecordResultMap" type="com.newsee.soss.entity.NsSossServiceRecord">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="serviceId" column="serviceID" jdbcType="BIGINT"/>
+			<result property="code" column="code" jdbcType="VARCHAR"/>
+			<result property="oldStatus" column="oldStatus" jdbcType="VARCHAR"/>
+			<result property="status" column="status" jdbcType="VARCHAR"/>
+			<result property="handleUserID" column="handleUserID" jdbcType="BIGINT"/>
+			<result property="handleUsername" column="handleUsername" jdbcType="VARCHAR"/>
+			<result property="handlePhone" column="handlePhone" jdbcType="VARCHAR"/>
+			<result property="handleContent" column="handleContent" jdbcType="VARCHAR"/>
+			<result property="handleTime" column="handleTime" jdbcType="TIMESTAMP"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+			<result property="imgCode" column="imgCode" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossServiceRecord_Column_List">
+		id,serviceID,code,oldStatus,status,handleUserID,handleUsername,handlePhone,handleContent,handleTime,remark,createTime, imgCode, userType
+	</sql>
+	
+	<select id="selectServiceRecordList" parameterType="java.util.Map" resultMap="NsSossServiceRecordResultMap">
+	   select
+            <include refid="NsSossServiceRecord_Column_List" />
+        from
+            ns_soss_serviceRecord
+        <where>
+	        <if test="serviceId != null">
+	            serviceID = #{serviceId}
+	        </if>
+	        <if test="handleUserID != null">
+	           and handleUserID = #{handleUserID, jdbcType=BIGINT}
+	        </if>
+            <if test="handleUsername != null and handleUsername != ''">
+                and handleUsername LIKE CONCAT('%',handleUsername,'%')
+            </if>
+            <if test="handlePhone != null and handlePhone != ''">
+                and handlePhone LIKE CONCAT('%',handlePhone,'%')
+            </if>
+        </where>
+        order by createTime 
+	</select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossServiceRecordResultMap">
+		select
+			<include refid="NsSossServiceRecord_Column_List" />
+		from
+			ns_soss_serviceRecord
+		where
+			id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossServiceRecord">
+		update ns_soss_serviceRecord
+		<set>
+			<if test="serviceId != null">
+			  serviceID = #{serviceId, jdbcType=BIGINT },
+			</if>
+			<if test="code != null">
+			  code = #{code, jdbcType=VARCHAR },
+			</if>
+			<if test="oldStatus != null">
+			  oldStatus = #{oldStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="status != null">
+			  status = #{status, jdbcType=VARCHAR },
+			</if>
+			<if test="handleUserID != null">
+               handleUserID = #{handleUserID, jdbcType=BIGINT},
+            </if>
+			<if test="handleUsername != null">
+			  handleUsername = #{handleUsername, jdbcType=VARCHAR },
+			</if>
+			<if test="handlePhone != null">
+			  handlePhone = #{handlePhone, jdbcType=VARCHAR },
+			</if>
+			<if test="handleContent != null">
+			  handleContent = #{handleContent, jdbcType=VARCHAR },
+			</if>
+			<if test="handleTime != null">
+			  handleTime = #{handleTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  createTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="imgCode != null">			  
+			 imgCode = #{imgCode, jdbcType=VARCHAR},
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_serviceRecord 
+		where
+			id = #{id}
+	</delete>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_serviceRecord
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossServiceRecord">
+		insert into ns_soss_serviceRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serviceId != null">
+				serviceID,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="oldStatus != null">
+				oldStatus,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="handleUserID != null">
+               handleUserID,
+            </if>
+			<if test="handleUsername != null">
+				handleUsername,
+			</if>
+			<if test="handlePhone != null">
+				handlePhone,
+			</if>
+			<if test="handleContent != null">
+				handleContent,
+			</if>
+			<if test="imgCode != null">            
+             imgCode,
+            </if>
+				handleTime,
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="userType != null">
+				userType,
+			</if>
+				createTime,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serviceId != null">
+				#{serviceId, jdbcType=BIGINT},
+			</if>
+			<if test="code != null">
+				#{code, jdbcType=VARCHAR},
+			</if>
+			<if test="oldStatus != null">
+				#{oldStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status, jdbcType=VARCHAR},
+			</if>
+			<if test="handleUserID != null">
+               #{handleUserID, jdbcType=BIGINT},
+            </if>
+			<if test="handleUsername != null">
+				#{handleUsername, jdbcType=VARCHAR},
+			</if>
+			<if test="handlePhone != null">
+				#{handlePhone, jdbcType=VARCHAR},
+			</if>
+			<if test="handleContent != null">
+				#{handleContent, jdbcType=VARCHAR},
+			</if>
+			<if test="imgCode != null">            
+                #{imgCode, jdbcType=VARCHAR},
+            </if>
+				now(),
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				#{userType, jdbcType=VARCHAR},
+			</if>
+				now(),
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_serviceRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			serviceID,
+			code,
+			oldStatus,
+			status,
+            handleUserID,			 
+			handleUsername,
+			handlePhone,
+			handleContent,
+			handleTime,
+			remark,
+			createTime,
+			imgCode,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.serviceId, jdbcType=BIGINT},
+			#{item.code, jdbcType=VARCHAR},
+			#{item.oldStatus, jdbcType=VARCHAR},
+			#{item.status, jdbcType=VARCHAR},
+			#{item.handleUserID, jdbcType=BIGINT},
+			#{item.handleUsername, jdbcType=VARCHAR},
+			#{item.handlePhone, jdbcType=VARCHAR},
+			#{item.handleContent, jdbcType=VARCHAR},
+			#{item.handleTime, jdbcType=TIMESTAMP},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.imgCode, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

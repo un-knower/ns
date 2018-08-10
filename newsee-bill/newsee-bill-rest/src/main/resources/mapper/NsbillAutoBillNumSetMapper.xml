@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.bill.dao.NsbillAutoBillNumSetMapper">
+
+	<resultMap id="NsbillAutoBillNumSetResultMap" type="com.newsee.bill.entity.NsbillAutoBillNumSet">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="userId" column="UserId" jdbcType="BIGINT"/>
+			<result property="billType" column="BillType" jdbcType="VARCHAR"/>
+			<result property="billDetailId" column="BillDetailId" jdbcType="BIGINT"/>
+			<result property="billNum" column="BillNum" jdbcType="VARCHAR"/>
+			<result property="billCode" column="BillCode" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="isDelete" column="IsDelete" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsbillAutoBillNumSet_Column_List">
+		Id,UserId,BillType,BillDetailId,BillNum,BillCode,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,IsDelete
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsbillAutoBillNumSetResultMap">
+	    select 
+	        <include refid="NsbillAutoBillNumSet_Column_List" />
+	    from 
+	       NS_Bill_AutoBillNumSet
+	    <where>
+	        is_deleted = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldUnderLineName} IS NULL or #{item.fieldUnderLineName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldUnderLineName} IS NOT NULL or #{item.fieldUnderLineName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldUnderLineName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldUnderLineName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldUnderLineName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldUnderLineName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldUnderLineName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldUnderLineName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsbillAutoBillNumSetResultMap">
+		select
+			<include refid="NsbillAutoBillNumSet_Column_List" />
+		from
+			NS_Bill_AutoBillNumSet
+		where
+			Id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.bill.entity.NsbillAutoBillNumSet">
+		update NS_Bill_AutoBillNumSet
+		<set>
+			<if test="userId != null">
+			  UserId = #{userId, jdbcType=BIGINT },
+			</if>
+			<if test="billType != null">
+			  BillType = #{billType, jdbcType=VARCHAR },
+			</if>
+			<if test="billDetailId != null">
+			  BillDetailId = #{billDetailId, jdbcType=BIGINT },
+			</if>
+			<if test="billNum != null">
+			  BillNum = #{billNum, jdbcType=VARCHAR },
+			</if>
+			<if test="billCode != null">
+			  BillCode = #{billCode, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="isDelete != null">
+			  IsDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from NS_Bill_AutoBillNumSet 
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from NS_Bill_AutoBillNumSet
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.bill.entity.NsbillAutoBillNumSet">
+		insert into NS_Bill_AutoBillNumSet
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				UserId,
+			</if>
+			<if test="billType != null">
+				BillType,
+			</if>
+			<if test="billDetailId != null">
+				BillDetailId,
+			</if>
+			<if test="billNum != null">
+				BillNum,
+			</if>
+			<if test="billCode != null">
+				BillCode,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="isDelete != null">
+				IsDelete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId, jdbcType=BIGINT},
+			</if>
+			<if test="billType != null">
+				#{billType, jdbcType=VARCHAR},
+			</if>
+			<if test="billDetailId != null">
+				#{billDetailId, jdbcType=BIGINT},
+			</if>
+			<if test="billNum != null">
+				#{billNum, jdbcType=VARCHAR},
+			</if>
+			<if test="billCode != null">
+				#{billCode, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into NS_Bill_AutoBillNumSet
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			UserId,
+			BillType,
+			BillDetailId,
+			BillNum,
+			BillCode,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			IsDelete,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.userId, jdbcType=BIGINT},
+			#{item.billType, jdbcType=VARCHAR},
+			#{item.billDetailId, jdbcType=BIGINT},
+			#{item.billNum, jdbcType=VARCHAR},
+			#{item.billCode, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.isDelete, jdbcType=INTEGER},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

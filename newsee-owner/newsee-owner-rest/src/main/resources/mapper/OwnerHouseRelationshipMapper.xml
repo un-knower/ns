@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseRelationshipMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseRelationship">
+    <id column="house_owner_relationship_id" jdbcType="BIGINT" property="houseOwnerRelationshipId" />
+    <result column="precinct_id" property="precinctId" jdbcType="BIGINT" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+    <result column="is_main_house" jdbcType="TINYINT" property="isMainHouse" />
+    <result column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="owner_category" property="ownerCategory" jdbcType="TINYINT" />
+    <result column="is_current_record" property="isCurrentRecord" jdbcType="TINYINT"/>  
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.newsee.owner.vo.OwnerHouseRelationshipVo" >
+    <id column="house_owner_relationship_id" property="houseOwnerRelationshipId" jdbcType="BIGINT" />
+    <result column="precinct_id" property="precinctId" jdbcType="BIGINT" />
+    <result column="precinct_name" property="precinctName" jdbcType="VARCHAR" />
+    <result column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="house_full_name" property="houseFullName" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="rent_owner_id" property="rentOwnerId" jdbcType="BIGINT" />
+    <result column="rent_owner_name" property="rentOwnerName" jdbcType="VARCHAR" />
+    <result column="detail_id" property="detailId" jdbcType="BIGINT" />
+    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+    <result column="is_main_house" property="isMainHouse" jdbcType="TINYINT"/>  
+    <result column="is_current_record" property="isCurrentRecord" jdbcType="TINYINT"/>  
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="apply_date" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.newsee.owner.vo.PrecinctHouseVo" id="PrecinctHouseVoMap">
+      <result column="precinct_id" property="precinctId" jdbcType="BIGINT" />
+      <result column="precinct_name" property="precinctName" jdbcType="VARCHAR" />
+      <collection property="houseRelationshipVos" ofType="com.newsee.owner.vo.OwnerHouseRelationshipVo">
+        <id column="house_owner_relationship_id" property="houseOwnerRelationshipId" jdbcType="BIGINT" />
+        <result column="precinct_id" property="precinctId" jdbcType="BIGINT" />
+	    <result column="precinct_name" property="precinctName" jdbcType="VARCHAR" />
+	    <result column="house_id" property="houseId" jdbcType="BIGINT" />
+	    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+	    <result column="house_full_name" property="houseFullName" jdbcType="VARCHAR" />
+	    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+	    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+	    <result column="rent_owner_id" property="rentOwnerId" jdbcType="BIGINT" />
+	    <result column="rent_owner_name" property="rentOwnerName" jdbcType="VARCHAR" />
+	    <result column="detail_id" property="detailId" jdbcType="BIGINT" />
+	    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+	    <result column="is_main_house" property="isMainHouse" jdbcType="TINYINT"/>  
+	    <result column="is_current_record" property="isCurrentRecord" jdbcType="TINYINT"/>  
+	    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+	    <result column="apply_date" property="applyDate" jdbcType="TIMESTAMP" />
+	    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+	    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+      </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    house_owner_relationship_id,precinct_id, house_id, owner_id, owner_property, is_main_house, 
+    detail_id, owner_category, is_current_record, is_deleted, create_user_id, create_time, update_user_id, update_time,
+    create_user_name, update_user_name
+  </sql>
+  <sql id="Vo_Column_List">
+    relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, relation.owner_property, relation.is_main_house, 
+    relation.detail_id, relation.owner_category, relation.is_current_record, relation.is_deleted, relation.create_user_id, relation.create_time, 
+    relation.update_user_id, relation.update_time,relation.create_user_name, relation.update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_relationship
+    where house_owner_relationship_id = #{houseOwnerRelationshipId,jdbcType=BIGINT}
+  </select>
+  <select id="loadOwnerIdByHouseId" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    SELECT owner_id
+    FROM owner_house_relationship
+    WHERE house_id = #{houseId,jdbcType=BIGINT} and is_current_record = 1 and owner_category = 1 and is_deleted = false
+  </select>  
+  <select id="listOwnerHouseByPrecinctId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT <include refid="Base_Column_List" />
+    FROM owner_house_relationship
+    WHERE owner_id = #{ownerId,jdbcType=BIGINT} and precinct_id = #{precinctId,jdbcType=BIGINT} and is_current_record = 1 and is_deleted = false
+  </select>
+  <select id="listOwnerHouseRelation" resultMap="VoResultMap" parameterType="java.util.Map" >
+    SELECT DISTINCT relation.house_id, base.house_name, base.house_full_name, relation.is_main_house,relation.owner_property
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_base_info base ON base.house_id = relation.house_id
+    INNER JOIN owner_house_stage_detail detail ON detail.detail_id = relation.detail_id
+    WHERE relation.owner_id = #{ownerId,jdbcType=BIGINT}
+    and relation.precinct_id = #{precinctId,jdbcType=BIGINT} and base.house_type = #{houseType,jdbcType=TINYINT}
+    and relation.is_deleted = false and detail.is_now_detail = 1
+  </select>
+  <select id="listRentHouseRelation" resultMap="VoResultMap" parameterType="java.util.Map" >
+    SELECT DISTINCT relation.house_id, base.house_name, base.house_full_name, relation.is_main_house, rent.owner_property
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_base_info base ON base.house_id = relation.house_id
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    INNER JOIN owner_house_stage_detail detail ON detail.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id = #{ownerId,jdbcType=BIGINT}
+    and relation.precinct_id = #{precinctId,jdbcType=BIGINT} and base.house_type = #{houseType,jdbcType=TINYINT}
+    and relation.is_deleted = false and detail.is_now_detail = 1
+  </select>
+  <select id="listOwnerPrecinctRelation" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT DISTINCT relation.precinct_id, base.house_name precinct_name, relation.owner_property
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_base_info base ON base.house_id = relation.precinct_id
+    WHERE relation.owner_id = #{ownerId,jdbcType=BIGINT} and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  <select id="listRentPrecinctRelation" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT DISTINCT relation.precinct_id, base.house_name precinct_name, rent.owner_property
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_base_info base ON base.house_id = relation.precinct_id
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id = #{ownerId,jdbcType=BIGINT} and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listOwnerAllHouseRelation" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT <include refid="Vo_Column_List"/>
+    FROM owner_house_relationship relation
+    WHERE relation.owner_id = #{ownerId,jdbcType=BIGINT} and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listOwnerAllHouseRelationByList" resultMap="VoResultMap" parameterType="java.util.Map" >
+    SELECT <include refid="Vo_Column_List"/>
+    FROM owner_house_relationship relation
+    WHERE relation.owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach> 
+    <if test="precinctId != null">
+        and relation.precinct_id = #{precinctId,jdbcType=BIGINT}
+    </if>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listRentAllHouseRelationByList" resultMap="VoResultMap" parameterType="java.util.Map" >
+    SELECT relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, relation.is_main_house, 
+    relation.detail_id, relation.owner_category, relation.is_current_record, relation.is_deleted, relation.create_user_id, relation.create_time, 
+    relation.update_user_id, relation.update_time, rent.owner_property, rent.rent_owner_id
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach> 
+    <if test="precinctId != null">
+        and relation.precinct_id = #{precinctId,jdbcType=BIGINT}
+    </if>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listRentAllHouseRelation" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, relation.is_main_house, 
+    relation.detail_id, relation.owner_category, relation.is_current_record, relation.is_deleted, relation.create_user_id, relation.create_time, 
+    relation.update_user_id, relation.update_time, rent.owner_property
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id = #{ownerId,jdbcType=BIGINT} and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listOwnerRelationHistoryByHouseId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT <include refid="Base_Column_List"/>
+     FROM owner_house_relationship relation
+    WHERE relation.house_id = #{houseId,jdbcType=BIGINT}  and owner_category = 1 and is_deleted = false 
+  </select>
+  <select id="loadOwnerRelationByHouseId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT <include refid="Base_Column_List"/>
+     FROM owner_house_relationship relation
+    WHERE relation.house_id = #{houseId,jdbcType=BIGINT}  and owner_category = 1 and relation.is_current_record = 1 and is_deleted = false 
+  </select>
+  <select id="listOwnerIdByHouseId" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    SELECT owner_id
+     FROM owner_house_relationship relation
+    WHERE relation.house_id = #{houseId,jdbcType=BIGINT}  and relation.is_current_record = 1 and is_deleted = false 
+  </select>
+  <select id="listAllOwnerIdByHouseId" resultType="java.lang.Long" parameterType="java.util.List" >
+    SELECT owner_id
+     FROM owner_house_relationship relation
+    WHERE relation.house_id in 
+    <foreach collection="list" item="houseId" open="(" separator="," close=")">
+        #{houseId,jdbcType=BIGINT}
+    </foreach> 
+     and relation.is_current_record = 1 and is_deleted = false 
+  </select>
+  <select id="listOwnerByHouseId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT <include refid="Base_Column_List"/>
+     FROM owner_house_relationship relation
+    WHERE relation.house_id = #{houseId,jdbcType=BIGINT} 
+    <if test="isDeleted != null">
+        and is_deleted = #{isDeleted,jdbcType=TINYINT} 
+    </if>
+    <if test="isCurrentRecord == true">
+        and relation.is_current_record = 1
+    </if>
+    <if test="detailId != null">
+        and relation.detail_id = #{detailId,jdbcType=BIGINT} 
+    </if>
+  </select>
+  <select id="listDecorateRelationByDetailId" resultMap="VoResultMap" parameterType="java.util.List" >
+    SELECT relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, relation.owner_property, relation.is_main_house, 
+     relation.detail_id, relation.owner_category, relation.is_current_record, relation.is_deleted, relation.create_user_id, 
+     relation.create_time, relation.update_user_id, relation.update_time,
+     decorate.decorate_start_date start_date, decorate.decorate_end_date end_date
+     FROM owner_house_relationship relation
+     LEFT JOIN owner_house_stage_extend_info_decorate decorate ON decorate.detail_id = relation.detail_id
+    WHERE relation.owner_category = 1  and relation.detail_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item.detailId,jdbcType=BIGINT}
+    </foreach> 
+  </select>
+  <select id="listRentRelationByDetailId" resultMap="VoResultMap" parameterType="java.util.List" >
+    SELECT relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, 
+    rent.owner_property, relation.is_main_house, 
+    relation.detail_id, relation.owner_category, relation.is_current_record, relation.is_deleted, 
+    relation.create_user_id, relation.create_time, relation.update_user_id, relation.update_time,
+    rent.rent_owner_id, rent.rent_start_date start_date, rent.rent_end_date end_date
+     FROM owner_house_relationship relation
+     LEFT JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE relation.owner_category = 1  and relation.detail_id in 
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item.detailId,jdbcType=BIGINT}
+    </foreach> 
+  </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into owner_house_relationship (precinct_id, house_id, 
+      owner_id, owner_property, is_main_house, detail_id, owner_category, is_current_record, is_deleted,
+      create_user_id, create_time, update_user_id, 
+      update_time, sys_time,create_user_name, update_user_name)
+    values 
+    <foreach collection="list" item="item" separator=",">
+      (#{item.precinctId,jdbcType=BIGINT}, #{item.houseId,jdbcType=BIGINT}, 
+      #{item.ownerId,jdbcType=BIGINT}, #{item.ownerProperty,jdbcType=VARCHAR}, #{item.isMainHouse,jdbcType=TINYINT}, #{item.detailId,jdbcType=BIGINT}, 
+      #{item.ownerCategory,jdbcType=TINYINT},#{item.isCurrentRecord,jdbcType=TINYINT}, #{item.isDeleted,jdbcType=TINYINT},
+      #{item.createUserId,jdbcType=BIGINT}, NOW(), #{item.updateUserId,jdbcType=BIGINT}, 
+      NOW(), NOW(),#{item.createUserName,jdbcType=VARCHAR}, #{item.updateUserName,jdbcType=VARCHAR})    
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseRelationship">
+    insert into owner_house_relationship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseOwnerRelationshipId != null">
+        house_owner_relationship_id,
+      </if>
+      <if test="precinctId != null">
+        precinct_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="ownerProperty != null">
+        owner_property,
+      </if>
+      <if test="isMainHouse != null">
+        is_main_house,
+      </if>
+      <if test="detailId != null">
+        detail_id,
+      </if>
+      <if test="ownerCategory != null">
+        owner_category,
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseOwnerRelationshipId != null">
+        #{houseOwnerRelationshipId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerProperty != null">
+        #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="isMainHouse != null">
+        #{isMainHouse,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCategory != null" >
+        #{ownerCategory,jdbcType=TINYINT},
+      </if>
+      <if test="isCurrentRecord != null" >
+        #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseRelationship">
+    update owner_house_relationship
+    <set>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerProperty != null">
+        owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="isMainHouse != null">
+        is_main_house = #{isMainHouse,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCategory != null" >
+        owner_category = #{ownerCategory,jdbcType=TINYINT},
+      </if>
+      <if test="isCurrentRecord != null" >
+        is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_owner_relationship_id = #{houseOwnerRelationshipId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseRelationship">
+    update owner_house_relationship
+    set
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=BIGINT},
+      owner_id = #{ownerId,jdbcType=BIGINT},
+      owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      is_main_house = #{isMainHouse,jdbcType=TINYINT},
+      detail_id = #{detailId,jdbcType=BIGINT},
+      owner_category = #{ownerCategory,jdbcType=TINYINT},
+      is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+    where house_owner_relationship_id = #{houseOwnerRelationshipId,jdbcType=BIGINT}
+  </update>
+  <update id="updateMainHouse" parameterType="java.util.Map">
+    update owner_house_relationship
+    set 
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = NOW(),
+      sys_time = NOW(),
+      is_main_house = #{isMainHouse,jdbcType=TINYINT}
+    where house_owner_relationship_id in
+    <foreach collection="mainHouseIdList" item="item" open="(" separator="," close=")">
+      #{item.houseOwnerRelationshipId,jdbcType=BIGINT}      
+    </foreach>
+  </update>  
+  <update id="deleteRelation" parameterType="java.util.Map">
+    update owner_house_relationship
+    set 
+      is_deleted = true,
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where owner_id = #{ownerId,jdbcType=BIGINT} and house_id = #{houseId,jdbcType=BIGINT}
+  </update> 
+  <update id="deleteRelationByDetail" parameterType="java.util.Map">
+    update owner_house_relationship
+    set 
+      is_deleted = true,
+      update_user_id = #{userId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where detail_id = #{detailId,jdbcType=BIGINT} and is_deleted = false
+    <if test="isCurrentRecord == true">
+         and is_current_record = true
+    </if>
+  </update> 
+  <update id="editCurrentRecordFalse" parameterType="java.util.Map">
+    update owner_house_relationship
+    set 
+      is_current_record = false,
+      update_user_id = #{userId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where house_id = #{houseId,jdbcType=BIGINT} and is_deleted = false and is_current_record = true
+  </update> 
+  <update id="editCurrentRecordTrue" parameterType="java.util.Map">
+    update owner_house_relationship
+    set 
+      is_current_record = true,
+      update_user_id = #{userId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where detail_id = #{detailId,jdbcType=BIGINT} and house_id = #{houseId,jdbcType=BIGINT} and is_deleted = false
+  </update> 
+  <insert id="insertBatchForCurrent" parameterType="java.util.Map">
+    insert into owner_house_relationship (precinct_id, house_id, 
+      owner_id, owner_property, is_main_house, detail_id, owner_category, is_current_record, is_deleted,
+      create_user_id, create_time, update_user_id, 
+      update_time, sys_time,create_user_name, update_user_name) 
+    SELECT precinct_id, house_id, 
+      owner_id, owner_property, is_main_house, #{detailId,jdbcType=BIGINT} detail_id, owner_category, true is_current_record, false is_deleted,
+      #{userId,jdbcType=BIGINT} create_user_id, NOW() create_time, #{userId,jdbcType=BIGINT} update_user_id, 
+      NOW() update_time, NOW() sys_time,#{userName,jdbcType=VARCHAR} create_user_name,#{userName,jdbcType=VARCHAR} update_user_name
+     FROM owner_house_relationship 
+    WHERE house_id = #{houseId,jdbcType=BIGINT} and detail_id = #{preDetailId,jdbcType=BIGINT} and is_deleted = false
+  </insert>
+  <select id="listAllDetailId" resultType="java.lang.Long" parameterType="java.util.Map" >
+    SELECT DISTINCT detail_id
+     FROM owner_house_relationship relation
+    WHERE relation.house_id = #{houseId,jdbcType=BIGINT} and relation.owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach>  
+    and is_deleted = false 
+  </select>
+  <select id="listAllRelationHistory" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT relation.house_owner_relationship_id,relation.precinct_id, relation.house_id, relation.owner_id, relation.owner_property, relation.is_main_house, 
+    relation.detail_id, relation.owner_category, relation.is_current_record
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_detail detail ON detail.detail_id = relation.detail_id
+    WHERE relation.is_deleted = false
+    <if test="houseId != null">
+        and relation.house_id = #{houseId,jdbcType=BIGINT}
+    </if>
+    <if test="ownerId != null">
+        and relation.owner_id = #{ownerId,jdbcType=BIGINT}
+    </if>
+    <if test="houseOperateType != null">
+        and house_operate_type = #{houseOperateType,jdbcType=TINYINT}
+    </if>
+    order by relation.detail_id
+  </select>
+  <select id="listPrecinctHouseByOwner" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT relation.precinct_id, base.house_name precinct_name ,relation.house_id, houseBase.house_full_name, relation.is_main_house, relation.owner_property
+    FROM owner_house_relationship relation
+    LEFT JOIN owner_house_base_info houseBase ON houseBase.house_id = relation.house_id
+    LEFT JOIN owner_house_base_info base ON base.house_id = relation.precinct_id
+    WHERE relation.owner_id = #{ownerId,jdbcType=BIGINT} and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  <select id="listPrecinctHouseByRent" resultMap="VoResultMap" parameterType="java.lang.Long" >
+    SELECT relation.precinct_id, base.house_name precinct_name ,relation.house_id, houseBase.house_full_name, relation.is_main_house, relation.owner_property 
+    FROM owner_house_relationship relation
+    LEFT JOIN owner_house_base_info houseBase ON houseBase.house_id = relation.house_id
+    LEFT JOIN owner_house_base_info base ON base.house_id = relation.precinct_id
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id = #{ownerId,jdbcType=BIGINT} and relation.owner_category = 1 and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listOwnerForSearchCustomerBySearchVo" resultType="java.lang.Long" parameterType="java.util.Map" >
+    SELECT distinct relation.owner_id
+    FROM owner_house_relationship relation
+    WHERE relation.house_id in
+    <foreach collection="houseIdList" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>
+    <if test="precinctIdList != null">
+	    and relation.precinct_id in
+	    <foreach collection="precinctIdList" item="item" open="(" separator="," close=")">
+	        #{item,jdbcType=BIGINT}
+	    </foreach>      
+    </if>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  <select id="listRentForSearchCustomerBySearchVo" resultType="java.lang.Long" parameterType="java.util.Map" >
+    SELECT distinct rent.rent_owner_id
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE relation.house_id in
+    <foreach collection="houseIdList" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>
+    <if test="precinctIdList != null">
+        and relation.precinct_id in
+        <foreach collection="precinctIdList" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>      
+    </if>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listOwnerForSearchCustomer" resultType="java.lang.Long" parameterType="java.util.List" >
+    SELECT distinct relation.owner_id
+    FROM owner_house_relationship relation
+    WHERE relation.precinct_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>  
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  <select id="listRentForSearchCustomer" resultType="java.lang.Long" parameterType="java.util.List" >
+    SELECT distinct rent.rent_owner_id
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE relation.precinct_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  
+  <select id="listByHouseIdAndProperty" resultType="java.lang.Long" parameterType="java.util.Map" >
+    SELECT DISTINCT relation.owner_id
+	FROM owner_house_relationship AS relation
+    <if test="enterpriseId!=null or orgId!=null">
+      INNER JOIN owner_house_base_info as house on house.house_id = relation.house_id
+    </if>
+	<if test="name!=null and name!=''">
+	  INNER JOIN owner_customer_base_info AS customer ON customer.owner_id = relation.owner_id
+	</if>
+	WHERE
+      relation.is_deleted = FALSE
+    <if test="enterpriseId!=null">
+      AND house.enterprise_id =#{enterpriseId}
+    </if>
+    <if test="orgId!=null">
+      AND house.organization_id =#{orgId}
+    </if>
+    <if test="houseId != null">
+      AND relation.house_id = #{houseId}
+    </if>
+      AND relation.owner_property = #{ownerProperty}
+	  AND relation.is_current_record = 1
+	<if test="name!=null and name!=''">
+	  AND customer.owner_name LIKE concat("%",#{name},"%")
+	</if>
+  </select>
+  
+  <select id="listPrecinctForSearchCustomer" resultType="java.lang.Long" parameterType="java.util.List" >
+    SELECT distinct relation.precinct_id
+    FROM owner_house_relationship relation
+    WHERE relation.owner_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>  
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+  <select id="listRentPrecinctForSearchCustomer" resultType="java.lang.Long" parameterType="java.util.List" >
+    SELECT distinct relation.precinct_id
+    FROM owner_house_relationship relation
+    INNER JOIN owner_house_stage_extend_info_rent rent ON rent.detail_id = relation.detail_id
+    WHERE rent.rent_owner_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>
+    and relation.is_current_record = 1 and relation.is_deleted = false
+  </select>
+</mapper>

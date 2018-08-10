@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreRolegroupPermMapper">
+
+	<resultMap id="NsCoreRolegroupPermResultMap" type="com.newsee.system.entity.NsCoreRolegroupPerm">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="enabled" column="ENABLED" jdbcType="VARCHAR"/>
+			<result property="perid" column="PERID" jdbcType="VARCHAR"/>
+			<result property="rolegroupid" column="ROLEGROUPID" jdbcType="VARCHAR"/>
+			<result property="type" column="TYPE" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreRolegroupPerm_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,ENABLED,PERID,ROLEGROUPID,TYPE
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreRolegroupPermResultMap">
+		select
+			<include refid="NsCoreRolegroupPerm_Column_List" />
+		from
+			ns_core_rolegroup_perm
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByRolegroupId" parameterType="java.lang.String" resultMap="NsCoreRolegroupPermResultMap">
+        select
+            <include refid="NsCoreRolegroupPerm_Column_List" />
+        from
+            ns_core_rolegroup_perm
+        where
+            ROLEGROUPID = #{id}
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreRolegroupPerm">
+		update ns_core_rolegroup_perm
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="enabled != null">
+			  ENABLED = #{enabled, jdbcType=VARCHAR },
+			</if>
+			<if test="perid != null">
+			  PERID = #{perid, jdbcType=VARCHAR },
+			</if>
+			<if test="rolegroupid != null">
+			  ROLEGROUPID = #{rolegroupid, jdbcType=VARCHAR },
+			</if>
+			<if test="type != null">
+			  TYPE = #{type, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_rolegroup_perm 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_rolegroup_perm
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreRolegroupPerm">
+		insert into ns_core_rolegroup_perm
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="enabled != null">
+				ENABLED,
+			</if>
+			<if test="perid != null">
+				PERID,
+			</if>
+			<if test="rolegroupid != null">
+				ROLEGROUPID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="enabled != null">
+				#{enabled, jdbcType=VARCHAR},
+			</if>
+			<if test="perid != null">
+				#{perid, jdbcType=VARCHAR},
+			</if>
+			<if test="rolegroupid != null">
+				#{rolegroupid, jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_rolegroup_perm
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			ENABLED,
+			PERID,
+			ROLEGROUPID,
+			TYPE,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.enabled, jdbcType=VARCHAR},
+			#{item.perid, jdbcType=VARCHAR},
+			#{item.rolegroupid, jdbcType=VARCHAR},
+			#{item.type, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

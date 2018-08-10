@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossProductOrderPrecinctMapper">
+
+	<resultMap id="NsSossProductOrderPrecinctResultMap" type="com.newsee.soss.entity.NsSossProductOrderPrecinct">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="orderProductId" column="orderProductID" jdbcType="BIGINT"/>
+			<result property="precinctId" column="precinctID" jdbcType="BIGINT"/>
+			<result property="precinctName" column="precinctName" jdbcType="VARCHAR"/>
+			<result property="precinctArea" column="precinctArea" jdbcType="BIGINT"/>
+			<result property="precinctStatus" column="precinctStatus" jdbcType="VARCHAR"/>
+			<result property="provinceId" column="provinceID" jdbcType="VARCHAR"/>
+			<result property="cityId" column="cityID" jdbcType="VARCHAR"/>
+			<result property="areaId" column="areaID" jdbcType="VARCHAR"/>
+			<result property="streetId" column="streetID" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossProductOrderPrecinct_Column_List">
+		id,orderProductID,precinctID,precinctName,precinctArea,precinctStatus,provinceID,cityID,areaID,streetID
+	</sql>
+	
+	<select id="selectPrecinctInfos" parameterType="java.util.Map" resultMap="NsSossProductOrderPrecinctResultMap">
+	   select
+            <include refid="NsSossProductOrderPrecinct_Column_List" />
+        from
+            ns_soss_productOrder_precinct
+        <where>
+	        <if test="orderProductId != null">
+	            AND orderProductID = #{orderProductId,jdbcType=BIGINT}
+	        </if>
+	        <if test="orderProductIdList != null">
+	            AND orderProductID IN 
+	            <foreach collection="orderProductIdList" item="item" separator="," open="(" close=")">
+		            #{item,jdbcType=BIGINT}
+	            </foreach>
+	        </if>
+	        <if test="precinctId != null">
+	           AND precinctID = #{precinctId,jdbcType=BIGINT}
+	        </if>
+	        <if test="precinctIdList != null">
+               AND precinctID IN 
+               <foreach collection="precinctIdList" item="item" separator="," open="(" close=")">
+                    #{item,jdbcType=BIGINT}
+                </foreach>
+            </if>
+        </where>
+	</select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossProductOrderPrecinctResultMap">
+		select
+			<include refid="NsSossProductOrderPrecinct_Column_List" />
+		from
+			ns_soss_productOrder_precinct
+		where
+			id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossProductOrderPrecinct">
+		update ns_soss_productOrder_precinct
+		<set>
+			<if test="orderProductId != null">
+			  orderProductID = #{orderProductId, jdbcType=BIGINT },
+			</if>
+			<if test="precinctId != null">
+			  precinctID = #{precinctId, jdbcType=BIGINT },
+			</if>
+			<if test="precinctName != null">
+			  precinctName = #{precinctName, jdbcType=VARCHAR },
+			</if>
+			<if test="precinctArea != null">
+			  precinctArea = #{precinctArea, jdbcType=BIGINT },
+			</if>
+			<if test="precinctStatus != null">
+			  precinctStatus = #{precinctStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="provinceId != null">
+			  provinceID = #{provinceId, jdbcType=VARCHAR },
+			</if>
+			<if test="cityId != null">
+			  cityID = #{cityId, jdbcType=VARCHAR },
+			</if>
+			<if test="areaId != null">
+			  areaID = #{areaId, jdbcType=VARCHAR },
+			</if>
+			<if test="streetId != null">
+			  streetID = #{streetId, jdbcType=VARCHAR },
+			</if>
+		</set>
+		<where>
+		    <if test="id != null">
+				id = #{id}
+		    </if>
+			<if test="precinctId != null">
+			    AND precinctID = #{precinctId, jdbcType=BIGINT}
+			</if>
+		</where>
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_productOrder_precinct 
+		where
+			id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_productOrder_precinct
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossProductOrderPrecinct">
+		insert into ns_soss_productOrder_precinct
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderProductId != null">
+				orderProductID,
+			</if>
+			<if test="precinctId != null">
+				precinctID,
+			</if>
+			<if test="precinctName != null">
+				precinctName,
+			</if>
+			<if test="precinctArea != null">
+				precinctArea,
+			</if>
+			<if test="precinctStatus != null">
+				precinctStatus,
+			</if>
+			<if test="provinceId != null">
+				provinceID,
+			</if>
+			<if test="cityId != null">
+				cityID,
+			</if>
+			<if test="areaId != null">
+				areaID,
+			</if>
+			<if test="streetId != null">
+				streetID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderProductId != null">
+				#{orderProductId, jdbcType=BIGINT},
+			</if>
+			<if test="precinctId != null">
+				#{precinctId, jdbcType=BIGINT},
+			</if>
+			<if test="precinctName != null">
+				#{precinctName, jdbcType=VARCHAR},
+			</if>
+			<if test="precinctArea != null">
+				#{precinctArea, jdbcType=BIGINT},
+			</if>
+			<if test="precinctStatus != null">
+				#{precinctStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId, jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				#{cityId, jdbcType=VARCHAR},
+			</if>
+			<if test="areaId != null">
+				#{areaId, jdbcType=VARCHAR},
+			</if>
+			<if test="streetId != null">
+				#{streetId, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_productOrder_precinct
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			orderProductID,
+			precinctID,
+			precinctName,
+			precinctArea,
+			precinctStatus,
+			provinceID,
+			cityID,
+			areaID,
+			streetID,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.orderProductId, jdbcType=BIGINT},
+			#{item.precinctId, jdbcType=BIGINT},
+			#{item.precinctName, jdbcType=VARCHAR},
+			#{item.precinctArea, jdbcType=BIGINT},
+			#{item.precinctStatus, jdbcType=VARCHAR},
+			#{item.provinceId, jdbcType=VARCHAR},
+			#{item.cityId, jdbcType=VARCHAR},
+			#{item.areaId, jdbcType=VARCHAR},
+			#{item.streetId, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

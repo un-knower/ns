@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossEnterpriseMapper">
+
+	<resultMap id="NsSossEnterpriseResultMap" type="com.newsee.common.entity.NsSossEnterprise">
+			<id property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="name" column="name" jdbcType="VARCHAR"/>
+			<result property="businessLicense" column="businessLicense" jdbcType="VARCHAR"/>
+			<result property="code" column="code" jdbcType="VARCHAR"/>
+			<result property="precinctAmount" column="precinctAmount" jdbcType="VARCHAR"/>
+			<result property="province" column="province" jdbcType="VARCHAR"/>
+			<result property="city" column="city" jdbcType="VARCHAR"/>
+			<result property="district" column="district" jdbcType="VARCHAR"/>
+			<result property="street" column="street" jdbcType="VARCHAR"/>
+			<result property="address" column="address" jdbcType="VARCHAR"/>
+			<result property="validdateStartTime" column="validdateStartTime" jdbcType="TIMESTAMP"/>
+			<result property="validdateEndTime" column="validdateEndTime" jdbcType="TIMESTAMP"/>
+			<result property="enterpriseState" column="enterpriseState" jdbcType="VARCHAR"/>
+			<result property="einCode" column="einCode" jdbcType="VARCHAR"/>
+			<result property="serviceTel" column="serviceTel" jdbcType="VARCHAR"/>
+			<result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="isOperation" column="isOperation" jdbcType="INTEGER"/>
+			<result property="createUserId" column="createUserID" jdbcType="BIGINT"/>
+			<result property="createUserName" column="createUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="updateUserID" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="updateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossEnterprise_Column_List">
+		enterpriseID,name,businessLicense,code,precinctAmount,province,city,district,street,address,validdateStartTime,validdateEndTime,enterpriseState,einCode,serviceTel
+		,isDelete,remark,isOperation,createUserID,createUserName,createTime,updateUserID,updateUserName,updateTime
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossEnterpriseResultMap">
+		select
+			<include refid="NsSossEnterprise_Column_List" />
+		from
+			ns_soss_enterprise
+		where
+			enterpriseID = #{enterpriseId}
+	</select>
+	
+	<select id="selectEnterpriseList" parameterType="java.util.Map" resultMap="NsSossEnterpriseResultMap">
+	   select
+            enterpriseID, name, businessLicense, code, precinctAmount, province, city, district, street
+            ,address, validdateStartTime, validdateEndTime, enterpriseState, einCode, serviceTel, isDelete, isOperation
+        from
+            ns_soss_enterprise
+        <where>
+            <if test="enterpriseIdList != null">
+                AND enterpriseID IN 
+                <foreach collection="enterpriseIdList" item="id" separator="," open="(" close=")">
+                    #{id,jdbcType=BIGINT}
+                </foreach>
+            </if>
+            <if test="isDelete != null">
+                AND isDelete = #{isDelete,jdbcType=INTEGER}
+            </if>
+            <if test="createUserId != null">
+                AND createUserID = #{createUserId}
+            </if>
+            <if test="createUserName != null">
+                AND createUserName = #{createUserName}
+            </if >
+            <if test="createUserIdList !=null">
+             AND createUserID IN
+	            <foreach collection="createUserIdList" item="id" separator="," open="(" close=")">
+	             #{id}
+	            </foreach>
+            </if>
+        </where>
+	</select>
+	
+	<!-- 列表查询 -->
+	<select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSossEnterpriseResultMap">
+        select 
+            <include refid="NsSossEnterprise_Column_List" />
+        from 
+           ns_soss_enterprise
+        <where>
+            isDelete = 0
+            <if test="enterpriseId != null">
+	            AND enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, name) > 0 
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldName != null and orderFieldName != ''">
+               order by ${orderFieldName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+	
+	<update id="updateById" parameterType="com.newsee.common.entity.NsSossEnterprise">
+		update ns_soss_enterprise
+		<set>
+			<if test="name != null">
+			  name = #{name, jdbcType=VARCHAR },
+			</if>
+			<if test="businessLicense != null">
+			  businessLicense = #{businessLicense, jdbcType=VARCHAR },
+			</if>
+			<if test="code != null">
+			  code = #{code, jdbcType=VARCHAR },
+			</if>
+			<if test="precinctAmount != null">
+			  precinctAmount = #{precinctAmount, jdbcType=VARCHAR },
+			</if>
+			<if test="province != null">
+			  province = #{province, jdbcType=VARCHAR },
+			</if>
+			<if test="city != null">
+			  city = #{city, jdbcType=VARCHAR },
+			</if>
+			<if test="district != null">
+			  district = #{district, jdbcType=VARCHAR },
+			</if>
+			<if test="street != null">
+			  street = #{street, jdbcType=VARCHAR },
+			</if>
+			<if test="address != null">
+			  address = #{address, jdbcType=VARCHAR },
+			</if>
+			<if test="validdateStartTime != null">
+			  validdateStartTime = #{validdateStartTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="validdateEndTime != null">
+			  validdateEndTime = #{validdateEndTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="enterpriseState != null">
+			  enterpriseState = #{enterpriseState, jdbcType=VARCHAR },
+			</if>
+			<if test="einCode != null">
+			  einCode = #{einCode, jdbcType=VARCHAR },
+			</if>
+			<if test="serviceTel != null">
+			  serviceTel = #{serviceTel, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelete != null">
+			  isDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="isOperation != null">
+			  isOperation = #{isOperation, jdbcType=INTEGER},
+			</if>
+			<if test="createUserId != null">
+			  createUserID = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  createUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  createTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  updateUserID = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  updateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			  updateTime = now(),
+		</set>
+		where
+			enterpriseID = #{enterpriseId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update ns_soss_enterprise 
+		set isDelete = 1
+		where
+			enterpriseID = #{id}
+	</delete>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		update ns_soss_enterprise 
+        set isDelete = 1
+		where
+			enterpriseID in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="enterpriseId"
+		parameterType="com.newsee.common.entity.NsSossEnterprise">
+		insert into ns_soss_enterprise
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="businessLicense != null">
+				businessLicense,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="precinctAmount != null">
+				precinctAmount,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="district != null">
+		        district,
+			</if>
+			<if test="street != null">
+				street,		
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="validdateStartTime != null">
+				validdateStartTime,
+			</if>
+			<if test="validdateEndTime != null">
+				validdateEndTime,
+			</if>
+			<if test="enterpriseState != null">
+				enterpriseState,
+			</if>
+			<if test="einCode != null">
+				einCode,
+			</if>
+			<if test="serviceTel != null">
+				serviceTel,
+			</if>
+			<if test="isDelete != null">
+				isDelete,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="isOperation != null">
+              isOperation,
+            </if>
+			<if test="createUserId != null">
+				createUserID,
+			</if>
+			<if test="createUserName != null">
+				createUserName,
+			</if>
+				createTime,
+			<if test="updateUserId != null">
+				updateUserID,
+			</if>
+			<if test="updateUserName != null">
+				updateUserName,
+			</if>
+				updateTime,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="businessLicense != null">
+				#{businessLicense, jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code, jdbcType=VARCHAR},
+			</if>
+			<if test="precinctAmount != null">
+				#{precinctAmount, jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province, jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city, jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				#{district, jdbcType=VARCHAR},
+			</if>
+			<if test="street != null">
+				#{street, jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address, jdbcType=VARCHAR},
+			</if>
+			<if test="validdateStartTime != null">
+				#{validdateStartTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="validdateEndTime != null">
+				#{validdateEndTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="enterpriseState != null">
+				#{enterpriseState, jdbcType=VARCHAR},
+			</if>
+			<if test="einCode != null">
+				#{einCode, jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTel != null">
+				#{serviceTel, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="isOperation != null">
+              #{isOperation, jdbcType=INTEGER},
+            </if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			now(),
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+				now(),
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_enterprise
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			name,
+			businessLicense,
+			code,
+			precinctAmount,
+			province,
+			city,
+			district,
+			street,
+			address,
+			validdateStartTime,
+			validdateEndTime,
+			enterpriseState,
+			einCode,
+			serviceTel,
+			isDelete,
+			remark,
+			createUserID,
+			createUserName,
+			createTime,
+			updateUserID,
+			updateUserName,
+			updateTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.name, jdbcType=VARCHAR},
+			#{item.businessLicense, jdbcType=VARCHAR},
+			#{item.code, jdbcType=VARCHAR},
+			#{item.precinctAmount, jdbcType=VARCHAR},
+			#{item.province, jdbcType=VARCHAR},
+			#{item.city, jdbcType=VARCHAR},
+			#{item.district, jdbcType=VARCHAR},
+			#{item.street, jdbcType=VARCHAR},
+			#{item.address, jdbcType=VARCHAR},
+			#{item.validdateStartTime, jdbcType=TIMESTAMP},
+			#{item.validdateEndTime, jdbcType=TIMESTAMP},
+			#{item.enterpriseState, jdbcType=VARCHAR},
+			#{item.einCode, jdbcType=VARCHAR},
+			#{item.serviceTel, jdbcType=VARCHAR},
+			#{item.isDelete, jdbcType=INTEGER},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

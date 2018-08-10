@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHousePrecinctPropertyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHousePrecinctPropertyInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="pro_manager" property="proManager" jdbcType="VARCHAR" />
+    <result column="pro_manager_phone" property="proManagerPhone" jdbcType="VARCHAR" />
+    <result column="management_phone" property="managementPhone" jdbcType="VARCHAR" />
+    <result column="service_phone" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="property_manage_area" property="propertyManageArea" jdbcType="BIGINT" />
+    <result column="property_operate_area" property="propertyOperateArea" jdbcType="BIGINT" />
+    <result column="community_area" property="communityArea" jdbcType="BIGINT" />
+    <result column="hall_area" property="hallArea" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, pro_manager, pro_manager_phone, management_phone, service_phone, property_manage_area, 
+    property_operate_area, community_area, hall_area, create_user_id, create_time, 
+    update_user_id, update_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_precinct_property_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_precinct_property_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHousePrecinctPropertyInfo" >
+    insert into owner_house_precinct_property_info (house_id, pro_manager, pro_manager_phone, 
+      management_phone, service_phone, property_manage_area, 
+      property_operate_area, community_area, hall_area, 
+      create_user_id, create_time, update_user_id, 
+      update_time,create_user_name, update_user_name
+      )
+    values (#{houseId,jdbcType=BIGINT}, #{proManager,jdbcType=VARCHAR}, #{proManagerPhone,jdbcType=VARCHAR}, 
+      #{managementPhone,jdbcType=VARCHAR}, #{servicePhone,jdbcType=VARCHAR}, #{propertyManageArea,jdbcType=BIGINT}, 
+      #{propertyOperateArea,jdbcType=BIGINT}, #{communityArea,jdbcType=BIGINT}, #{hallArea,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctPropertyInfo" >
+    insert into owner_house_precinct_property_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="proManager != null" >
+        pro_manager,
+      </if>
+      <if test="proManagerPhone != null" >
+        pro_manager_phone,
+      </if>
+      <if test="managementPhone != null" >
+        management_phone,
+      </if>
+      <if test="servicePhone != null" >
+        service_phone,
+      </if>
+      <if test="propertyManageArea != null" >
+        property_manage_area,
+      </if>
+      <if test="propertyOperateArea != null" >
+        property_operate_area,
+      </if>
+      <if test="communityArea != null" >
+        community_area,
+      </if>
+      <if test="hallArea != null" >
+        hall_area,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="proManager != null" >
+        #{proManager,jdbcType=VARCHAR},
+      </if>
+      <if test="proManagerPhone != null" >
+        #{proManagerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="managementPhone != null" >
+        #{managementPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyManageArea != null" >
+        #{propertyManageArea,jdbcType=BIGINT},
+      </if>
+      <if test="propertyOperateArea != null" >
+        #{propertyOperateArea,jdbcType=BIGINT},
+      </if>
+      <if test="communityArea != null" >
+        #{communityArea,jdbcType=BIGINT},
+      </if>
+      <if test="hallArea != null" >
+        #{hallArea,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctPropertyInfo" >
+    update owner_house_precinct_property_info
+    <set >
+      <if test="proManager != null" >
+        pro_manager = #{proManager,jdbcType=VARCHAR},
+      </if>
+      <if test="proManagerPhone != null" >
+        pro_manager_phone = #{proManagerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="managementPhone != null" >
+        management_phone = #{managementPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        service_phone = #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyManageArea != null" >
+        property_manage_area = #{propertyManageArea,jdbcType=BIGINT},
+      </if>
+      <if test="propertyOperateArea != null" >
+        property_operate_area = #{propertyOperateArea,jdbcType=BIGINT},
+      </if>
+      <if test="communityArea != null" >
+        community_area = #{communityArea,jdbcType=BIGINT},
+      </if>
+      <if test="hallArea != null" >
+        hall_area = #{hallArea,jdbcType=BIGINT},
+      </if>
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now(),
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHousePrecinctPropertyInfo" >
+    update owner_house_precinct_property_info
+    set pro_manager = #{proManager,jdbcType=VARCHAR},
+      pro_manager_phone = #{proManagerPhone,jdbcType=VARCHAR},
+      management_phone = #{managementPhone,jdbcType=VARCHAR},
+      service_phone = #{servicePhone,jdbcType=VARCHAR},
+      property_manage_area = #{propertyManageArea,jdbcType=BIGINT},
+      property_operate_area = #{propertyOperateArea,jdbcType=BIGINT},
+      community_area = #{communityArea,jdbcType=BIGINT},
+      hall_area = #{hallArea,jdbcType=BIGINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+</mapper>

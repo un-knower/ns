@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossNoticeTypeMapper">
+
+	<resultMap id="NsSossNoticeTypeResultMap" type="com.newsee.soss.entity.NsSossNoticeType">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="typeCode" column="typeCode" jdbcType="VARCHAR"/>
+			<result property="paramCode" column="paramCode" jdbcType="VARCHAR"/>
+			<result property="paramName" column="paramName" jdbcType="VARCHAR"/>
+			<result property="paramValue" column="paramValue" jdbcType="VARCHAR"/>
+			<result property="fatherCode" column="fatherCode" jdbcType="VARCHAR"/>
+			<result property="subCode" column="subCode" jdbcType="VARCHAR"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="status" column="status" jdbcType="INTEGER"/>
+			<result property="flag" column="flag" jdbcType="INTEGER"/>
+			<result property="orderBy" column="orderBy" jdbcType="INTEGER"/>
+			<result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="updateUserID" jdbcType="BIGINT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossNoticeType_Column_List">
+		id,enterpriseID,typeCode,paramCode,paramName,paramValue,fatherCode,subCode,remark,status,flag,orderBy,updateTime,updateUserID
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossNoticeTypeResultMap">
+		select
+			<include refid="NsSossNoticeType_Column_List" />
+		from
+			ns_soss_noticeType
+		where
+			id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossNoticeType">
+		update ns_soss_noticeType
+		<set>
+			<if test="enterpriseId != null">
+			  enterpriseID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="typeCode != null">
+			  typeCode = #{typeCode, jdbcType=VARCHAR },
+			</if>
+			<if test="paramCode != null">
+			  paramCode = #{paramCode, jdbcType=VARCHAR },
+			</if>
+			<if test="paramName != null">
+			  paramName = #{paramName, jdbcType=VARCHAR },
+			</if>
+			<if test="paramValue != null">
+			  paramValue = #{paramValue, jdbcType=VARCHAR },
+			</if>
+			<if test="fatherCode != null">
+			  fatherCode = #{fatherCode, jdbcType=VARCHAR },
+			</if>
+			<if test="subCode != null">
+			  subCode = #{subCode, jdbcType=VARCHAR },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="status != null">
+			  status = #{status, jdbcType=INTEGER },
+			</if>
+			<if test="flag != null">
+			  flag = #{flag, jdbcType=INTEGER },
+			</if>
+			<if test="orderBy != null">
+			  orderBy = #{orderBy, jdbcType=INTEGER },
+			</if>
+			<if test="updateTime != null">
+			  updateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  updateUserID = #{updateUserId, jdbcType=BIGINT },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_noticeType 
+		where
+			id = #{id}
+	</delete>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_noticeType
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossNoticeType">
+		insert into ns_soss_noticeType
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterpriseID,
+			</if>
+			<if test="typeCode != null">
+				typeCode,
+			</if>
+			<if test="paramCode != null">
+				paramCode,
+			</if>
+			<if test="paramName != null">
+				paramName,
+			</if>
+			<if test="paramValue != null">
+				paramValue,
+			</if>
+			<if test="fatherCode != null">
+				fatherCode,
+			</if>
+			<if test="subCode != null">
+				subCode,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="orderBy != null">
+				orderBy,
+			</if>
+			<if test="updateTime != null">
+				updateTime,
+			</if>
+			<if test="updateUserId != null">
+				updateUserID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="typeCode != null">
+				#{typeCode, jdbcType=VARCHAR},
+			</if>
+			<if test="paramCode != null">
+				#{paramCode, jdbcType=VARCHAR},
+			</if>
+			<if test="paramName != null">
+				#{paramName, jdbcType=VARCHAR},
+			</if>
+			<if test="paramValue != null">
+				#{paramValue, jdbcType=VARCHAR},
+			</if>
+			<if test="fatherCode != null">
+				#{fatherCode, jdbcType=VARCHAR},
+			</if>
+			<if test="subCode != null">
+				#{subCode, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status, jdbcType=INTEGER},
+			</if>
+			<if test="flag != null">
+				#{flag, jdbcType=INTEGER},
+			</if>
+			<if test="orderBy != null">
+				#{orderBy, jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_noticeType
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterpriseID,
+			typeCode,
+			paramCode,
+			paramName,
+			paramValue,
+			fatherCode,
+			subCode,
+			remark,
+			status,
+			flag,
+			orderBy,
+			updateTime,
+			updateUserID,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.typeCode, jdbcType=VARCHAR},
+			#{item.paramCode, jdbcType=VARCHAR},
+			#{item.paramName, jdbcType=VARCHAR},
+			#{item.paramValue, jdbcType=VARCHAR},
+			#{item.fatherCode, jdbcType=VARCHAR},
+			#{item.subCode, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.status, jdbcType=INTEGER},
+			#{item.flag, jdbcType=INTEGER},
+			#{item.orderBy, jdbcType=INTEGER},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossNoticeMapper">
+
+	<resultMap id="NsSossNoticeResultMap" type="com.newsee.soss.entity.NsSossNotice">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="enterpriseName" column="enterpriseName" jdbcType="VARCHAR"/>
+			<result property="title" column="title" jdbcType="VARCHAR"/>
+			<result property="noticeType" column="noticeType" jdbcType="VARCHAR"/>
+			<result property="noticeStatus" column="noticeStatus" jdbcType="VARCHAR"/>
+			<result property="iconCode" column="iconCode" jdbcType="VARCHAR"/>
+			<result property="imageCode" column="imageCode" jdbcType="VARCHAR"/>
+			<result property="content" column="content" jdbcType="VARCHAR"/>
+			<result property="handleTime" column="handleTime" jdbcType="TIMESTAMP"/>
+			<result property="handleUserId" column="handleUserID" jdbcType="BIGINT"/>
+			<result property="handleUserName" column="handleUserName" jdbcType="VARCHAR"/>
+			<result property="url" column="url" jdbcType="VARCHAR"/>
+			<result property="publishTime" column="publishTime" jdbcType="TIMESTAMP"/>
+			<result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossNotice_Column_List">
+		id,enterpriseID,enterpriseName,title,noticeType,noticeStatus,iconCode,imageCode,content,handleTime,handleUserID,handleUserName,url,publishTime,isDelete,remark
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossNoticeResultMap">
+		select
+			<include refid="NsSossNotice_Column_List" />
+		from
+			ns_soss_notice
+		where
+			id = #{id}
+	</select>
+	
+	<!-- 列表查询 -->
+    <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSossNoticeResultMap">
+        select 
+            <include refid="NsSossNotice_Column_List" />
+        from 
+           ns_soss_notice
+        <where>
+        isDelete = 0
+            <if test="enterpriseId != null">
+                AND enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, title)>0 
+            </if>
+            <if test="noticeStatus != null and noticeStatus != ''">
+                and noticeStatus = #{noticeStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldName != null and orderFieldName != ''">
+               order by ${orderFieldName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossNotice">
+		update ns_soss_notice
+		<set>
+			<if test="enterpriseId != null">
+			  enterpriseID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="enterpriseName != null">
+			  enterpriseName = #{enterpriseName, jdbcType=VARCHAR },
+			</if>
+			<if test="title != null">
+			  title = #{title, jdbcType=VARCHAR },
+			</if>
+			<if test="noticeType != null">
+			  noticeType = #{noticeType, jdbcType=VARCHAR },
+			</if>
+			<if test="noticeStatus != null">
+			  noticeStatus = #{noticeStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="iconCode != null">
+			  iconCode = #{iconCode, jdbcType=VARCHAR },
+			</if>
+			<if test="imageCode != null">
+			  imageCode = #{imageCode, jdbcType=VARCHAR },
+			</if>
+			<if test="content != null">
+			  content = #{content, jdbcType=VARCHAR },
+			</if>
+			<if test="handleTime != null">
+			  handleTime = #{handleTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="handleUserId != null">
+			  handleUserID = #{handleUserId, jdbcType=BIGINT },
+			</if>
+			<if test="handleUserName != null">
+			  handleUserName = #{handleUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="url != null">
+			  url = #{url, jdbcType=VARCHAR },
+			</if>
+			<if test="publishTime != null">
+			  publishTime = #{publishTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="isDelete != null">
+			  isDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update ns_soss_notice
+        <set>
+            isDelete = 1
+        </set>
+		where id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		update ns_soss_notice
+		<set>
+            isDelete = 1
+        </set>
+		where id in
+		<foreach collection="ids" item="item" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossNotice">
+		insert into ns_soss_notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterpriseID,
+			</if>
+			<if test="enterpriseName != null">
+				enterpriseName,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="noticeType != null">
+				noticeType,
+			</if>
+			<if test="noticeStatus != null">
+				noticeStatus,
+			</if>
+			<if test="iconCode != null">
+				iconCode,
+			</if>
+			<if test="imageCode != null">
+				imageCode,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="handleTime != null">
+				handleTime,
+			</if>
+			<if test="handleUserId != null">
+				handleUserID,
+			</if>
+			<if test="handleUserName != null">
+				handleUserName,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="publishTime != null">
+				publishTime,
+			</if>
+			<if test="isDelete != null">
+				isDelete,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="enterpriseName != null">
+				#{enterpriseName, jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title, jdbcType=VARCHAR},
+			</if>
+			<if test="noticeType != null">
+				#{noticeType, jdbcType=VARCHAR},
+			</if>
+			<if test="noticeStatus != null">
+				#{noticeStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="iconCode != null">
+				#{iconCode, jdbcType=VARCHAR},
+			</if>
+			<if test="imageCode != null">
+				#{imageCode, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content, jdbcType=VARCHAR},
+			</if>
+			<if test="handleTime != null">
+				#{handleTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="handleUserId != null">
+				#{handleUserId, jdbcType=BIGINT},
+			</if>
+			<if test="handleUserName != null">
+				#{handleUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url, jdbcType=VARCHAR},
+			</if>
+			<if test="publishTime != null">
+				#{publishTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterpriseID,
+			enterpriseName,
+			title,
+			noticeType,
+			noticeStatus,
+			iconCode,
+			imageCode,
+			content,
+			handleTime,
+			handleUserID,
+			handleUserName,
+			url,
+			publishTime,
+			isDelete,
+			remark,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.enterpriseName, jdbcType=VARCHAR},
+			#{item.title, jdbcType=VARCHAR},
+			#{item.noticeType, jdbcType=VARCHAR},
+			#{item.noticeStatus, jdbcType=VARCHAR},
+			#{item.iconCode, jdbcType=VARCHAR},
+			#{item.imageCode, jdbcType=VARCHAR},
+			#{item.content, jdbcType=VARCHAR},
+			#{item.handleTime, jdbcType=TIMESTAMP},
+			#{item.handleUserId, jdbcType=BIGINT},
+			#{item.handleUserName, jdbcType=VARCHAR},
+			#{item.url, jdbcType=VARCHAR},
+			#{item.publishTime, jdbcType=TIMESTAMP},
+			#{item.isDelete, jdbcType=INTEGER},
+			#{item.remark, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

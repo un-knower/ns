@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerCustomerMainHouseMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerCustomerMainHouse">
+    <id column="main_house_id" jdbcType="BIGINT" property="mainHouseId" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="precinct_id" jdbcType="BIGINT" property="precinctId" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    main_house_id, owner_id, precinct_id, house_id, owner_property
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_main_house
+    where main_house_id = #{mainHouseId,jdbcType=BIGINT}
+  </select>
+  <select id="listByOwnerHouse" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_main_house
+    where owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach>  
+    <if test="precinctId != null">
+        and precinct_id = #{precinctId,jdbcType=BIGINT}
+    </if>
+    <if test="houseId != null">
+        and house_id = #{houseId,jdbcType=BIGINT}
+    </if>
+  </select>
+  <select id="listForSearchCustomer" parameterType="com.newsee.common.vo.SearchVo" resultType="java.lang.Long">
+    select 
+        mainHouse.owner_id
+    from owner_customer_main_house mainHouse,
+    owner_house_base_info base
+    <where>
+        base.house_id = mainHouse.house_id
+        <if test="enterpriseId != null">
+            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+        </if>
+        <if test="organizationId != null">
+            and organization_id = #{organizationId,jdbcType=BIGINT}
+        </if>
+        <if test="filterList != null">
+            <foreach collection="filterList" item="item">
+               <choose>
+                   <when test="item.comparison != null and item.comparison == 'NULL'">
+                       and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                       and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                       and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                       and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                       and concat('base.',${item.fieldUnderLineName}) = #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                       and ${item.fieldUnderLineName} != #{item.fieldValue}
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+                   </when>
+                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                       and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                   </when>
+               </choose>
+            </foreach>
+        </if>
+    </where>
+  </select>
+  <delete id="deleteMainHouse" parameterType="java.util.Map">
+    delete from owner_customer_main_house
+    <where>
+	    <if test="ownerIdList != null">
+	        and owner_id in 
+	        <foreach collection="ownerIdList" item="ownerId" open="(" separator="," close=")">
+	            #{ownerId,jdbcType=BIGINT}
+	        </foreach>
+	    </if>
+	    <if test="precinctId != null">
+	        and precinct_id = #{precinctId,jdbcType=BIGINT}
+	    </if>
+	    <if test="houseId != null">
+	        and house_id = #{houseId,jdbcType=BIGINT}
+	    </if>    
+    </where> 
+
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerCustomerMainHouse">
+    insert into owner_customer_main_house (main_house_id, owner_id, precinct_id, 
+      house_id, owner_property)
+    values (#{mainHouseId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{precinctId,jdbcType=BIGINT}, 
+      #{houseId,jdbcType=BIGINT}, #{ownerProperty,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into owner_customer_main_house (owner_id, precinct_id, 
+      house_id, owner_property)
+    values 
+    <foreach collection="list" item="item" separator=",">
+        (#{item.ownerId,jdbcType=BIGINT}, #{item.precinctId,jdbcType=BIGINT}, 
+        #{item.houseId,jdbcType=BIGINT}, #{item.ownerProperty,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerCustomerMainHouse">
+    insert into owner_customer_main_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mainHouseId != null">
+        main_house_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="precinctId != null">
+        precinct_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="ownerProperty != null">
+        owner_property,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mainHouseId != null">
+        #{mainHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerProperty != null">
+        #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerCustomerMainHouse">
+    update owner_customer_main_house
+    <set>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerProperty != null">
+        owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where main_house_id = #{mainHouseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerCustomerMainHouse">
+    update owner_customer_main_house
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=BIGINT},
+      owner_property = #{ownerProperty,jdbcType=VARCHAR}
+    where main_house_id = #{mainHouseId,jdbcType=BIGINT}
+  </update>
+</mapper>

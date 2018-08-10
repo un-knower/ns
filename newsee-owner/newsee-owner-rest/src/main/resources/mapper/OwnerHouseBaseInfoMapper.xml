@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHouseBaseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseBaseInfo">
+        <id column="house_id" property="houseId" jdbcType="BIGINT"/>
+        <result column="enterprise_id" property="enterpriseId" jdbcType="BIGINT"/>
+        <result column="organization_id" property="organizationId" jdbcType="BIGINT"/>
+        <result column="precinct_id" property="precinctId" jdbcType="BIGINT"/>
+        <result column="building_id" property="buildingId" jdbcType="BIGINT"/>
+        <result column="house_name" property="houseName" jdbcType="VARCHAR"/>
+        <result column="house_no" property="houseNo" jdbcType="VARCHAR"/>
+        <result column="house_full_name" property="houseFullName" jdbcType="VARCHAR"/>
+        <result column="house_type" property="houseType" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="TINYINT"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="stage" property="stage" jdbcType="VARCHAR"/>
+        <result column="rent_stage" property="rentStage" jdbcType="VARCHAR"/>
+        <result column="decorate_stage" property="decorateStage" jdbcType="VARCHAR"/>
+        <result column="is_block_up" property="isBlockUp" jdbcType="TINYINT"/>
+        <result column="is_virtual" property="isVirtual" jdbcType="TINYINT"/>
+        <result column="is_lock" property="isLock" jdbcType="TINYINT"/>
+        <result column="edit_status" property="editStatus" jdbcType="TINYINT"/>
+        <result column="parent_house_ids" property="parentHouseIds" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="create_user_id" property="createUserId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user_name" property="createUserName" jdbcType="VARCHAR"/>
+        <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    house_id, enterprise_id, organization_id, precinct_id, building_id, house_name, house_no, house_full_name, house_type, 
+    parent_id, path, level, sort, stage, decorate_stage, rent_stage, is_block_up, is_virtual, is_lock, 
+    edit_status, parent_house_ids, is_deleted, create_user_id, create_time, update_user_id, 
+    update_time, create_user_name, update_user_name
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where house_id = #{houseId,jdbcType=BIGINT} AND is_deleted=FALSE
+    </select>
+
+    <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseBaseInfo">
+    insert into owner_house_base_info (house_id, enterprise_id, organization_id, 
+      precinct_id, building_id, house_name, house_no, house_full_name,
+      house_type, parent_id, path, 
+      level, sort, stage, 
+      decorate_stage, rent_stage, is_block_up, is_virtual, 
+      is_lock, edit_status, parent_house_ids, 
+      is_deleted, create_user_id, create_time, 
+      update_user_id, update_time, sys_time, create_user_name, update_user_name
+      )
+    values (#{houseId,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{organizationId,jdbcType=BIGINT}, 
+      #{precinctId,jdbcType=BIGINT}, #{buildingId,jdbcType=BIGINT}, #{houseName,jdbcType=VARCHAR}, #{houseNo,jdbcType=VARCHAR}, #{houseFullName,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{path,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER}, #{stage,jdbcType=VARCHAR}, 
+      #{decorateStage,jdbcType=VARCHAR}, #{rentStage,jdbcType=VARCHAR}, #{isBlockUp,jdbcType=TINYINT}, #{isVirtual,jdbcType=TINYINT}, 
+      #{isLock,jdbcType=TINYINT}, #{editStatus,jdbcType=TINYINT}, #{parentHouseIds,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=TINYINT}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{sysTime,jdbcType=TIMESTAMP},
+      #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseBaseInfo" useGeneratedKeys="true"
+            keyProperty="houseId">
+        <selectKey resultType="java.lang.Long" keyProperty="houseId"
+                   order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        insert into owner_house_base_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="enterpriseId != null">
+                enterprise_id,
+            </if>
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="precinctId != null">
+                precinct_id,
+            </if>
+            <if test="buildingId != null">
+                building_id,
+            </if>
+            <if test="houseName != null">
+                house_name,
+            </if>
+            <if test="houseNo != null">
+                house_no,
+            </if>
+            <if test="houseFullName != null">
+                house_full_name,
+            </if>
+            <if test="houseType != null">
+                house_type,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="stage != null">
+                stage,
+            </if>
+            <if test="decorateStage != null">
+                decorate_stage,
+            </if>
+            <if test="rentStage != null">
+                rent_stage,
+            </if>
+            <if test="isBlockUp != null">
+                is_block_up,
+            </if>
+            <if test="isVirtual != null">
+                is_virtual,
+            </if>
+            <if test="isLock != null">
+                is_lock,
+            </if>
+            <if test="editStatus != null">
+                edit_status,
+            </if>
+            <if test="parentHouseIds != null">
+                parent_house_ids,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createUserName != null">
+                create_user_name,
+            </if>
+            <if test="updateUserName != null">
+                update_user_name,
+            </if>
+            sys_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="enterpriseId != null">
+                #{enterpriseId,jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=BIGINT},
+            </if>
+            <if test="precinctId != null">
+                #{precinctId,jdbcType=BIGINT},
+            </if>
+            <if test="buildingId != null">
+                #{buildingId,jdbcType=BIGINT},
+            </if>
+            <if test="houseName != null">
+                #{houseName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseNo != null">
+                #{houseNo,jdbcType=VARCHAR},
+            </if>
+            <if test="houseFullName != null">
+                #{houseFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseType != null">
+                #{houseType,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=TINYINT},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="stage != null">
+                #{stage,jdbcType=VARCHAR},
+            </if>
+            <if test="decorateStage != null">
+                #{decorateStage,jdbcType=VARCHAR},
+            </if>
+            <if test="rentStage != null">
+                #{rentStage,jdbcType=VARCHAR},
+            </if>
+            <if test="isBlockUp != null">
+                #{isBlockUp,jdbcType=TINYINT},
+            </if>
+            <if test="isVirtual != null">
+                #{isVirtual,jdbcType=TINYINT},
+            </if>
+            <if test="isLock != null">
+                #{isLock,jdbcType=TINYINT},
+            </if>
+            <if test="editStatus != null">
+                #{editStatus,jdbcType=TINYINT},
+            </if>
+            <if test="parentHouseIds != null">
+                #{parentHouseIds,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUserName != null">
+                #{updateUserName,jdbcType=VARCHAR},
+            </if>
+            NOW()
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseBaseInfo">
+        update owner_house_base_info
+        <set>
+            <if test="enterpriseId != null">
+                enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId,jdbcType=BIGINT},
+            </if>
+            <if test="precinctId != null">
+                precinct_id = #{precinctId,jdbcType=BIGINT},
+            </if>
+            <if test="buildingId != null">
+                building_id = #{buildingId,jdbcType=BIGINT},
+            </if>
+            <if test="houseName != null">
+                house_name = #{houseName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseNo != null">
+                house_no = #{houseNo,jdbcType=VARCHAR},
+            </if>
+            <if test="houseFullName != null">
+                house_full_name = #{houseFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseType != null">
+                house_type = #{houseType,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=TINYINT},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="stage != null">
+                stage = #{stage,jdbcType=VARCHAR},
+            </if>
+            <if test="decorateStage != null">
+                decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+            </if>
+            <if test="rentStage != null">
+                rent_stage = #{rentStage,jdbcType=VARCHAR},
+            </if>
+            <if test="isBlockUp != null">
+                is_block_up = #{isBlockUp,jdbcType=TINYINT},
+            </if>
+            <if test="isVirtual != null">
+                is_virtual = #{isVirtual,jdbcType=TINYINT},
+            </if>
+            <if test="isLock != null">
+                is_lock = #{isLock,jdbcType=TINYINT},
+            </if>
+            <if test="editStatus != null">
+                edit_status = #{editStatus,jdbcType=TINYINT},
+            </if>
+            <if test="parentHouseIds != null">
+                parent_house_ids = #{parentHouseIds,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=BIGINT},
+            </if>
+            <if test="updateUserName != null">
+                update_user_name = #{updateUserName,jdbcType=VARCHAR},
+            </if>
+            update_time = NOW(),
+            sys_time = NOW()
+        </set>
+        where house_id = #{houseId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseBaseInfo">
+    update owner_house_base_info
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      building_id = #{buildingId,jdbcType=BIGINT},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      house_no = #{houseNo,jdbcType=VARCHAR},
+      house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      path = #{path,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=INTEGER},
+      stage = #{stage,jdbcType=VARCHAR},
+      decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      rent_stage = #{rentStage,jdbcType=VARCHAR},
+      is_block_up = #{isBlockUp,jdbcType=TINYINT},
+      is_virtual = #{isVirtual,jdbcType=TINYINT},
+      is_lock = #{isLock,jdbcType=TINYINT},
+      edit_status = #{editStatus,jdbcType=TINYINT},
+      parent_house_ids = #{parentHouseIds,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP}
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+
+    <update id="deleteByPrimaryKey">
+    update owner_house_base_info
+    set is_deleted=TRUE,
+    update_user_id = #{updateUserId,jdbcType=BIGINT},
+    update_user_name = #{updateUserName,jdbcType=VARCHAR},
+    update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+
+    <select id="listOwnerHouseBaseInfoByHouseIdList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where
+        is_deleted=0 AND edit_status = 0
+        <if test="houseIdList !=null">
+            AND house_id in
+            <foreach collection="houseIdList" open="(" separator="," close=")"
+                     item="houseId" index="index">
+                #{houseId,jdbcType=BIGINT}
+            </foreach>
+        </if>
+        order by sort
+    </select>
+
+    <select id="listOwnerHouseBaseInfoByPath" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=FALSE AND edit_status = 0
+        AND path LIKE CONCAT(#{path,jdbcType=VARCHAR}, '%')
+        order by sort
+    </select>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update owner_house_base_info
+            <set>
+                path = #{item.path,jdbcType=VARCHAR},
+                level = #{item.level,jdbcType=TINYINT},
+                house_full_name = #{item.houseFullName,jdbcType=VARCHAR},
+                update_user_id = #{item.updateUserId,jdbcType=BIGINT},
+                update_user_name = #{item.updateUserName,jdbcType=VARCHAR},
+                update_time = now()
+            </set>
+            where house_id = ${item.houseId}
+        </foreach>
+    </update>
+
+    <update id="batchUpdateByHouseId" parameterType="java.util.Map">
+        update owner_house_base_info
+        <set>
+            update_user_id = #{updateUserId,jdbcType=BIGINT},
+            update_user_name = #{updateUserName,jdbcType=VARCHAR},
+            update_time = now(),
+            <if test="isLock !=null">
+                is_lock = #{isLock},
+            </if>
+            <if test="isBlockUp !=null">
+                is_block_up = #{isBlockUp},
+                block_up_time = NOW(),
+            </if>
+            <if test="editStatus !=null">
+                edit_status=#{editStatus}
+            </if>
+            <if test="decorateStage != null">
+                decorate_stage = #{decorateStage}
+            </if>
+        </set>
+        WHERE house_id in
+        <foreach collection="houseIdList" open="(" separator="," close=")"
+                 item="houseId" index="index">
+            #{houseId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="listHouseBaseInfoByParam" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=FALSE AND edit_status = 0
+        <if test="organizationId !=null">
+            AND organization_id = #{organizationId}
+        </if>
+        <!--     <if test="showHouseLevel!=null" >
+              AND   level &lt;= #{showHouseLevel}
+            </if> -->
+        <if test="houseTypes!=null and houseTypes.size()>0">
+            AND house_type in
+            <foreach collection="houseTypes" open="(" separator="," close=")" item="houseType" index="index">
+                #{houseType,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <choose>
+            <when test="parentId != null and parentId != 0">
+                AND parent_id = #{parentId,jdbcType=BIGINT}
+            </when>
+            <otherwise>
+                AND house_type &lt;=2
+            </otherwise>
+        </choose>
+        ORDER BY level, sort, house_name
+    </select>
+
+    <select id="listHouseBaseInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=FALSE AND edit_status = 0
+        <if test="organizationId !=null">
+            AND organization_id = #{organizationId}
+        </if>
+        <!--     <if test="showHouseLevel!=null" >
+              AND   level &lt;= #{showHouseLevel}
+            </if> -->
+        <if test="houseTypes!=null and houseTypes.size()>0">
+            AND house_type in
+            <foreach collection="houseTypes" open="(" separator="," close=")" item="houseType" index="index">
+                #{houseType,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="path!=null">
+            AND path LIKE CONCAT('%',#{path,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY level, sort, house_name
+    </select>
+
+    <update id="deleteByPath">
+    update owner_house_base_info
+    set is_deleted=TRUE,
+    update_user_id = #{updateUserId,jdbcType=BIGINT},
+    update_user_name = #{updateUserName,jdbcType=VARCHAR},
+    update_time = now()
+    where path LIKE CONCAT(#{path,jdbcType=VARCHAR}, '%')
+  </update>
+    <update id="deleteById">
+    update owner_house_base_info
+    set is_deleted=TRUE,
+    update_user_id = #{updateUserId,jdbcType=BIGINT},
+    update_user_name = #{updateUserName,jdbcType=VARCHAR},
+    update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+    <update id="batchDelete" parameterType="java.util.Map">
+        update owner_house_base_info
+        set is_deleted=TRUE,
+        update_user_id = #{userId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now()
+        where house_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <insert id="batchInsertBaseInfoList" useGeneratedKeys="true" keyProperty="houseId">
+        insert into owner_house_base_info (enterprise_id, organization_id,
+        precinct_id, building_id, house_name, house_no, house_full_name,
+        house_type, parent_id, path,
+        level, sort, stage,
+        decorate_stage, rent_stage, is_block_up, is_virtual,
+        is_lock, edit_status, parent_house_ids,
+        is_deleted, create_user_id, create_time,
+        update_user_id, update_time, create_user_name, update_user_name
+        )
+        values
+        <foreach collection="list" item="houseBaseInfo" index="index" separator=",">
+            (#{houseBaseInfo.enterpriseId,jdbcType=BIGINT},
+            #{houseBaseInfo.organizationId,jdbcType=BIGINT},
+            #{houseBaseInfo.precinctId,jdbcType=BIGINT},
+            #{houseBaseInfo.buildingId,jdbcType=BIGINT},
+            #{houseBaseInfo.houseName,jdbcType=VARCHAR},
+            #{houseBaseInfo.houseNo,jdbcType=VARCHAR},
+            #{houseBaseInfo.houseFullName,jdbcType=VARCHAR},
+            #{houseBaseInfo.houseType,jdbcType=VARCHAR},
+            #{houseBaseInfo.parentId,jdbcType=BIGINT},
+            #{houseBaseInfo.path,jdbcType=VARCHAR},
+            #{houseBaseInfo.level,jdbcType=TINYINT},
+            #{houseBaseInfo.sort,jdbcType=INTEGER},
+            #{houseBaseInfo.stage,jdbcType=VARCHAR},
+            #{houseBaseInfo.decorateStage,jdbcType=VARCHAR},
+            #{houseBaseInfo.rentStage,jdbcType=VARCHAR},
+            #{houseBaseInfo.isBlockUp,jdbcType=TINYINT},
+            #{houseBaseInfo.isVirtual,jdbcType=TINYINT},
+            #{houseBaseInfo.isLock,jdbcType=TINYINT},
+            #{houseBaseInfo.editStatus,jdbcType=TINYINT},
+            #{houseBaseInfo.parentHouseIds,jdbcType=VARCHAR},
+            false, #{houseBaseInfo.createUserId,jdbcType=BIGINT}, now(),
+            #{houseBaseInfo.createUserId,jdbcType=BIGINT}, now(),
+            #{houseBaseInfo.createUserName,jdbcType=VARCHAR}, #{houseBaseInfo.updateUserName,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateSort" parameterType="java.util.Map">
+        update owner_house_base_info
+        set
+        sort = sort+1,
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = NOW(),
+        sys_time = NOW()
+        where house_id in
+        <foreach collection="houseIdList" item="item" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="checkParentByHouseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=0 AND edit_status = 0
+        AND parent_id = #{houseId,jdbcType=BIGINT}
+        limit 0,1
+    </select>
+    <select id="listHouseTreeBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=0 AND edit_status = 0
+        AND organization_id = #{organizationId,jdbcType=BIGINT}
+        AND LOCATE(#{houseName,jdbcType=VARCHAR},house_name) > 0
+        <if test="houseType != null">
+            AND house_type = #{houseType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="listHouseBase" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=0 AND edit_status = 0
+        <if test="enterpriseId != null">
+            AND enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+        </if>
+        <if test="organizationId != null">
+            AND organization_id = #{organizationId,jdbcType=BIGINT}
+        </if>
+        <if test="houseType != null">
+            AND house_type = #{houseType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="loadHouseByName" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+            <choose>
+                <when test="houseType == '1'.toString() or houseType == '2'.toString()">
+                    and enterprise_id = #{enterpriseId,jdbcType=BIGINT} and house_name = #{houseName,jdbcType=VARCHAR}
+                    and house_type = #{houseType,jdbcType=VARCHAR}
+                </when>
+                <when test="houseType == '3'.toString()">
+                    <if test="precinctId != null and precinctId != 0">
+                        and precinct_id = #{precinctId,jdbcType=BIGINT}
+                    </if>
+                    and enterprise_id = #{enterpriseId,jdbcType=BIGINT} and house_name = #{houseName,jdbcType=VARCHAR}
+                    and house_type = #{houseType,jdbcType=VARCHAR}
+                </when>
+                <otherwise>
+                    and parent_id = #{parentId,jdbcType=BIGINT} and house_name = #{houseName,jdbcType=VARCHAR} and
+                    house_type = #{houseType,jdbcType=VARCHAR}
+                </otherwise>
+            </choose>
+            <if test="houseId != null">
+                and house_id != #{houseId,jdbcType=BIGINT}
+            </if>
+            AND is_deleted=FALSE AND edit_status = 0
+            <if test="houseType == '6'.toString() or houseType == '8'.toString() or houseType == '9'.toString()">
+                and is_block_up = false
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取基础房产信息 -->
+    <select id="selectHouseBaseInfoList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT h_base_info.house_id, h_base_info.precinct_id, h_base_info.enterprise_id, h_base_info.organization_id,
+        h_base_info.house_type, h_base_info.house_full_name, h_base_info.house_name
+        , h_base_info.house_no, h_base_info.stage, h_base_info.rent_stage, h_base_info.decorate_stage,
+        h_base_info.is_block_up, h_base_info.path, h_base_info.`level`, h_base_info.parent_id,
+        h_base_info.create_time, h_base_info.update_time
+        FROM owner_house_base_info AS h_base_info
+        WHERE is_deleted=0 AND edit_status = 0
+        AND enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+        <!-- 登录用户数据权限 -->
+        <if test="houseIdList != null">
+            AND house_id in
+            <foreach collection="houseIdList" item="houseId" open="(" separator="," close=")">
+                #{houseId,jdbcType=BIGINT}
+            </foreach>
+        </if>
+        <choose>
+            <!-- houseId=0 根目录 查询所有项目 -->
+            <when test="houseId == null or houseId == 0">
+                AND h_base_info.path LIKE CONCAT("/", "%") AND house_type = 2
+            </when>
+            <otherwise>
+                <choose>
+                    <!-- houstType=1 区域  查询区域下所有项目 -->
+                    <when test="houseType != null and houseType == 1">
+                        AND parent_id = #{houseId,jdbcType=BIGINT}
+                    </when>
+                    <!-- houseType=2 项目 -->
+                    <when test="houseType != null and houseType == 2">
+                        AND house_id = #{houseId,jdbcType=BIGINT}
+                    </when>
+                    <!-- 其他 房产查询所在项目 -->
+                    <otherwise>
+                        AND precinct_id = #{houseId,jdbcType=BIGINT}
+                    </otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+        <if test="endTime != null">
+            and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="getSortByParentId" resultType="java.lang.Integer">
+    select
+    sort
+    from owner_house_base_info
+    where
+    is_deleted=0 AND edit_status = 0
+    AND parent_id = #{parentId,jdbcType=BIGINT}
+    order by sort desc limit 0,1
+  </select>
+    <select id="listForSearchCustomer" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+            <if test="searchVo.mainSearch != null and searchVo.mainSearch != ''">
+                and LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, house_name)>0
+            </if>
+            <if test="searchVo.enterpriseId != null">
+                and enterprise_id = #{searchVo.enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="searchVo.organizationId != null">
+                and organization_id = #{searchVo.organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="searchVo.filterList != null">
+                <foreach collection="searchVo.filterList" item="item">
+                    <choose>
+                        <when test="item.comparison != null and item.comparison == 'NULL'">
+                            and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                            and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LIKE'">
+                            and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                            and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                            and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                            and ${item.fieldUnderLineName} = #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                            and ${item.fieldUnderLineName} != #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                            and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                            and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+        </where>
+    </select>
+    <select id="loadHouseByNo" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+            enterprise_id = #{enterpriseId,jdbcType=BIGINT} and house_no = #{no,jdbcType=VARCHAR}
+            <if test="houseId != null">
+                and house_id != #{houseId,jdbcType=BIGINT}
+            </if>
+            AND is_deleted=FALSE AND edit_status = 0
+        </where>
+    </select>
+    <update id="batchUpdateDecorateStageByHouseId" parameterType="java.util.Map">
+        update owner_house_base_info
+        <set>
+            <if test="decorateStage != null">
+                decorate_stage = #{decorateStage}
+            </if>
+        </set>
+        WHERE house_id in
+        <foreach collection="houseIdList" open="(" separator="," close=")"
+                 item="houseId" index="index">
+            #{houseId,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <select id="selectByPrecinctNameAndHouseName" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+            is_deleted=FALSE
+            and house_type in (6,7,8,9)
+            <if test="enterpriseId != null">
+                and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="houseName!=null and houseName!=''">
+                and house_name = #{houseName}
+            </if>
+            <if test="precinctName!=null and precinctName!=''">
+                and house_full_name like CONCAT('%',#{precinctName}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="searchPrecinctApp" parameterType="com.newsee.common.vo.SearchProjectVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+            is_deleted = 0
+            and house_type = 2
+            <if test="enterpriseId != null">
+                and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="projectName!=null and projectName!=''">
+                and house_name like CONCAT('%',#{projectName}, '%')
+            </if>
+            <if test="projectId!=null and projectId!='' and projectId!= 0">
+                and house_id = #{projectId}
+            </if>
+            <if test="areaName!=null and areaName!=''">
+                and parent_id in
+                	(select house_id from owner_house_base_info where house_name like CONCAT('%',#{areaName}, '%'))
+            </if>
+        </where>
+    </select>
+    
+    <select id="searchParentName" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        where is_deleted=0 AND edit_status = 0
+        AND house_id = #{parentId,jdbcType=BIGINT}
+    </select>
+
+    <select id="searchHouseInfoByFullName" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+          <include refid="Base_Column_List"/>
+        from owner_house_base_info
+        <where>
+          is_deleted=FALSE
+            <if test="enterpriseId != null">
+                and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="fullName != null and fullName != ''">
+                and house_full_name = #{fullName}
+            </if>
+        </where>
+    </select>
+</mapper>

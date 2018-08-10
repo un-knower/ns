@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemCompanyMapper">
+
+	<resultMap id="NsSystemCompanyResultMap" type="com.newsee.common.entity.NsSystemCompany">
+			<id property="companyId" column="company_id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="groupId" column="group_id" jdbcType="BIGINT"/>
+			<result property="companyParentId" column="company_parent_id" jdbcType="BIGINT"/>
+			<result property="companyCode" column="company_code" jdbcType="VARCHAR"/>
+			<result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+			<result property="companyLegalName" column="company_legal_name" jdbcType="VARCHAR"/>
+			<result property="companyShortName" column="company_short_name" jdbcType="VARCHAR"/>
+			<result property="companyManagerId" column="company_manager_id" jdbcType="BIGINT"/>
+			<result property="companyBuildDate" column="company_build_date" jdbcType="TIMESTAMP"/>
+			<result property="companyPath" column="company_path" jdbcType="VARCHAR"/>
+			<result property="companyNature" column="company_nature" jdbcType="INTEGER"/>
+			<result property="provinceId" column="province_id" jdbcType="INTEGER"/>
+			<result property="cityId" column="city_id" jdbcType="INTEGER"/>
+			<result property="address" column="address" jdbcType="VARCHAR"/>
+			<result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+			<result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+			<result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+			<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSystemCompany_Column_List">
+		company_id,enterprise_id,group_id,company_parent_id,company_code,company_name,company_legal_name,company_short_name,company_manager_id,company_build_date,company_path,company_nature,province_id,city_id,address,order_no,is_deleted,remark,create_user_id,create_user_name,create_time,update_user_id,update_user_name,update_time
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSystemCompanyResultMap">
+		select
+			<include refid="NsSystemCompany_Column_List" />
+		from
+			ns_system_company
+		where
+			company_id = #{companyId}
+	</select>
+	
+	   <select id="checkOnlyShortName" parameterType="com.newsee.common.entity.NsSystemCompany" resultMap="NsSystemCompanyResultMap">
+        select
+            <include refid="NsSystemCompany_Column_List" />
+        from
+            ns_system_company
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+        <!--     <if test="companyParentId != null">
+                 and company_parent_id != #{companyParentId}
+            </if> -->
+            and company_short_name = #{companyShortName}
+            <if test="companyId != null">
+                 and company_id != #{companyId}
+            </if>
+    </select>
+    
+    <select id="checkOnlyName" parameterType="com.newsee.common.entity.NsSystemCompany" resultMap="NsSystemCompanyResultMap">
+        select
+            <include refid="NsSystemCompany_Column_List" />
+        from
+            ns_system_company
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+        <!--     <if test="companyParentId != null">
+                 and company_parent_id != #{companyParentId}
+            </if> -->
+            and company_name = #{companyName}
+            <if test="companyId != null">
+                 and company_id != #{companyId}
+            </if>
+    </select>
+    
+    <select id="checkOnlyCode" parameterType="com.newsee.common.entity.NsSystemCompany" resultMap="NsSystemCompanyResultMap">
+        select
+            <include refid="NsSystemCompany_Column_List" />
+        from
+            ns_system_company
+        where
+            is_deleted = 0
+            and enterprise_id = #{enterpriseId}
+           <!--  <if test="companyParentId != null">
+                 and company_parent_id != #{companyParentId}
+            </if> -->
+            and company_code = #{companyCode}
+            <if test="companyId != null">
+                 and company_id != #{companyId}
+            </if>
+    </select>
+    
+	<select id="listById" parameterType="java.util.List" resultMap="NsSystemCompanyResultMap">
+        select
+            <include refid="NsSystemCompany_Column_List" />
+        from
+            ns_system_company
+        where is_deleted = 0
+            and company_id in 
+             <foreach collection="list" item="companyId" open="(" separator="," close=")">
+                #{companyId}
+             </foreach>
+    </select>
+    
+	<update id="updateByIdSelective" parameterType="com.newsee.common.entity.NsSystemCompany">
+		update ns_system_company
+		<set>
+			<if test="enterpriseId != null">
+			  enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="groupId != null">
+              group_id = #{groupId, jdbcType=BIGINT },
+            </if>
+			<if test="companyParentId != null">
+			  company_parent_id = #{companyParentId, jdbcType=BIGINT },
+			</if>
+			<if test="companyCode != null">
+			  company_code = #{companyCode, jdbcType=VARCHAR },
+			</if>
+			<if test="companyName != null">
+			  company_name = #{companyName, jdbcType=VARCHAR },
+			</if>
+			<if test="companyLegalName != null">
+			  company_legal_name = #{companyLegalName, jdbcType=VARCHAR },
+			</if>
+			<if test="companyShortName != null">
+			  company_short_name = #{companyShortName, jdbcType=VARCHAR },
+			</if>
+			<if test="companyManagerId != null">
+			  company_manager_id = #{companyManagerId, jdbcType=BIGINT },
+			</if>
+			<if test="companyBuildDate != null">
+			  company_build_date = #{companyBuildDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="companyPath != null">
+			  company_path = #{companyPath, jdbcType=VARCHAR },
+			</if>
+			<if test="companyNature != null">
+			  company_nature = #{companyNature, jdbcType=INTEGER },
+			</if>
+			<if test="provinceId != null">
+			  province_id = #{provinceId, jdbcType=INTEGER },
+			</if>
+			<if test="cityId != null">
+			  city_id = #{cityId, jdbcType=INTEGER },
+			</if>
+			<if test="address != null">
+			  address = #{address, jdbcType=VARCHAR },
+			</if>
+			<if test="orderNo != null">
+			  order_no = #{orderNo, jdbcType=INTEGER },
+			</if>
+			<if test="isDeleted != null">
+			  is_deleted = #{isDeleted, jdbcType=TINYINT },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+<!-- 			<if test="createUserId != null">
+			  create_user_id = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  create_user_name = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  create_time = #{createTime, jdbcType=TIMESTAMP },
+			</if> -->
+			<if test="updateUserId != null">
+			  update_user_id = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  update_user_name = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			  update_time = NOW()
+		</set>
+		where
+			company_id = #{companyId}
+	</update>
+	
+	<update id="updateById" parameterType="com.newsee.common.entity.NsSystemCompany">
+        update ns_system_company
+            set
+              company_code = #{companyCode, jdbcType=VARCHAR },
+              company_name = #{companyName, jdbcType=VARCHAR },
+              company_legal_name = #{companyLegalName, jdbcType=VARCHAR },
+              company_short_name = #{companyShortName, jdbcType=VARCHAR },
+              company_manager_id = #{companyManagerId, jdbcType=BIGINT },
+              company_build_date = #{companyBuildDate, jdbcType=TIMESTAMP },
+              company_path = #{companyPath, jdbcType=VARCHAR },
+              company_nature = #{companyNature, jdbcType=INTEGER },
+              province_id = #{provinceId, jdbcType=INTEGER },
+              city_id = #{cityId, jdbcType=INTEGER },
+              address = #{address, jdbcType=VARCHAR },
+              order_no = #{orderNo, jdbcType=INTEGER },
+              remark = #{remark, jdbcType=VARCHAR },
+              update_user_id = #{updateUserId, jdbcType=BIGINT },
+              update_user_name = #{updateUserName, jdbcType=VARCHAR },
+              update_time = NOW()
+        where
+            company_id = #{companyId}
+    </update>
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_system_company 
+		where
+			company_id = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_system_company
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			company_id = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="companyId"
+		parameterType="com.newsee.common.entity.NsSystemCompany">
+		  <selectKey resultType="java.lang.Long" keyProperty="companyId"
+               order="AFTER">
+	      SELECT
+	      LAST_INSERT_ID()
+	    </selectKey>
+		insert into ns_system_company
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="groupId != null">
+                group_id,
+            </if>
+			<if test="companyParentId != null">
+				company_parent_id,
+			</if>
+			<if test="companyCode != null">
+				company_code,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="companyLegalName != null">
+				company_legal_name,
+			</if>
+			<if test="companyShortName != null">
+				company_short_name,
+			</if>
+			<if test="companyManagerId != null">
+				company_manager_id,
+			</if>
+			<if test="companyBuildDate != null">
+				company_build_date,
+			</if>
+			<if test="companyPath != null">
+				company_path,
+			</if>
+			<if test="companyNature != null">
+				company_nature,
+			</if>
+			<if test="provinceId != null">
+				province_id,
+			</if>
+			<if test="cityId != null">
+				city_id,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+                #{groupId, jdbcType=BIGINT},
+            </if>
+			<if test="companyParentId != null">
+				#{companyParentId, jdbcType=BIGINT},
+			</if>
+			<if test="companyCode != null">
+				#{companyCode, jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				#{companyName, jdbcType=VARCHAR},
+			</if>
+			<if test="companyLegalName != null">
+				#{companyLegalName, jdbcType=VARCHAR},
+			</if>
+			<if test="companyShortName != null">
+				#{companyShortName, jdbcType=VARCHAR},
+			</if>
+			<if test="companyManagerId != null">
+				#{companyManagerId, jdbcType=BIGINT},
+			</if>
+			<if test="companyBuildDate != null">
+				#{companyBuildDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="companyPath != null">
+				#{companyPath, jdbcType=VARCHAR},
+			</if>
+			<if test="companyNature != null">
+				#{companyNature, jdbcType=INTEGER},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId, jdbcType=INTEGER},
+			</if>
+			<if test="cityId != null">
+				#{cityId, jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address, jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo, jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted, jdbcType=TINYINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_system_company
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			group_id,
+			company_parent_id,
+			company_code,
+			company_name,
+			company_legal_name,
+			company_short_name,
+			company_manager_id,
+			company_build_date,
+			company_path,
+			company_nature,
+			province_id,
+			city_id,
+			address,
+			order_no,
+			is_deleted,
+			remark,
+			create_user_id,
+			create_user_name,
+			create_time,
+			update_user_id,
+			update_user_name,
+			update_time,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.groupId, jdbcType=BIGINT},
+			#{item.companyParentId, jdbcType=BIGINT},
+			#{item.companyCode, jdbcType=VARCHAR},
+			#{item.companyName, jdbcType=VARCHAR},
+			#{item.companyLegalName, jdbcType=VARCHAR},
+			#{item.companyShortName, jdbcType=VARCHAR},
+			#{item.companyManagerId, jdbcType=BIGINT},
+			#{item.companyBuildDate, jdbcType=TIMESTAMP},
+			#{item.companyPath, jdbcType=VARCHAR},
+			#{item.companyNature, jdbcType=INTEGER},
+			#{item.provinceId, jdbcType=INTEGER},
+			#{item.cityId, jdbcType=INTEGER},
+			#{item.address, jdbcType=VARCHAR},
+			#{item.orderNo, jdbcType=INTEGER},
+			#{item.isDeleted, jdbcType=TINYINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

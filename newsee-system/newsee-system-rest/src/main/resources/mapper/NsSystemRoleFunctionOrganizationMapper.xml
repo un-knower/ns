@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemRoleFunctionOrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.system.entity.NsSystemRoleFunctionOrganization" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="ENTERPRISE_ID" property="enterpriseId" jdbcType="BIGINT" />
+    <result column="ROLEID" property="roleid" jdbcType="VARCHAR" />
+    <result column="FUNC_ID" property="funcId" jdbcType="VARCHAR" />
+    <result column="SEE_ORGANIZATION_ID" property="seeOrganizationId" jdbcType="BIGINT" />
+    <result column="SEE_SCOPE_TYPE" property="seeScopeType" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ENTERPRISE_ID, ROLEID, FUNC_ID, SEE_ORGANIZATION_ID, SEE_SCOPE_TYPE, 
+    create_user_id, create_time, update_user_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_role_function_organization
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.newsee.system.vo.NsSystemRoleFunctionOrganizationVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_role_function_organization
+    where 
+        1=1
+      <if test="id != null" >
+        and ID = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="enterpriseId != null" >
+        and ENTERPRISE_ID = #{enterpriseId,jdbcType=BIGINT}
+      </if>
+      <if test="roleid != null" >
+        and ROLEID = #{roleid,jdbcType=VARCHAR}
+      </if>
+      <if test="roleids != null" >
+        and ROLEID in 
+        <foreach item="item" collection="roleids" open="(" separator="," close=")">  
+                #{item}  
+        </foreach> 
+      </if>
+      <if test="funcId != null" >
+        and FUNC_ID = #{funcId,jdbcType=VARCHAR}
+      </if>
+      <if test="seeOrganizationId != null" >
+        and SEE_ORGANIZATION_ID = #{seeOrganizationId,jdbcType=BIGINT}
+      </if>
+      <if test="seeScopeType != null" >
+        and SEE_SCOPE_TYPE = #{seeScopeType,jdbcType=INTEGER}
+      </if>
+      <if test="createUserId != null" >
+        and create_user_id = #{createUserId,jdbcType=BIGINT}
+      </if>
+      <if test="updateUserId != null" >
+        and update_user_id = #{updateUserId,jdbcType=BIGINT}
+      </if>
+  </select>
+  
+  
+  <delete id="deleteByRoleId" parameterType="java.util.Map" >
+    delete from ns_system_role_function_organization
+    where 
+        1=1 
+     <if test="enterpriseId != null" >
+        and   ENTERPRISE_ID = #{enterpriseId,jdbcType=BIGINT}
+     </if>
+     <if test="roleid != null" >
+        and ROLEID = #{roleid,jdbcType=VARCHAR}
+     </if>
+     <if test="funcId != null" >
+        and FUNC_ID = #{funcId,jdbcType=VARCHAR}
+     </if>
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ns_system_role_function_organization
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.newsee.system.entity.NsSystemRoleFunctionOrganization" >
+    insert into ns_system_role_function_organization (ID, ENTERPRISE_ID, ROLEID, 
+      FUNC_ID, SEE_ORGANIZATION_ID, 
+      SEE_SCOPE_TYPE, create_user_id, create_time, 
+      update_user_id, update_time)
+    values (#{id,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{roleid,jdbcType=VARCHAR}, 
+      #{funcId,jdbcType=VARCHAR}, #{seeOrganizationId,jdbcType=BIGINT},
+      #{seeScopeType,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.system.entity.NsSystemRoleFunctionOrganization" >
+    insert into ns_system_role_function_organization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID,
+      </if>
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="funcId != null" >
+        FUNC_ID,
+      </if>
+      <if test="seeOrganizationId != null" >
+        SEE_ORGANIZATION_ID,
+      </if>
+      <if test="seeScopeType != null" >
+        SEE_SCOPE_TYPE,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="funcId != null" >
+        #{funcId,jdbcType=VARCHAR},
+      </if>
+      <if test="seeOrganizationId != null" >
+        #{seeOrganizationId,jdbcType=BIGINT},
+      </if>
+      <if test="seeScopeType != null" >
+        #{seeScopeType,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.system.entity.NsSystemRoleFunctionOrganization" >
+    update ns_system_role_function_organization
+    <set >
+      <if test="enterpriseId != null" >
+        ENTERPRISE_ID = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        ROLEID = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="funcId != null" >
+        FUNC_ID = #{funcId,jdbcType=VARCHAR},
+      </if>
+      <if test="seeOrganizationId != null" >
+        SEE_ORGANIZATION_ID = #{seeOrganizationId,jdbcType=BIGINT},
+      </if>
+      <if test="seeScopeType != null" >
+        SEE_SCOPE_TYPE = #{seeScopeType,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.system.entity.NsSystemRoleFunctionOrganization" >
+    update ns_system_role_function_organization
+    set ENTERPRISE_ID = #{enterpriseId,jdbcType=BIGINT},
+      ROLEID = #{roleid,jdbcType=VARCHAR},
+      FUNC_ID = #{funcId,jdbcType=VARCHAR},
+      SEE_ORGANIZATION_ID = #{seeOrganizationId,jdbcType=BIGINT},
+      SEE_SCOPE_TYPE = #{seeScopeType,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

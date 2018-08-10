@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.system.dao.NsSystemAreaMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.system.entity.NsSystemArea">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="parent_area_code" jdbcType="VARCHAR" property="parentAreaCode" />
+    <result column="area_level" jdbcType="CHAR" property="areaLevel" />
+    <result column="area_py" jdbcType="VARCHAR" property="areaPy" />
+    <result column="area_post_code" jdbcType="VARCHAR" property="areaPostCode" />
+    <result column="order_no" jdbcType="INTEGER" property="orderNo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, area_code, area_name, parent_area_code, area_level, area_py, area_post_code, 
+    order_no
+  </sql>
+  
+  <!-- 查询区域信息 -->
+  <select id="selectAreaInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ns_system_area
+    <where>
+        <if test="id != null">
+	        AND ID = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="areaCode != null and areaCode != ''">
+            AND area_code = #{areaCode,jdbcType=VARCHAR}
+        </if>
+        <if test="areaCodeList != null">
+            AND area_code IN
+            <foreach collection="areaCodeList" item="item" separator="," open="(" close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="parentAreaCode != null and parentAreaCode != ''">
+            AND parent_area_code = #{parentAreaCode,jdbcType=VARCHAR}
+        </if>
+        <if test="areaLevel != null">
+            AND area_level = #{areaLevel,jdbcType=CHAR}
+        </if>
+    </where>
+    ORDER BY parent_area_code, area_py
+  </select>
+  
+  <!-- 获取所有区域 -->
+  <select id="selectAllArea" resultMap="BaseResultMap">
+    SELECT area2.ID, area2.area_code, area2.area_name, area2.parent_area_code, area2.area_level
+    , area2.area_py, area2.area_post_code, area2.order_no
+    FROM ns_system_area AS area1
+    INNER JOIN ns_system_area AS area2 ON area2.parent_area_code = area1.area_code
+    ORDER BY area2.parent_area_code, area2.area_py
+  </select>
+  
+</mapper>

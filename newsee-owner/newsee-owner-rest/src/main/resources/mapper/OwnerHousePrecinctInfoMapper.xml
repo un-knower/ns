@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHousePrecinctInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHousePrecinctInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="pro_no" property="proNo" jdbcType="VARCHAR" />
+    <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="pro_short_name" property="proShortName" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="VARCHAR" />
+    <result column="street_id" property="streetId" jdbcType="VARCHAR" />
+    <result column="regional_info" property="regionalInfo" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="DECIMAL" />
+    <result column="lat" property="lat" jdbcType="DECIMAL" />
+    <result column="pro_nature" property="proNature" jdbcType="VARCHAR" />
+    <result column="pro_type_id" property="proTypeId" jdbcType="VARCHAR" />
+    <result column="performance_status" property="performanceStatus" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, pro_no, organization_id, pro_short_name, province_id, city_id, area_id, street_id, 
+    regional_info, address, lon, lat, pro_nature, pro_type_id, performance_status, 
+    remark, create_user_id, create_time, update_user_id, update_time,create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_precinct_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <select id="checkUniqueByName" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_precinct_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_precinct_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHousePrecinctInfo" >
+    insert into owner_house_precinct_info (house_id, pro_no, organization_id, 
+      pro_short_name, province_id, city_id, 
+      area_id, street_id, regional_info, 
+      address, lon, lat, 
+      pro_nature, pro_type_id, performance_status, 
+      remark, create_user_id, create_time, 
+      update_user_id, update_time,create_user_name, update_user_name)
+    values (#{houseId,jdbcType=BIGINT}, #{proNo,jdbcType=VARCHAR}, #{organizationId,jdbcType=BIGINT}, 
+      #{proShortName,jdbcType=VARCHAR}, #{provinceId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=VARCHAR}, #{streetId,jdbcType=VARCHAR}, #{regionalInfo,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{lon,jdbcType=DECIMAL}, #{lat,jdbcType=DECIMAL}, 
+      #{proNature,jdbcType=VARCHAR}, #{proTypeId,jdbcType=VARCHAR}, #{performanceStatus,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, now(),
+      #{createUserId,jdbcType=BIGINT}, now(),
+      #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctInfo" >
+    insert into owner_house_precinct_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="proNo != null" >
+        pro_no,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="proShortName != null" >
+        pro_short_name,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="streetId != null" >
+        street_id,
+      </if>
+      <if test="regionalInfo != null" >
+        regional_info,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="lon != null" >
+        lon,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="proNature != null" >
+        pro_nature,
+      </if>
+      <if test="proTypeId != null" >
+        pro_type_id,
+      </if>
+      <if test="performanceStatus != null" >
+        performance_status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="proNo != null" >
+        #{proNo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="proShortName != null" >
+        #{proShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="streetId != null" >
+        #{streetId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionalInfo != null" >
+        #{regionalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="proNature != null" >
+        #{proNature,jdbcType=VARCHAR},
+      </if>
+      <if test="proTypeId != null" >
+        #{proTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="performanceStatus != null" >
+        #{performanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHousePrecinctInfo" >
+    update owner_house_precinct_info
+    <set >
+      <if test="proNo != null" >
+        pro_no = #{proNo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="proShortName != null" >
+        pro_short_name = #{proShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="streetId != null" >
+        street_id = #{streetId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionalInfo != null" >
+        regional_info = #{regionalInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="proNature != null" >
+        pro_nature = #{proNature,jdbcType=VARCHAR},
+      </if>
+      <if test="proTypeId != null" >
+        pro_type_id = #{proTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="performanceStatus != null" >
+        performance_status = #{performanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now(),
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHousePrecinctInfo" >
+    update owner_house_precinct_info
+    set pro_no = #{proNo,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      pro_short_name = #{proShortName,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      street_id = #{streetId,jdbcType=VARCHAR},
+      regional_info = #{regionalInfo,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      lon = #{lon,jdbcType=DECIMAL},
+      lat = #{lat,jdbcType=DECIMAL},
+      pro_nature = #{proNature,jdbcType=VARCHAR},
+      pro_type_id = #{proTypeId,jdbcType=VARCHAR},
+      performance_status = #{performanceStatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <select id="loadHouseByShortName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.pro_no, info.organization_id, info.pro_short_name, info.province_id, info.city_id, info.area_id, info.street_id, 
+	    info.regional_info, info.address, info.lon, info.lat, info.pro_nature, info.pro_type_id, info.performance_status, 
+	    info.remark, info.create_user_id, info.create_time, info.update_user_id, info.update_time
+    from owner_house_precinct_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.pro_short_name = #{shortName,jdbcType=VARCHAR}
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=0 AND base.edit_status = 0
+    </where> 
+  </select>
+  <select id="loadHouseByNo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.pro_no, info.organization_id, info.pro_short_name, info.province_id, info.city_id, info.area_id, info.street_id, 
+        info.regional_info, info.address, info.lon, info.lat, info.pro_nature, info.pro_type_id, info.performance_status, 
+        info.remark, info.create_user_id, info.create_time, info.update_user_id, info.update_time
+    from owner_house_precinct_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.pro_no = #{no,jdbcType=VARCHAR}
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=0 AND base.edit_status = 0
+    </where> 
+  </select>
+</mapper>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossServiceMapper">
+
+	<resultMap id="NsSossServiceResultMap" type="com.newsee.soss.entity.NsSossService">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="code" column="code" jdbcType="VARCHAR"/>
+			<result property="serviceType" column="serviceType" jdbcType="VARCHAR"/>
+			<result property="status" column="status" jdbcType="VARCHAR"/>
+			<result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+			<result property="content" column="content" jdbcType="VARCHAR"/>
+			<result property="imageCode" column="imageCode" jdbcType="VARCHAR"/>
+			<result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+			<result property="enterpriseName" column="enterpriseName" jdbcType="VARCHAR"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+			<result property="createUserId" column="createUserID" jdbcType="BIGINT"/>
+			<result property="createUserName" column="createUserName" jdbcType="VARCHAR"/>
+			<result property="userEmail" column="userEmail" jdbcType="VARCHAR"/>
+			<result property="userPhone" column="userPhone" jdbcType="VARCHAR"/>
+			<result property="ratingScale" column="ratingScale" jdbcType="INTEGER"/>
+			<result property="servicePriority" column="servicePriority" jdbcType="VARCHAR"/>
+			<result property="expectDate" column="expectDate" jdbcType="DATE"/>
+			<result property="expectHandleUserID" column="expectHandleUserID" jdbcType="BIGINT"/>
+			<result property="expectHandleUserName" column="expectHandleUserName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossService_Column_List">
+		id,code,serviceType,status,isDelete,content,imageCode,enterpriseID,enterpriseName,remark,createTime,createUserID,createUserName
+		,userEmail, userPhone, ratingScale, servicePriority, expectHandleUserID, expectHandleUserName, expectDate
+	</sql>
+	
+	<!-- 统计 -->
+	<select id="selectStatisticalCount" parameterType="java.util.Map" resultType="java.util.HashMap">
+	   SELECT `status`, COUNT(1) AS count 
+	   FROM ns_soss_service 
+	   WHERE isDelete = 0 
+	   <if test="enterpriseId != null">
+		   AND enterpriseID = #{enterpriseId} 
+	   </if>
+	   <if test="createUserId != null">
+	       AND createUserID = #{createUserId}
+	   </if>
+	   GROUP BY `status`
+	</select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossServiceResultMap">
+		select
+			<include refid="NsSossService_Column_List" />
+		from
+			ns_soss_service
+		where
+			id = #{id}
+	</select>
+	
+	<!-- 列表查询 -->
+    <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSossServiceResultMap">
+        select 
+            <include refid="NsSossService_Column_List" />
+        from 
+           ns_soss_service
+        <where>
+            isDelete = 0
+            <if test="enterpriseId != null">
+                AND enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, enterpriseName)>0 
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldName != null and orderFieldName != ''">
+               order by ${orderFieldName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossService">
+		update ns_soss_service
+		<set>
+			<if test="code != null">
+			  code = #{code, jdbcType=VARCHAR },
+			</if>
+			<if test="serviceType != null">
+			  serviceType = #{serviceType, jdbcType=VARCHAR },
+			</if>
+			<if test="status != null">
+			  status = #{status, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelete != null">
+			  isDelete = #{isDelete, jdbcType=INTEGER },
+			</if>
+			<if test="content != null">
+			  content = #{content, jdbcType=VARCHAR },
+			</if>
+			<if test="imageCode != null">
+			  imageCode = #{imageCode, jdbcType=VARCHAR },
+			</if>
+			<if test="enterpriseId != null">
+			  enterpriseID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="enterpriseName != null">
+			  enterpriseName = #{enterpriseName, jdbcType=VARCHAR },
+			</if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  createTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="createUserId != null">
+			  createUserID = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  createUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="userEmail != null">
+                userEmail = #{userEmail, jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+                userPhone = #{userPhone, jdbcType=VARCHAR},
+            </if>
+            <if test="ratingScale != null">
+                ratingScale = #{ratingScale, jdbcType=INTEGER},
+            </if>
+            <if test="servicePriority != null">
+                servicePriority = #{servicePriority, jdbcType=VARCHAR},
+            </if>
+            <if test="expectDate != null">
+                expectDate = #{expectDate, jdbcType=DATE},
+            </if>
+            <if test="expectHandleUserID != null">
+                expectHandleUserID = #{expectHandleUserID, jdbcType=BIGINT},
+            </if>
+            <if test="expectHandleUserName != null">
+                expectHandleUserName = #{expectHandleUserName, jdbcType=VARCHAR},
+            </if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_service 
+		where
+			id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_service
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<update id="updateDelete" parameterType="java.util.Map">
+	   update ns_soss_service
+        <set>
+            isDelete = #{isDelete},
+            createTime = now(),
+        </set>
+        where
+        <choose>
+            <when test="idList != null">
+                id in
+		        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+		            ${item}
+		        </foreach>
+            </when>
+            <otherwise>id = #{id}</otherwise>
+        </choose>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossService">
+		insert into ns_soss_service
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				code,
+			</if>
+			<if test="serviceType != null">
+				serviceType,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="isDelete != null">
+				isDelete,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="imageCode != null">
+				imageCode,
+			</if>
+			<if test="enterpriseId != null">
+				enterpriseID,
+			</if>
+			<if test="enterpriseName != null">
+				enterpriseName,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+				createTime,
+			<if test="createUserId != null">
+				createUserID,
+			</if>
+			<if test="createUserName != null">
+				createUserName,
+			</if>
+			<if test="userEmail != null">
+                userEmail,
+            </if>
+            <if test="userPhone != null">
+                userPhone,
+            </if>
+            <if test="ratingScale != null">
+                ratingScale,
+            </if>
+            <if test="servicePriority != null">
+                servicePriority,
+            </if>
+            <if test="expectDate != null">
+                expectDate,
+            </if>
+            <if test="expectHandleUserID != null">
+                expectHandleUserID,
+            </if>
+            <if test="expectHandleUserName != null">
+                expectHandleUserName,
+            </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				#{code, jdbcType=VARCHAR},
+			</if>
+			<if test="serviceType != null">
+				#{serviceType, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete, jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content, jdbcType=VARCHAR},
+			</if>
+			<if test="imageCode != null">
+				#{imageCode, jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="enterpriseName != null">
+				#{enterpriseName, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+				now(),
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="userEmail != null">
+                #{userEmail, jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone, jdbcType=VARCHAR},
+            </if>
+            <if test="ratingScale != null">
+                #{ratingScale, jdbcType=INTEGER},
+            </if>
+            <if test="servicePriority != null">
+                #{servicePriority, jdbcType=VARCHAR},
+            </if>
+            <if test="expectDate != null">
+                #{expectDate, jdbcType=DATE},
+            </if>
+            <if test="expectHandleUserID != null">
+                #{expectHandleUserID, jdbcType=BIGINT},
+            </if>
+            <if test="expectHandleUserName != null">
+                #{expectHandleUserName, jdbcType=VARCHAR},
+            </if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_service
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			code,
+			serviceType,
+			status,
+			isDelete,
+			content,
+			imageCode,
+			enterpriseID,
+			enterpriseName,
+			remark,
+			createTime,
+			createUserID,
+			createUserName,
+			userEmail,
+			userPhone,
+			ratingScale,
+			servicePriority,
+            expectDate,
+            expectHandleUserID,
+            expectHandleUserName,			 
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.code, jdbcType=VARCHAR},
+			#{item.serviceType, jdbcType=VARCHAR},
+			#{item.status, jdbcType=VARCHAR},
+			#{item.isDelete, jdbcType=INTEGER},
+			#{item.content, jdbcType=VARCHAR},
+			#{item.imageCode, jdbcType=VARCHAR},
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.enterpriseName, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.userEmail, jdbcType=VARCHAR},
+			#{item.userPhone, jdbcType=VARCHAR},
+			#{item.ratingScale, jdbcType=INTEGER},
+			#{item.servicePriority, jdbcType=VARCHAR},
+			#{item.expectDate, jdbcType=DATE},
+            #{item.expectHandleUserID, jdbcType=BIGINT},
+            #{item.expectHandleUserName, jdbcType=VARCHAR},   
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreDictionaryitemMapper">
+
+	<resultMap id="NsCoreDictionaryitemResultMap" type="com.newsee.system.entity.NsCoreDictionaryitem">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="jeCoreDictionaryitemId" column="JE_CORE_DICTIONARYITEM_ID" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemDictionaryId" column="DICTIONARYITEM_DICTIONARY_ID" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemBackgroundcolor" column="DICTIONARYITEM_BACKGROUNDCOLOR" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemClassify" column="DICTIONARYITEM_CLASSIFY" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemFontcolor" column="DICTIONARYITEM_FONTCOLOR" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemIconcls" column="DICTIONARYITEM_ICONCLS" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemItemcode" column="DICTIONARYITEM_ITEMCODE" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemItemname" column="DICTIONARYITEM_ITEMNAME" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemItemnameEn" column="DICTIONARYITEM_ITEMNAME_EN" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemNodeinfo" column="DICTIONARYITEM_NODEINFO" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemNodeinfotype" column="DICTIONARYITEM_NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemRefphoto" column="DICTIONARYITEM_REFPHOTO" jdbcType="VARCHAR"/>
+			<result property="dictionaryitemTreeiconcls" column="DICTIONARYITEM_TREEICONCLS" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syLayer" column="SY_LAYER" jdbcType="INTEGER"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syNodetype" column="SY_NODETYPE" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syParent" column="SY_PARENT" jdbcType="VARCHAR"/>
+			<result property="syParentpath" column="SY_PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPath" column="SY_PATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="syTreeorderindex" column="SY_TREEORDERINDEX" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap id="NsCoreDictionaryitemVoResultMap" type="com.newsee.system.vo.NsCoreDictionaryitemVo">
+	        <id property="id" column="ID" jdbcType="BIGINT"/>
+            <result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+            <result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+            <result property="jeCoreDictionaryitemId" column="JE_CORE_DICTIONARYITEM_ID" jdbcType="VARCHAR"/>
+            <result property="dictionaryitemDictionaryId" column="DICTIONARYITEM_DICTIONARY_ID" jdbcType="VARCHAR"/>
+	        <result property="dictionaryitemDictionaryName" column="DICTIONARY_DDNAME" jdbcType="VARCHAR"/>
+	        <result property="dictionaryitemItemcode" column="DICTIONARYITEM_ITEMCODE" jdbcType="VARCHAR"/>
+            <result property="dictionaryitemItemname" column="DICTIONARYITEM_ITEMNAME" jdbcType="VARCHAR"/>
+            <result property="dictionaryitemItemnameEn" column="DICTIONARYITEM_ITEMNAME_EN" jdbcType="VARCHAR"/>
+            <result property="dictionaryitemNodeinfo" column="DICTIONARYITEM_NODEINFO" jdbcType="VARCHAR"/>
+            <result property="dictionaryitemNodeinfotype" column="DICTIONARYITEM_NODEINFOTYPE" jdbcType="VARCHAR"/>
+            <result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+            <result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreDictionaryitem_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,JE_CORE_DICTIONARYITEM_ID,DICTIONARYITEM_DICTIONARY_ID,DICTIONARYITEM_BACKGROUNDCOLOR,DICTIONARYITEM_CLASSIFY,DICTIONARYITEM_FONTCOLOR,DICTIONARYITEM_ICONCLS,DICTIONARYITEM_ITEMCODE,DICTIONARYITEM_ITEMNAME,DICTIONARYITEM_ITEMNAME_EN,DICTIONARYITEM_NODEINFO,DICTIONARYITEM_NODEINFOTYPE,DICTIONARYITEM_REFPHOTO,DICTIONARYITEM_TREEICONCLS,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_LAYER,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_NODETYPE,SY_ORDERINDEX,SY_PARENT,SY_PARENTPATH,SY_PATH,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS,SY_TREEORDERINDEX
+	</sql>
+	
+	<select id="findName" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemResultMap">
+		select
+			<include refid="NsCoreDictionaryitem_Column_List" />
+		from
+			ns_core_dictionaryitem
+		where
+			DICTIONARYITEM_DICTIONARY_ID =  #{dictionaryitemDictionaryId}
+			and DICTIONARYITEM_ITEMCODE = #{dictionaryitemItemcode}
+	</select>
+	
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreDictionaryitemResultMap">
+		select
+			<include refid="NsCoreDictionaryitem_Column_List" />
+		from
+			ns_core_dictionaryitem
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByDictionaryitemId" parameterType="java.lang.String" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+            JE_CORE_DICTIONARYITEM_ID = #{id}
+    </select>
+	
+	<select id="selectByDictionaryId" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+            (ORGANIZATION_ID = 0
+        <if test="organizationId != null">
+            or ORGANIZATION_ID = #{organizationId}
+        </if>)
+         and DICTIONARYITEM_DICTIONARY_ID = #{dictionaryId}
+         order by SY_ORDERINDEX
+    </select>
+    
+    <select id="checkOnlyCode" parameterType="com.newsee.system.entity.NsCoreDictionaryitem" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+            (ORGANIZATION_ID = 0
+        <if test="organizationId != null">
+            or ORGANIZATION_ID = #{organizationId}
+        </if>)
+         and DICTIONARYITEM_DICTIONARY_ID = #{dictionaryitemDictionaryId}
+         and DICTIONARYITEM_ITEMCODE = #{dictionaryitemItemcode, jdbcType=VARCHAR}
+         <if test="jeCoreDictionaryitemId != null and jeCoreDictionaryitemId != ''">
+            and JE_CORE_DICTIONARYITEM_ID != #{jeCoreDictionaryitemId}
+         </if>
+    </select>
+    
+    <select id="checkOnlyName" parameterType="com.newsee.system.entity.NsCoreDictionaryitem" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+            (ORGANIZATION_ID = 0
+        <if test="organizationId != null">
+            or ORGANIZATION_ID = #{organizationId}
+        </if>)
+         and DICTIONARYITEM_DICTIONARY_ID = #{dictionaryitemDictionaryId}
+         and DICTIONARYITEM_ITEMNAME = #{dictionaryitemItemname, jdbcType=VARCHAR}
+         <if test="jeCoreDictionaryitemId != null and jeCoreDictionaryitemId != ''">
+            and JE_CORE_DICTIONARYITEM_ID != #{jeCoreDictionaryitemId}
+         </if>
+    </select>
+    
+    <select id="listByDictionaryId" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+         (ORGANIZATION_ID = 0
+        <if test="organizationId != null">
+            or ORGANIZATION_ID = #{organizationId}
+        </if>)
+        and
+            DICTIONARYITEM_DICTIONARY_ID in 
+            <foreach collection="dictionaryList" item="item" open="(" separator="," close=")">
+                #{item.jeCoreDictionaryId}
+            </foreach>
+        order by SY_ORDERINDEX
+    </select>
+    
+    <select id="selectByDictionaryIdForSearch" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemResultMap">
+        select
+            <include refid="NsCoreDictionaryitem_Column_List" />
+        from
+            ns_core_dictionaryitem
+        where
+          (
+          ORGANIZATION_ID = 0
+          <if test="organizationId != null">
+            or ORGANIZATION_ID = #{organizationId}
+          </if>
+          )
+            and DICTIONARYITEM_DICTIONARY_ID = #{dictionaryId}
+            and LOCATE(#{dicName,jdbcType=VARCHAR}, DICTIONARYITEM_ITEMNAME)>0 
+    </select>
+    
+    <select id="listResultBySearch" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemVoResultMap">
+        select 
+            A.ID,A.ENTERPRISE_ID,A.ORGANIZATION_ID,A.JE_CORE_DICTIONARYITEM_ID,A.DICTIONARYITEM_DICTIONARY_ID,B.DICTIONARY_DDNAME,A.DICTIONARYITEM_ITEMCODE,
+            A.DICTIONARYITEM_ITEMNAME,A.DICTIONARYITEM_ITEMNAME_EN,A.DICTIONARYITEM_NODEINFO,A.DICTIONARYITEM_NODEINFOTYPE,A.SY_FLAG,A.SY_ORDERINDEX
+        from 
+           ns_core_dictionaryitem A 
+        left join 
+            ns_core_dictionary B
+         on  A.DICTIONARYITEM_DICTIONARY_ID = B.JE_CORE_DICTIONARY_ID
+           <if test="groupFlag == true">
+	           inner join (select DICTIONARY_GROUP_ID,JE_CORE_DICTIONARY_ID from ns_core_dictionary
+	           <where>
+	               <if test="dictionaryGroupId != null and dictionaryGroupId != ''">
+	                    DICTIONARY_GROUP_ID = #{dictionaryGroupId}
+	               </if>
+	           </where>
+	           ) dic on dic.JE_CORE_DICTIONARY_ID = A.DICTIONARYITEM_DICTIONARY_ID
+           </if>
+        <where>
+             (
+              A.ORGANIZATION_ID = 0
+             <if test="organizationId != null">
+                or A.ORGANIZATION_ID = #{organizationId,jdbcType=BIGINT}
+             </if>
+             )
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, DICTIONARYITEM_ITEMNAME)>0 
+            </if>
+            <if test="enterpriseId != null">
+                and A.ENTERPRISE_ID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="dictionaryitemDictionaryId != null and dictionaryitemDictionaryId != ''">
+                and A.DICTIONARYITEM_DICTIONARY_ID = #{dictionaryitemDictionaryId}
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldUnderLineName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldUnderLineName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+            <choose>
+                <when test="groupFlag == true">
+		            order by B.DICTIONARY_GROUP_ID,B.JE_CORE_DICTIONARY_ID
+		            <choose>
+		                <when test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+		                  <choose>
+		                      <when test="orderFieldUnderLineName == 'dictionaryitem_dictionary_name'">
+		                          , B.DICTIONARY_DDNAME
+		                      </when>
+		                      <otherwise>
+		                          , CONVERT(${orderFieldUnderLineName} USING gbk) 
+		                      </otherwise>
+		                  </choose>
+		                   <if test="orderBy != null and orderBy != ''">
+		                       ${orderBy}
+		                   </if>
+		                </when>
+		                <otherwise>
+		                   , A.SY_ORDERINDEX
+		                </otherwise>
+		            </choose>                                
+                </when>
+                <otherwise>
+                    <choose>
+                        <when test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+                          <!--  order by CONVERT(${orderFieldUnderLineName} USING gbk) -->
+                          <choose>
+                              <when test="orderFieldUnderLineName == 'dictionaryitem_dictionary_name'">
+                                 order by B.DICTIONARY_DDNAME
+                              </when>
+                              <otherwise>
+                                 order by CONVERT(${orderFieldUnderLineName} USING gbk)
+                              </otherwise>
+                          </choose>
+                           <if test="orderBy != null and orderBy != ''">
+                               ${orderBy}
+                           </if>
+                        </when>
+                        <otherwise>
+                           order by A.SY_ORDERINDEX
+                        </otherwise>
+                    </choose> 
+                </otherwise>
+            </choose>
+
+        </where>
+      </select>
+    <select id="listResultBySearchSelect" parameterType="java.util.Map" resultMap="NsCoreDictionaryitemVoResultMap">
+        select 
+            A.ID,A.ENTERPRISE_ID,A.ORGANIZATION_ID,A.JE_CORE_DICTIONARYITEM_ID,A.DICTIONARYITEM_DICTIONARY_ID,B.DICTIONARY_DDNAME,A.DICTIONARYITEM_ITEMCODE,
+            A.DICTIONARYITEM_ITEMNAME,A.DICTIONARYITEM_ITEMNAME_EN,A.DICTIONARYITEM_NODEINFO,A.DICTIONARYITEM_NODEINFOTYPE,A.SY_FLAG,A.SY_ORDERINDEX
+        from 
+           ns_core_dictionaryitem A 
+        left join 
+            ns_core_dictionary B
+         on  A.DICTIONARYITEM_DICTIONARY_ID = B.JE_CORE_DICTIONARY_ID
+      where A.DICTIONARYITEM_DICTIONARY_ID =#{dictionaryitemDictionaryId}
+        and  B.DICTIONARY_GROUP_ID = #{dictionaryGroupId}
+      </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreDictionaryitem">
+		update ns_core_dictionaryitem
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="jeCoreDictionaryitemId != null">
+			  JE_CORE_DICTIONARYITEM_ID = #{jeCoreDictionaryitemId, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemDictionaryId != null">
+			  DICTIONARYITEM_DICTIONARY_ID = #{dictionaryitemDictionaryId, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemBackgroundcolor != null">
+			  DICTIONARYITEM_BACKGROUNDCOLOR = #{dictionaryitemBackgroundcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemClassify != null">
+			  DICTIONARYITEM_CLASSIFY = #{dictionaryitemClassify, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemFontcolor != null">
+			  DICTIONARYITEM_FONTCOLOR = #{dictionaryitemFontcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemIconcls != null">
+			  DICTIONARYITEM_ICONCLS = #{dictionaryitemIconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemItemcode != null">
+			  DICTIONARYITEM_ITEMCODE = #{dictionaryitemItemcode, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemItemname != null">
+			  DICTIONARYITEM_ITEMNAME = #{dictionaryitemItemname, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemItemnameEn != null">
+			  DICTIONARYITEM_ITEMNAME_EN = #{dictionaryitemItemnameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemNodeinfo != null">
+			  DICTIONARYITEM_NODEINFO = #{dictionaryitemNodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemNodeinfotype != null">
+			  DICTIONARYITEM_NODEINFOTYPE = #{dictionaryitemNodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemRefphoto != null">
+			  DICTIONARYITEM_REFPHOTO = #{dictionaryitemRefphoto, jdbcType=VARCHAR },
+			</if>
+			<if test="dictionaryitemTreeiconcls != null">
+			  DICTIONARYITEM_TREEICONCLS = #{dictionaryitemTreeiconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syLayer != null">
+			  SY_LAYER = #{syLayer, jdbcType=INTEGER },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syNodetype != null">
+			  SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syParent != null">
+			  SY_PARENT = #{syParent, jdbcType=VARCHAR },
+			</if>
+			<if test="syParentpath != null">
+			  SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPath != null">
+			  SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="syTreeorderindex != null">
+			  SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<update id="updateByDictionaryitemId" parameterType="com.newsee.system.entity.NsCoreDictionaryitem">
+        update ns_core_dictionaryitem
+        <set>
+            <if test="enterpriseId != null">
+              ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+              ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="dictionaryitemDictionaryId != null">
+              DICTIONARYITEM_DICTIONARY_ID = #{dictionaryitemDictionaryId, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemBackgroundcolor != null">
+              DICTIONARYITEM_BACKGROUNDCOLOR = #{dictionaryitemBackgroundcolor, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemClassify != null">
+              DICTIONARYITEM_CLASSIFY = #{dictionaryitemClassify, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemFontcolor != null">
+              DICTIONARYITEM_FONTCOLOR = #{dictionaryitemFontcolor, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemIconcls != null">
+              DICTIONARYITEM_ICONCLS = #{dictionaryitemIconcls, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemItemcode != null">
+              DICTIONARYITEM_ITEMCODE = #{dictionaryitemItemcode, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemItemname != null">
+              DICTIONARYITEM_ITEMNAME = #{dictionaryitemItemname, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemItemnameEn != null">
+              DICTIONARYITEM_ITEMNAME_EN = #{dictionaryitemItemnameEn, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemNodeinfo != null">
+              DICTIONARYITEM_NODEINFO = #{dictionaryitemNodeinfo, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemNodeinfotype != null">
+              DICTIONARYITEM_NODEINFOTYPE = #{dictionaryitemNodeinfotype, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemRefphoto != null">
+              DICTIONARYITEM_REFPHOTO = #{dictionaryitemRefphoto, jdbcType=VARCHAR },
+            </if>
+            <if test="dictionaryitemTreeiconcls != null">
+              DICTIONARYITEM_TREEICONCLS = #{dictionaryitemTreeiconcls, jdbcType=VARCHAR },
+            </if>
+            <if test="syAudflag != null">
+              SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+            </if>
+            <if test="syCreateorg != null">
+              SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+            </if>
+            <if test="syCreateorgname != null">
+              SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+            </if>
+            <if test="syCreatetime != null">
+              SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+            </if>
+            <if test="syCreateuser != null">
+              SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+            </if>
+            <if test="syCreateusername != null">
+              SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+            </if>
+            <if test="syFlag != null">
+              SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+            </if>
+            <if test="syFormuploadfiles != null">
+              SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+            </if>
+            <if test="syLayer != null">
+              SY_LAYER = #{syLayer, jdbcType=INTEGER },
+            </if>
+            <if test="syModifyorg != null">
+              SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+            </if>
+            <if test="syModifyorgname != null">
+              SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+            </if>
+            <if test="syModifytime != null">
+              SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+            </if>
+            <if test="syModifyuser != null">
+              SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+            </if>
+            <if test="syModifyusername != null">
+              SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+            </if>
+            <if test="syNodetype != null">
+              SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+            </if>
+            <if test="syOrderindex != null">
+              SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+            </if>
+            <if test="syParent != null">
+              SY_PARENT = #{syParent, jdbcType=VARCHAR },
+            </if>
+            <if test="syParentpath != null">
+              SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+            </if>
+            <if test="syPath != null">
+              SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+            </if>
+            <if test="syPdid != null">
+              SY_PDID = #{syPdid, jdbcType=VARCHAR },
+            </if>
+            <if test="syPiid != null">
+              SY_PIID = #{syPiid, jdbcType=VARCHAR },
+            </if>
+            <if test="syPyjz != null">
+              SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+            </if>
+            <if test="syPyqc != null">
+              SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+            </if>
+            <if test="syStatus != null">
+              SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+            </if>
+            <if test="syTreeorderindex != null">
+              SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+            </if>
+        </set>
+        where
+            JE_CORE_DICTIONARYITEM_ID = #{jeCoreDictionaryitemId}
+    </update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_dictionaryitem 
+		where
+			ID = #{id}
+	</delete>
+	
+	<delete id="deleteByDictionaryitemId" parameterType="java.lang.String">
+        delete from ns_core_dictionaryitem 
+        where
+            JE_CORE_DICTIONARYITEM_ID = #{id}
+    </delete>
+    
+    <delete id="deleteByDictionaryId" parameterType="java.lang.String">
+        delete from ns_core_dictionaryitem 
+        where
+            DICTIONARYITEM_DICTIONARY_ID = #{id}
+    </delete>
+    
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_dictionaryitem
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreDictionaryitem">
+		insert into ns_core_dictionaryitem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="jeCoreDictionaryitemId != null">
+				JE_CORE_DICTIONARYITEM_ID,
+			</if>
+			<if test="dictionaryitemDictionaryId != null">
+				DICTIONARYITEM_DICTIONARY_ID,
+			</if>
+			<if test="dictionaryitemBackgroundcolor != null">
+				DICTIONARYITEM_BACKGROUNDCOLOR,
+			</if>
+			<if test="dictionaryitemClassify != null">
+				DICTIONARYITEM_CLASSIFY,
+			</if>
+			<if test="dictionaryitemFontcolor != null">
+				DICTIONARYITEM_FONTCOLOR,
+			</if>
+			<if test="dictionaryitemIconcls != null">
+				DICTIONARYITEM_ICONCLS,
+			</if>
+			<if test="dictionaryitemItemcode != null">
+				DICTIONARYITEM_ITEMCODE,
+			</if>
+			<if test="dictionaryitemItemname != null">
+				DICTIONARYITEM_ITEMNAME,
+			</if>
+			<if test="dictionaryitemItemnameEn != null">
+				DICTIONARYITEM_ITEMNAME_EN,
+			</if>
+			<if test="dictionaryitemNodeinfo != null">
+				DICTIONARYITEM_NODEINFO,
+			</if>
+			<if test="dictionaryitemNodeinfotype != null">
+				DICTIONARYITEM_NODEINFOTYPE,
+			</if>
+			<if test="dictionaryitemRefphoto != null">
+				DICTIONARYITEM_REFPHOTO,
+			</if>
+			<if test="dictionaryitemTreeiconcls != null">
+				DICTIONARYITEM_TREEICONCLS,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syLayer != null">
+				SY_LAYER,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syNodetype != null">
+				SY_NODETYPE,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syParent != null">
+				SY_PARENT,
+			</if>
+			<if test="syParentpath != null">
+				SY_PARENTPATH,
+			</if>
+			<if test="syPath != null">
+				SY_PATH,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="syTreeorderindex != null">
+				SY_TREEORDERINDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="jeCoreDictionaryitemId != null">
+				#{jeCoreDictionaryitemId, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemDictionaryId != null">
+				#{dictionaryitemDictionaryId, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemBackgroundcolor != null">
+				#{dictionaryitemBackgroundcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemClassify != null">
+				#{dictionaryitemClassify, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemFontcolor != null">
+				#{dictionaryitemFontcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemIconcls != null">
+				#{dictionaryitemIconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemItemcode != null">
+				#{dictionaryitemItemcode, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemItemname != null">
+				#{dictionaryitemItemname, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemItemnameEn != null">
+				#{dictionaryitemItemnameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemNodeinfo != null">
+				#{dictionaryitemNodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemNodeinfotype != null">
+				#{dictionaryitemNodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemRefphoto != null">
+				#{dictionaryitemRefphoto, jdbcType=VARCHAR},
+			</if>
+			<if test="dictionaryitemTreeiconcls != null">
+				#{dictionaryitemTreeiconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syLayer != null">
+				#{syLayer, jdbcType=INTEGER},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syNodetype != null">
+				#{syNodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syParent != null">
+				#{syParent, jdbcType=VARCHAR},
+			</if>
+			<if test="syParentpath != null">
+				#{syParentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPath != null">
+				#{syPath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="syTreeorderindex != null">
+				#{syTreeorderindex, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_dictionaryitem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			JE_CORE_DICTIONARYITEM_ID,
+			DICTIONARYITEM_DICTIONARY_ID,
+			DICTIONARYITEM_BACKGROUNDCOLOR,
+			DICTIONARYITEM_CLASSIFY,
+			DICTIONARYITEM_FONTCOLOR,
+			DICTIONARYITEM_ICONCLS,
+			DICTIONARYITEM_ITEMCODE,
+			DICTIONARYITEM_ITEMNAME,
+			DICTIONARYITEM_ITEMNAME_EN,
+			DICTIONARYITEM_NODEINFO,
+			DICTIONARYITEM_NODEINFOTYPE,
+			DICTIONARYITEM_REFPHOTO,
+			DICTIONARYITEM_TREEICONCLS,
+			SY_AUDFLAG,
+			SY_CREATEORG,
+			SY_CREATEORGNAME,
+			SY_CREATETIME,
+			SY_CREATEUSER,
+			SY_CREATEUSERNAME,
+			SY_FLAG,
+			SY_FORMUPLOADFILES,
+			SY_LAYER,
+			SY_MODIFYORG,
+			SY_MODIFYORGNAME,
+			SY_MODIFYTIME,
+			SY_MODIFYUSER,
+			SY_MODIFYUSERNAME,
+			SY_NODETYPE,
+			SY_ORDERINDEX,
+			SY_PARENT,
+			SY_PARENTPATH,
+			SY_PATH,
+			SY_PDID,
+			SY_PIID,
+			SY_PYJZ,
+			SY_PYQC,
+			SY_STATUS,
+			SY_TREEORDERINDEX,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.jeCoreDictionaryitemId, jdbcType=VARCHAR},
+			#{item.dictionaryitemDictionaryId, jdbcType=VARCHAR},
+			#{item.dictionaryitemBackgroundcolor, jdbcType=VARCHAR},
+			#{item.dictionaryitemClassify, jdbcType=VARCHAR},
+			#{item.dictionaryitemFontcolor, jdbcType=VARCHAR},
+			#{item.dictionaryitemIconcls, jdbcType=VARCHAR},
+			#{item.dictionaryitemItemcode, jdbcType=VARCHAR},
+			#{item.dictionaryitemItemname, jdbcType=VARCHAR},
+			#{item.dictionaryitemItemnameEn, jdbcType=VARCHAR},
+			#{item.dictionaryitemNodeinfo, jdbcType=VARCHAR},
+			#{item.dictionaryitemNodeinfotype, jdbcType=VARCHAR},
+			#{item.dictionaryitemRefphoto, jdbcType=VARCHAR},
+			#{item.dictionaryitemTreeiconcls, jdbcType=VARCHAR},
+			#{item.syAudflag, jdbcType=VARCHAR},
+			#{item.syCreateorg, jdbcType=VARCHAR},
+			#{item.syCreateorgname, jdbcType=VARCHAR},
+			#{item.syCreatetime, jdbcType=VARCHAR},
+			#{item.syCreateuser, jdbcType=VARCHAR},
+			#{item.syCreateusername, jdbcType=VARCHAR},
+			#{item.syFlag, jdbcType=VARCHAR},
+			#{item.syFormuploadfiles, jdbcType=VARCHAR},
+			#{item.syLayer, jdbcType=INTEGER},
+			#{item.syModifyorg, jdbcType=VARCHAR},
+			#{item.syModifyorgname, jdbcType=VARCHAR},
+			#{item.syModifytime, jdbcType=VARCHAR},
+			#{item.syModifyuser, jdbcType=VARCHAR},
+			#{item.syModifyusername, jdbcType=VARCHAR},
+			#{item.syNodetype, jdbcType=VARCHAR},
+			#{item.syOrderindex, jdbcType=INTEGER},
+			#{item.syParent, jdbcType=VARCHAR},
+			#{item.syParentpath, jdbcType=LONGVARCHAR},
+			#{item.syPath, jdbcType=LONGVARCHAR},
+			#{item.syPdid, jdbcType=VARCHAR},
+			#{item.syPiid, jdbcType=VARCHAR},
+			#{item.syPyjz, jdbcType=VARCHAR},
+			#{item.syPyqc, jdbcType=VARCHAR},
+			#{item.syStatus, jdbcType=VARCHAR},
+			#{item.syTreeorderindex, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossProductOrderProductMapper">
+
+	<resultMap id="NsSossProductOrderProductResultMap" type="com.newsee.soss.entity.NsSossProductOrderProduct">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="productOrderId" column="productOrderID" jdbcType="BIGINT"/>
+			<result property="productId" column="productID" jdbcType="BIGINT"/>
+			<result property="productName" column="productName" jdbcType="VARCHAR"/>
+			<result property="productType" column="productType" jdbcType="VARCHAR"/>
+			<result property="productCode" column="productCode" jdbcType="VARCHAR"/>
+			<result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+			<result property="imageCode" column="imageCode" jdbcType="VARCHAR"/>
+			<result property="iconCode" column="iconCode" jdbcType="VARCHAR"/>
+			<result property="content" column="content" jdbcType="VARCHAR"/>
+			<result property="price" column="price" jdbcType="DECIMAL"/>
+			<result property="priceUnit" column="priceUnit" jdbcType="VARCHAR"/>
+			<result property="serviceCount" column="serviceCount" jdbcType="INTEGER"/>
+			<result property="serviceArea" column="serviceArea" jdbcType="BIGINT"/>
+			<result property="serviceUrl" column="serviceUrl" jdbcType="VARCHAR"/>
+			<result property="discount" column="discount" jdbcType="INTEGER"/>
+			<result property="isTrial" column="isTrial" jdbcType="VARCHAR"/>
+			<result property="trialCycle" column="trialCycle" jdbcType="INTEGER"/>
+			<result property="serviceStatus" column="serviceStatus" jdbcType="VARCHAR"/>
+			<result property="serviceWork" column="serviceWork" jdbcType="VARCHAR"/>
+			<result property="startTime" column="startTime" jdbcType="DATE"/>
+			<result property="endTime" column="endTime" jdbcType="DATE"/>
+	</resultMap>
+	
+	<resultMap id="ProductOrderProductResultMap" type="com.newsee.soss.vo.ProductOrderVo">
+            <!-- 产品 -->
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="productOrderId" column="productOrderID" jdbcType="BIGINT"/>             
+            <result property="productName" column="productName" jdbcType="VARCHAR"/>
+            <result property="productType" column="productType" jdbcType="VARCHAR"/>
+            <result property="serviceUrl" column="serviceUrl" jdbcType="VARCHAR"/>
+            <result property="isTrial" column="isTrial" jdbcType="VARCHAR"/>
+            <result property="trialCycle" column="trialCycle" jdbcType="INTEGER"/>
+            <result property="serviceStatus" column="serviceStatus" jdbcType="VARCHAR"/>
+            <result property="serviceWork" column="serviceWork" jdbcType="VARCHAR"/>
+            <result property="startTime" column="startTime" jdbcType="DATE"/>
+            <result property="endTime" column="endTime" jdbcType="DATE"/>            
+	       <!-- 订单 -->
+            <result property="orderCode" column="orderCode" jdbcType="VARCHAR"/>
+            <result property="enterpriseId" column="enterpriseID" jdbcType="BIGINT"/>
+            <result property="enterpriseName" column="enterpriseName" jdbcType="VARCHAR"/>
+            <result property="payMoney" column="payMoney" jdbcType="BIGINT"/>
+            <result property="payTime" column="payTime" jdbcType="TIMESTAMP"/>
+            <result property="payStatus" column="payStatus" jdbcType="VARCHAR"/>          
+            <result property="serviceTotalCount" column="serviceTotalCount" jdbcType="INTEGER"/>
+            <result property="serviceTotalArea" column="serviceTotalArea" jdbcType="BIGINT"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="createUserId" column="createUserID" jdbcType="BIGINT"/>
+            <result property="createUserName" column="createUserName" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="updateUserId" column="updateUserID" jdbcType="BIGINT"/>
+            <result property="updateUserName" column="updateUserName" jdbcType="VARCHAR"/>
+    </resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossProductOrderProduct_Column_List">
+		id,productOrderID,productID,productName,productType,productCode,introduce,imageCode,iconCode,content,price,priceUnit,serviceCount,serviceArea,serviceUrl,discount,isTrial,trialCycle,serviceStatus,serviceWork,startTime,endTime
+	</sql>
+	
+	<sql id="Product_Order_Product_Column_List">
+	   p_order.orderCode, p_order.enterpriseID, p_order.enterpriseName, p_order.payMoney, p_order.payTime, p_order.payStatus
+		, p_order.serviceTotalCount, p_order.serviceTotalArea, p_order.remark, p_order.createTime, p_order.createUserID, p_order.createUserName
+		, p_order.updateTime, p_order.updateUserID, p_order.updateUserName
+		, p_order.id, pop.productOrderID, pop.productName, pop.productType, pop.serviceUrl, pop.isTrial, pop.trialCycle
+		, pop.serviceStatus, pop.serviceWork, pop.startTime, pop.endTime
+	</sql>
+	
+	<!-- 列表查询 -->
+    <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="ProductOrderProductResultMap">
+        SELECT
+            <include refid="Product_Order_Product_Column_List" />
+        FROM ns_soss_productOrder_product AS pop
+        INNER JOIN ns_soss_productOrder AS p_order ON p_order.id = pop.productOrderID and p_order.isDelete =0
+        <where>
+            <if test="enterpriseId != null">
+                AND p_order.enterpriseID = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, p_order.enterpriseName)>0 
+            </if>
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                   <choose>
+                       <when test="item.comparison != null and item.comparison == 'NULL'">
+                           and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                           and (${item.fieldName} IS NOT NULL or ${item.fieldName} != '')
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})=0 
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LIKE'">
+                           and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                           and ${item.fieldName} &gt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                           and ${item.fieldName} &lt; #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'EQUAL'">
+                           and ${item.fieldName} = #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                           and ${item.fieldName} != #{item.fieldValue}
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                           and ${item.fieldName} &gt;= #{item.fieldValue}               
+                       </when>
+                       <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                           and ${item.fieldName} &lt;= #{item.fieldValue}
+                       </when>
+                   </choose>
+                </foreach>
+            </if>
+    
+            <if test="orderFieldName != null and orderFieldName != ''">
+               order by ${orderFieldName}
+               <if test="orderBy != null and orderBy != ''">
+                   ${orderBy}
+               </if>
+            </if>
+        </where>
+      </select>
+    
+    <!-- 获取订单产品数据 -->
+    <select id="selectOrderProducts" parameterType="java.util.Map" resultMap="NsSossProductOrderProductResultMap">
+        SELECT
+            <include refid="NsSossProductOrderProduct_Column_List" />
+        FROM ns_soss_productOrder_product
+        <where>
+            <if test="productOrderId != null">
+                AND productOrderID = #{productOrderId}
+            </if>
+            <if test="productOrderIdList != null">
+                AND productOrderID IN 
+                <foreach collection="productOrderIdList" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="productId != null">
+                AND productID = #{productId}
+            </if>
+            <if test="productName != null">
+                AND productName LIKE CONCAT('%',#{productName},'%')
+            </if>
+            <if test="productType != null">
+                AND productType = #{productType}
+            </if>
+            <if test="serviceStatus != null">
+                AND serviceStatus = #{serviceStatus}
+            </if>
+            <if test="serviceStatusIn != null and serviceStatusIn != ''">
+                AND serviceStatus IN (${serviceStatusIn})
+            </if>
+            <if test="handleTime != null">
+                AND #{handleTime} BETWEEN startTime AND endTime
+            </if>
+            <if test="startTime">
+                AND startTime &gt; #{startTime}
+            </if>
+            <if test="endTime">
+                AND endTime &lt; #{endTime}
+            </if>
+        </where>
+        ORDER BY serviceStatus
+    </select>	
+    
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossProductOrderProductResultMap">
+		select
+			<include refid="NsSossProductOrderProduct_Column_List" />
+		from
+			ns_soss_productOrder_product
+		where
+			id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossProductOrderProduct">
+		update ns_soss_productOrder_product
+		<set>
+			<if test="productOrderId != null">
+			  productOrderID = #{productOrderId, jdbcType=BIGINT },
+			</if>
+			<if test="productId != null">
+			  productID = #{productId, jdbcType=BIGINT },
+			</if>
+			<if test="productName != null">
+			  productName = #{productName, jdbcType=VARCHAR },
+			</if>
+			<if test="productType != null">
+			  productType = #{productType, jdbcType=VARCHAR },
+			</if>
+			<if test="productCode != null">
+			  productCode = #{productCode, jdbcType=VARCHAR },
+			</if>
+			<if test="introduce != null">
+			  introduce = #{introduce, jdbcType=VARCHAR },
+			</if>
+			<if test="imageCode != null">
+			  imageCode = #{imageCode, jdbcType=VARCHAR },
+			</if>
+			<if test="iconCode != null">
+			  iconCode = #{iconCode, jdbcType=VARCHAR },
+			</if>
+			<if test="content != null">
+			  content = #{content, jdbcType=VARCHAR },
+			</if>
+			<if test="price != null">
+			  price = #{price, jdbcType=DECIMAL},
+			</if>
+			<if test="priceUnit != null">
+			  priceUnit = #{priceUnit, jdbcType=VARCHAR },
+			</if>
+			<if test="serviceCount != null">
+			  serviceCount = #{serviceCount, jdbcType=INTEGER },
+			</if>
+			<if test="serviceArea != null">
+			  serviceArea = #{serviceArea, jdbcType=BIGINT },
+			</if>
+			<if test="serviceUrl != null">
+			  serviceUrl = #{serviceUrl, jdbcType=VARCHAR },
+			</if>
+			<if test="discount != null">
+			  discount = #{discount, jdbcType=INTEGER },
+			</if>
+			<if test="isTrial != null">
+			  isTrial = #{isTrial, jdbcType=VARCHAR },
+			</if>
+			<if test="trialCycle != null">
+			  trialCycle = #{trialCycle, jdbcType=INTEGER },
+			</if>
+			<if test="serviceStatus != null">
+			  serviceStatus = #{serviceStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="serviceWork != null">
+			  serviceWork = #{serviceWork, jdbcType=VARCHAR },
+			</if>
+			<if test="startTime != null">
+			  startTime = #{startTime, jdbcType=DATE },
+			</if>
+			<if test="endTime != null">
+			  endTime = #{endTime, jdbcType=DATE },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_productOrder_product 
+		where
+			id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_productOrder_product
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<!-- 更新过期订单产品状态 -->
+	<update id="updateExprireProduct" parameterType="java.util.Map">
+	   UPDATE ns_soss_productOrder_product 
+	   <set>
+	   <if test="serviceStatus != null">
+	       serviceStatus = #{serviceStatus}, 
+	   </if>
+	   <if test="serviceWork != null">
+	       serviceWork = #{serviceWork}
+	   </if>
+	   </set>
+        <where>
+            serviceStatus &lt; 3
+	        <if test="expire != null">
+		       AND endTime &gt; NOW()
+	        </if>
+	        <if test="idList != null">
+	            AND id IN 
+	            <foreach collection="idList" item="item" separator="," open="(" close=")">
+	                #{item}
+	            </foreach>
+	        </if>        
+        </where>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossProductOrderProduct">
+		insert into ns_soss_productOrder_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productOrderId != null">
+				productOrderID,
+			</if>
+			<if test="productId != null">
+				productID,
+			</if>
+			<if test="productName != null">
+				productName,
+			</if>
+			<if test="productType != null">
+				productType,
+			</if>
+			<if test="productCode != null">
+				productCode,
+			</if>
+			<if test="introduce != null">
+				introduce,
+			</if>
+			<if test="imageCode != null">
+				imageCode,
+			</if>
+			<if test="iconCode != null">
+				iconCode,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="priceUnit != null">
+				priceUnit,
+			</if>
+			<if test="serviceCount != null">
+				serviceCount,
+			</if>
+			<if test="serviceArea != null">
+				serviceArea,
+			</if>
+			<if test="serviceUrl != null">
+				serviceUrl,
+			</if>
+			<if test="discount != null">
+				discount,
+			</if>
+			<if test="isTrial != null">
+				isTrial,
+			</if>
+			<if test="trialCycle != null">
+				trialCycle,
+			</if>
+			<if test="serviceStatus != null">
+				serviceStatus,
+			</if>
+			<if test="serviceWork != null">
+				serviceWork,
+			</if>
+			<if test="startTime != null">
+				startTime,
+			</if>
+			<if test="endTime != null">
+				endTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="productOrderId != null">
+				#{productOrderId, jdbcType=BIGINT},
+			</if>
+			<if test="productId != null">
+				#{productId, jdbcType=BIGINT},
+			</if>
+			<if test="productName != null">
+				#{productName, jdbcType=VARCHAR},
+			</if>
+			<if test="productType != null">
+				#{productType, jdbcType=VARCHAR},
+			</if>
+			<if test="productCode != null">
+				#{productCode, jdbcType=VARCHAR},
+			</if>
+			<if test="introduce != null">
+				#{introduce, jdbcType=VARCHAR},
+			</if>
+			<if test="imageCode != null">
+				#{imageCode, jdbcType=VARCHAR},
+			</if>
+			<if test="iconCode != null">
+				#{iconCode, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content, jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price, jdbcType=DECIMAL},
+			</if>
+			<if test="priceUnit != null">
+				#{priceUnit, jdbcType=VARCHAR},
+			</if>
+			<if test="serviceCount != null">
+				#{serviceCount, jdbcType=INTEGER},
+			</if>
+			<if test="serviceArea != null">
+				#{serviceArea, jdbcType=BIGINT},
+			</if>
+			<if test="serviceUrl != null">
+				#{serviceUrl, jdbcType=VARCHAR},
+			</if>
+			<if test="discount != null">
+				#{discount, jdbcType=INTEGER},
+			</if>
+			<if test="isTrial != null">
+				#{isTrial, jdbcType=VARCHAR},
+			</if>
+			<if test="trialCycle != null">
+				#{trialCycle, jdbcType=INTEGER},
+			</if>
+			<if test="serviceStatus != null">
+				#{serviceStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="serviceWork != null">
+				#{serviceWork, jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime, jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				#{endTime, jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_productOrder_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			productOrderID,
+			productID,
+			productName,
+			productType,
+			productCode,
+			introduce,
+			imageCode,
+			iconCode,
+			content,
+			price,
+			priceUnit,
+			serviceCount,
+			serviceArea,
+			serviceUrl,
+			discount,
+			isTrial,
+			trialCycle,
+			serviceStatus,
+			serviceWork,
+			startTime,
+			endTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.productOrderId, jdbcType=BIGINT},
+			#{item.productId, jdbcType=BIGINT},
+			#{item.productName, jdbcType=VARCHAR},
+			#{item.productType, jdbcType=VARCHAR},
+			#{item.productCode, jdbcType=VARCHAR},
+			#{item.introduce, jdbcType=VARCHAR},
+			#{item.imageCode, jdbcType=VARCHAR},
+			#{item.iconCode, jdbcType=VARCHAR},
+			#{item.content, jdbcType=VARCHAR},
+			#{item.price, jdbcType=DECIMAL},
+			#{item.priceUnit, jdbcType=VARCHAR},
+			#{item.serviceCount, jdbcType=INTEGER},
+			#{item.serviceArea, jdbcType=BIGINT},
+			#{item.serviceUrl, jdbcType=VARCHAR},
+			#{item.discount, jdbcType=INTEGER},
+			#{item.isTrial, jdbcType=VARCHAR},
+			#{item.trialCycle, jdbcType=INTEGER},
+			#{item.serviceStatus, jdbcType=VARCHAR},
+			#{item.serviceWork, jdbcType=VARCHAR},
+			#{item.startTime, jdbcType=DATE},
+			#{item.endTime, jdbcType=DATE},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

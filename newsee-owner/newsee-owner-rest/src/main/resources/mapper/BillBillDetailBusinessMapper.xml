@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.BillBillDetailBusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.BillBillDetailBusiness" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="TableName" property="tablename" jdbcType="VARCHAR" />
+    <result column="BillDetailID" property="billdetailid" jdbcType="BIGINT" />
+    <result column="BusinessID" property="businessid" jdbcType="BIGINT" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="IsUsed" property="isused" jdbcType="VARCHAR" />
+    <result column="IsCanceled" property="iscanceled" jdbcType="INTEGER" />
+    <result column="ImportBatchID" property="importbatchid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TableName, BillDetailID, BusinessID, Remark, IsUsed, IsCanceled, ImportBatchID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Bill_BillDetailBusiness
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Bill_BillDetailBusiness
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.BillBillDetailBusiness" >
+    insert into Bill_BillDetailBusiness (ID, TableName, BillDetailID, 
+      BusinessID, Remark, IsUsed, 
+      IsCanceled, ImportBatchID)
+    values (#{id,jdbcType=BIGINT}, #{tablename,jdbcType=VARCHAR}, #{billdetailid,jdbcType=BIGINT}, 
+      #{businessid,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{isused,jdbcType=VARCHAR}, 
+      #{iscanceled,jdbcType=INTEGER}, #{importbatchid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.BillBillDetailBusiness" >
+    insert into Bill_BillDetailBusiness
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="tablename != null" >
+        TableName,
+      </if>
+      <if test="billdetailid != null" >
+        BillDetailID,
+      </if>
+      <if test="businessid != null" >
+        BusinessID,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="isused != null" >
+        IsUsed,
+      </if>
+      <if test="iscanceled != null" >
+        IsCanceled,
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tablename != null" >
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="billdetailid != null" >
+        #{billdetailid,jdbcType=BIGINT},
+      </if>
+      <if test="businessid != null" >
+        #{businessid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isused != null" >
+        #{isused,jdbcType=VARCHAR},
+      </if>
+      <if test="iscanceled != null" >
+        #{iscanceled,jdbcType=INTEGER},
+      </if>
+      <if test="importbatchid != null" >
+        #{importbatchid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.BillBillDetailBusiness" >
+    update Bill_BillDetailBusiness
+    <set >
+      <if test="tablename != null" >
+        TableName = #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="billdetailid != null" >
+        BillDetailID = #{billdetailid,jdbcType=BIGINT},
+      </if>
+      <if test="businessid != null" >
+        BusinessID = #{businessid,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isused != null" >
+        IsUsed = #{isused,jdbcType=VARCHAR},
+      </if>
+      <if test="iscanceled != null" >
+        IsCanceled = #{iscanceled,jdbcType=INTEGER},
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.BillBillDetailBusiness" >
+    update Bill_BillDetailBusiness
+    set TableName = #{tablename,jdbcType=VARCHAR},
+      BillDetailID = #{billdetailid,jdbcType=BIGINT},
+      BusinessID = #{businessid,jdbcType=BIGINT},
+      Remark = #{remark,jdbcType=VARCHAR},
+      IsUsed = #{isused,jdbcType=VARCHAR},
+      IsCanceled = #{iscanceled,jdbcType=INTEGER},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

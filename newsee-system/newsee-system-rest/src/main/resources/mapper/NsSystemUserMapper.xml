@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemUserMapper">
+
+	<resultMap id="NsSystemUserResultMap" type="com.newsee.common.entity.NsSystemUser">
+			<id property="userId" column="user_id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="organizationId" column="organization_id" jdbcType="BIGINT"/>
+			<result property="groupId" column="group_id" jdbcType="BIGINT"/>
+			<result property="companyId" column="company_id" jdbcType="BIGINT"/>
+			<result property="departmentId" column="department_id" jdbcType="BIGINT"/>
+			<result property="sentryId" column="sentry_id" jdbcType="VARCHAR"/>
+			<result property="positionId" column="position_id" jdbcType="BIGINT"/>
+			<result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+			<result property="organizationShortName" column="organization_short_name" jdbcType="VARCHAR"/>
+			<result property="userName" column="user_name" jdbcType="VARCHAR"/>
+			<result property="userSex" column="user_sex" jdbcType="VARCHAR"/>
+			<result property="userAge" column="user_age" jdbcType="INTEGER"/>
+			<result property="userAccount" column="user_account" jdbcType="CHAR"/>
+			<result property="userTelephone" column="user_telephone" jdbcType="CHAR"/>
+			<result property="userPassword" column="user_password" jdbcType="VARCHAR"/>
+			<result property="userBirthday" column="user_birthday" jdbcType="TIMESTAMP"/>
+			<result property="userHiredate" column="user_hiredate" jdbcType="TIMESTAMP"/>
+			<result property="userState" column="user_state" jdbcType="VARCHAR"/>
+			<result property="userType" column="user_type" jdbcType="TINYINT"/>
+			<result property="userCertificateType" column="user_certificate_type" jdbcType="VARCHAR"/>
+			<result property="userCertificateNumber" column="user_certificate_number" jdbcType="VARCHAR"/>
+			<result property="userPicurl" column="user_picurl" jdbcType="VARCHAR"/>
+			<result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+			<result property="isActived" column="is_actived" jdbcType="VARCHAR"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+			<result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+			<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+			<result property="userCount" column="userCount" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSystemUser_Column_List">
+		user_id,enterprise_id,organization_id,group_id,company_id,department_id,sentry_id,position_id,organization_name,organization_short_name,user_name,user_sex,user_age,user_account,user_telephone,user_password,user_birthday,user_hiredate,user_state,user_type,user_certificate_type,user_certificate_number,user_picurl,is_deleted,is_actived,remark,create_user_id,create_user_name,create_time,update_user_id,update_user_name,update_time
+	</sql>
+	
+	<!-- 获取企业下员工数量 -->
+	<select id="selectUserCountByEnterprise" parameterType="java.util.List" resultMap="NsSystemUserResultMap">
+	   SELECT enterprise_id, COUNT(user_id) AS userCount FROM ns_system_user 
+	       WHERE user_state = 0 AND is_deleted = 0 
+	       <if test="list != null">
+		       AND enterprise_id IN
+		       <foreach collection="list" item="item" separator="," open="(" close=")">
+		          #{item,jdbcType=BIGINT}
+		       </foreach>
+	       </if>
+	       GROUP BY enterprise_id
+	</select>
+	
+	<!-- 获取员工信息 -->
+	<select id="selectUserInfo" parameterType="java.util.Map" resultMap="NsSystemUserResultMap">
+	   SELECT user_id, enterprise_id, organization_id, group_id, company_id, department_id, sentry_id, position_id,organization_name,organization_short_name,
+	       user_name, user_sex, user_age, user_account, user_telephone, user_state, user_type, user_certificate_number, is_deleted,is_actived
+	   FROM ns_system_user
+	   <where>
+	       <if test="isDelete != null">
+	           AND is_deleted = #{isDelete}
+	       </if>
+	       <if test="userState != null">
+	           AND user_state = #{userState}
+	       </if>
+		   <if test="enterpriseIdList != null">
+		      AND enterprise_id IN
+               <foreach collection="enterpriseIdList" item="item" separator="," open="(" close=")">
+                  #{item,jdbcType=BIGINT}
+               </foreach>
+		   </if>
+	       <if test="userIdList != null">
+                AND user_id IN
+               <foreach collection="userIdList" item="item" separator="," open="(" close=")">
+                  #{item,jdbcType=BIGINT}
+               </foreach>
+           </if>
+           <if test="userPhone != null and userPhone != ''">
+                AND user_telephone = #{userPhone}
+           </if>
+	   </where>
+	</select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSystemUserResultMap">
+		select
+			<include refid="NsSystemUser_Column_List" />
+		from
+			ns_system_user
+		where
+			user_id = #{userId}
+	</select>
+	
+	<select id="checkOnlyUser" parameterType="java.util.Map" resultMap="NsSystemUserResultMap">
+        select
+            <include refid="NsSystemUser_Column_List" />
+        from
+            ns_system_user
+        where
+            user_account = #{userAccount} and enterprise_id = #{enterpriseId} and is_deleted = 0
+            <if test="userId != null">
+                and user_id != #{userId}
+            </if>
+    </select>
+    
+	<select id="selectByIds" parameterType="java.util.List" resultMap="NsSystemUserResultMap">
+        select
+            <include refid="NsSystemUser_Column_List" />
+        from
+            ns_system_user
+        where
+            user_id 
+        in
+            <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+    </select>
+	
+	<select id="selectByOrganizationId" parameterType="java.lang.Long" resultMap="NsSystemUserResultMap">
+        select
+            <include refid="NsSystemUser_Column_List" />
+        from
+            ns_system_user
+        where
+            is_deleted = 0
+        and
+            organization_id = #{id}
+    </select>
+    
+    <select id="listUserSearch" parameterType="java.util.Map" resultMap="NsSystemUserResultMap">
+        select
+            <include refid="NsSystemUser_Column_List" />
+        from
+            ns_system_user
+        where
+            is_deleted = 0
+        AND 
+           enterprise_id = #{enterpriseId}
+           <if test="organizationId != null">
+                AND organization_id = #{organizationId}
+           </if>
+        AND 
+           LOCATE(#{userName},user_name) > 0
+    </select>
+    
+      <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="NsSystemUserResultMap">
+	    select 
+	        <include refid="NsSystemUser_Column_List" />
+	    from 
+	       ns_system_user
+	    <where>
+	        is_deleted = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and (LOCATE(#{mainSearch,jdbcType=VARCHAR},user_name) > 0
+                    or LOCATE(#{mainSearch,jdbcType=VARCHAR},user_account) > 0
+                    or LOCATE(#{mainSearch,jdbcType=VARCHAR},user_telephone) > 0)
+	        </if>
+	        <if test="enterpriseId != null">
+	            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	       <!--  <if test="organizationId != null">
+	            and organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if> -->
+	        <if test="organizationIdList != null">
+	           and organization_id in
+                  <foreach collection="organizationIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                  </foreach>
+            </if>
+            <if test="seeUserId != null">   
+                and create_user_id = #{seeUserId}
+            </if>
+            <if test="seeOrganizationIdList != null">
+                and organization_id in 
+                <foreach item="item" collection="seeOrganizationIdList" open="(" separator="," close=")">  
+                    #{item}  
+                </foreach>  
+            </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and ${item.fieldUnderLineName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and ${item.fieldUnderLineName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <choose>
+	           <when test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	               order by ${orderFieldUnderLineName}
+	               <if test="orderBy != null and orderBy != ''">
+	                   ${orderBy}
+	               </if>
+	           </when>
+	           <otherwise>order by organization_short_name asc, user_state DESC,user_name asc</otherwise>
+            </choose>
+	    </where>
+	  </select>
+	<update id="updateByIdSelective" parameterType="com.newsee.common.entity.NsSystemUser">
+        update ns_system_user
+        <set>
+            <if test="enterpriseId != null">
+              enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+              organization_id = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="groupId != null">
+              group_id = #{groupId, jdbcType=BIGINT },
+            </if>
+            <if test="companyId != null">
+              company_id = #{companyId, jdbcType=BIGINT },
+            </if>
+            <if test="departmentId != null">
+              department_id = #{departmentId, jdbcType=BIGINT },
+            </if>
+            <if test="sentryId != null">
+              sentry_id = #{sentryId, jdbcType=VARCHAR },
+            </if>
+            <if test="positionId != null">
+              position_id = #{positionId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationName != null">
+              organization_name = #{organizationName, jdbcType=VARCHAR },
+            </if>
+            <if test="organizationShortName != null">
+              organization_short_name = #{organizationShortName, jdbcType=VARCHAR },
+            </if>
+            <if test="userName != null">
+              user_name = #{userName, jdbcType=VARCHAR },
+            </if>
+            <if test="userSex != null">
+              user_sex = #{userSex, jdbcType=VARCHAR },
+            </if>
+            <if test="userAge != null">
+              user_age = #{userAge, jdbcType=INTEGER },
+            </if>
+            <if test="userAccount != null">
+              user_account = #{userAccount, jdbcType=CHAR },
+            </if>
+            <if test="userTelephone != null">
+              user_telephone = #{userTelephone, jdbcType=CHAR },
+            </if>
+            <if test="userPassword != null">
+              user_password = #{userPassword, jdbcType=VARCHAR },
+            </if>
+            <if test="userBirthday != null">
+              user_birthday = #{userBirthday, jdbcType=TIMESTAMP },
+            </if>
+            <if test="userHiredate != null">
+              user_hiredate = #{userHiredate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="userState != null">
+              user_state = #{userState, jdbcType=VARCHAR },
+            </if>
+            <if test="userType != null">
+              user_type = #{userType, jdbcType=VARCHAR },
+            </if>
+            <if test="userCertificateType != null">
+              user_certificate_type = #{userCertificateType, jdbcType=VARCHAR },
+            </if>
+            <if test="userCertificateNumber != null">
+              user_certificate_number = #{userCertificateNumber, jdbcType=VARCHAR },
+            </if>
+            <if test="userPicurl != null">
+              user_picurl = #{userPicurl, jdbcType=VARCHAR },
+            </if>
+            <if test="isDeleted != null">
+              is_deleted = #{isDeleted, jdbcType=TINYINT },
+            </if>
+            <if test="isActived != null">
+              is_actived = #{isActived, jdbcType=VARCHAR },
+            </if>
+            <if test="remark != null">
+              remark = #{remark, jdbcType=VARCHAR },
+            </if>
+            <if test="createUserId != null">
+              create_user_id = #{createUserId, jdbcType=BIGINT },
+            </if>
+            <if test="createUserName != null">
+              create_user_name = #{createUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="createTime != null">
+              create_time = #{createTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="updateUserId != null">
+              update_user_id = #{updateUserId, jdbcType=BIGINT },
+            </if>
+            <if test="updateUserName != null">
+              update_user_name = #{updateUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="updateTime != null">
+              update_time = #{updateTime, jdbcType=TIMESTAMP },
+            </if>
+        </set>
+        where
+            user_id = #{userId}
+    </update>
+    
+    <update id="updateOrgNameByOrgId" parameterType="com.newsee.common.entity.NsSystemUser">
+        update ns_system_user
+        <set>
+            organization_name = #{organizationName, jdbcType=VARCHAR },
+            organization_short_name = #{organizationShortName, jdbcType=VARCHAR },
+            update_time = NOW()
+        </set>
+        where
+            organization_id = #{organizationId}
+    </update>
+    
+	<update id="updateById" parameterType="com.newsee.common.entity.NsSystemUser">
+		update ns_system_user
+		<set>
+			  enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+              organization_id = #{organizationId, jdbcType=BIGINT },
+			  group_id = #{groupId, jdbcType=BIGINT },
+			  company_id = #{companyId, jdbcType=BIGINT },
+			  department_id = #{departmentId, jdbcType=BIGINT },
+			  sentry_id = #{sentryId, jdbcType=VARCHAR },
+			  position_id = #{positionId, jdbcType=BIGINT },
+			  organization_name = #{organizationName, jdbcType=VARCHAR },
+			  organization_short_name = #{organizationShortName, jdbcType=VARCHAR },
+			  user_name = #{userName, jdbcType=VARCHAR },
+			  user_sex = #{userSex, jdbcType=VARCHAR },
+			  user_age = #{userAge, jdbcType=INTEGER },
+			  user_account = #{userAccount, jdbcType=CHAR },
+			  user_telephone = #{userTelephone, jdbcType=CHAR },
+			  user_password = #{userPassword, jdbcType=VARCHAR },
+			  user_birthday = #{userBirthday, jdbcType=TIMESTAMP },
+			  user_hiredate = #{userHiredate, jdbcType=TIMESTAMP },
+			  user_state = #{userState, jdbcType=VARCHAR },
+			  user_type = #{userType, jdbcType=VARCHAR },
+			  user_certificate_type = #{userCertificateType, jdbcType=VARCHAR },
+			  user_certificate_number = #{userCertificateNumber, jdbcType=VARCHAR },
+              user_picurl = #{userPicurl, jdbcType=VARCHAR },
+			  is_deleted = #{isDeleted, jdbcType=TINYINT },
+              is_actived = #{isActived, jdbcType=VARCHAR },
+			  remark = #{remark, jdbcType=VARCHAR },
+			  update_user_id = #{updateUserId, jdbcType=BIGINT },
+			  update_user_name = #{updateUserName, jdbcType=VARCHAR },
+			  update_time = NOW()
+		</set>
+		where
+			user_id = #{userId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_system_user 
+		where
+			user_id = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update 
+		  ns_system_user
+		set
+		  is_deleted = 1
+		where
+			user_id = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="userId"
+		parameterType="com.newsee.common.entity.NsSystemUser">
+		<selectKey resultType="java.lang.Long" keyProperty="userId"
+               order="AFTER">
+          SELECT
+          LAST_INSERT_ID()
+        </selectKey>
+		insert into ns_system_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="organizationId != null">
+                organization_id,
+            </if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="departmentId != null">
+				department_id,
+			</if>
+			<if test="sentryId != null">
+				sentry_id,
+			</if>
+			<if test="positionId != null">
+				position_id,
+			</if>
+			<if test="organizationName != null">
+                organization_name,
+            </if>
+            <if test="organizationShortName != null">
+                organization_short_name,
+            </if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userSex != null">
+				user_sex,
+			</if>
+			<if test="userAge != null">
+				user_age,
+			</if>
+			<if test="userAccount != null">
+				user_account,
+			</if>
+			<if test="userTelephone != null">
+				user_telephone,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userBirthday != null">
+				user_birthday,
+			</if>
+			<if test="userHiredate != null">
+				user_hiredate,
+			</if>
+			<if test="userState != null">
+				user_state,
+			</if>
+			<if test="userType != null">
+				user_type,
+			</if>
+			<if test="userCertificateType != null">
+				user_certificate_type,
+			</if>
+			<if test="userCertificateNumber != null">
+				user_certificate_number,
+			</if>
+			<if test="userPicurl != null">
+                user_picurl,
+            </if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="isActived != null">
+                is_actived,
+            </if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+                #{organizationId, jdbcType=BIGINT},
+            </if>
+			<if test="groupId != null">
+				#{groupId, jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId, jdbcType=BIGINT},
+			</if>
+			<if test="departmentId != null">
+				#{departmentId, jdbcType=BIGINT},
+			</if>
+			<if test="sentryId != null">
+				#{sentryId, jdbcType=VARCHAR},
+			</if>
+			<if test="positionId != null">
+				#{positionId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationName != null">
+                #{organizationName, jdbcType=VARCHAR},
+            </if>
+            <if test="organizationShortName != null">
+                #{organizationShortName, jdbcType=VARCHAR},
+            </if>
+			<if test="userName != null">
+				#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="userSex != null">
+				#{userSex, jdbcType=VARCHAR},
+			</if>
+			<if test="userAge != null">
+				#{userAge, jdbcType=INTEGER},
+			</if>
+			<if test="userAccount != null">
+				#{userAccount, jdbcType=CHAR},
+			</if>
+			<if test="userTelephone != null">
+				#{userTelephone, jdbcType=CHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword, jdbcType=VARCHAR},
+			</if>
+			<if test="userBirthday != null">
+				#{userBirthday, jdbcType=TIMESTAMP},
+			</if>
+			<if test="userHiredate != null">
+				#{userHiredate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="userState != null">
+				#{userState, jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				#{userType, jdbcType=VARCHAR},
+			</if>
+			<if test="userCertificateType != null">
+				#{userCertificateType, jdbcType=VARCHAR},
+			</if>
+			<if test="userCertificateNumber != null">
+				#{userCertificateNumber, jdbcType=VARCHAR},
+			</if>
+			<if test="userPicurl != null">
+                #{userPicurl, jdbcType=VARCHAR},
+            </if>
+			<if test="isDeleted != null">
+				#{isDeleted, jdbcType=TINYINT},
+			</if>
+			<if test="isActived != null">
+                #{isActived, jdbcType=VARCHAR},
+            </if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_system_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			organization_id,
+			group_id,
+			company_id,
+			department_id,
+			sentry_id,
+			position_id,
+			organization_name,
+			organization_short_name,
+			user_name,
+			user_sex,
+			user_age,
+			user_account,
+			user_telephone,
+			user_password,
+			user_birthday,
+			user_hiredate,
+			user_state,
+			user_type,
+			user_certificate_type,
+			user_certificate_number,
+			user_picurl,
+			is_deleted,
+			is_actived,
+			remark,
+			create_user_id,
+			create_user_name,
+			create_time,
+			update_user_id,
+			update_user_name,
+			update_time,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.groupId, jdbcType=BIGINT},
+			#{item.companyId, jdbcType=BIGINT},
+			#{item.departmentId, jdbcType=BIGINT},
+			#{item.sentryId, jdbcType=VARCHAR},
+			#{item.positionId, jdbcType=BIGINT},
+			#{item.organizationName, jdbcType=VARCHAR},
+			#{item.organizationShortName, jdbcType=VARCHAR},
+			#{item.userName, jdbcType=VARCHAR},
+			#{item.userSex, jdbcType=VARCHAR},
+			#{item.userAge, jdbcType=INTEGER},
+			#{item.userAccount, jdbcType=CHAR},
+			#{item.userTelephone, jdbcType=CHAR},
+			#{item.userPassword, jdbcType=VARCHAR},
+			#{item.userBirthday, jdbcType=TIMESTAMP},
+			#{item.userHiredate, jdbcType=TIMESTAMP},
+			#{item.userState, jdbcType=VARCHAR},
+			#{item.userType, jdbcType=VARCHAR},
+			#{item.userCertificateType, jdbcType=VARCHAR},
+			#{item.userCertificateNumber, jdbcType=VARCHAR},
+			#{item.userPicurl, jdbcType=VARCHAR},
+			#{item.isDeleted, jdbcType=TINYINT},
+			#{item.isActived, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

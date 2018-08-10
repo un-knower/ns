@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSystemOrganizationMapper">
+
+	<resultMap id="NsSystemOrganizationResultMap" type="com.newsee.system.entity.NsSystemOrganization">
+			<id property="organizationId" column="organization_id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="enterprise_id" jdbcType="BIGINT"/>
+			<result property="groupId" column="group_id" jdbcType="BIGINT"/>
+			<result property="companyId" column="company_id" jdbcType="BIGINT"/>
+			<result property="departmentId" column="department_id" jdbcType="BIGINT"/>
+			<result property="organizationParentId" column="organization_parent_id" jdbcType="BIGINT"/>
+			<result property="organizationName" column="organization_name" jdbcType="VARCHAR"/>
+			
+			<result property="organizationShortName" column="organization_short_name" jdbcType="VARCHAR"/>
+			<result property="organizationCode" column="organization_code" jdbcType="VARCHAR"/>
+			
+			<result property="organizationType" column="organization_type" jdbcType="TINYINT"/>
+			<result property="organizationEnablestate" column="organization_enablestate" jdbcType="TINYINT"/>
+			<result property="organizationPath" column="organization_path" jdbcType="VARCHAR"/>
+			<result property="organizationLevel" column="organization_level" jdbcType="INTEGER"/>
+			<result property="organizationOrdercolumn" column="organization_ordercolumn" jdbcType="INTEGER"/>
+			<result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+			<result property="remark" column="remark" jdbcType="VARCHAR"/>
+			<result property="versionId" column="version_id" jdbcType="BIGINT"/>
+			<result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+			<result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+			<result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSystemOrganization_Column_List">
+		organization_id,enterprise_id,group_id,company_id,department_id,organization_parent_id,organization_name,organization_short_name,organization_code,organization_type,organization_enablestate,organization_path,organization_level,organization_ordercolumn,is_deleted,remark,version_id,create_user_id,create_user_name,create_time,update_user_id,update_user_name,update_time
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSystemOrganizationResultMap">
+		select
+			<include refid="NsSystemOrganization_Column_List" />
+		from
+			ns_system_organization
+		where
+			organization_id = #{organizationId}
+	</select>
+	
+	<select id="selectByIds" parameterType="java.util.List" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            organization_id
+        in
+             <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+             </foreach> 
+         order By 
+           organization_level, organization_ordercolumn
+    </select>
+    
+    <select id="checkOnlyCode" parameterType="com.newsee.system.entity.NsSystemOrganization" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            is_deleted = 0
+        and 
+            enterprise_id = #{enterpriseId}
+        and 
+            organization_code = #{organizationCode}
+        <if test="organizationId != null">
+        and organization_id != #{organizationId}
+        </if>
+    </select>
+    
+   <select id="selectCountByOrgCode" parameterType="com.newsee.system.entity.NsSystemOrganization" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            ns_system_organization
+        where
+            is_deleted = 0
+        and 
+            enterprise_id = #{enterpriseId}
+        and 
+            LOCATE(#{organizationCode},organization_code) > 0
+        <if test="organizationId != null">
+            and organization_id != #{organizationId}
+        </if>
+    </select>
+    
+    <select id="checkOnlyShortName" parameterType="com.newsee.system.entity.NsSystemOrganization" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            is_deleted = 0
+        and 
+            enterprise_id = #{enterpriseId}
+        and 
+            organization_short_name = #{organizationShortName}
+        <if test="organizationId != null">
+        and organization_id != #{organizationId}
+        </if>
+    </select>
+    
+	<select id="selectByGroupId" parameterType="java.lang.Long" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            organization_type = 0
+        and
+            group_id = #{groupId}
+    </select>
+	
+	<select id="selectByOrganizationId" parameterType="java.lang.Long" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            organization_id = #{organizationId}
+    </select>
+    
+	<select id="selectByCompanyId" parameterType="java.lang.Long" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            organization_type = 1
+        and
+            company_id = #{companyId}
+    </select>
+    
+    <select id="selectByDepartmentId" parameterType="java.lang.Long" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            organization_type != 1 and organization_type != 0
+        and
+            department_id = #{departmentId}
+    </select>
+    
+    <select id="selectAllCompanyLevelOrg" parameterType="java.util.Map" resultMap="NsSystemOrganizationResultMap">
+        select
+            <include refid="NsSystemOrganization_Column_List" />
+        from
+            ns_system_organization
+        where
+            is_deleted = 0
+        and organization_type in (0, 1)
+        <if test="orgName!=null and orgName!=''">
+        and organization_name like CONCAT('%', #{orgName},'%')
+        </if>
+    </select>
+    
+    <select id="listOrganizationTreeBySearch" parameterType="java.util.Map" resultMap="NsSystemOrganizationResultMap">
+	    select
+	       <include refid="NsSystemOrganization_Column_List" />
+	    from 
+	       ns_system_organization
+	    where 
+	       is_deleted=0 
+	    AND 
+	       enterprise_id = #{enterpriseId}
+	    AND 
+	       LOCATE(#{organizationName},organization_name) > 0
+	    AND 
+	       organization_path like CONCAT('%',#{organizationPath},'%')
+    </select>
+    
+    
+    <select id="selectByPath" resultMap="NsSystemOrganizationResultMap" parameterType="java.util.Map" >
+	    select 
+	       <include refid="NsSystemOrganization_Column_List" />
+	    from 
+	       ns_system_organization
+	    where 
+	       organization_path like CONCAT('%',#{organizationPath},'%')  and is_deleted = 0
+	       <if test="paramlevel != null">
+               and organization_level = #{paramlevel}
+            </if>
+            <if test="orgType != null">
+	          and organization_type &lt;= #{orgType}
+	        </if>
+	    order By 
+	       organization_level, organization_ordercolumn
+    </select>
+    
+    <select id="selectChildCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+        select 
+           COUNT(organization_id)
+        from 
+           ns_system_organization
+        where 
+           organization_path like CONCAT('%',#{organizationPath},'%')  and is_deleted = 0
+           <if test="orgType != null">
+              and organization_type &lt;= #{orgType}
+           </if>
+    </select>
+    
+    <select id="selectChildsByParentId" resultMap="NsSystemOrganizationResultMap" parameterType="java.util.Map" >
+        select 
+           <include refid="NsSystemOrganization_Column_List" />
+        from 
+           ns_system_organization 
+        where 
+            is_deleted = 0
+        and
+            organization_parent_id = #{organizationId}
+        <if test="orgType != null">
+          and organization_type &lt;= #{orgType}
+        </if>
+        order By 
+            organization_ordercolumn
+            
+    </select>
+  
+
+	
+	<update id="updateByIdSelective" parameterType="com.newsee.system.entity.NsSystemOrganization">
+		update ns_system_organization
+		<set>
+			<if test="enterpriseId != null">
+			  enterprise_id = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="groupId != null">
+			  group_id = #{groupId, jdbcType=BIGINT },
+			</if>
+			<if test="companyId != null">
+			  company_id = #{companyId, jdbcType=BIGINT },
+			</if>
+			<if test="departmentId != null">
+			  department_id = #{departmentId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationParentId != null">
+			  organization_parent_id = #{organizationParentId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationName != null">
+			  organization_name = #{organizationName, jdbcType=VARCHAR },
+			</if>
+			
+			<if test="organizationShortName != null">
+              organization_short_name = #{organizationShortName, jdbcType=VARCHAR },
+            </if>
+            <if test="organizationCode != null">
+              organization_code = #{organizationCode, jdbcType=VARCHAR },
+            </if>
+            
+			<if test="organizationType != null">
+			  organization_type = #{organizationType, jdbcType=TINYINT },
+			</if>
+			<if test="organizationEnablestate != null">
+			  organization_enablestate = #{organizationEnablestate, jdbcType=TINYINT },
+			</if>
+			<if test="organizationPath != null">
+			  organization_path = #{organizationPath, jdbcType=VARCHAR },
+			</if>
+			<if test="organizationLevel != null">
+			  organization_level = #{organizationLevel, jdbcType=INTEGER },
+			</if>
+			<if test="organizationOrdercolumn != null">
+			  organization_ordercolumn = #{organizationOrdercolumn, jdbcType=INTEGER },
+			</if>
+			<if test="isDeleted != null">
+              is_deleted = #{isDeleted, jdbcType=TINYINT },
+            </if>
+			<if test="remark != null">
+			  remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="versionId != null">
+			  version_id = #{versionId, jdbcType=BIGINT },
+			</if>
+<!-- 			<if test="createUserId != null">
+			  create_user_id = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  create_user_name = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  create_time = #{createTime, jdbcType=TIMESTAMP },
+			</if> -->
+			<if test="updateUserId != null">
+			  update_user_id = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  update_user_name = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			  update_time = NOW()
+		</set>
+		where
+			organization_id = #{organizationId}
+	</update>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsSystemOrganization">
+        update ns_system_organization
+            set
+              organization_parent_id = #{organizationParentId, jdbcType=BIGINT },
+              organization_name = #{organizationName, jdbcType=VARCHAR }, 
+              
+              organization_short_name = #{organizationShortName, jdbcType=VARCHAR },
+              organization_code = #{organizationCode, jdbcType=VARCHAR },
+                
+              organization_type = #{organizationType, jdbcType=TINYINT },
+              organization_enablestate = #{organizationEnablestate, jdbcType=TINYINT },
+              organization_path = #{organizationPath, jdbcType=VARCHAR },
+              organization_level = #{organizationLevel, jdbcType=INTEGER },
+              organization_ordercolumn = #{organizationOrdercolumn, jdbcType=INTEGER },
+              remark = #{remark, jdbcType=VARCHAR },
+              version_id = #{versionId, jdbcType=BIGINT },
+              update_user_id = #{updateUserId, jdbcType=BIGINT },
+              update_user_name = #{updateUserName, jdbcType=VARCHAR },
+              update_time = NOW()
+        where
+            organization_id = #{organizationId}
+    </update>
+    
+	<update id="updateOrderAddOneByIds" parameterType="java.util.List">
+        update 
+            ns_system_organization
+        set
+	        organization_ordercolumn = organization_ordercolumn+1
+        where
+            organization_id
+        in
+           <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+           </foreach>
+    </update>
+    
+    <update id="updateLevelByIds" parameterType="java.util.Map">
+        update 
+            ns_system_organization
+         set
+            organization_level = organization_level-#{levelNum}
+        where
+            organization_id
+        in
+           <foreach collection="allChildIdList" item="item" separator=",">
+		      (#{item})
+		   </foreach>
+    </update>
+    
+    <update id="batchUpdatePath"  parameterType="java.util.List">
+	    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	      update ns_system_organization
+	      <set>
+	        organization_path = #{item.organizationPath},
+	        organization_level = #{item.organizationLevel}
+	      </set>
+	      where organization_id = ${item.organizationId}
+	    </foreach>
+    </update>
+    
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_system_organization 
+		where
+			organization_id = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_system_organization
+		is_deleted = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			organization_id = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="organizationId"
+		parameterType="com.newsee.system.entity.NsSystemOrganization">
+		 <selectKey resultType="java.lang.Long" keyProperty="organizationId"
+               order="AFTER">
+          SELECT
+          LAST_INSERT_ID()
+        </selectKey>
+		insert into ns_system_organization
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="departmentId != null">
+				department_id,
+			</if>
+			<if test="organizationParentId != null">
+				organization_parent_id,
+			</if>
+			<if test="organizationName != null"> 
+				organization_name,
+			</if>
+			
+			<if test="organizationShortName != null"> 
+                organization_short_name,
+            </if> 
+            <if test="organizationCode != null"> 
+                organization_code,
+            </if> 
+            
+			<if test="organizationType != null">
+				organization_type,
+			</if>
+			<if test="organizationEnablestate != null">
+				organization_enablestate,
+			</if>
+			<if test="organizationPath != null">
+				organization_path,
+			</if>
+			<if test="organizationLevel != null">
+				organization_level,
+			</if>
+			<if test="organizationOrdercolumn != null">
+				organization_ordercolumn,
+			</if>
+			<if test="isDeleted != null">
+                is_deleted,
+            </if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="versionId != null">
+				version_id,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				#{groupId, jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId, jdbcType=BIGINT},
+			</if>
+			<if test="departmentId != null">
+				#{departmentId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationParentId != null">
+				#{organizationParentId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationName != null">
+				#{organizationName, jdbcType=VARCHAR},
+			</if>
+			
+			<if test="organizationShortName != null">
+                #{organizationShortName, jdbcType=VARCHAR},
+            </if>
+            <if test="organizationCode != null">
+                #{organizationCode, jdbcType=VARCHAR},
+            </if>
+            
+			<if test="organizationType != null">
+				#{organizationType, jdbcType=TINYINT},
+			</if>
+			<if test="organizationEnablestate != null">
+				#{organizationEnablestate, jdbcType=TINYINT},
+			</if>
+			<if test="organizationPath != null">
+				#{organizationPath, jdbcType=VARCHAR},
+			</if>
+			<if test="organizationLevel != null">
+				#{organizationLevel, jdbcType=INTEGER},
+			</if>
+			<if test="organizationOrdercolumn != null">
+				#{organizationOrdercolumn, jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+               #{isDeleted, jdbcType=TINYINT},
+            </if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="versionId != null">
+				#{versionId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_system_organization
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			enterprise_id,
+			group_id,
+			company_id,
+			department_id,
+			organization_parent_id,
+			organization_name,
+			organization_short_name, 
+			organization_code, 
+			organization_type,
+			organization_enablestate,
+			organization_path,
+			organization_level,
+			organization_ordercolumn,
+			is_deleted,
+			remark,
+			version_id,
+			create_user_id,
+			create_user_name,
+			create_time,
+			update_user_id,
+			update_user_name,
+			update_time,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.groupId, jdbcType=BIGINT},
+			#{item.companyId, jdbcType=BIGINT},
+			#{item.departmentId, jdbcType=BIGINT},
+			#{item.organizationParentId, jdbcType=BIGINT},
+			#{item.organizationName, jdbcType=VARCHAR},
+			
+			#{item.organizationShortName, jdbcType=VARCHAR},
+			#{item.organizationCode, jdbcType=VARCHAR},
+			
+			#{item.organizationType, jdbcType=TINYINT},
+			#{item.organizationEnablestate, jdbcType=TINYINT},
+			#{item.organizationPath, jdbcType=VARCHAR},
+			#{item.organizationLevel, jdbcType=INTEGER},
+			#{item.organizationOrdercolumn, jdbcType=INTEGER},
+			#{item.isDeleted, jdbcType=TINYINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.versionId, jdbcType=BIGINT},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

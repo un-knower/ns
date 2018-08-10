@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.BillBillUsedDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.BillBillUsedDetail" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="BillUsedID" property="billusedid" jdbcType="BIGINT" />
+    <result column="SubjectCode" property="subjectcode" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="ChargeItemID" property="chargeitemid" jdbcType="BIGINT" />
+    <result column="Amount" property="amount" jdbcType="DECIMAL" />
+    <result column="Price" property="price" jdbcType="DECIMAL" />
+    <result column="BillFund" property="billfund" jdbcType="DECIMAL" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="OldID" property="oldid" jdbcType="BIGINT" />
+    <result column="CustomerID" property="customerid" jdbcType="BIGINT" />
+    <result column="HouseID" property="houseid" jdbcType="BIGINT" />
+    <result column="ChargeID" property="chargeid" jdbcType="BIGINT" />
+    <result column="MeterID" property="meterid" jdbcType="BIGINT" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="UsedDate" property="useddate" jdbcType="TIMESTAMP" />
+    <result column="BeginDate" property="begindate" jdbcType="TIMESTAMP" />
+    <result column="EndDate" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="AddColumn1" property="addcolumn1" jdbcType="VARCHAR" />
+    <result column="Discount" property="discount" jdbcType="DECIMAL" />
+    <result column="ManualHouseName" property="manualhousename" jdbcType="VARCHAR" />
+    <result column="ManualCustomerName" property="manualcustomername" jdbcType="VARCHAR" />
+    <result column="ManualAutoID" property="manualautoid" jdbcType="VARCHAR" />
+    <result column="ManualSatelliteCardID" property="manualsatellitecardid" jdbcType="VARCHAR" />
+    <result column="ImportBatchID" property="importbatchid" jdbcType="BIGINT" />
+    <result column="TaxAmount" property="taxamount" jdbcType="DECIMAL" />
+    <result column="TaxRate" property="taxrate" jdbcType="DECIMAL" />
+    <result column="NotTaxAmount" property="nottaxamount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BillUsedID, SubjectCode, Content, ChargeItemID, Amount, Price, BillFund, Remark, 
+    OldID, CustomerID, HouseID, ChargeID, MeterID, UserID, UsedDate, BeginDate, EndDate, 
+    AddColumn1, Discount, ManualHouseName, ManualCustomerName, ManualAutoID, ManualSatelliteCardID, 
+    ImportBatchID, TaxAmount, TaxRate, NotTaxAmount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Bill_BillUsedDetail
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Bill_BillUsedDetail
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.BillBillUsedDetail" >
+    insert into Bill_BillUsedDetail (ID, BillUsedID, SubjectCode, 
+      Content, ChargeItemID, Amount, 
+      Price, BillFund, Remark, 
+      OldID, CustomerID, HouseID, 
+      ChargeID, MeterID, UserID, 
+      UsedDate, BeginDate, EndDate, 
+      AddColumn1, Discount, ManualHouseName, 
+      ManualCustomerName, ManualAutoID, ManualSatelliteCardID, 
+      ImportBatchID, TaxAmount, TaxRate, 
+      NotTaxAmount)
+    values (#{id,jdbcType=BIGINT}, #{billusedid,jdbcType=BIGINT}, #{subjectcode,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{chargeitemid,jdbcType=BIGINT}, #{amount,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{billfund,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{oldid,jdbcType=BIGINT}, #{customerid,jdbcType=BIGINT}, #{houseid,jdbcType=BIGINT}, 
+      #{chargeid,jdbcType=BIGINT}, #{meterid,jdbcType=BIGINT}, #{userid,jdbcType=INTEGER}, 
+      #{useddate,jdbcType=TIMESTAMP}, #{begindate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{addcolumn1,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL}, #{manualhousename,jdbcType=VARCHAR}, 
+      #{manualcustomername,jdbcType=VARCHAR}, #{manualautoid,jdbcType=VARCHAR}, #{manualsatellitecardid,jdbcType=VARCHAR}, 
+      #{importbatchid,jdbcType=BIGINT}, #{taxamount,jdbcType=DECIMAL}, #{taxrate,jdbcType=DECIMAL}, 
+      #{nottaxamount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.BillBillUsedDetail" useGeneratedKeys="true" keyProperty="ID">
+    insert into Bill_BillUsedDetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="billusedid != null" >
+        BillUsedID,
+      </if>
+      <if test="subjectcode != null" >
+        SubjectCode,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID,
+      </if>
+      <if test="amount != null" >
+        Amount,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="billfund != null" >
+        BillFund,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="oldid != null" >
+        OldID,
+      </if>
+      <if test="customerid != null" >
+        CustomerID,
+      </if>
+      <if test="houseid != null" >
+        HouseID,
+      </if>
+      <if test="chargeid != null" >
+        ChargeID,
+      </if>
+      <if test="meterid != null" >
+        MeterID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="useddate != null" >
+        UsedDate,
+      </if>
+      <if test="begindate != null" >
+        BeginDate,
+      </if>
+      <if test="enddate != null" >
+        EndDate,
+      </if>
+      <if test="addcolumn1 != null" >
+        AddColumn1,
+      </if>
+      <if test="discount != null" >
+        Discount,
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName,
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName,
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID,
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID,
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID,
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount,
+      </if>
+      <if test="taxrate != null" >
+        TaxRate,
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="billusedid != null" >
+        #{billusedid,jdbcType=BIGINT},
+      </if>
+      <if test="subjectcode != null" >
+        #{subjectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeitemid != null" >
+        #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="billfund != null" >
+        #{billfund,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="oldid != null" >
+        #{oldid,jdbcType=BIGINT},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useddate != null" >
+        #{useddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begindate != null" >
+        #{begindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addcolumn1 != null" >
+        #{addcolumn1,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="manualhousename != null" >
+        #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="importbatchid != null" >
+        #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxrate != null" >
+        #{taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.BillBillUsedDetail" >
+    update Bill_BillUsedDetail
+    <set >
+      <if test="billusedid != null" >
+        BillUsedID = #{billusedid,jdbcType=BIGINT},
+      </if>
+      <if test="subjectcode != null" >
+        SubjectCode = #{subjectcode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeitemid != null" >
+        ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        Amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="billfund != null" >
+        BillFund = #{billfund,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="oldid != null" >
+        OldID = #{oldid,jdbcType=BIGINT},
+      </if>
+      <if test="customerid != null" >
+        CustomerID = #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="houseid != null" >
+        HouseID = #{houseid,jdbcType=BIGINT},
+      </if>
+      <if test="chargeid != null" >
+        ChargeID = #{chargeid,jdbcType=BIGINT},
+      </if>
+      <if test="meterid != null" >
+        MeterID = #{meterid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useddate != null" >
+        UsedDate = #{useddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="begindate != null" >
+        BeginDate = #{begindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        EndDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addcolumn1 != null" >
+        AddColumn1 = #{addcolumn1,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        Discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="manualhousename != null" >
+        ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      </if>
+      <if test="manualcustomername != null" >
+        ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="manualautoid != null" >
+        ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      </if>
+      <if test="manualsatellitecardid != null" >
+        ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      </if>
+      <if test="importbatchid != null" >
+        ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      </if>
+      <if test="taxamount != null" >
+        TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxrate != null" >
+        TaxRate = #{taxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="nottaxamount != null" >
+        NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.BillBillUsedDetail" >
+    update Bill_BillUsedDetail
+    set BillUsedID = #{billusedid,jdbcType=BIGINT},
+      SubjectCode = #{subjectcode,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      ChargeItemID = #{chargeitemid,jdbcType=BIGINT},
+      Amount = #{amount,jdbcType=DECIMAL},
+      Price = #{price,jdbcType=DECIMAL},
+      BillFund = #{billfund,jdbcType=DECIMAL},
+      Remark = #{remark,jdbcType=VARCHAR},
+      OldID = #{oldid,jdbcType=BIGINT},
+      CustomerID = #{customerid,jdbcType=BIGINT},
+      HouseID = #{houseid,jdbcType=BIGINT},
+      ChargeID = #{chargeid,jdbcType=BIGINT},
+      MeterID = #{meterid,jdbcType=BIGINT},
+      UserID = #{userid,jdbcType=INTEGER},
+      UsedDate = #{useddate,jdbcType=TIMESTAMP},
+      BeginDate = #{begindate,jdbcType=TIMESTAMP},
+      EndDate = #{enddate,jdbcType=TIMESTAMP},
+      AddColumn1 = #{addcolumn1,jdbcType=VARCHAR},
+      Discount = #{discount,jdbcType=DECIMAL},
+      ManualHouseName = #{manualhousename,jdbcType=VARCHAR},
+      ManualCustomerName = #{manualcustomername,jdbcType=VARCHAR},
+      ManualAutoID = #{manualautoid,jdbcType=VARCHAR},
+      ManualSatelliteCardID = #{manualsatellitecardid,jdbcType=VARCHAR},
+      ImportBatchID = #{importbatchid,jdbcType=BIGINT},
+      TaxAmount = #{taxamount,jdbcType=DECIMAL},
+      TaxRate = #{taxrate,jdbcType=DECIMAL},
+      NotTaxAmount = #{nottaxamount,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

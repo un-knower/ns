@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.oauth.dao.AppUserMapper" >
+
+  <resultMap id="AppUserResultMap" type="com.newsee.common.entity.AppUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="enterprise_id" property="enterpriseId" jdbcType="BIGINT" />
+     <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="TINYINT" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="is_actived" property="isActived" jdbcType="TINYINT" />
+    <result column="activation_key" property="activationKey" jdbcType="VARCHAR" />
+    <result column="reset_password_key" property="resetPasswordKey" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="AppUser_Column_List" >
+    id, app_id, enterprise_id, enterprise_name, company_id, organization_id, user_id, user_name, user_type,  password, last_login_time, is_actived, activation_key,
+    reset_password_key, is_deleted,user_account
+  </sql>
+  
+  <update id="updatePasswordByPhoneNumber" parameterType="java.util.List">
+    update app_user set password =
+   <foreach collection="list" item="item" index="index" 
+        separator=" " open="case " close="end">
+        when #{item.id} then #{item.password}
+    </foreach>
+    where id in
+    <foreach collection="list" index="index" item="item" 
+        separator="," open="(" close=")">
+        #{item.id,jdbcType=INTEGER}
+    </foreach>
+ 
+  </update>
+  
+  <select id="selectByUserId" resultMap="AppUserResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where is_deleted = 0 and user_id = #{userId}
+  </select>
+  
+  <select id="selectById" resultMap="AppUserResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where is_deleted = 0 and id = #{id}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from app_user
+    where id = #{id}
+  </delete>
+  
+  <delete id="deleteByUserId" parameterType="java.lang.Long" >
+    delete from app_user
+    where user_id = #{id}
+  </delete>
+  
+  <update id="deleteSoftByUserId" parameterType="java.lang.Long" >
+    update app_user
+    set is_deleted = 1
+    where user_id = #{id}
+  </update>
+  
+  <insert id="insert" parameterType="com.newsee.common.entity.AppUser" >
+    insert into app_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="enterpriseId != null" >
+        enterprise_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+       <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="isActived != null" >
+        is_actived,
+      </if>
+      <if test="activationKey != null" >
+        activation_key,
+      </if>
+      <if test="resetPasswordKey != null" >
+        reset_password_key,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="appId != null" >
+        #{appId},
+      </if>
+      <if test="enterpriseId != null" >
+        #{enterpriseId},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="userType != null" >
+        #{userType},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime},
+      </if>
+      <if test="isActived != null" >
+        #{isActived},
+      </if>
+      <if test="activationKey != null" >
+        #{activationKey},
+      </if>
+      <if test="resetPasswordKey != null" >
+        #{resetPasswordKey},
+      </if>
+      <if test="isDeleted != null" >
+       	#{isDeleted},
+      </if>
+      <if test="userAccount != null" >
+      	#{userAccount},
+      </if>
+       <if test="enterpriseName != null" >
+       	#{enterpriseName},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateById" parameterType="com.newsee.common.entity.AppUser" >
+    update app_user
+    <set >
+      <if test="appId != null" >
+        app_id = #{appId},
+      </if>
+      <if test="enterpriseId != null" >
+        enterprise_id = #{enterpriseId},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime},
+      </if>
+      <if test="isActived != null" >
+        is_actived = #{isActived},
+      </if>
+      <if test="activationKey != null" >
+        activation_key = #{activationKey},
+      </if>
+      <if test="resetPasswordKey != null" >
+        reset_password_key = #{resetPasswordKey},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+    <update id="updateByUserId" parameterType="com.newsee.common.entity.AppUser" >
+    update app_user
+    <set >
+      <if test="appId != null" >
+        app_id = #{appId},
+      </if>
+      <if test="enterpriseId != null" >
+        enterprise_id = #{enterpriseId},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime},
+      </if>
+      <if test="isActived != null" >
+        is_actived = #{isActived},
+      </if>
+      <if test="activationKey != null" >
+        activation_key = #{activationKey},
+      </if>
+      <if test="resetPasswordKey != null" >
+        reset_password_key = #{resetPasswordKey},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount},
+      </if>
+    </set>
+    where user_id = #{userId}
+  </update>
+ 
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="AppUserResultMap">
+    select
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where is_deleted = 0 and is_actived = 1
+    <if test="_parameter != null">
+        AND user_name = #{userName}
+    </if>
+  </select>
+  
+  <select id="selectByUserAccount" parameterType="java.util.Map" resultMap="AppUserResultMap">
+    select
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where is_deleted = 0 and is_actived = 1
+    <if test="userAccount != null and userAccount != ''">
+        AND user_account = #{userAccount}
+    </if>
+    <if test="appId != null and appId != ''">
+        AND app_id = #{appId}
+    </if>
+    <if test="endterpriseId !=null and endterpriseId !=''">
+  	  AND enterprise_id = #{endterpriseId}
+    </if>
+  </select>
+  
+  <select id="vailateUserAccount" parameterType="java.util.Map" resultMap="AppUserResultMap">
+    select
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where 1=1
+    <if test="userAccount != null and userAccount != ''">
+        AND user_account = #{userAccount}
+    </if>
+    <if test="appId != null and appId != ''">
+        AND app_id = #{appId}
+    </if>
+    <if test="endterpriseId !=null and endterpriseId !=''">
+  	  AND enterprise_id = #{endterpriseId}
+    </if>
+  </select>
+  
+   <select id="selectPasswordByUserAccount" parameterType="java.util.Map" resultMap="AppUserResultMap">
+    select
+    <include refid="AppUser_Column_List" />
+    from app_user
+    where is_deleted = 0 and is_actived = 1
+        AND user_account = #{userAccount}
+        and password is not null  
+        limit 1
+  </select>
+  
+</mapper>

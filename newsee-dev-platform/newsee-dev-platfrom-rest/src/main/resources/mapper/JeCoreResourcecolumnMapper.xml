@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.devplatform.dao.JeCoreResourcecolumnMapper">
+
+	<resultMap id="JeCoreResourcecolumnResultMap" type="com.newsee.devplatform.entity.JeCoreResourcecolumn">
+			<id property="jeCoreResourcecolumnId" column="JE_CORE_RESOURCECOLUMN_ID" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnFuncinfoId" column="RESOURCECOLUMN_FUNCINFO_ID" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnAlign" column="RESOURCECOLUMN_ALIGN" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnAllowblank" column="RESOURCECOLUMN_ALLOWBLANK" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnAllowedit" column="RESOURCECOLUMN_ALLOWEDIT" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnCheckedcls" column="RESOURCECOLUMN_CHECKEDCLS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnCode" column="RESOURCECOLUMN_CODE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnColor1" column="RESOURCECOLUMN_COLOR1" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnColor2" column="RESOURCECOLUMN_COLOR2" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnColumnquerytype" column="RESOURCECOLUMN_COLUMNQUERYTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnColumntip" column="RESOURCECOLUMN_COLUMNTIP" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnConfiginfo" column="RESOURCECOLUMN_CONFIGINFO" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnConversion" column="RESOURCECOLUMN_CONVERSION" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnDateformat" column="RESOURCECOLUMN_DATEFORMAT" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnDdcode" column="RESOURCECOLUMN_DDCODE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnDescription" column="RESOURCECOLUMN_DESCRIPTION" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnEnableicon" column="RESOURCECOLUMN_ENABLEICON" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnEnableupdate" column="RESOURCECOLUMN_ENABLEUPDATE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnFieldorderindex" column="RESOURCECOLUMN_FIELDORDERINDEX" jdbcType="DECIMAL"/>
+			<result property="resourcecolumnFkcode" column="RESOURCECOLUMN_FKCODE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnFlex" column="RESOURCECOLUMN_FLEX" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnFontcolor" column="RESOURCECOLUMN_FONTCOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnGroup" column="RESOURCECOLUMN_GROUP" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnHidden" column="RESOURCECOLUMN_HIDDEN" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnHidetitlecls" column="RESOURCECOLUMN_HIDETITLECLS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnHighlighting" column="RESOURCECOLUMN_HIGHLIGHTING" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnHyperlink" column="RESOURCECOLUMN_HYPERLINK" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnIfimpl" column="RESOURCECOLUMN_IFIMPL" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnIndex" column="RESOURCECOLUMN_INDEX" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnIsdd" column="RESOURCECOLUMN_ISDD" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnIspk" column="RESOURCECOLUMN_ISPK" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnJslistener" column="RESOURCECOLUMN_JSLISTENER" jdbcType="LONGVARCHAR"/>
+			<result property="resourcecolumnKeyword" column="RESOURCECOLUMN_KEYWORD" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnLazyload" column="RESOURCECOLUMN_LAZYLOAD" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnLinkmethod" column="RESOURCECOLUMN_LINKMETHOD" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnLocked" column="RESOURCECOLUMN_LOCKED" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnMaxvalue" column="RESOURCECOLUMN_MAXVALUE" jdbcType="INTEGER"/>
+			<result property="resourcecolumnMerge" column="RESOURCECOLUMN_MERGE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnMinvalue" column="RESOURCECOLUMN_MINVALUE" jdbcType="INTEGER"/>
+			<result property="resourcecolumnMorecolumn" column="RESOURCECOLUMN_MORECOLUMN" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnMorecolumnname" column="RESOURCECOLUMN_MORECOLUMNNAME" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnMultirows" column="RESOURCECOLUMN_MULTIROWS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnName" column="RESOURCECOLUMN_NAME" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnNameEn" column="RESOURCECOLUMN_NAME_EN" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnNewfuncid" column="RESOURCECOLUMN_NEWFUNCID" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnOrder" column="RESOURCECOLUMN_ORDER" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnQueryindex" column="RESOURCECOLUMN_QUERYINDEX" jdbcType="INTEGER"/>
+			<result property="resourcecolumnQueryinfo" column="RESOURCECOLUMN_QUERYINFO" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnQuerytype" column="RESOURCECOLUMN_QUERYTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnQuickquery" column="RESOURCECOLUMN_QUICKQUERY" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnQuickquerytype" column="RESOURCECOLUMN_QUICKQUERYTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnRbordercolor" column="RESOURCECOLUMN_RBORDERCOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnSelectonfocus" column="RESOURCECOLUMN_SELECTONFOCUS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnStatistallmsg" column="RESOURCECOLUMN_STATISTALLMSG" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnStatisticsmsg" column="RESOURCECOLUMN_STATISTICSMSG" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnStatisticstype" column="RESOURCECOLUMN_STATISTICSTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnStep" column="RESOURCECOLUMN_STEP" jdbcType="INTEGER"/>
+			<result property="resourcecolumnSummaryformat" column="RESOURCECOLUMN_SUMMARYFORMAT" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnSysmode" column="RESOURCECOLUMN_SYSMODE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnTactics" column="RESOURCECOLUMN_TACTICS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnTitlecolor" column="RESOURCECOLUMN_TITLECOLOR" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnUncheckedcls" column="RESOURCECOLUMN_UNCHECKEDCLS" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnValue" column="RESOURCECOLUMN_VALUE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnVtype" column="RESOURCECOLUMN_VTYPE" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnWidth" column="RESOURCECOLUMN_WIDTH" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnWidthEn" column="RESOURCECOLUMN_WIDTH_EN" jdbcType="VARCHAR"/>
+			<result property="resourcecolumnXtype" column="RESOURCECOLUMN_XTYPE" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="JeCoreResourcecolumn_Column_List">
+		JE_CORE_RESOURCECOLUMN_ID,RESOURCECOLUMN_FUNCINFO_ID,RESOURCECOLUMN_ALIGN,RESOURCECOLUMN_ALLOWBLANK,RESOURCECOLUMN_ALLOWEDIT,RESOURCECOLUMN_CHECKEDCLS,RESOURCECOLUMN_CODE,RESOURCECOLUMN_COLOR1,RESOURCECOLUMN_COLOR2,RESOURCECOLUMN_COLUMNQUERYTYPE,RESOURCECOLUMN_COLUMNTIP,RESOURCECOLUMN_CONFIGINFO,RESOURCECOLUMN_CONVERSION,RESOURCECOLUMN_DATEFORMAT,RESOURCECOLUMN_DDCODE,RESOURCECOLUMN_DESCRIPTION,RESOURCECOLUMN_ENABLEICON,RESOURCECOLUMN_ENABLEUPDATE,RESOURCECOLUMN_FIELDORDERINDEX,RESOURCECOLUMN_FKCODE,RESOURCECOLUMN_FLEX,RESOURCECOLUMN_FONTCOLOR,RESOURCECOLUMN_GROUP,RESOURCECOLUMN_HIDDEN,RESOURCECOLUMN_HIDETITLECLS,RESOURCECOLUMN_HIGHLIGHTING,RESOURCECOLUMN_HYPERLINK,RESOURCECOLUMN_IFIMPL,RESOURCECOLUMN_INDEX,RESOURCECOLUMN_ISDD,RESOURCECOLUMN_ISPK,RESOURCECOLUMN_JSLISTENER,RESOURCECOLUMN_KEYWORD,RESOURCECOLUMN_LAZYLOAD,RESOURCECOLUMN_LINKMETHOD,RESOURCECOLUMN_LOCKED,RESOURCECOLUMN_MAXVALUE,RESOURCECOLUMN_MERGE,RESOURCECOLUMN_MINVALUE,RESOURCECOLUMN_MORECOLUMN,RESOURCECOLUMN_MORECOLUMNNAME,RESOURCECOLUMN_MULTIROWS,RESOURCECOLUMN_NAME,RESOURCECOLUMN_NAME_EN,RESOURCECOLUMN_NEWFUNCID,RESOURCECOLUMN_ORDER,RESOURCECOLUMN_QUERYINDEX,RESOURCECOLUMN_QUERYINFO,RESOURCECOLUMN_QUERYTYPE,RESOURCECOLUMN_QUICKQUERY,RESOURCECOLUMN_QUICKQUERYTYPE,RESOURCECOLUMN_RBORDERCOLOR,RESOURCECOLUMN_SELECTONFOCUS,RESOURCECOLUMN_STATISTALLMSG,RESOURCECOLUMN_STATISTICSMSG,RESOURCECOLUMN_STATISTICSTYPE,RESOURCECOLUMN_STEP,RESOURCECOLUMN_SUMMARYFORMAT,RESOURCECOLUMN_SYSMODE,RESOURCECOLUMN_TACTICS,RESOURCECOLUMN_TITLECOLOR,RESOURCECOLUMN_UNCHECKEDCLS,RESOURCECOLUMN_VALUE,RESOURCECOLUMN_VTYPE,RESOURCECOLUMN_WIDTH,RESOURCECOLUMN_WIDTH_EN,RESOURCECOLUMN_XTYPE,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_ORDERINDEX,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS
+	</sql>
+	
+	<select id="selectById" parameterType="java.util.Map" resultMap="JeCoreResourcecolumnResultMap">
+		select
+			<include refid="JeCoreResourcecolumn_Column_List" />
+		from
+			je_core_resourcecolumn
+		where
+			JE_CORE_RESOURCECOLUMN_ID = #{jeCoreResourcecolumnId}
+	</select>
+	
+	<select id="selectByFuncIds" parameterType="java.util.Map" resultMap="JeCoreResourcecolumnResultMap">
+		select
+			<include refid="JeCoreResourcecolumn_Column_List" />
+		from
+			je_core_resourcecolumn
+		where
+			1=1
+			<if test="funcIds != null and funcIds.size() > 0">
+				AND RESOURCECOLUMN_FUNCINFO_ID IN 
+				<foreach collection="funcIds" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="latestSyncTime != null">
+				AND sys_time &gt;= #{latestSyncTime}
+			</if>
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.devplatform.entity.JeCoreResourcecolumn">
+		update je_core_resourcecolumn
+		<set>
+			<if test="jeCoreResourcecolumnId != null">
+			  JE_CORE_RESOURCECOLUMN_ID = #{jeCoreResourcecolumnId, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnFuncinfoId != null">
+			  RESOURCECOLUMN_FUNCINFO_ID = #{resourcecolumnFuncinfoId, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnAlign != null">
+			  RESOURCECOLUMN_ALIGN = #{resourcecolumnAlign, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnAllowblank != null">
+			  RESOURCECOLUMN_ALLOWBLANK = #{resourcecolumnAllowblank, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnAllowedit != null">
+			  RESOURCECOLUMN_ALLOWEDIT = #{resourcecolumnAllowedit, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnCheckedcls != null">
+			  RESOURCECOLUMN_CHECKEDCLS = #{resourcecolumnCheckedcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnCode != null">
+			  RESOURCECOLUMN_CODE = #{resourcecolumnCode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnColor1 != null">
+			  RESOURCECOLUMN_COLOR1 = #{resourcecolumnColor1, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnColor2 != null">
+			  RESOURCECOLUMN_COLOR2 = #{resourcecolumnColor2, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnColumnquerytype != null">
+			  RESOURCECOLUMN_COLUMNQUERYTYPE = #{resourcecolumnColumnquerytype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnColumntip != null">
+			  RESOURCECOLUMN_COLUMNTIP = #{resourcecolumnColumntip, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnConfiginfo != null">
+			  RESOURCECOLUMN_CONFIGINFO = #{resourcecolumnConfiginfo, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnConversion != null">
+			  RESOURCECOLUMN_CONVERSION = #{resourcecolumnConversion, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnDateformat != null">
+			  RESOURCECOLUMN_DATEFORMAT = #{resourcecolumnDateformat, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnDdcode != null">
+			  RESOURCECOLUMN_DDCODE = #{resourcecolumnDdcode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnDescription != null">
+			  RESOURCECOLUMN_DESCRIPTION = #{resourcecolumnDescription, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnEnableicon != null">
+			  RESOURCECOLUMN_ENABLEICON = #{resourcecolumnEnableicon, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnEnableupdate != null">
+			  RESOURCECOLUMN_ENABLEUPDATE = #{resourcecolumnEnableupdate, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnFieldorderindex != null">
+			  RESOURCECOLUMN_FIELDORDERINDEX = #{resourcecolumnFieldorderindex, jdbcType=DECIMAL },
+			</if>
+			<if test="resourcecolumnFkcode != null">
+			  RESOURCECOLUMN_FKCODE = #{resourcecolumnFkcode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnFlex != null">
+			  RESOURCECOLUMN_FLEX = #{resourcecolumnFlex, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnFontcolor != null">
+			  RESOURCECOLUMN_FONTCOLOR = #{resourcecolumnFontcolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnGroup != null">
+			  RESOURCECOLUMN_GROUP = #{resourcecolumnGroup, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnHidden != null">
+			  RESOURCECOLUMN_HIDDEN = #{resourcecolumnHidden, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnHidetitlecls != null">
+			  RESOURCECOLUMN_HIDETITLECLS = #{resourcecolumnHidetitlecls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnHighlighting != null">
+			  RESOURCECOLUMN_HIGHLIGHTING = #{resourcecolumnHighlighting, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnHyperlink != null">
+			  RESOURCECOLUMN_HYPERLINK = #{resourcecolumnHyperlink, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnIfimpl != null">
+			  RESOURCECOLUMN_IFIMPL = #{resourcecolumnIfimpl, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnIndex != null">
+			  RESOURCECOLUMN_INDEX = #{resourcecolumnIndex, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnIsdd != null">
+			  RESOURCECOLUMN_ISDD = #{resourcecolumnIsdd, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnIspk != null">
+			  RESOURCECOLUMN_ISPK = #{resourcecolumnIspk, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnJslistener != null">
+			  RESOURCECOLUMN_JSLISTENER = #{resourcecolumnJslistener, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="resourcecolumnKeyword != null">
+			  RESOURCECOLUMN_KEYWORD = #{resourcecolumnKeyword, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnLazyload != null">
+			  RESOURCECOLUMN_LAZYLOAD = #{resourcecolumnLazyload, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnLinkmethod != null">
+			  RESOURCECOLUMN_LINKMETHOD = #{resourcecolumnLinkmethod, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnLocked != null">
+			  RESOURCECOLUMN_LOCKED = #{resourcecolumnLocked, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnMaxvalue != null">
+			  RESOURCECOLUMN_MAXVALUE = #{resourcecolumnMaxvalue, jdbcType=INTEGER },
+			</if>
+			<if test="resourcecolumnMerge != null">
+			  RESOURCECOLUMN_MERGE = #{resourcecolumnMerge, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnMinvalue != null">
+			  RESOURCECOLUMN_MINVALUE = #{resourcecolumnMinvalue, jdbcType=INTEGER },
+			</if>
+			<if test="resourcecolumnMorecolumn != null">
+			  RESOURCECOLUMN_MORECOLUMN = #{resourcecolumnMorecolumn, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnMorecolumnname != null">
+			  RESOURCECOLUMN_MORECOLUMNNAME = #{resourcecolumnMorecolumnname, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnMultirows != null">
+			  RESOURCECOLUMN_MULTIROWS = #{resourcecolumnMultirows, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnName != null">
+			  RESOURCECOLUMN_NAME = #{resourcecolumnName, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnNameEn != null">
+			  RESOURCECOLUMN_NAME_EN = #{resourcecolumnNameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnNewfuncid != null">
+			  RESOURCECOLUMN_NEWFUNCID = #{resourcecolumnNewfuncid, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnOrder != null">
+			  RESOURCECOLUMN_ORDER = #{resourcecolumnOrder, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnQueryindex != null">
+			  RESOURCECOLUMN_QUERYINDEX = #{resourcecolumnQueryindex, jdbcType=INTEGER },
+			</if>
+			<if test="resourcecolumnQueryinfo != null">
+			  RESOURCECOLUMN_QUERYINFO = #{resourcecolumnQueryinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnQuerytype != null">
+			  RESOURCECOLUMN_QUERYTYPE = #{resourcecolumnQuerytype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnQuickquery != null">
+			  RESOURCECOLUMN_QUICKQUERY = #{resourcecolumnQuickquery, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnQuickquerytype != null">
+			  RESOURCECOLUMN_QUICKQUERYTYPE = #{resourcecolumnQuickquerytype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnRbordercolor != null">
+			  RESOURCECOLUMN_RBORDERCOLOR = #{resourcecolumnRbordercolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnSelectonfocus != null">
+			  RESOURCECOLUMN_SELECTONFOCUS = #{resourcecolumnSelectonfocus, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnStatistallmsg != null">
+			  RESOURCECOLUMN_STATISTALLMSG = #{resourcecolumnStatistallmsg, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnStatisticsmsg != null">
+			  RESOURCECOLUMN_STATISTICSMSG = #{resourcecolumnStatisticsmsg, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnStatisticstype != null">
+			  RESOURCECOLUMN_STATISTICSTYPE = #{resourcecolumnStatisticstype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnStep != null">
+			  RESOURCECOLUMN_STEP = #{resourcecolumnStep, jdbcType=INTEGER },
+			</if>
+			<if test="resourcecolumnSummaryformat != null">
+			  RESOURCECOLUMN_SUMMARYFORMAT = #{resourcecolumnSummaryformat, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnSysmode != null">
+			  RESOURCECOLUMN_SYSMODE = #{resourcecolumnSysmode, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnTactics != null">
+			  RESOURCECOLUMN_TACTICS = #{resourcecolumnTactics, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnTitlecolor != null">
+			  RESOURCECOLUMN_TITLECOLOR = #{resourcecolumnTitlecolor, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnUncheckedcls != null">
+			  RESOURCECOLUMN_UNCHECKEDCLS = #{resourcecolumnUncheckedcls, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnValue != null">
+			  RESOURCECOLUMN_VALUE = #{resourcecolumnValue, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnVtype != null">
+			  RESOURCECOLUMN_VTYPE = #{resourcecolumnVtype, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnWidth != null">
+			  RESOURCECOLUMN_WIDTH = #{resourcecolumnWidth, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnWidthEn != null">
+			  RESOURCECOLUMN_WIDTH_EN = #{resourcecolumnWidthEn, jdbcType=VARCHAR },
+			</if>
+			<if test="resourcecolumnXtype != null">
+			  RESOURCECOLUMN_XTYPE = #{resourcecolumnXtype, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			JE_CORE_RESOURCECOLUMN_ID = #{jeCoreResourcecolumnId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from je_core_resourcecolumn 
+		where
+			JE_CORE_RESOURCECOLUMN_ID = #{jeCoreResourcecolumnId}
+	</delete>
+	
+	<insert id="insert" parameterType="com.newsee.devplatform.entity.JeCoreResourcecolumn">
+		insert into je_core_resourcecolumn
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcecolumnId != null">
+				JE_CORE_RESOURCECOLUMN_ID,
+			</if>
+			<if test="resourcecolumnFuncinfoId != null">
+				RESOURCECOLUMN_FUNCINFO_ID,
+			</if>
+			<if test="resourcecolumnAlign != null">
+				RESOURCECOLUMN_ALIGN,
+			</if>
+			<if test="resourcecolumnAllowblank != null">
+				RESOURCECOLUMN_ALLOWBLANK,
+			</if>
+			<if test="resourcecolumnAllowedit != null">
+				RESOURCECOLUMN_ALLOWEDIT,
+			</if>
+			<if test="resourcecolumnCheckedcls != null">
+				RESOURCECOLUMN_CHECKEDCLS,
+			</if>
+			<if test="resourcecolumnCode != null">
+				RESOURCECOLUMN_CODE,
+			</if>
+			<if test="resourcecolumnColor1 != null">
+				RESOURCECOLUMN_COLOR1,
+			</if>
+			<if test="resourcecolumnColor2 != null">
+				RESOURCECOLUMN_COLOR2,
+			</if>
+			<if test="resourcecolumnColumnquerytype != null">
+				RESOURCECOLUMN_COLUMNQUERYTYPE,
+			</if>
+			<if test="resourcecolumnColumntip != null">
+				RESOURCECOLUMN_COLUMNTIP,
+			</if>
+			<if test="resourcecolumnConfiginfo != null">
+				RESOURCECOLUMN_CONFIGINFO,
+			</if>
+			<if test="resourcecolumnConversion != null">
+				RESOURCECOLUMN_CONVERSION,
+			</if>
+			<if test="resourcecolumnDateformat != null">
+				RESOURCECOLUMN_DATEFORMAT,
+			</if>
+			<if test="resourcecolumnDdcode != null">
+				RESOURCECOLUMN_DDCODE,
+			</if>
+			<if test="resourcecolumnDescription != null">
+				RESOURCECOLUMN_DESCRIPTION,
+			</if>
+			<if test="resourcecolumnEnableicon != null">
+				RESOURCECOLUMN_ENABLEICON,
+			</if>
+			<if test="resourcecolumnEnableupdate != null">
+				RESOURCECOLUMN_ENABLEUPDATE,
+			</if>
+			<if test="resourcecolumnFieldorderindex != null">
+				RESOURCECOLUMN_FIELDORDERINDEX,
+			</if>
+			<if test="resourcecolumnFkcode != null">
+				RESOURCECOLUMN_FKCODE,
+			</if>
+			<if test="resourcecolumnFlex != null">
+				RESOURCECOLUMN_FLEX,
+			</if>
+			<if test="resourcecolumnFontcolor != null">
+				RESOURCECOLUMN_FONTCOLOR,
+			</if>
+			<if test="resourcecolumnGroup != null">
+				RESOURCECOLUMN_GROUP,
+			</if>
+			<if test="resourcecolumnHidden != null">
+				RESOURCECOLUMN_HIDDEN,
+			</if>
+			<if test="resourcecolumnHidetitlecls != null">
+				RESOURCECOLUMN_HIDETITLECLS,
+			</if>
+			<if test="resourcecolumnHighlighting != null">
+				RESOURCECOLUMN_HIGHLIGHTING,
+			</if>
+			<if test="resourcecolumnHyperlink != null">
+				RESOURCECOLUMN_HYPERLINK,
+			</if>
+			<if test="resourcecolumnIfimpl != null">
+				RESOURCECOLUMN_IFIMPL,
+			</if>
+			<if test="resourcecolumnIndex != null">
+				RESOURCECOLUMN_INDEX,
+			</if>
+			<if test="resourcecolumnIsdd != null">
+				RESOURCECOLUMN_ISDD,
+			</if>
+			<if test="resourcecolumnIspk != null">
+				RESOURCECOLUMN_ISPK,
+			</if>
+			<if test="resourcecolumnJslistener != null">
+				RESOURCECOLUMN_JSLISTENER,
+			</if>
+			<if test="resourcecolumnKeyword != null">
+				RESOURCECOLUMN_KEYWORD,
+			</if>
+			<if test="resourcecolumnLazyload != null">
+				RESOURCECOLUMN_LAZYLOAD,
+			</if>
+			<if test="resourcecolumnLinkmethod != null">
+				RESOURCECOLUMN_LINKMETHOD,
+			</if>
+			<if test="resourcecolumnLocked != null">
+				RESOURCECOLUMN_LOCKED,
+			</if>
+			<if test="resourcecolumnMaxvalue != null">
+				RESOURCECOLUMN_MAXVALUE,
+			</if>
+			<if test="resourcecolumnMerge != null">
+				RESOURCECOLUMN_MERGE,
+			</if>
+			<if test="resourcecolumnMinvalue != null">
+				RESOURCECOLUMN_MINVALUE,
+			</if>
+			<if test="resourcecolumnMorecolumn != null">
+				RESOURCECOLUMN_MORECOLUMN,
+			</if>
+			<if test="resourcecolumnMorecolumnname != null">
+				RESOURCECOLUMN_MORECOLUMNNAME,
+			</if>
+			<if test="resourcecolumnMultirows != null">
+				RESOURCECOLUMN_MULTIROWS,
+			</if>
+			<if test="resourcecolumnName != null">
+				RESOURCECOLUMN_NAME,
+			</if>
+			<if test="resourcecolumnNameEn != null">
+				RESOURCECOLUMN_NAME_EN,
+			</if>
+			<if test="resourcecolumnNewfuncid != null">
+				RESOURCECOLUMN_NEWFUNCID,
+			</if>
+			<if test="resourcecolumnOrder != null">
+				RESOURCECOLUMN_ORDER,
+			</if>
+			<if test="resourcecolumnQueryindex != null">
+				RESOURCECOLUMN_QUERYINDEX,
+			</if>
+			<if test="resourcecolumnQueryinfo != null">
+				RESOURCECOLUMN_QUERYINFO,
+			</if>
+			<if test="resourcecolumnQuerytype != null">
+				RESOURCECOLUMN_QUERYTYPE,
+			</if>
+			<if test="resourcecolumnQuickquery != null">
+				RESOURCECOLUMN_QUICKQUERY,
+			</if>
+			<if test="resourcecolumnQuickquerytype != null">
+				RESOURCECOLUMN_QUICKQUERYTYPE,
+			</if>
+			<if test="resourcecolumnRbordercolor != null">
+				RESOURCECOLUMN_RBORDERCOLOR,
+			</if>
+			<if test="resourcecolumnSelectonfocus != null">
+				RESOURCECOLUMN_SELECTONFOCUS,
+			</if>
+			<if test="resourcecolumnStatistallmsg != null">
+				RESOURCECOLUMN_STATISTALLMSG,
+			</if>
+			<if test="resourcecolumnStatisticsmsg != null">
+				RESOURCECOLUMN_STATISTICSMSG,
+			</if>
+			<if test="resourcecolumnStatisticstype != null">
+				RESOURCECOLUMN_STATISTICSTYPE,
+			</if>
+			<if test="resourcecolumnStep != null">
+				RESOURCECOLUMN_STEP,
+			</if>
+			<if test="resourcecolumnSummaryformat != null">
+				RESOURCECOLUMN_SUMMARYFORMAT,
+			</if>
+			<if test="resourcecolumnSysmode != null">
+				RESOURCECOLUMN_SYSMODE,
+			</if>
+			<if test="resourcecolumnTactics != null">
+				RESOURCECOLUMN_TACTICS,
+			</if>
+			<if test="resourcecolumnTitlecolor != null">
+				RESOURCECOLUMN_TITLECOLOR,
+			</if>
+			<if test="resourcecolumnUncheckedcls != null">
+				RESOURCECOLUMN_UNCHECKEDCLS,
+			</if>
+			<if test="resourcecolumnValue != null">
+				RESOURCECOLUMN_VALUE,
+			</if>
+			<if test="resourcecolumnVtype != null">
+				RESOURCECOLUMN_VTYPE,
+			</if>
+			<if test="resourcecolumnWidth != null">
+				RESOURCECOLUMN_WIDTH,
+			</if>
+			<if test="resourcecolumnWidthEn != null">
+				RESOURCECOLUMN_WIDTH_EN,
+			</if>
+			<if test="resourcecolumnXtype != null">
+				RESOURCECOLUMN_XTYPE,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="jeCoreResourcecolumnId != null">
+				#{jeCoreResourcecolumnId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnFuncinfoId != null">
+				#{resourcecolumnFuncinfoId, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnAlign != null">
+				#{resourcecolumnAlign, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnAllowblank != null">
+				#{resourcecolumnAllowblank, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnAllowedit != null">
+				#{resourcecolumnAllowedit, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnCheckedcls != null">
+				#{resourcecolumnCheckedcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnCode != null">
+				#{resourcecolumnCode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnColor1 != null">
+				#{resourcecolumnColor1, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnColor2 != null">
+				#{resourcecolumnColor2, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnColumnquerytype != null">
+				#{resourcecolumnColumnquerytype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnColumntip != null">
+				#{resourcecolumnColumntip, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnConfiginfo != null">
+				#{resourcecolumnConfiginfo, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnConversion != null">
+				#{resourcecolumnConversion, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnDateformat != null">
+				#{resourcecolumnDateformat, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnDdcode != null">
+				#{resourcecolumnDdcode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnDescription != null">
+				#{resourcecolumnDescription, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnEnableicon != null">
+				#{resourcecolumnEnableicon, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnEnableupdate != null">
+				#{resourcecolumnEnableupdate, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnFieldorderindex != null">
+				#{resourcecolumnFieldorderindex, jdbcType=DECIMAL},
+			</if>
+			<if test="resourcecolumnFkcode != null">
+				#{resourcecolumnFkcode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnFlex != null">
+				#{resourcecolumnFlex, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnFontcolor != null">
+				#{resourcecolumnFontcolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnGroup != null">
+				#{resourcecolumnGroup, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnHidden != null">
+				#{resourcecolumnHidden, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnHidetitlecls != null">
+				#{resourcecolumnHidetitlecls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnHighlighting != null">
+				#{resourcecolumnHighlighting, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnHyperlink != null">
+				#{resourcecolumnHyperlink, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnIfimpl != null">
+				#{resourcecolumnIfimpl, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnIndex != null">
+				#{resourcecolumnIndex, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnIsdd != null">
+				#{resourcecolumnIsdd, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnIspk != null">
+				#{resourcecolumnIspk, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnJslistener != null">
+				#{resourcecolumnJslistener, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="resourcecolumnKeyword != null">
+				#{resourcecolumnKeyword, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnLazyload != null">
+				#{resourcecolumnLazyload, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnLinkmethod != null">
+				#{resourcecolumnLinkmethod, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnLocked != null">
+				#{resourcecolumnLocked, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnMaxvalue != null">
+				#{resourcecolumnMaxvalue, jdbcType=INTEGER},
+			</if>
+			<if test="resourcecolumnMerge != null">
+				#{resourcecolumnMerge, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnMinvalue != null">
+				#{resourcecolumnMinvalue, jdbcType=INTEGER},
+			</if>
+			<if test="resourcecolumnMorecolumn != null">
+				#{resourcecolumnMorecolumn, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnMorecolumnname != null">
+				#{resourcecolumnMorecolumnname, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnMultirows != null">
+				#{resourcecolumnMultirows, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnName != null">
+				#{resourcecolumnName, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnNameEn != null">
+				#{resourcecolumnNameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnNewfuncid != null">
+				#{resourcecolumnNewfuncid, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnOrder != null">
+				#{resourcecolumnOrder, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnQueryindex != null">
+				#{resourcecolumnQueryindex, jdbcType=INTEGER},
+			</if>
+			<if test="resourcecolumnQueryinfo != null">
+				#{resourcecolumnQueryinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnQuerytype != null">
+				#{resourcecolumnQuerytype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnQuickquery != null">
+				#{resourcecolumnQuickquery, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnQuickquerytype != null">
+				#{resourcecolumnQuickquerytype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnRbordercolor != null">
+				#{resourcecolumnRbordercolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnSelectonfocus != null">
+				#{resourcecolumnSelectonfocus, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnStatistallmsg != null">
+				#{resourcecolumnStatistallmsg, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnStatisticsmsg != null">
+				#{resourcecolumnStatisticsmsg, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnStatisticstype != null">
+				#{resourcecolumnStatisticstype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnStep != null">
+				#{resourcecolumnStep, jdbcType=INTEGER},
+			</if>
+			<if test="resourcecolumnSummaryformat != null">
+				#{resourcecolumnSummaryformat, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnSysmode != null">
+				#{resourcecolumnSysmode, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnTactics != null">
+				#{resourcecolumnTactics, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnTitlecolor != null">
+				#{resourcecolumnTitlecolor, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnUncheckedcls != null">
+				#{resourcecolumnUncheckedcls, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnValue != null">
+				#{resourcecolumnValue, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnVtype != null">
+				#{resourcecolumnVtype, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnWidth != null">
+				#{resourcecolumnWidth, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnWidthEn != null">
+				#{resourcecolumnWidthEn, jdbcType=VARCHAR},
+			</if>
+			<if test="resourcecolumnXtype != null">
+				#{resourcecolumnXtype, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

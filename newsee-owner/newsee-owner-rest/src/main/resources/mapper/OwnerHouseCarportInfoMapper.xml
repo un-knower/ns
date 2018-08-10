@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.owner.dao.OwnerHouseCarportInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseCarportInfo" >
+    <id column="house_id" property="houseId" jdbcType="BIGINT" />
+    <result column="carport_no" property="carportNo" jdbcType="VARCHAR" />
+    <result column="carport_short_name" property="carportShortName" jdbcType="VARCHAR" />
+    <result column="main_house_flag" property="mainHouseFlag" jdbcType="TINYINT" />
+    <result column="carport_type_id" property="carportTypeId" jdbcType="VARCHAR" />
+    <result column="mnemonic" property="mnemonic" jdbcType="VARCHAR" />
+    <result column="charging_area" property="chargingArea" jdbcType="BIGINT" />
+    <result column="building_area" property="buildingArea" jdbcType="BIGINT" />
+    <result column="assist_charging_area" property="assistChargingArea" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    house_id, carport_no, carport_short_name, main_house_flag, carport_type_id, 
+    mnemonic, charging_area, building_area, assist_charging_area, create_user_id, create_time, 
+    update_user_id, update_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_carport_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from owner_house_carport_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseCarportInfo" >
+    insert into owner_house_carport_info (house_id, carport_no, carport_short_name, 
+      main_house_flag, 
+      carport_type_id, mnemonic, charging_area, 
+      building_area, assist_charging_area, create_user_id, 
+      create_time, update_user_id, update_time,create_user_name, update_user_name)
+    values (#{houseId,jdbcType=BIGINT}, #{carportNo,jdbcType=VARCHAR}, #{carportShortName,jdbcType=VARCHAR}, 
+      #{mainHouseFlag,jdbcType=TINYINT}, 
+      #{carportTypeId,jdbcType=VARCHAR}, #{mnemonic,jdbcType=VARCHAR}, #{chargingArea,jdbcType=BIGINT}, 
+      #{buildingArea,jdbcType=BIGINT}, #{assistChargingArea,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+      #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseCarportInfo" >
+    insert into owner_house_carport_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="carportNo != null" >
+        carport_no,
+      </if>
+      <if test="carportShortName != null" >
+        carport_short_name,
+      </if>
+      <if test="mainHouseFlag != null" >
+        main_house_flag,
+      </if>
+      <if test="carportTypeId != null" >
+        carport_type_id,
+      </if>
+      <if test="mnemonic != null" >
+        mnemonic,
+      </if>
+      <if test="chargingArea != null" >
+        charging_area,
+      </if>
+      <if test="buildingArea != null" >
+        building_area,
+      </if>
+      <if test="assistChargingArea != null" >
+        assist_charging_area,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_user_id,
+        create_time,
+        update_user_id,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseId != null" >
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="carportNo != null" >
+        #{carportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carportShortName != null" >
+        #{carportShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseFlag != null" >
+        #{mainHouseFlag,jdbcType=TINYINT},
+      </if>
+      <if test="carportTypeId != null" >
+        #{carportTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonic != null" >
+        #{mnemonic,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null" >
+        #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null" >
+        #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null" >
+        #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+        #{createUserId,jdbcType=BIGINT},
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseCarportInfo" >
+    update owner_house_carport_info
+    <set >
+      <if test="carportNo != null" >
+        carport_no = #{carportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carportShortName != null" >
+        carport_short_name = #{carportShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="mainHouseFlag != null" >
+        main_house_flag = #{mainHouseFlag,jdbcType=TINYINT},
+      </if>
+      <if test="carportTypeId != null" >
+        carport_type_id = #{carportTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonic != null" >
+        mnemonic = #{mnemonic,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null" >
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null" >
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null" >
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+        update_time = now(),
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseCarportInfo" >
+    update owner_house_carport_info
+    set carport_no = #{carportNo,jdbcType=VARCHAR},
+      carport_short_name = #{carportShortName,jdbcType=VARCHAR},
+      main_house_flag = #{mainHouseFlag,jdbcType=TINYINT},
+      carport_type_id = #{carportTypeId,jdbcType=VARCHAR},
+      mnemonic = #{mnemonic,jdbcType=VARCHAR},
+      charging_area = #{chargingArea,jdbcType=BIGINT},
+      building_area = #{buildingArea,jdbcType=BIGINT},
+      assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = now()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <select id="loadHouseByShortName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+	    info.house_id, info.carport_no, info.carport_short_name, info.main_house_flag, info.carport_type_id, 
+	    info.mnemonic, info.charging_area, info.building_area, info.assist_charging_area, info.create_user_id, info.create_time, 
+	    info.update_user_id, info.update_time
+    from owner_house_carport_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.carport_short_name = #{shortName,jdbcType=VARCHAR}
+        <if test="precinctId != null and precinctId != 0">
+           and base.precinct_id = #{precinctId,jdbcType=BIGINT} 
+        </if>
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0 and base.is_block_up = false
+    </where> 
+  </select>
+  <select id="loadHouseByNo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        info.house_id, info.carport_no, info.carport_short_name, info.main_house_flag, info.carport_type_id, 
+        info.mnemonic, info.charging_area, info.building_area, info.assist_charging_area, info.create_user_id, info.create_time, 
+        info.update_user_id, info.update_time
+    from owner_house_carport_info info
+    inner join owner_house_base_info base on base.house_id = info.house_id
+    <where>
+        base.enterprise_id = #{enterpriseId,jdbcType=BIGINT} and info.carport_no = #{no,jdbcType=VARCHAR}
+        <if test="houseId != null">
+           and base.house_id != #{houseId,jdbcType=BIGINT}
+        </if>
+         AND base.is_deleted=FALSE AND base.edit_status = 0 and base.is_block_up = false
+    </where> 
+  </select>
+  
+  <!-- 根据房产ID，获取车位信息 -->
+  <select id="selectCarportInfoList" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_carport_info
+    where house_id IN
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+        #{item,jdbcType=BIGINT}
+    </foreach>
+  </select>
+  
+</mapper>

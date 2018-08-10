@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseStageExtendInfoEmptyMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseStageExtendInfoEmpty">
+    <id column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="emtpy_start_date" jdbcType="TIMESTAMP" property="emtpyStartDate" />
+    <result column="empty_end_date" jdbcType="TIMESTAMP" property="emptyEndDate" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    detail_id, emtpy_start_date, empty_end_date, sys_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_extend_info_empty
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from owner_house_stage_extend_info_empty
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoEmpty">
+    insert into owner_house_stage_extend_info_empty (detail_id, emtpy_start_date, empty_end_date, 
+      sys_time)
+    values (#{detailId,jdbcType=BIGINT}, #{emtpyStartDate,jdbcType=TIMESTAMP}, #{emptyEndDate,jdbcType=TIMESTAMP}, 
+      #{sysTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoEmpty">
+    insert into owner_house_stage_extend_info_empty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        detail_id,
+      </if>
+      <if test="emtpyStartDate != null">
+        emtpy_start_date,
+      </if>
+      <if test="emptyEndDate != null">
+        empty_end_date,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="emtpyStartDate != null">
+        #{emtpyStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emptyEndDate != null">
+        #{emptyEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoEmpty">
+    update owner_house_stage_extend_info_empty
+    <set>
+      <if test="emtpyStartDate != null">
+        emtpy_start_date = #{emtpyStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emptyEndDate != null">
+        empty_end_date = #{emptyEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoEmpty">
+    update owner_house_stage_extend_info_empty
+    set emtpy_start_date = #{emtpyStartDate,jdbcType=TIMESTAMP},
+      empty_end_date = #{emptyEndDate,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP}
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+</mapper>

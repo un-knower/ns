@@ -1,0 +1,10 @@
+/note.txt
+
+/target/
+/.settings/
+/.classpath
+/.project
+
+.idea
+*.iml
+

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeHouseChargeStandardCustomerMapper">
+
+	<resultMap id="ChargeHouseChargeStandardCustomerResultMap" type="com.newsee.charge.entity.ChargeHouseChargeStandardCustomer">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="houseChargeId" column="HouseChargeId" jdbcType="BIGINT"/>
+			<result property="houseId" column="HouseId" jdbcType="BIGINT"/>
+			<result property="ownerId" column="OwnerId" jdbcType="BIGINT"/>
+			<result property="ownerName" column="OwnerName" jdbcType="VARCHAR"/>
+			<result property="ownerType" column="OwnerType" jdbcType="TINYINT"/>
+			<result property="bearRatio" column="BearRatio" jdbcType="VARCHAR"/>
+			<result property="remark" column="Remark" jdbcType="VARCHAR"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeHouseChargeStandardCustomer_Column_List">
+		Id,EnterpriseId,OrganizationId,HouseChargeId,HouseId,OwnerId,OwnerName,OwnerType,BearRatio,Remark,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeHouseChargeStandardCustomerResultMap">
+	    select 
+	        <include refid="ChargeHouseChargeStandardCustomer_Column_List" />
+	    from 
+	       Charge_HouseChargeStandardCustomer
+	    <where>
+			IsDelete = 0
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldName} IS NULL or #{item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldName} IS NOT NULL and #{item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeHouseChargeStandardCustomerResultMap">
+		select
+			<include refid="ChargeHouseChargeStandardCustomer_Column_List" />
+		from
+			Charge_HouseChargeStandardCustomer
+		where
+			Id = #{id}
+	</select>
+	
+	<select id="selectByHouseChargeId" parameterType="java.util.Map" resultMap="ChargeHouseChargeStandardCustomerResultMap">
+		select
+			<include refid="ChargeHouseChargeStandardCustomer_Column_List" />
+		from
+			Charge_HouseChargeStandardCustomer
+		where
+			IsDelete = 0
+		   <if test="enterpriseId != null">
+				and EnterpriseId =#{enterpriseId}
+			</if>
+			 <if test="organizationId != null">
+				and OrganizationId =#{organizationId}
+				</if>
+			<if test="houseChargeId != null">
+				and HouseChargeId=#{houseChargeId}
+			</if>
+			<if test="houseId != null">
+				and HouseId=#{houseId}
+			</if> 
+	</select>
+	
+	
+	<!-- <delete id="deleteByHouseChargeId"  parameterType="java.util.Map">
+	 delete 
+	 from
+			Charge_HouseChargeStandardCustomer
+	where 1=1
+		   <if test="enterpriseId != null">
+				and EnterpriseId =#{enterpriseId}
+			</if>
+			 <if test="organizationId != null">
+				and OrganizationId =#{organizationId}
+				</if>
+			<if test="houseChargeId != null">
+				and HouseChargeId=#{houseChargeId}
+			</if>
+			<if test="houseId != null">
+				and HouseId=#{houseId}
+			</if> 		
+	</delete> -->
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeHouseChargeStandardCustomer">
+		update Charge_HouseChargeStandardCustomer
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="houseChargeId != null">
+			  HouseChargeId = #{houseChargeId, jdbcType=BIGINT },
+			</if>
+			<if test="houseId != null">
+			  HouseId = #{houseId, jdbcType=BIGINT },
+			</if>
+			<if test="ownerId != null">
+			  OwnerId = #{ownerId, jdbcType=BIGINT },
+			</if>
+			<if test="ownerName != null">
+			  OwnerName = #{ownerName, jdbcType=VARCHAR },
+			</if>
+			<if test="ownerType != null">
+			  OwnerType = #{ownerType, jdbcType=TINYINT },
+			</if>
+			<if test="bearRatio != null">
+			  BearRatio = #{bearRatio, jdbcType=VARCHAR },
+			</if>
+			<if test="remark != null">
+			  Remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="sysTime != null">
+			  SysTime = #{sysTime, jdbcType=TIMESTAMP },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update Charge_HouseChargeStandardCustomer
+		set IsDelete = 1
+		where
+			Id = #{id}
+	</delete>
+	
+	<delete id="deleteByHouseChargeId" parameterType="java.lang.Long">
+		update Charge_HouseChargeStandardCustomer
+		set IsDelete = 1
+		where
+			HouseChargeId = #{houseChargeId}
+	</delete>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		update Charge_HouseChargeStandardCustomer
+		set IsDelete = 1
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<delete id="deleteBatchByHouseId" parameterType="java.util.List">
+		update Charge_HouseChargeStandardCustomer
+		set IsDelete = 1
+		where
+			HouseChargeId in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeHouseChargeStandardCustomer">
+		insert into Charge_HouseChargeStandardCustomer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="houseChargeId != null">
+				HouseChargeId,
+			</if>
+			<if test="houseId != null">
+				HouseId,
+			</if>
+			<if test="ownerId != null">
+				OwnerId,
+			</if>
+			<if test="ownerName != null">
+				OwnerName,
+			</if>
+			<if test="ownerType != null">
+				OwnerType,
+			</if>
+			<if test="bearRatio != null">
+				BearRatio,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="sysTime != null">
+				SysTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="houseChargeId != null">
+				#{houseChargeId, jdbcType=BIGINT},
+			</if>
+			<if test="houseId != null">
+				#{houseId, jdbcType=BIGINT},
+			</if>
+			<if test="ownerId != null">
+				#{ownerId, jdbcType=BIGINT},
+			</if>
+			<if test="ownerName != null">
+				#{ownerName, jdbcType=VARCHAR},
+			</if>
+			<if test="ownerType != null">
+				#{ownerType, jdbcType=TINYINT},
+			</if>
+			<if test="bearRatio != null">
+				#{bearRatio, jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysTime != null">
+				#{sysTime, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_HouseChargeStandardCustomer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			HouseChargeId,
+			HouseId,
+			OwnerId,
+			OwnerName,
+			OwnerType,
+			BearRatio,
+			Remark,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			SysTime,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.houseChargeId, jdbcType=BIGINT},
+			#{item.houseId, jdbcType=BIGINT},
+			#{item.ownerId, jdbcType=BIGINT},
+			#{item.ownerName, jdbcType=VARCHAR},
+			#{item.ownerType, jdbcType=TINYINT},
+			#{item.bearRatio, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.sysTime, jdbcType=TIMESTAMP},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

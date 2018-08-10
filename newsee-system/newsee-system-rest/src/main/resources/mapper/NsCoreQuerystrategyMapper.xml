@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreQuerystrategyMapper">
+
+	<resultMap id="NsCoreQuerystrategyResultMap" type="com.newsee.system.entity.NsCoreQuerystrategy">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="jeCoreQuerystrategyId" column="JE_CORE_QUERYSTRATEGY_ID" jdbcType="VARCHAR"/>
+			<result property="querystrategyFuncinfoId" column="QUERYSTRATEGY_FUNCINFO_ID" jdbcType="VARCHAR"/>
+			<result property="querystrategyDef" column="QUERYSTRATEGY_DEF" jdbcType="VARCHAR"/>
+			<result property="querystrategyFggnsql" column="QUERYSTRATEGY_FGGNSQL" jdbcType="VARCHAR"/>
+			<result property="querystrategyFn" column="QUERYSTRATEGY_FN" jdbcType="LONGVARCHAR"/>
+			<result property="querystrategyFunccode" column="QUERYSTRATEGY_FUNCCODE" jdbcType="VARCHAR"/>
+			<result property="querystrategyName" column="QUERYSTRATEGY_NAME" jdbcType="VARCHAR"/>
+			<result property="querystrategyNameEn" column="QUERYSTRATEGY_NAME_EN" jdbcType="VARCHAR"/>
+			<result property="querystrategySql" column="QUERYSTRATEGY_SQL" jdbcType="LONGVARCHAR"/>
+			<result property="querystrategyUserid" column="QUERYSTRATEGY_USERID" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreQuerystrategy_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,JE_CORE_QUERYSTRATEGY_ID,QUERYSTRATEGY_FUNCINFO_ID,QUERYSTRATEGY_DEF,QUERYSTRATEGY_FGGNSQL,QUERYSTRATEGY_FN,QUERYSTRATEGY_FUNCCODE,QUERYSTRATEGY_NAME,QUERYSTRATEGY_NAME_EN,QUERYSTRATEGY_SQL,QUERYSTRATEGY_USERID,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_ORDERINDEX,SY_PDID,SY_PIID,SY_STATUS
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreQuerystrategyResultMap">
+		select
+			<include refid="NsCoreQuerystrategy_Column_List" />
+		from
+			ns_core_querystrategy
+		where
+			ID = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreQuerystrategy">
+		update ns_core_querystrategy
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="jeCoreQuerystrategyId != null">
+			  JE_CORE_QUERYSTRATEGY_ID = #{jeCoreQuerystrategyId, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyFuncinfoId != null">
+			  QUERYSTRATEGY_FUNCINFO_ID = #{querystrategyFuncinfoId, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyDef != null">
+			  QUERYSTRATEGY_DEF = #{querystrategyDef, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyFggnsql != null">
+			  QUERYSTRATEGY_FGGNSQL = #{querystrategyFggnsql, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyFn != null">
+			  QUERYSTRATEGY_FN = #{querystrategyFn, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="querystrategyFunccode != null">
+			  QUERYSTRATEGY_FUNCCODE = #{querystrategyFunccode, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyName != null">
+			  QUERYSTRATEGY_NAME = #{querystrategyName, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategyNameEn != null">
+			  QUERYSTRATEGY_NAME_EN = #{querystrategyNameEn, jdbcType=VARCHAR },
+			</if>
+			<if test="querystrategySql != null">
+			  QUERYSTRATEGY_SQL = #{querystrategySql, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="querystrategyUserid != null">
+			  QUERYSTRATEGY_USERID = #{querystrategyUserid, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_querystrategy 
+		where
+			ID = #{id}
+	</delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_querystrategy
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreQuerystrategy">
+		insert into ns_core_querystrategy
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="jeCoreQuerystrategyId != null">
+				JE_CORE_QUERYSTRATEGY_ID,
+			</if>
+			<if test="querystrategyFuncinfoId != null">
+				QUERYSTRATEGY_FUNCINFO_ID,
+			</if>
+			<if test="querystrategyDef != null">
+				QUERYSTRATEGY_DEF,
+			</if>
+			<if test="querystrategyFggnsql != null">
+				QUERYSTRATEGY_FGGNSQL,
+			</if>
+			<if test="querystrategyFn != null">
+				QUERYSTRATEGY_FN,
+			</if>
+			<if test="querystrategyFunccode != null">
+				QUERYSTRATEGY_FUNCCODE,
+			</if>
+			<if test="querystrategyName != null">
+				QUERYSTRATEGY_NAME,
+			</if>
+			<if test="querystrategyNameEn != null">
+				QUERYSTRATEGY_NAME_EN,
+			</if>
+			<if test="querystrategySql != null">
+				QUERYSTRATEGY_SQL,
+			</if>
+			<if test="querystrategyUserid != null">
+				QUERYSTRATEGY_USERID,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="jeCoreQuerystrategyId != null">
+				#{jeCoreQuerystrategyId, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyFuncinfoId != null">
+				#{querystrategyFuncinfoId, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyDef != null">
+				#{querystrategyDef, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyFggnsql != null">
+				#{querystrategyFggnsql, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyFn != null">
+				#{querystrategyFn, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="querystrategyFunccode != null">
+				#{querystrategyFunccode, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyName != null">
+				#{querystrategyName, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategyNameEn != null">
+				#{querystrategyNameEn, jdbcType=VARCHAR},
+			</if>
+			<if test="querystrategySql != null">
+				#{querystrategySql, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="querystrategyUserid != null">
+				#{querystrategyUserid, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_querystrategy
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			JE_CORE_QUERYSTRATEGY_ID,
+			QUERYSTRATEGY_FUNCINFO_ID,
+			QUERYSTRATEGY_DEF,
+			QUERYSTRATEGY_FGGNSQL,
+			QUERYSTRATEGY_FN,
+			QUERYSTRATEGY_FUNCCODE,
+			QUERYSTRATEGY_NAME,
+			QUERYSTRATEGY_NAME_EN,
+			QUERYSTRATEGY_SQL,
+			QUERYSTRATEGY_USERID,
+			SY_AUDFLAG,
+			SY_CREATEORG,
+			SY_CREATEORGNAME,
+			SY_CREATETIME,
+			SY_CREATEUSER,
+			SY_CREATEUSERNAME,
+			SY_ORDERINDEX,
+			SY_PDID,
+			SY_PIID,
+			SY_STATUS,
+		</trim>
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.jeCoreQuerystrategyId, jdbcType=VARCHAR},
+			#{item.querystrategyFuncinfoId, jdbcType=VARCHAR},
+			#{item.querystrategyDef, jdbcType=VARCHAR},
+			#{item.querystrategyFggnsql, jdbcType=VARCHAR},
+			#{item.querystrategyFn, jdbcType=LONGVARCHAR},
+			#{item.querystrategyFunccode, jdbcType=VARCHAR},
+			#{item.querystrategyName, jdbcType=VARCHAR},
+			#{item.querystrategyNameEn, jdbcType=VARCHAR},
+			#{item.querystrategySql, jdbcType=LONGVARCHAR},
+			#{item.querystrategyUserid, jdbcType=VARCHAR},
+			#{item.syAudflag, jdbcType=VARCHAR},
+			#{item.syCreateorg, jdbcType=VARCHAR},
+			#{item.syCreateorgname, jdbcType=VARCHAR},
+			#{item.syCreatetime, jdbcType=VARCHAR},
+			#{item.syCreateuser, jdbcType=VARCHAR},
+			#{item.syCreateusername, jdbcType=VARCHAR},
+			#{item.syOrderindex, jdbcType=INTEGER},
+			#{item.syPdid, jdbcType=VARCHAR},
+			#{item.syPiid, jdbcType=VARCHAR},
+			#{item.syStatus, jdbcType=VARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

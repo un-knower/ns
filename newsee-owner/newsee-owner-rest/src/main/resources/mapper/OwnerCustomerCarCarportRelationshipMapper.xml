@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerCustomerCarCarportRelationshipMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerCustomerCarCarportRelationship">
+    <id column="relationship_id" jdbcType="BIGINT" property="relationshipId" />
+    <result column="owner_car_id" jdbcType="BIGINT" property="ownerCarId" />
+    <result column="precinct_id" jdbcType="BIGINT" property="precinctId" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.newsee.owner.entity.OwnerHouseBaseInfo">
+    <result column="precinct_id" jdbcType="BIGINT" property="precinctId" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="house_full_name" property="houseFullName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    relationship_id, owner_car_id, precinct_id, house_id, is_deleted, create_user_id, 
+    create_time, update_user_id, update_time, sys_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_car_carport_relationship
+    where relationship_id = #{relationshipId,jdbcType=BIGINT}
+  </select>
+  <select id="listOwnerCarport" parameterType="java.lang.Long" resultMap="VoResultMap">
+    select 
+    relationship.precinct_id, relationship.house_id, base.house_full_name
+    from owner_customer_car_carport_relationship relationship
+    inner join owner_house_base_info base on base.house_id = relationship.house_id
+    where owner_car_id = #{carId,jdbcType=BIGINT}
+  </select>
+  <select id="listOwnerCarportByCarIdList" parameterType="java.util.List" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_customer_car_carport_relationship relationship
+    where owner_car_id in
+    <foreach collection="list" item="carId" open="(" separator="," close=")">
+       #{carId,jdbcType=BIGINT}
+    </foreach>
+  </select>
+  <select id="listForSearchCar" parameterType="java.util.List" resultType="java.lang.Long">
+    select 
+    relationship.owner_car_id
+    from owner_customer_car_carport_relationship relationship
+    where house_id in
+    <foreach collection="list" item="houseId" open="(" separator="," close=")">
+       #{houseId,jdbcType=BIGINT}
+    </foreach>
+  </select>
+  <delete id="deleteByCarId" parameterType="java.lang.Long">
+    delete from owner_customer_car_carport_relationship
+    where owner_car_id = #{carId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into owner_customer_car_carport_relationship (owner_car_id, precinct_id, 
+      house_id, is_deleted, create_user_id, 
+      create_time, update_user_id, update_time, create_user_name, update_user_name)
+    values 
+    <foreach collection="list" item="item" separator=",">
+        (#{item.ownerCarId,jdbcType=BIGINT}, #{item.precinctId,jdbcType=BIGINT}, 
+      #{item.houseId,jdbcType=BIGINT}, 0, #{item.createUserId,jdbcType=BIGINT}, 
+      NOW(), #{item.updateUserId,jdbcType=BIGINT}, NOW(), #{item.createUserName,jdbcType=VARCHAR}, 
+      #{item.updateUserName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerCustomerCarCarportRelationship">
+    insert into owner_customer_car_carport_relationship (relationship_id, owner_car_id, precinct_id, 
+      house_id, is_deleted, create_user_id, 
+      create_time, update_user_id, update_time, 
+      sys_time,create_user_name, update_user_name)
+    values (#{relationshipId,jdbcType=BIGINT}, #{ownerCarId,jdbcType=BIGINT}, #{precinctId,jdbcType=BIGINT}, 
+      #{houseId,jdbcType=BIGINT}, #{isDeleted,jdbcType=TINYINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{sysTime,jdbcType=TIMESTAMP},#{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerCustomerCarCarportRelationship">
+    insert into owner_customer_car_carport_relationship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="relationshipId != null">
+        relationship_id,
+      </if>
+      <if test="ownerCarId != null">
+        owner_car_id,
+      </if>
+      <if test="precinctId != null">
+        precinct_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="relationshipId != null">
+        #{relationshipId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerCarId != null">
+        #{ownerCarId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerCustomerCarCarportRelationship">
+    update owner_customer_car_carport_relationship
+    <set>
+      <if test="ownerCarId != null">
+        owner_car_id = #{ownerCarId,jdbcType=BIGINT},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where relationship_id = #{relationshipId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerCustomerCarCarportRelationship">
+    update owner_customer_car_carport_relationship
+    set owner_car_id = #{ownerCarId,jdbcType=BIGINT},
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      updateUserName = #{updateUserName,jdbcType=VARCHAR}
+    where relationship_id = #{relationshipId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,248 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.newsee</groupId>
+    <artifactId>newsee-owner</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>newsee-owner-rest</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Brixton.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>    
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-dependencies</artifactId>
+	            <version>1.5.4.RELEASE</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>        
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+	    <dependency>
+	        <groupId>com.newsee</groupId>
+	        <artifactId>newsee-owner-pojo</artifactId>
+	        <version>0.0.1-SNAPSHOT</version>
+	    </dependency>
+	    <!-- 引入切面，统一处理日志信息 -->
+		<dependency>
+  			<groupId>org.springframework.boot</groupId>
+  			<artifactId>spring-boot-starter-aop</artifactId>
+  			<!--  <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions> -->
+		</dependency>
+	    <dependency>
+	        <groupId>com.newsee</groupId>
+	        <artifactId>newsee-common</artifactId>
+	        <version>0.0.1-SNAPSHOT</version>
+	        <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>  
+                    <artifactId>servlet-api</artifactId> 
+                </exclusion>	        
+	        </exclusions>
+	    </dependency>	    
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+             <!-- <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions> -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+<!--        <dependency> 
+            <groupId>com.caesar.mongodblogclient</groupId> 
+            <artifactId>mongodblog-client</artifactId> 
+            <version>0.0.1-SNAPSHOT</version> 
+            <scope>system</scope> 
+            <systemPath>C:\Users\Administrator\Documents\Tencent Files\619362863\FileRecv\mongodblog-client-0.0.1-SNAPSHOT.jar</systemPath> 
+        </dependency>  -->
+        <!-- 服务注册所需环境 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <!-- 断路器 -->
+        <dependency>
+        	 <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+        <!-- 断路器仪表盘 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+        </dependency>
+        <!-- 为该服务添加监控 -->
+         <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+
+        <dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.26</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+            <!-- <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions> -->
+        </dependency>
+        <dependency>
+            <groupId>com.newsee</groupId>
+            <artifactId>newsee-redis</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <!--分页插件-->  
+        <dependency>  
+            <groupId>com.github.pagehelper</groupId>  
+            <artifactId>pagehelper</artifactId>  
+            <version>4.1.1</version>  
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-configuration-processor</artifactId>
+        	<optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.9.0.1</version>
+            <exclusions> <!-- exclude掉过时的log依赖 -->
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--fastdfs上传下载组件-->  
+        <!--  <dependency>
+	        <groupId>com.github.tobato</groupId>
+	        <artifactId>fastdfs-client</artifactId>
+	        <version>1.25.4-RELEASE</version>
+	        <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+	    </dependency>
+	    <dependency>
+	        <groupId>commons-io</groupId>
+	        <artifactId>commons-io</artifactId>
+	    </dependency> -->
+        <!-- thmleaf模板依赖. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>	    
+	    <!-- <dependency>
+		    <groupId>com.newsee</groupId>
+		    <artifactId>newsee-fastdfs</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+	    </dependency> -->
+	    <dependency>
+            <groupId>com.newsee</groupId>
+		    <artifactId>newsee-database</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+       <dependency>
+            <groupId>com.newsee</groupId>
+		    <artifactId>newsee-system-pojo</artifactId>
+		    <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+	    <!--websocket组件--> 
+	    <dependency>    
+	        <groupId>org.springframework.boot</groupId>    
+	        <artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+        <!-- 增加mongodb支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mongodb-driver</artifactId>
+                    <groupId>org.mongodb</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+    </dependencies>
+    <build>  
+        <plugins>  
+            <plugin>  
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>  
+	                <execution>  
+	                    <goals>  
+	                        <goal>build-info</goal>  
+	                    </goals>  
+	                </execution>  
+            	</executions>    
+            </plugin>  
+        </plugins>  
+    </build>  
+</project>

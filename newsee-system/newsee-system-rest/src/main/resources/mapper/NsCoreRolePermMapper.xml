@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreRolePermMapper">
+
+	<resultMap id="NsCoreRolePermResultMap" type="com.newsee.system.entity.NsCoreRolePerm">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="enabled" column="ENABLED" jdbcType="VARCHAR"/>
+			<result property="perid" column="PERID" jdbcType="VARCHAR"/>
+			<result property="roleid" column="ROLEID" jdbcType="VARCHAR"/>
+			<result property="type" column="TYPE" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreRolePerm_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,ENABLED,PERID,ROLEID,TYPE
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreRolePermResultMap">
+		select
+			<include refid="NsCoreRolePerm_Column_List" />
+		from
+			ns_core_role_perm
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByRoleId" parameterType="java.lang.String" resultMap="NsCoreRolePermResultMap">
+        select
+            <include refid="NsCoreRolePerm_Column_List" />
+        from
+            ns_core_role_perm
+        where
+            ROLEID = #{roleid}
+    </select>
+	
+	<select id="selectByRoleIds" parameterType="java.util.List" resultMap="NsCoreRolePermResultMap">
+        select
+            <include refid="NsCoreRolePerm_Column_List" />
+        from
+            ns_core_role_perm
+        where
+            ROLEID 
+        in
+            <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreRolePerm">
+		update ns_core_role_perm
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="enabled != null">
+			  ENABLED = #{enabled, jdbcType=VARCHAR },
+			</if>
+			<if test="perid != null">
+			  PERID = #{perid, jdbcType=VARCHAR },
+			</if>
+			<if test="roleid != null">
+			  ROLEID = #{roleid, jdbcType=VARCHAR },
+			</if>
+			<if test="type != null">
+			  TYPE = #{type, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_role_perm 
+		where
+			ID = #{id}
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="java.lang.String">
+        delete from ns_core_role_perm 
+        where
+            ROLEID = #{id}
+    </delete>
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_role_perm
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreRolePerm">
+		insert into ns_core_role_perm
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="enabled != null">
+				ENABLED,
+			</if>
+			<if test="perid != null">
+				PERID,
+			</if>
+			<if test="roleid != null">
+				ROLEID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="enabled != null">
+				#{enabled, jdbcType=VARCHAR},
+			</if>
+			<if test="perid != null">
+				#{perid, jdbcType=VARCHAR},
+			</if>
+			<if test="roleid != null">
+				#{roleid, jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_role_perm
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			ENABLED,
+			PERID,
+			ROLEID,
+			TYPE,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.enabled, jdbcType=VARCHAR},
+			#{item.perid, jdbcType=VARCHAR},
+			#{item.roleid, jdbcType=VARCHAR},
+			#{item.type, jdbcType=VARCHAR}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

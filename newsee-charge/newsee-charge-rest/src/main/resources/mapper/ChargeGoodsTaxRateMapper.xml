@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeGoodsTaxRateMapper">
+
+    <resultMap id="ChargeGoodsTaxRateResultMap" type="com.newsee.charge.entity.ChargeGoodsTaxRate">
+        <id property="id" column="Id" jdbcType="BIGINT"/>
+        <result property="goodsTaxId" column="GoodsTaxId" jdbcType="BIGINT"/>
+        <result property="goodsTaxCode" column="GoodsTaxCode" jdbcType="VARCHAR"/>
+        <result property="goodsTaxName" column="GoodsTaxName" jdbcType="VARCHAR"/>
+        <result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+        <result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+        <result property="precinctId" column="PrecinctId" jdbcType="BIGINT"/>
+        <result property="precinctName" column="PrecinctName" jdbcType="VARCHAR"/>
+        <result property="chargeItemId" column="ChargeItemId" jdbcType="BIGINT"/>
+        <result property="chargeItemName" column="ChargeItemName" jdbcType="VARCHAR"/>
+        <result property="taxRate" column="TaxRate" jdbcType="DOUBLE"/>
+        <result property="remark" column="Remark" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+        <result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+        <result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+        <result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="ChargeGoodsTaxRate_Column_List">
+		Id,GoodsTaxId,GoodsTaxCode,GoodsTaxName,EnterpriseId,OrganizationId,PrecinctId,PrecinctName,ChargeItemId,ChargeItemName,TaxRate,Remark,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime
+	</sql>
+
+    <sql id="ChargeGoodsTaxRate_Muti_Column_List">
+		B.Id,B.GoodsTaxId,B.GoodsTaxCode,B.GoodsTaxName,B.EnterpriseId,B.OrganizationId,B.PrecinctId,B.PrecinctName,B.ChargeItemId,B.ChargeItemName,B.TaxRate,B.Remark,B.CreateUserId,B.CreateUserName,B.CreateTime,B.UpdateUserId,B.UpdateUserName,B.UpdateTime,B.SysTime
+	</sql>
+
+    <select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeGoodsTaxRateResultMap">
+        select
+        <!-- <include refid="ChargeGoodsTaxRate_Muti_Column_List" /> -->
+        B.Id,item.GoodsTaxId AS GoodsTaxId, item.GoodsTaxCode AS GoodsTaxCode,tax.GoodsTaxName AS GoodsTaxName,B.EnterpriseId,B.OrganizationId,B.PrecinctId,B.PrecinctName,B.ChargeItemId,item.ChargeItemName AS ChargeItemName,IFNULL(B.TaxRate,item.TaxRate)  AS TaxRate,B.Remark,B.CreateUserId,B.CreateUserName,B.CreateTime,B.UpdateUserId,B.UpdateUserName,B.UpdateTime,B.SysTime
+        from
+        Charge_GoodsTaxRate B
+        INNER JOIN Charge_ChargeItem AS item on item.Id = B.ChargeItemId
+        LEFT JOIN Charge_GoodsTax as tax on tax.Id = item.GoodsTaxId
+        <where>
+            B.IsDelete=0
+            <if test="mainSearch != null and mainSearch != ''">
+                and LOCATE(#{mainSearch,jdbcType=VARCHAR}, item.ChargeItemName)>0
+            </if>
+            <if test="enterpriseId != null">
+                and B.EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and B.OrganizationId = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="houseIds != null and houseIds.size() > 0">
+                and B.precinctId in
+                <foreach collection="houseIds" item="houseId" index="index" open="(" close=")" separator=",">
+                    #{houseId}
+                </foreach>
+            </if>
+
+            <!--<if test="otherConditions != null and otherConditions.houseId != null">-->
+                <!--and B.PrecinctId = #{otherConditions.houseId,jdbcType=BIGINT}-->
+            <!--</if>-->
+            <if test="filterList != null">
+                <foreach collection="filterList" item="item">
+                    <choose>
+                        <when test="item.comparison != null and item.comparison == 'NULL'">
+                            and (B.${item.fieldName} IS NULL or B.${item.fieldName} = '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+                            and (B.${item.fieldName} IS NOT NULL and B.${item.fieldName} != '')
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+                            and LOCATE(#{item.fieldValue}, B.${item.fieldName})=0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LIKE'">
+                            and LOCATE(#{item.fieldValue}, B.${item.fieldName})>0
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+                            and B.${item.fieldName} &gt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+                            and B.${item.fieldName} &lt; #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type!='date'">
+                            and B.${item.fieldName} = #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type == 'date'">
+                            and to_days(B.${item.fieldName}) = to_days(#{item.fieldValue})
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+                            and B.${item.fieldName} != #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+                            and B.${item.fieldName} &gt;= #{item.fieldValue}
+                        </when>
+                        <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+                            and B.${item.fieldName} &lt;= #{item.fieldValue}
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+              order by id desc
+            <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+                 ,${orderFieldName}
+                <if test="orderBy != null and orderBy != ''">
+                    ${orderBy}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="ChargeGoodsTaxRateResultMap">
+        select
+        <include refid="ChargeGoodsTaxRate_Column_List"/>
+        from
+        Charge_GoodsTaxRate
+        where
+        Id = #{id}
+    </select>
+
+    <select id="selectByOrganizationIdAndItemId" parameterType="java.util.Map" resultMap="ChargeGoodsTaxRateResultMap">
+        select
+        <include refid="ChargeGoodsTaxRate_Column_List"/>
+        from
+        Charge_GoodsTaxRate
+        <where>
+            IsDelete=0
+            <if test="enterpriseId != null">
+                AND EnterpriseId = #{enterpriseId}
+            </if>
+            <if test="organizationId">
+                AND OrganizationId = #{organizationId}
+            </if>
+            AND ChargeItemId = #{chargeItemId}
+            AND PrecinctId = #{precinctId}
+        </where>
+    </select>
+
+    <update id="updateById" parameterType="com.newsee.charge.entity.ChargeGoodsTaxRate">
+        update Charge_GoodsTaxRate
+        <set>
+            <!-- <if test="taxRate != null"> -->
+            TaxRate = #{taxRate, jdbcType=DOUBLE },
+            <!-- </if> -->
+            <if test="goodsTaxCode != null">
+                GoodsTaxCode = #{goodsTaxCode, jdbcType=VARCHAR},
+            </if>
+            <!-- <if test="remark != null"> -->
+            Remark = #{remark, jdbcType=VARCHAR },
+            <!-- </if> -->
+            <if test="updateUserId != null">
+                UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+            </if>
+            <if test="updateTime != null">
+                UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="sysTime != null">
+                SysTime = #{sysTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="isDelete != null">
+                IsDelete = #{isDelete, jdbcType=BIGINT}
+            </if>
+        </set>
+        where
+        Id = #{id}
+    </update>
+
+    <update id="updatePrecinctName" parameterType="java.util.Map">
+      update Charge_GoodsTaxRate
+      <set>
+          PrecinctName = #{houseName,jdbcType=VARCHAR}
+      </set>
+        where IsDelete=0
+        <if test="enterpriseId != null">
+            and EnterpriseId = #{enterpriseId}
+        </if>
+        and PrecinctId=#{houseId,jdbcType=BIGINT}
+
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+		UPDATE Charge_GoodsTaxRate
+		SET IsDelete = 1
+		WHERE
+			Id = #{id}
+	</delete>
+
+    <delete id="deleteByParam" parameterType="java.util.Map">
+		UPDATE Charge_GoodsTaxRate
+		SET IsDelete = 1
+		<where>
+            IsDelete = 0
+            <if test="enterpriseId!=null">
+                and EnterpriseId = #{enterpriseId}
+            </if>
+            <if test="chargeItemId!=null">
+                and ChargeItemId = #{chargeItemId}
+            </if>
+            <if test="houseId!=null">
+                and PrecinctId = #{houseId}
+            </if>
+        </where>
+	</delete>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        UPDATE Charge_GoodsTaxRate
+        SET IsDelete = 1
+        WHERE
+        Id IN
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.newsee.charge.entity.ChargeGoodsTaxRate">
+        insert into Charge_GoodsTaxRate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsTaxId != null">
+                GoodsTaxId,
+            </if>
+            <if test="goodsTaxCode != null">
+                GoodsTaxCode,
+            </if>
+            <if test="goodsTaxName != null">
+                GoodsTaxName,
+            </if>
+            <if test="enterpriseId != null">
+                EnterpriseId,
+            </if>
+            <if test="organizationId != null">
+                OrganizationId,
+            </if>
+            <if test="precinctId != null">
+                PrecinctId,
+            </if>
+            <if test="precinctName != null">
+                PrecinctName,
+            </if>
+            <if test="chargeItemId != null">
+                ChargeItemId,
+            </if>
+            <if test="chargeItemName != null">
+                ChargeItemName,
+            </if>
+            <if test="taxRate != null">
+                TaxRate,
+            </if>
+            <if test="remark != null">
+                Remark,
+            </if>
+            <if test="createUserId != null">
+                CreateUserId,
+            </if>
+            <if test="createUserName != null">
+                CreateUserName,
+            </if>
+            <if test="createTime != null">
+                CreateTime,
+            </if>
+            <if test="updateUserId != null">
+                UpdateUserId,
+            </if>
+            <if test="updateUserName != null">
+                UpdateUserName,
+            </if>
+            <if test="updateTime != null">
+                UpdateTime,
+            </if>
+            <if test="sysTime != null">
+                SysTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsTaxId != null">
+                #{goodsTaxId, jdbcType=BIGINT},
+            </if>
+            <if test="goodsTaxCode != null">
+                #{goodsTaxCode, jdbcType=VARCHAR},
+            </if>
+            <if test="goodsTaxName != null">
+                #{goodsTaxName, jdbcType=VARCHAR},
+            </if>
+            <if test="enterpriseId != null">
+                #{enterpriseId, jdbcType=BIGINT},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId, jdbcType=BIGINT},
+            </if>
+            <if test="precinctId != null">
+                #{precinctId, jdbcType=BIGINT},
+            </if>
+            <if test="precinctName != null">
+                #{precinctName, jdbcType=VARCHAR},
+            </if>
+            <if test="chargeItemId != null">
+                #{chargeItemId, jdbcType=BIGINT},
+            </if>
+            <if test="chargeItemName != null">
+                #{chargeItemName, jdbcType=VARCHAR},
+            </if>
+            <if test="taxRate != null">
+                #{taxRate, jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                #{remark, jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId, jdbcType=BIGINT},
+            </if>
+            <if test="createUserName != null">
+                #{createUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId, jdbcType=BIGINT},
+            </if>
+            <if test="updateUserName != null">
+                #{updateUserName, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="sysTime != null">
+                #{sysTime, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into Charge_GoodsTaxRate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            GoodsTaxId,
+            GoodsTaxCode,
+            GoodsTaxName,
+            EnterpriseId,
+            OrganizationId,
+            PrecinctId,
+            PrecinctName,
+            ChargeItemId,
+            ChargeItemName,
+            TaxRate,
+            Remark,
+            CreateUserId,
+            CreateUserName,
+            CreateTime,
+            UpdateUserId,
+            UpdateUserName,
+            UpdateTime,
+            SysTime,
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.goodsTaxId, jdbcType=BIGINT},
+            #{item.goodsTaxCode, jdbcType=VARCHAR},
+            #{item.goodsTaxName, jdbcType=VARCHAR},
+            #{item.enterpriseId, jdbcType=BIGINT},
+            #{item.organizationId, jdbcType=BIGINT},
+            #{item.precinctId, jdbcType=BIGINT},
+            #{item.precinctName, jdbcType=VARCHAR},
+            #{item.chargeItemId, jdbcType=BIGINT},
+            #{item.chargeItemName, jdbcType=VARCHAR},
+            #{item.taxRate, jdbcType=DOUBLE},
+            #{item.remark, jdbcType=VARCHAR},
+            #{item.createUserId, jdbcType=BIGINT},
+            #{item.createUserName, jdbcType=VARCHAR},
+            #{item.createTime, jdbcType=TIMESTAMP},
+            #{item.updateUserId, jdbcType=BIGINT},
+            #{item.updateUserName, jdbcType=VARCHAR},
+            #{item.updateTime, jdbcType=TIMESTAMP},
+            #{item.sysTime, jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

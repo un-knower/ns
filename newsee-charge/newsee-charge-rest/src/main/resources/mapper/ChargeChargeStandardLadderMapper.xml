@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeChargeStandardLadderMapper">
+
+	<resultMap id="ChargeChargeStandardLadderResultMap" type="com.newsee.charge.entity.ChargeChargeStandardLadder">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="standardId" column="StandardId" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="ladderStartNum" column="LadderStartNum" jdbcType="VARCHAR"/>
+			<result property="ladderEndNum" column="LadderEndNum" jdbcType="VARCHAR"/>
+			<result property="ladderPrice" column="LadderPrice" jdbcType="VARCHAR"/>
+			<result property="ladderUnit" column="LadderUnit" jdbcType="VARCHAR"/>
+			<result property="type" column="type" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeChargeStandardLadder_Column_List">
+		Id,StandardId,EnterpriseId,OrganizationId,LadderStartNum,LadderEndNum,LadderPrice,LadderUnit,type
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeChargeStandardLadderResultMap">
+	    select 
+	        <include refid="ChargeChargeStandardLadder_Column_List" />
+	    from 
+	       Charge_ChargeStandardLadder
+	    <where>
+	       and IsDelete !=2
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, user_name)>0 
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (#{item.fieldName} IS NULL or #{item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (#{item.fieldName} IS NOT NULL and #{item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})=0 
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, #{item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and #{item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and #{item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                       and #{item.fieldName} = #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and #{item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                       and #{item.fieldName} &gt;= #{item.fieldValue}               
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                       and #{item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by ${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.util.Map" resultMap="ChargeChargeStandardLadderResultMap">
+		select
+			<include refid="ChargeChargeStandardLadder_Column_List" />
+		from
+			Charge_ChargeStandardLadder
+		where
+			StandardId = #{id}
+		<if test="type != null">
+			 and type = #{type}
+		</if>
+		and IsDelete !=2
+	</select>
+	
+	<select id="selectByStandardId" parameterType="java.lang.Long" resultMap="ChargeChargeStandardLadderResultMap">
+		select
+			<include refid="ChargeChargeStandardLadder_Column_List" />
+		from
+			Charge_ChargeStandardLadder
+		where
+			StandardId = #{id}
+			and IsDelete !=2
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeChargeStandardLadder">
+		update Charge_ChargeStandardLadder
+		<set>
+			<if test="standardId != null">
+			  StandardId = #{standardId, jdbcType=BIGINT },
+			</if>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="ladderStartNum != null">
+			  LadderStartNum = #{ladderStartNum, jdbcType=VARCHAR },
+			</if>
+			<if test="ladderEndNum != null">
+			  LadderEndNum = #{ladderEndNum, jdbcType=VARCHAR },
+			</if>
+			<if test="ladderPrice != null">
+			  LadderPrice = #{ladderPrice, jdbcType=VARCHAR },
+			</if>
+			<if test="ladderUnit != null">
+			  LadderUnit = #{ladderUnit, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<update id="deleteById" parameterType="java.lang.Long">
+		update Charge_ChargeStandardLadder t set t.IsDelete =2
+		where
+			t.Id = #{id}
+			and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =t.StandardId and p.isDelete =0
+		)
+	</update>
+	
+	<update id="deleteByStandardId" parameterType="java.lang.Long">
+		update Charge_ChargeStandardLadder t set t.IsDelete =2
+		where
+			t.StandardId = #{id}
+				and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =t.StandardId and p.isDelete =0
+		)
+	</update>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		update Charge_ChargeStandardLadder t  set t.IsDelete =2
+		where
+			t.Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+        	and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =t.StandardId and p.isDelete =0
+		)
+	</update>
+	
+	<update id="deleteByStandardIdBatch" parameterType="java.util.List">
+		update Charge_ChargeStandardLadder t  set t.IsDelete =2
+		where
+			t.StandardId in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+        	and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =t.StandardId and p.isDelete =0
+		)
+	</update>
+	
+	
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeChargeStandardLadder">
+		insert into Charge_ChargeStandardLadder
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="standardId != null">
+				StandardId,
+			</if>
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="ladderStartNum != null">
+				LadderStartNum,
+			</if>
+			<if test="ladderEndNum != null">
+				LadderEndNum,
+			</if>
+			<if test="ladderPrice != null">
+				LadderPrice,
+			</if>
+			<if test="ladderUnit != null">
+				LadderUnit,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="standardId != null">
+				#{standardId, jdbcType=BIGINT},
+			</if>
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="ladderStartNum != null">
+				#{ladderStartNum, jdbcType=VARCHAR},
+			</if>
+			<if test="ladderEndNum != null">
+				#{ladderEndNum, jdbcType=VARCHAR},
+			</if>
+			<if test="ladderPrice != null">
+				#{ladderPrice, jdbcType=VARCHAR},
+			</if>
+			<if test="ladderUnit != null">
+				#{ladderUnit, jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_ChargeStandardLadder
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			StandardId,
+			EnterpriseId,
+			OrganizationId,
+			LadderStartNum,
+			LadderEndNum,
+			LadderPrice,
+			LadderUnit,
+			type
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.standardId, jdbcType=BIGINT},
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.ladderStartNum, jdbcType=VARCHAR},
+			#{item.ladderEndNum, jdbcType=VARCHAR},
+			#{item.ladderPrice, jdbcType=VARCHAR},
+			#{item.ladderUnit, jdbcType=VARCHAR},
+			#{item.type, jdbcType=VARCHAR}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCorePermissionMapper">
+
+	<resultMap id="NsCorePermissionResultMap" type="com.newsee.system.entity.NsCorePermission">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="perid" column="PERID" jdbcType="VARCHAR"/>
+			<result property="appendtype" column="APPENDTYPE" jdbcType="VARCHAR"/>
+			<result property="funcid" column="FUNCID" jdbcType="VARCHAR"/>
+			<result property="module" column="MODULE" jdbcType="VARCHAR"/>
+			<result property="operid" column="OPERID" jdbcType="VARCHAR"/>
+			<result property="permcode" column="PERMCODE" jdbcType="VARCHAR"/>
+			<result property="permpath" column="PERMPATH" jdbcType="LONGVARCHAR"/>
+			<result property="permtype" column="PERMTYPE" jdbcType="VARCHAR"/>
+			<result property="resid" column="RESID" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCorePermission_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,PERID,APPENDTYPE,FUNCID,MODULE,OPERID,PERMCODE,PERMPATH,PERMTYPE,RESID
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCorePermissionResultMap">
+		select
+			<include refid="NsCorePermission_Column_List" />
+		from
+			ns_core_permission
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByPerids" parameterType="java.util.List" resultMap="NsCorePermissionResultMap">
+        select
+            <include refid="NsCorePermission_Column_List" />
+        from
+            ns_core_permission
+        where
+            PERID
+        in
+            <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+    </select>
+    
+    <select id="selecttButtonPermByPerids" parameterType="java.util.List" resultMap="NsCorePermissionResultMap">
+        select
+            <include refid="NsCorePermission_Column_List" />
+        from
+            ns_core_permission
+        where
+            PERMTYPE = 'button' and  
+            PERID
+        in
+            <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+    </select>
+    
+    <select id="selectButtonPermByFuncId" parameterType="java.lang.String" resultMap="NsCorePermissionResultMap">
+        select
+            <include refid="NsCorePermission_Column_List" />
+        from
+            ns_core_permission
+        where
+            FUNCID = #{funcId} and PERMTYPE = 'button' 
+    </select>
+    
+    <select id="selectButtonPermByFuncIds" parameterType="java.lang.String" resultMap="NsCorePermissionResultMap">
+        select
+            <include refid="NsCorePermission_Column_List" />
+        from
+            ns_core_permission
+        where
+            PERMTYPE = 'button' and 
+            FUNCID
+        in
+            <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+    </select>
+	
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCorePermission">
+		update ns_core_permission
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="perid != null">
+			  PERID = #{perid, jdbcType=VARCHAR },
+			</if>
+			<if test="appendtype != null">
+			  APPENDTYPE = #{appendtype, jdbcType=VARCHAR },
+			</if>
+			<if test="funcid != null">
+			  FUNCID = #{funcid, jdbcType=VARCHAR },
+			</if>
+			<if test="module != null">
+			  MODULE = #{module, jdbcType=VARCHAR },
+			</if>
+			<if test="operid != null">
+			  OPERID = #{operid, jdbcType=VARCHAR },
+			</if>
+			<if test="permcode != null">
+			  PERMCODE = #{permcode, jdbcType=VARCHAR },
+			</if>
+			<if test="permpath != null">
+			  PERMPATH = #{permpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="permtype != null">
+			  PERMTYPE = #{permtype, jdbcType=VARCHAR },
+			</if>
+			<if test="resid != null">
+			  RESID = #{resid, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			ID = #{id}
+	   </update>
+	
+	   <update id="updateByPerId" parameterType="com.newsee.system.entity.NsCorePermission">
+        update ns_core_permission
+        <set>
+            <if test="enterpriseId != null">
+              ENTERPRISE_ID = #{enterpriseId, jdbcType=BIGINT },
+            </if>
+            <if test="organizationId != null">
+              ORGANIZATION_ID = #{organizationId, jdbcType=BIGINT },
+            </if>
+            <if test="perid != null">
+              PERID = #{perid, jdbcType=VARCHAR },
+            </if>
+            <if test="appendtype != null">
+              APPENDTYPE = #{appendtype, jdbcType=VARCHAR },
+            </if>
+            <if test="funcid != null">
+              FUNCID = #{funcid, jdbcType=VARCHAR },
+            </if>
+            <if test="module != null">
+              MODULE = #{module, jdbcType=VARCHAR },
+            </if>
+            <if test="operid != null">
+              OPERID = #{operid, jdbcType=VARCHAR },
+            </if>
+            <if test="permcode != null">
+              PERMCODE = #{permcode, jdbcType=VARCHAR },
+            </if>
+            <if test="permpath != null">
+              PERMPATH = #{permpath, jdbcType=LONGVARCHAR },
+            </if>
+            <if test="permtype != null">
+              PERMTYPE = #{permtype, jdbcType=VARCHAR },
+            </if>
+            <if test="resid != null">
+              RESID = #{resid, jdbcType=VARCHAR },
+            </if>
+        </set>
+        where
+              PERID = #{perid}
+    </update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+        delete from ns_core_permission 
+        where
+            ID = #{id}
+    </delete>
+    
+    <delete id="deleteByPerids" parameterType="java.util.List">
+        delete from ns_core_permission 
+        where
+            PERID
+        in
+        <foreach item="item" collection="list" open="(" separator="," close=")">  
+                #{item}  
+        </foreach> 
+    </delete>
+    
+	
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_permission
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCorePermission">
+		insert into ns_core_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="perid != null">
+				PERID,
+			</if>
+			<if test="appendtype != null">
+				APPENDTYPE,
+			</if>
+			<if test="funcid != null">
+				FUNCID,
+			</if>
+			<if test="module != null">
+				MODULE,
+			</if>
+			<if test="operid != null">
+				OPERID,
+			</if>
+			<if test="permcode != null">
+				PERMCODE,
+			</if>
+			<if test="permpath != null">
+				PERMPATH,
+			</if>
+			<if test="permtype != null">
+				PERMTYPE,
+			</if>
+			<if test="resid != null">
+				RESID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="perid != null">
+				#{perid, jdbcType=VARCHAR},
+			</if>
+			<if test="appendtype != null">
+				#{appendtype, jdbcType=VARCHAR},
+			</if>
+			<if test="funcid != null">
+				#{funcid, jdbcType=VARCHAR},
+			</if>
+			<if test="module != null">
+				#{module, jdbcType=VARCHAR},
+			</if>
+			<if test="operid != null">
+				#{operid, jdbcType=VARCHAR},
+			</if>
+			<if test="permcode != null">
+				#{permcode, jdbcType=VARCHAR},
+			</if>
+			<if test="permpath != null">
+				#{permpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="permtype != null">
+				#{permtype, jdbcType=VARCHAR},
+			</if>
+			<if test="resid != null">
+				#{resid, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			PERID,
+			APPENDTYPE,
+			FUNCID,
+			MODULE,
+			OPERID,
+			PERMCODE,
+			PERMPATH,
+			PERMTYPE,
+			RESID,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.perid, jdbcType=VARCHAR},
+			#{item.appendtype, jdbcType=VARCHAR},
+			#{item.funcid, jdbcType=VARCHAR},
+			#{item.module, jdbcType=VARCHAR},
+			#{item.operid, jdbcType=VARCHAR},
+			#{item.permcode, jdbcType=VARCHAR},
+			#{item.permpath, jdbcType=LONGVARCHAR},
+			#{item.permtype, jdbcType=VARCHAR},
+			#{item.resid, jdbcType=VARCHAR}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

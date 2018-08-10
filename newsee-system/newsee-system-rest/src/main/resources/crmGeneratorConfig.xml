@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 数据库驱动位置 -->
+	<classPathEntry location="E:\Project\carse-repo\mysql\mysql-connector-java\5.1.42\mysql-connector-java-5.1.42.jar" />
+	
+	<context id="BaseDataTables" targetRuntime="MyBatis3">
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+		<commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+		<!-- 数据库连接参数 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.1.16:3307/newsee-system?useUnicode=true&amp;characterEncoding=UTF-8" userId="root"
+			password="newsee888" />
+		<!--把JDBC DECIMAL 和  NUMERIC 类型解析为java.math.BigDecimal. (默认false，即把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer ) -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+		<!-- entity存放目录 -->
+		<javaModelGenerator targetPackage="com.newsee.system.entity" targetProject="newsee-system-pojo" />
+		<!-- mapper xml存放目录 -->
+		<sqlMapGenerator targetPackage="resources.mapper" targetProject="newsee-system-rest" />
+		<!-- mapper接口存放目录 -->
+		<javaClientGenerator targetPackage="com.newsee.system.dao" targetProject="newsee-system-rest" type="XMLMAPPER" />
+		<!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等
+		<table schema="ProcessManagement" tableName="process_management"/>
+		<table schema="ProcessEmployeeRela" tableName="process_employee_rela"/> -->
+		<!-- 需要生成的表	-->	
+		<!-- <table tableName="platform_button" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false">
+		</table>
+        <table tableName="platform_menu" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table tableName="platform_enterprise" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table tableName="system_company" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+         <table tableName="system_department" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+         <table tableName="system_role" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>  
+          <table tableName="system_role_group" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>     -->
+         <!-- <table tableName="system_role_menu_button_relation" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table> 
+        <table tableName="system_role_precinct_relation" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>     -->
+         <!-- <table tableName="system_user" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>     -->
+        <!--  <table tableName="system_user_rolegroup_role_relation" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>   
+         <table tableName="system_enterprise_menu_relation" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>    -->
+       <!--  <table tableName="system_organization" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false"
+        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>      -->    
+         <table tableName="ns_system_role_function_organization" enableCountByExample="false"
+	        enableUpdateByExample="false" enableDeleteByExample="false"
+	        enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>   
+   
+	</context>
+</generatorConfiguration>

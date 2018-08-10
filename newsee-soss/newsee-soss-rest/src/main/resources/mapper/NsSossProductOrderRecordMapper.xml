@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.soss.dao.NsSossRichtextMapper">
+
+	<resultMap id="NsSossRichtextResultMap" type="com.newsee.soss.entity.NsSossRichtext">
+			<id property="id" column="id" jdbcType="BIGINT"/>
+			<result property="targetId" column="targetID" jdbcType="BIGINT"/>
+			<result property="targetCode" column="targetCode" jdbcType="VARCHAR"/>
+			<result property="targetContent" column="targetContent" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsSossRichtext_Column_List">
+		id,targetID,targetCode,targetContent
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsSossRichtextResultMap">
+		select
+			<include refid="NsSossRichtext_Column_List" />
+		from
+			ns_soss_richtext
+		where
+			id = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.soss.entity.NsSossRichtext">
+		update ns_soss_richtext
+		<set>
+			<if test="targetId != null">
+			  targetID = #{targetId, jdbcType=BIGINT },
+			</if>
+			<if test="targetCode != null">
+			  targetCode = #{targetCode, jdbcType=VARCHAR },
+			</if>
+			<if test="targetContent != null">
+			  targetContent = #{targetContent, jdbcType=LONGVARCHAR },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_soss_richtext 
+		where
+			id = #{id}
+	</delete>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		delete from ns_soss_richtext
+		where
+			id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.soss.entity.NsSossRichtext">
+		insert into ns_soss_richtext
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="targetId != null">
+				targetID,
+			</if>
+			<if test="targetCode != null">
+				targetCode,
+			</if>
+			<if test="targetContent != null">
+				targetContent,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="targetId != null">
+				#{targetId, jdbcType=BIGINT},
+			</if>
+			<if test="targetCode != null">
+				#{targetCode, jdbcType=VARCHAR},
+			</if>
+			<if test="targetContent != null">
+				#{targetContent, jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_soss_richtext
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			targetID,
+			targetCode,
+			targetContent,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.targetId, jdbcType=BIGINT},
+			#{item.targetCode, jdbcType=VARCHAR},
+			#{item.targetContent, jdbcType=LONGVARCHAR},
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

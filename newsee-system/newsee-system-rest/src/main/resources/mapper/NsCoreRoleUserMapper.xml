@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsCoreRoleUserMapper">
+
+	<resultMap id="NsCoreRoleUserResultMap" type="com.newsee.system.entity.NsCoreRoleUser">
+			<id property="id" column="ID" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="ENTERPRISE_ID" jdbcType="BIGINT"/>
+			<result property="organizationId" column="ORGANIZATION_ID" jdbcType="BIGINT"/>
+			<result property="roleid" column="ROLEID" jdbcType="VARCHAR"/>
+			<result property="userid" column="USERID" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="NsCoreRoleUser_Column_List">
+		ID,ENTERPRISE_ID,ORGANIZATION_ID,ROLEID,USERID
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="NsCoreRoleUserResultMap">
+		select
+			<include refid="NsCoreRoleUser_Column_List" />
+		from
+			ns_core_role_user
+		where
+			ID = #{id}
+	</select>
+	
+	<select id="selectByRoleId" parameterType="java.lang.String" resultMap="NsCoreRoleUserResultMap">
+        select
+            <include refid="NsCoreRoleUser_Column_List" />
+        from
+            ns_core_role_user
+        where
+            ROLEID = #{id}
+    </select>
+	
+	<select id="selectByUserId" parameterType="java.util.Map" resultMap="NsCoreRoleUserResultMap">
+        select
+            <include refid="NsCoreRoleUser_Column_List" />
+        from
+            ns_core_role_user
+        where
+             1=1
+            <if test="enterpriseId != null">
+             and ENTERPRISE_ID = #{enterpriseId}
+            </if>
+            <if test="organizationId != null">
+             and ORGANIZATION_ID = #{organizationId}
+            </if>
+            <if test="userid != null">
+             and USERID = #{userid}
+            </if>
+    </select>
+	
+	<update id="updateById" parameterType="com.newsee.system.entity.NsCoreRoleUser">
+		update ns_core_role_user
+		<set>
+			<if test="enterpriseId != null">
+			  ENTERPRISE_ID = #{enterpriseId},
+			</if>
+			<if test="organizationId != null">
+			  ORGANIZATION_ID = #{organizationId},
+			</if>
+			<if test="roleid != null">
+			  ROLEID = #{roleid},
+			</if>
+			<if test="userid != null">
+			  USERID = #{userid}
+			</if>
+		</set>
+		where
+			ID = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ns_core_role_user 
+		where
+			ID = #{id}
+	</delete>
+	
+	<delete id="deleteByUserId" parameterType="java.lang.String">
+        delete from ns_core_role_user 
+        where
+            USERID = #{id}
+    </delete>
+    
+    <delete id="deleteByRoleid" parameterType="java.lang.String">
+        delete from ns_core_role_user 
+        where
+            roleid = #{id}
+    </delete>
+    
+	<update id="deleteSoftById" parameterType="java.lang.Long">
+		update set ns_core_role_user
+		del_status = 1,
+		update_user_id = #{ updateUserId, jdbcType=BIGINT },
+		update_time = #{updateTime, jdbcType=TIMESTAMP }
+		where
+			ID = #{id}
+	</update>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.system.entity.NsCoreRoleUser">
+		insert into ns_core_role_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				ENTERPRISE_ID,
+			</if>
+			<if test="organizationId != null">
+				ORGANIZATION_ID,
+			</if>
+			<if test="roleid != null">
+				ROLEID,
+			</if>
+			<if test="userid != null">
+				USERID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="roleid != null">
+				#{roleid, jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ns_core_role_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ENTERPRISE_ID,
+			ORGANIZATION_ID,
+			ROLEID,
+			USERID,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.roleid, jdbcType=VARCHAR},
+			#{item.userid, jdbcType=VARCHAR}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

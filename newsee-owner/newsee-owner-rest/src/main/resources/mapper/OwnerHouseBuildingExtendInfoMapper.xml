@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseBuildingExtendInfoMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseBuildingExtendInfo">
+    <id column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="developer" jdbcType="BIGINT" property="developer" />
+    <result column="builder" jdbcType="VARCHAR" property="builder" />
+    <result column="start_work_time" jdbcType="DATE" property="startWorkTime" />
+    <result column="complete_time" jdbcType="DATE" property="completeTime" />
+    <result column="delivery_time" jdbcType="DATE" property="deliveryTime" />
+    <result column="building_area" jdbcType="BIGINT" property="buildingArea" />
+    <result column="total_floor_number" jdbcType="INTEGER" property="totalFloorNumber" />
+    <result column="total_room_number" jdbcType="INTEGER" property="totalRoomNumber" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    house_id, developer, builder, start_work_time, complete_time, delivery_time, building_area, 
+    total_floor_number, total_room_number, create_user_id, create_time, update_user_id, 
+    update_time, sys_time, create_user_name, update_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_building_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from owner_house_building_extend_info
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseBuildingExtendInfo">
+    insert into owner_house_building_extend_info (house_id, developer, builder, 
+      start_work_time, complete_time, delivery_time, 
+      building_area, total_floor_number, total_room_number, 
+      create_user_id, create_time, update_user_id, 
+      update_time, sys_time, create_user_name, update_user_name)
+    values (#{houseId,jdbcType=BIGINT}, #{developer,jdbcType=BIGINT}, #{builder,jdbcType=VARCHAR}, 
+      #{startWorkTime,jdbcType=DATE}, #{completeTime,jdbcType=DATE}, #{deliveryTime,jdbcType=DATE}, 
+      #{buildingArea,jdbcType=BIGINT}, #{totalFloorNumber,jdbcType=INTEGER}, #{totalRoomNumber,jdbcType=INTEGER}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{sysTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseBuildingExtendInfo">
+    insert into owner_house_building_extend_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="developer != null">
+        developer,
+      </if>
+      <if test="builder != null">
+        builder,
+      </if>
+      <if test="startWorkTime != null">
+        start_work_time,
+      </if>
+      <if test="completeTime != null">
+        complete_time,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="buildingArea != null">
+        building_area,
+      </if>
+      <if test="totalFloorNumber != null">
+        total_floor_number,
+      </if>
+      <if test="totalRoomNumber != null">
+        total_room_number,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name,
+      </if>
+        create_time,
+        update_time,
+        sys_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="developer != null">
+        #{developer,jdbcType=BIGINT},
+      </if>
+      <if test="builder != null">
+        #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null">
+        #{startWorkTime,jdbcType=DATE},
+      </if>
+      <if test="completeTime != null">
+        #{completeTime,jdbcType=DATE},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="buildingArea != null">
+        #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="totalFloorNumber != null">
+        #{totalFloorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalRoomNumber != null">
+        #{totalRoomNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+        NOW(),
+        NOW(),
+        NOW()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseBuildingExtendInfo">
+    update owner_house_building_extend_info
+    <set>
+      <if test="developer != null">
+        developer = #{developer,jdbcType=BIGINT},
+      </if>
+      <if test="builder != null">
+        builder = #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null">
+        start_work_time = #{startWorkTime,jdbcType=DATE},
+      </if>
+      <if test="completeTime != null">
+        complete_time = #{completeTime,jdbcType=DATE},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="totalFloorNumber != null">
+        total_floor_number = #{totalFloorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="totalRoomNumber != null">
+        total_room_number = #{totalRoomNumber,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null" >
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTime != null">
+        sys_time = #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseBuildingExtendInfo">
+    update owner_house_building_extend_info
+    set developer = #{developer,jdbcType=BIGINT},
+      builder = #{builder,jdbcType=VARCHAR},
+      start_work_time = #{startWorkTime,jdbcType=DATE},
+      complete_time = #{completeTime,jdbcType=DATE},
+      delivery_time = #{deliveryTime,jdbcType=DATE},
+      building_area = #{buildingArea,jdbcType=BIGINT},
+      total_floor_number = #{totalFloorNumber,jdbcType=INTEGER},
+      total_room_number = #{totalRoomNumber,jdbcType=INTEGER},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = NOW(),
+      sys_time = NOW()
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+</mapper>

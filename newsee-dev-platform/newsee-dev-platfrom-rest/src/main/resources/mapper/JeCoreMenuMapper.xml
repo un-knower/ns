@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.devplatform.dao.JeCoreMenuMapper">
+
+	<resultMap id="JeCoreMenuResultMap" type="com.newsee.devplatform.entity.JeCoreMenu">
+			<id property="jeCoreMenuId" column="JE_CORE_MENU_ID" jdbcType="VARCHAR"/>
+			<result property="menuBigbutton" column="MENU_BIGBUTTON" jdbcType="VARCHAR"/>
+			<result property="menuBigicon" column="MENU_BIGICON" jdbcType="VARCHAR"/>
+			<result property="menuBigiconcls" column="MENU_BIGICONCLS" jdbcType="VARCHAR"/>
+			<result property="menuCode" column="MENU_CODE" jdbcType="VARCHAR"/>
+			<result property="menuEnabled" column="MENU_ENABLED" jdbcType="VARCHAR"/>
+			<result property="menuFunctype" column="MENU_FUNCTYPE" jdbcType="VARCHAR"/>
+			<result property="menuHelp" column="MENU_HELP" jdbcType="LONGVARCHAR"/>
+			<result property="menuIcon" column="MENU_ICON" jdbcType="VARCHAR"/>
+			<result property="menuIconcls" column="MENU_ICONCLS" jdbcType="VARCHAR"/>
+			<result property="menuIsdesktop" column="MENU_ISDESKTOP" jdbcType="VARCHAR"/>
+			<result property="menuMenuname" column="MENU_MENUNAME" jdbcType="VARCHAR"/>
+			<result property="menuMenusubname" column="MENU_MENUSUBNAME" jdbcType="VARCHAR"/>
+			<result property="menuModulecode" column="MENU_MODULECODE" jdbcType="VARCHAR"/>
+			<result property="menuNodeinfo" column="MENU_NODEINFO" jdbcType="VARCHAR"/>
+			<result property="menuNodeinfotype" column="MENU_NODEINFOTYPE" jdbcType="VARCHAR"/>
+			<result property="menuQuickstart" column="MENU_QUICKSTART" jdbcType="VARCHAR"/>
+			<result property="menuTreepath" column="MENU_TREEPATH" jdbcType="VARCHAR"/>
+			<result property="syJecore" column="SY_JECORE" jdbcType="VARCHAR"/>
+			<result property="syJesys" column="SY_JESYS" jdbcType="VARCHAR"/>
+			<result property="syAudflag" column="SY_AUDFLAG" jdbcType="VARCHAR"/>
+			<result property="syCreateorg" column="SY_CREATEORG" jdbcType="VARCHAR"/>
+			<result property="syCreateorgname" column="SY_CREATEORGNAME" jdbcType="VARCHAR"/>
+			<result property="syCreatetime" column="SY_CREATETIME" jdbcType="VARCHAR"/>
+			<result property="syCreateuser" column="SY_CREATEUSER" jdbcType="VARCHAR"/>
+			<result property="syCreateusername" column="SY_CREATEUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syFlag" column="SY_FLAG" jdbcType="VARCHAR"/>
+			<result property="syFormuploadfiles" column="SY_FORMUPLOADFILES" jdbcType="VARCHAR"/>
+			<result property="syLayer" column="SY_LAYER" jdbcType="INTEGER"/>
+			<result property="syModifyorg" column="SY_MODIFYORG" jdbcType="VARCHAR"/>
+			<result property="syModifyorgname" column="SY_MODIFYORGNAME" jdbcType="VARCHAR"/>
+			<result property="syModifytime" column="SY_MODIFYTIME" jdbcType="VARCHAR"/>
+			<result property="syModifyuser" column="SY_MODIFYUSER" jdbcType="VARCHAR"/>
+			<result property="syModifyusername" column="SY_MODIFYUSERNAME" jdbcType="VARCHAR"/>
+			<result property="syNodetype" column="SY_NODETYPE" jdbcType="VARCHAR"/>
+			<result property="syOrderindex" column="SY_ORDERINDEX" jdbcType="INTEGER"/>
+			<result property="syParent" column="SY_PARENT" jdbcType="VARCHAR"/>
+			<result property="syParentpath" column="SY_PARENTPATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPath" column="SY_PATH" jdbcType="LONGVARCHAR"/>
+			<result property="syPdid" column="SY_PDID" jdbcType="VARCHAR"/>
+			<result property="syPiid" column="SY_PIID" jdbcType="VARCHAR"/>
+			<result property="syPyjz" column="SY_PYJZ" jdbcType="VARCHAR"/>
+			<result property="syPyqc" column="SY_PYQC" jdbcType="VARCHAR"/>
+			<result property="syStatus" column="SY_STATUS" jdbcType="VARCHAR"/>
+			<result property="syTreeorderindex" column="SY_TREEORDERINDEX" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="JeCoreMenu_Column_List">
+		JE_CORE_MENU_ID,MENU_BIGBUTTON,MENU_BIGICON,MENU_BIGICONCLS,MENU_CODE,MENU_ENABLED,MENU_FUNCTYPE,MENU_HELP,MENU_ICON,MENU_ICONCLS,MENU_ISDESKTOP,MENU_MENUNAME,MENU_MENUSUBNAME,MENU_MODULECODE,MENU_NODEINFO,MENU_NODEINFOTYPE,MENU_QUICKSTART,MENU_TREEPATH,SY_JECORE,SY_JESYS,SY_AUDFLAG,SY_CREATEORG,SY_CREATEORGNAME,SY_CREATETIME,SY_CREATEUSER,SY_CREATEUSERNAME,SY_FLAG,SY_FORMUPLOADFILES,SY_LAYER,SY_MODIFYORG,SY_MODIFYORGNAME,SY_MODIFYTIME,SY_MODIFYUSER,SY_MODIFYUSERNAME,SY_NODETYPE,SY_ORDERINDEX,SY_PARENT,SY_PARENTPATH,SY_PATH,SY_PDID,SY_PIID,SY_PYJZ,SY_PYQC,SY_STATUS,SY_TREEORDERINDEX
+	</sql>
+	
+	<select id="selectById" parameterType="java.lang.String" resultMap="JeCoreMenuResultMap">
+		select
+			<include refid="JeCoreMenu_Column_List" />
+		from
+			je_core_menu
+		where
+			JE_CORE_MENU_ID = #{jeCoreMenuId}
+	</select>
+	
+	<select id="selectByMenuName" parameterType="java.lang.String" resultMap="JeCoreMenuResultMap">
+		select
+			<include refid="JeCoreMenu_Column_List" />
+		from
+			je_core_menu
+		where
+			MENU_MENUNAME = #{menuName}
+		limit 1
+	</select>
+	
+	<select id="selectByMenuPath" parameterType="java.lang.String" resultMap="JeCoreMenuResultMap">
+		select
+			<include refid="JeCoreMenu_Column_List" />
+		from
+			je_core_menu
+		where
+			SY_PATH like CONCAT('/', #{path}, '%')
+		order by SY_ORDERINDEX
+	</select>
+	
+	<update id="updateById" parameterType="com.newsee.devplatform.entity.JeCoreMenu">
+		update je_core_menu
+		<set>
+			<if test="menuBigbutton != null">
+			  MENU_BIGBUTTON = #{menuBigbutton, jdbcType=VARCHAR },
+			</if>
+			<if test="menuBigicon != null">
+			  MENU_BIGICON = #{menuBigicon, jdbcType=VARCHAR },
+			</if>
+			<if test="menuBigiconcls != null">
+			  MENU_BIGICONCLS = #{menuBigiconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="menuCode != null">
+			  MENU_CODE = #{menuCode, jdbcType=VARCHAR },
+			</if>
+			<if test="menuEnabled != null">
+			  MENU_ENABLED = #{menuEnabled, jdbcType=VARCHAR },
+			</if>
+			<if test="menuFunctype != null">
+			  MENU_FUNCTYPE = #{menuFunctype, jdbcType=VARCHAR },
+			</if>
+			<if test="menuHelp != null">
+			  MENU_HELP = #{menuHelp, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="menuIcon != null">
+			  MENU_ICON = #{menuIcon, jdbcType=VARCHAR },
+			</if>
+			<if test="menuIconcls != null">
+			  MENU_ICONCLS = #{menuIconcls, jdbcType=VARCHAR },
+			</if>
+			<if test="menuIsdesktop != null">
+			  MENU_ISDESKTOP = #{menuIsdesktop, jdbcType=VARCHAR },
+			</if>
+			<if test="menuMenuname != null">
+			  MENU_MENUNAME = #{menuMenuname, jdbcType=VARCHAR },
+			</if>
+			<if test="menuMenusubname != null">
+			  MENU_MENUSUBNAME = #{menuMenusubname, jdbcType=VARCHAR },
+			</if>
+			<if test="menuModulecode != null">
+			  MENU_MODULECODE = #{menuModulecode, jdbcType=VARCHAR },
+			</if>
+			<if test="menuNodeinfo != null">
+			  MENU_NODEINFO = #{menuNodeinfo, jdbcType=VARCHAR },
+			</if>
+			<if test="menuNodeinfotype != null">
+			  MENU_NODEINFOTYPE = #{menuNodeinfotype, jdbcType=VARCHAR },
+			</if>
+			<if test="menuQuickstart != null">
+			  MENU_QUICKSTART = #{menuQuickstart, jdbcType=VARCHAR },
+			</if>
+			<if test="menuTreepath != null">
+			  MENU_TREEPATH = #{menuTreepath, jdbcType=VARCHAR },
+			</if>
+			<if test="syJecore != null">
+			  SY_JECORE = #{syJecore, jdbcType=VARCHAR },
+			</if>
+			<if test="syJesys != null">
+			  SY_JESYS = #{syJesys, jdbcType=VARCHAR },
+			</if>
+			<if test="syAudflag != null">
+			  SY_AUDFLAG = #{syAudflag, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorg != null">
+			  SY_CREATEORG = #{syCreateorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateorgname != null">
+			  SY_CREATEORGNAME = #{syCreateorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreatetime != null">
+			  SY_CREATETIME = #{syCreatetime, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateuser != null">
+			  SY_CREATEUSER = #{syCreateuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syCreateusername != null">
+			  SY_CREATEUSERNAME = #{syCreateusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syFlag != null">
+			  SY_FLAG = #{syFlag, jdbcType=VARCHAR },
+			</if>
+			<if test="syFormuploadfiles != null">
+			  SY_FORMUPLOADFILES = #{syFormuploadfiles, jdbcType=VARCHAR },
+			</if>
+			<if test="syLayer != null">
+			  SY_LAYER = #{syLayer, jdbcType=INTEGER },
+			</if>
+			<if test="syModifyorg != null">
+			  SY_MODIFYORG = #{syModifyorg, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyorgname != null">
+			  SY_MODIFYORGNAME = #{syModifyorgname, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifytime != null">
+			  SY_MODIFYTIME = #{syModifytime, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyuser != null">
+			  SY_MODIFYUSER = #{syModifyuser, jdbcType=VARCHAR },
+			</if>
+			<if test="syModifyusername != null">
+			  SY_MODIFYUSERNAME = #{syModifyusername, jdbcType=VARCHAR },
+			</if>
+			<if test="syNodetype != null">
+			  SY_NODETYPE = #{syNodetype, jdbcType=VARCHAR },
+			</if>
+			<if test="syOrderindex != null">
+			  SY_ORDERINDEX = #{syOrderindex, jdbcType=INTEGER },
+			</if>
+			<if test="syParent != null">
+			  SY_PARENT = #{syParent, jdbcType=VARCHAR },
+			</if>
+			<if test="syParentpath != null">
+			  SY_PARENTPATH = #{syParentpath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPath != null">
+			  SY_PATH = #{syPath, jdbcType=LONGVARCHAR },
+			</if>
+			<if test="syPdid != null">
+			  SY_PDID = #{syPdid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPiid != null">
+			  SY_PIID = #{syPiid, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyjz != null">
+			  SY_PYJZ = #{syPyjz, jdbcType=VARCHAR },
+			</if>
+			<if test="syPyqc != null">
+			  SY_PYQC = #{syPyqc, jdbcType=VARCHAR },
+			</if>
+			<if test="syStatus != null">
+			  SY_STATUS = #{syStatus, jdbcType=VARCHAR },
+			</if>
+			<if test="syTreeorderindex != null">
+			  SY_TREEORDERINDEX = #{syTreeorderindex, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			JE_CORE_MENU_ID = #{jeCoreMenuId}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from je_core_menu 
+		where
+			JE_CORE_MENU_ID = #{jeCoreMenuId}
+	</delete>
+	
+	
+	<insert id="insert"	parameterType="com.newsee.devplatform.entity.JeCoreMenu">
+		insert into je_core_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="jeCoreMenuId != null">
+				JE_CORE_MENU_ID,
+			</if>
+			<if test="menuBigbutton != null">
+				MENU_BIGBUTTON,
+			</if>
+			<if test="menuBigicon != null">
+				MENU_BIGICON,
+			</if>
+			<if test="menuBigiconcls != null">
+				MENU_BIGICONCLS,
+			</if>
+			<if test="menuCode != null">
+				MENU_CODE,
+			</if>
+			<if test="menuEnabled != null">
+				MENU_ENABLED,
+			</if>
+			<if test="menuFunctype != null">
+				MENU_FUNCTYPE,
+			</if>
+			<if test="menuHelp != null">
+				MENU_HELP,
+			</if>
+			<if test="menuIcon != null">
+				MENU_ICON,
+			</if>
+			<if test="menuIconcls != null">
+				MENU_ICONCLS,
+			</if>
+			<if test="menuIsdesktop != null">
+				MENU_ISDESKTOP,
+			</if>
+			<if test="menuMenuname != null">
+				MENU_MENUNAME,
+			</if>
+			<if test="menuMenusubname != null">
+				MENU_MENUSUBNAME,
+			</if>
+			<if test="menuModulecode != null">
+				MENU_MODULECODE,
+			</if>
+			<if test="menuNodeinfo != null">
+				MENU_NODEINFO,
+			</if>
+			<if test="menuNodeinfotype != null">
+				MENU_NODEINFOTYPE,
+			</if>
+			<if test="menuQuickstart != null">
+				MENU_QUICKSTART,
+			</if>
+			<if test="menuTreepath != null">
+				MENU_TREEPATH,
+			</if>
+			<if test="syJecore != null">
+				SY_JECORE,
+			</if>
+			<if test="syJesys != null">
+				SY_JESYS,
+			</if>
+			<if test="syAudflag != null">
+				SY_AUDFLAG,
+			</if>
+			<if test="syCreateorg != null">
+				SY_CREATEORG,
+			</if>
+			<if test="syCreateorgname != null">
+				SY_CREATEORGNAME,
+			</if>
+			<if test="syCreatetime != null">
+				SY_CREATETIME,
+			</if>
+			<if test="syCreateuser != null">
+				SY_CREATEUSER,
+			</if>
+			<if test="syCreateusername != null">
+				SY_CREATEUSERNAME,
+			</if>
+			<if test="syFlag != null">
+				SY_FLAG,
+			</if>
+			<if test="syFormuploadfiles != null">
+				SY_FORMUPLOADFILES,
+			</if>
+			<if test="syLayer != null">
+				SY_LAYER,
+			</if>
+			<if test="syModifyorg != null">
+				SY_MODIFYORG,
+			</if>
+			<if test="syModifyorgname != null">
+				SY_MODIFYORGNAME,
+			</if>
+			<if test="syModifytime != null">
+				SY_MODIFYTIME,
+			</if>
+			<if test="syModifyuser != null">
+				SY_MODIFYUSER,
+			</if>
+			<if test="syModifyusername != null">
+				SY_MODIFYUSERNAME,
+			</if>
+			<if test="syNodetype != null">
+				SY_NODETYPE,
+			</if>
+			<if test="syOrderindex != null">
+				SY_ORDERINDEX,
+			</if>
+			<if test="syParent != null">
+				SY_PARENT,
+			</if>
+			<if test="syParentpath != null">
+				SY_PARENTPATH,
+			</if>
+			<if test="syPath != null">
+				SY_PATH,
+			</if>
+			<if test="syPdid != null">
+				SY_PDID,
+			</if>
+			<if test="syPiid != null">
+				SY_PIID,
+			</if>
+			<if test="syPyjz != null">
+				SY_PYJZ,
+			</if>
+			<if test="syPyqc != null">
+				SY_PYQC,
+			</if>
+			<if test="syStatus != null">
+				SY_STATUS,
+			</if>
+			<if test="syTreeorderindex != null">
+				SY_TREEORDERINDEX,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="jeCoreMenuId != null">
+				#{jeCoreMenuId, jdbcType=VARCHAR},
+			</if>
+			<if test="menuBigbutton != null">
+				#{menuBigbutton, jdbcType=VARCHAR},
+			</if>
+			<if test="menuBigicon != null">
+				#{menuBigicon, jdbcType=VARCHAR},
+			</if>
+			<if test="menuBigiconcls != null">
+				#{menuBigiconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="menuCode != null">
+				#{menuCode, jdbcType=VARCHAR},
+			</if>
+			<if test="menuEnabled != null">
+				#{menuEnabled, jdbcType=VARCHAR},
+			</if>
+			<if test="menuFunctype != null">
+				#{menuFunctype, jdbcType=VARCHAR},
+			</if>
+			<if test="menuHelp != null">
+				#{menuHelp, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="menuIcon != null">
+				#{menuIcon, jdbcType=VARCHAR},
+			</if>
+			<if test="menuIconcls != null">
+				#{menuIconcls, jdbcType=VARCHAR},
+			</if>
+			<if test="menuIsdesktop != null">
+				#{menuIsdesktop, jdbcType=VARCHAR},
+			</if>
+			<if test="menuMenuname != null">
+				#{menuMenuname, jdbcType=VARCHAR},
+			</if>
+			<if test="menuMenusubname != null">
+				#{menuMenusubname, jdbcType=VARCHAR},
+			</if>
+			<if test="menuModulecode != null">
+				#{menuModulecode, jdbcType=VARCHAR},
+			</if>
+			<if test="menuNodeinfo != null">
+				#{menuNodeinfo, jdbcType=VARCHAR},
+			</if>
+			<if test="menuNodeinfotype != null">
+				#{menuNodeinfotype, jdbcType=VARCHAR},
+			</if>
+			<if test="menuQuickstart != null">
+				#{menuQuickstart, jdbcType=VARCHAR},
+			</if>
+			<if test="menuTreepath != null">
+				#{menuTreepath, jdbcType=VARCHAR},
+			</if>
+			<if test="syJecore != null">
+				#{syJecore, jdbcType=VARCHAR},
+			</if>
+			<if test="syJesys != null">
+				#{syJesys, jdbcType=VARCHAR},
+			</if>
+			<if test="syAudflag != null">
+				#{syAudflag, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorg != null">
+				#{syCreateorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateorgname != null">
+				#{syCreateorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreatetime != null">
+				#{syCreatetime, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateuser != null">
+				#{syCreateuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syCreateusername != null">
+				#{syCreateusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syFlag != null">
+				#{syFlag, jdbcType=VARCHAR},
+			</if>
+			<if test="syFormuploadfiles != null">
+				#{syFormuploadfiles, jdbcType=VARCHAR},
+			</if>
+			<if test="syLayer != null">
+				#{syLayer, jdbcType=INTEGER},
+			</if>
+			<if test="syModifyorg != null">
+				#{syModifyorg, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyorgname != null">
+				#{syModifyorgname, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifytime != null">
+				#{syModifytime, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyuser != null">
+				#{syModifyuser, jdbcType=VARCHAR},
+			</if>
+			<if test="syModifyusername != null">
+				#{syModifyusername, jdbcType=VARCHAR},
+			</if>
+			<if test="syNodetype != null">
+				#{syNodetype, jdbcType=VARCHAR},
+			</if>
+			<if test="syOrderindex != null">
+				#{syOrderindex, jdbcType=INTEGER},
+			</if>
+			<if test="syParent != null">
+				#{syParent, jdbcType=VARCHAR},
+			</if>
+			<if test="syParentpath != null">
+				#{syParentpath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPath != null">
+				#{syPath, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="syPdid != null">
+				#{syPdid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPiid != null">
+				#{syPiid, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyjz != null">
+				#{syPyjz, jdbcType=VARCHAR},
+			</if>
+			<if test="syPyqc != null">
+				#{syPyqc, jdbcType=VARCHAR},
+			</if>
+			<if test="syStatus != null">
+				#{syStatus, jdbcType=VARCHAR},
+			</if>
+			<if test="syTreeorderindex != null">
+				#{syTreeorderindex, jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

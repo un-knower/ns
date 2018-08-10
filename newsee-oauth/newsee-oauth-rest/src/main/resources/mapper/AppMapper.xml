@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.oauth.dao.AppMapper" >
+
+  <resultMap id="AppResultMap" type="com.newsee.oauth.entity.App" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="app_id_source" property="appIdSource" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_status" property="appStatus" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <sql id="App_Column_List" >
+    id, app_id, app_id_source, app_name, app_status
+  </sql>
+  
+  <select id="selectById" resultMap="AppResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="App_Column_List" />
+    from app
+    where id = #{id}
+  </select>
+  
+  <select id="selectAll" resultMap="AppResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="App_Column_List" />
+    from app
+    where app_status = 1
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from app
+    where id = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="com.newsee.oauth.entity.App" >
+    insert into app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="appIdSource != null" >
+        app_id_source,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="appStatus != null" >
+        app_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appId != null" >
+        #{appId},
+      </if>
+       <if test="appIdSource != null" >
+        #{appIdSource},
+      </if>
+      <if test="appName != null" >
+        #{appName},
+      </if>
+      <if test="appStatus != null" >
+        #{appStatus},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateById" parameterType="com.newsee.oauth.entity.App" >
+    update app
+    <set >
+      <if test="appId != null" >
+        app_id = #{appId},
+      </if>
+       <if test="appIdSource != null" >
+        app_id_source = #{appIdSource},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName},
+      </if>
+      <if test="appStatus != null" >
+        app_status = #{appStatus},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+    
+</mapper>

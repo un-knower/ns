@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.newsee</groupId>
+    <artifactId>newsee-log</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>newsee-log-rest</artifactId>
+  
+  <name>newsee-log-rest</name>
+  <url>http://maven.apache.org</url>
+   
+  <dependencyManagement>
+     <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Brixton.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>    
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>1.5.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>        
+        </dependencies>
+    </dependencyManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        <exclusions>
+               <exclusion>
+                   <artifactId>mongodb-driver</artifactId>
+                   <groupId>org.mongodb</groupId>
+               </exclusion>
+           </exclusions>
+    </dependency>
+	<dependency>  
+	    <groupId>org.mongodb</groupId>  
+	    <artifactId>mongo-java-driver</artifactId>  
+        <version>3.0.2</version>  
+	</dependency>  
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-feign</artifactId>
+    </dependency>
+  	<!-- <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency> -->
+    <!-- 增加获取配置客户端支持 -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-config-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.newsee</groupId>
+      <artifactId>newsee-log-pojo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.newsee</groupId>
+      <artifactId>newsee-system-pojo</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+     <dependency>
+      <groupId>com.newsee</groupId>
+      <artifactId>newsee-redis</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+
+      <dependency>
+          <groupId>com.newsee</groupId>
+          <artifactId>newsee-common</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+        <!--   <exclusions>
+              <exclusion>
+                  <groupId>javax.servlet</groupId>
+                  <artifactId>servlet-api</artifactId>
+              </exclusion>
+          </exclusions> -->
+      </dependency>
+      
+      <!-- 添加monitor监控 -->
+		<dependency>
+		    <groupId>de.codecentric</groupId>
+		    <artifactId>spring-boot-admin-starter-client</artifactId>
+		    <version>1.3.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jolokia</groupId>
+		    <artifactId>jolokia-core</artifactId>
+		</dependency>
+      <dependency>
+          <groupId>commons-collections</groupId>
+          <artifactId>commons-collections</artifactId>
+          <version>3.2.1</version>
+      </dependency>
+      <!-- kafka -->
+       <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.11.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>0.11.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+  </dependencies>
+  
+  <build>  
+        <plugins>  
+            <plugin>  
+                <groupId>org.springframework.boot</groupId>  
+                <artifactId>spring-boot-maven-plugin</artifactId>  
+            </plugin>  
+            <plugin>  
+    			<groupId>org.apache.maven.plugins</groupId>  
+    			<artifactId>maven-surefire-plugin</artifactId>  
+    			<version>2.7</version>  
+    			<configuration>  
+        			<skipTests>true</skipTests>  
+    			</configuration>  
+			</plugin> 
+        </plugins>  
+    </build>  
+</project>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.system.dao.NsSossEnterpriseMapper" >
+  <resultMap id="BaseResultMap" type="com.newsee.common.entity.NsSossEnterprise" >
+    <id column="enterprise_id" property="enterpriseId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="business_license" property="businessLicense" jdbcType="CHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="precinct_amount" property="precinctAmount" jdbcType="INTEGER" />
+    <result column="province_ID" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_ID" property="cityId" jdbcType="INTEGER" />
+    <result column="area_ID" property="areaId" jdbcType="INTEGER" />
+    <result column="street_ID" property="streetId" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="validdate_startTime" property="validdateStarttime" jdbcType="TIMESTAMP" />
+    <result column="validdate_endTime" property="validdateEndtime" jdbcType="TIMESTAMP" />
+    <result column="enterprise_state" property="enterpriseState" jdbcType="TINYINT" />
+    <result column="isDelete" property="isdelete" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="createUserID" property="createuserid" jdbcType="BIGINT" />
+    <result column="createUserName" property="createusername" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateUserID" property="updateuserid" jdbcType="BIGINT" />
+    <result column="updateUserName" property="updateusername" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    enterprise_id, name, business_license, code, precinct_amount, province_ID, city_ID, 
+    area_ID, street_ID, address, validdate_startTime, validdate_endTime, enterprise_state, 
+    isDelete, remark, createUserID, createUserName, createTime, updateUserID, updateUserName, 
+    updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ns_soss_enterprise
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ns_soss_enterprise
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.common.entity.NsSossEnterprise" >
+    insert into ns_soss_enterprise (enterprise_id, name, business_license, 
+      code, precinct_amount, province_ID, 
+      city_ID, area_ID, street_ID, 
+      address, validdate_startTime, validdate_endTime, 
+      enterprise_state, isDelete, remark, 
+      createUserID, createUserName, createTime, 
+      updateUserID, updateUserName, updateTime
+      )
+    values (#{enterpriseId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{businessLicense,jdbcType=CHAR}, 
+      #{code,jdbcType=VARCHAR}, #{precinctAmount,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{validdateStarttime,jdbcType=TIMESTAMP}, #{validdateEndtime,jdbcType=TIMESTAMP}, 
+      #{enterpriseState,jdbcType=TINYINT}, #{isdelete,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{createuserid,jdbcType=BIGINT}, #{createusername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updateuserid,jdbcType=BIGINT}, #{updateusername,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.common.entity.NsSossEnterprise" >
+    insert into ns_soss_enterprise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        enterprise_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="businessLicense != null" >
+        business_license,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="precinctAmount != null" >
+        precinct_amount,
+      </if>
+      <if test="provinceId != null" >
+        province_ID,
+      </if>
+      <if test="cityId != null" >
+        city_ID,
+      </if>
+      <if test="areaId != null" >
+        area_ID,
+      </if>
+      <if test="streetId != null" >
+        street_ID,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="validdateStarttime != null" >
+        validdate_startTime,
+      </if>
+      <if test="validdateEndtime != null" >
+        validdate_endTime,
+      </if>
+      <if test="enterpriseState != null" >
+        enterprise_state,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createuserid != null" >
+        createUserID,
+      </if>
+      <if test="createusername != null" >
+        createUserName,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updateuserid != null" >
+        updateUserID,
+      </if>
+      <if test="updateusername != null" >
+        updateUserName,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseId != null" >
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        #{businessLicense,jdbcType=CHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctAmount != null" >
+        #{precinctAmount,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null" >
+        #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="validdateStarttime != null" >
+        #{validdateStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validdateEndtime != null" >
+        #{validdateEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterpriseState != null" >
+        #{enterpriseState,jdbcType=TINYINT},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createusername != null" >
+        #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        #{updateuserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateusername != null" >
+        #{updateusername,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.common.entity.NsSossEnterprise" >
+    update ns_soss_enterprise
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        business_license = #{businessLicense,jdbcType=CHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctAmount != null" >
+        precinct_amount = #{precinctAmount,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_ID = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_ID = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        area_ID = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null" >
+        street_ID = #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="validdateStarttime != null" >
+        validdate_startTime = #{validdateStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validdateEndtime != null" >
+        validdate_endTime = #{validdateEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enterpriseState != null" >
+        enterprise_state = #{enterpriseState,jdbcType=TINYINT},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        createUserID = #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createusername != null" >
+        createUserName = #{createusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        updateUserID = #{updateuserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateusername != null" >
+        updateUserName = #{updateusername,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.common.entity.NsSossEnterprise" >
+    update ns_soss_enterprise
+    set name = #{name,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=CHAR},
+      code = #{code,jdbcType=VARCHAR},
+      precinct_amount = #{precinctAmount,jdbcType=INTEGER},
+      province_ID = #{provinceId,jdbcType=INTEGER},
+      city_ID = #{cityId,jdbcType=INTEGER},
+      area_ID = #{areaId,jdbcType=INTEGER},
+      street_ID = #{streetId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      validdate_startTime = #{validdateStarttime,jdbcType=TIMESTAMP},
+      validdate_endTime = #{validdateEndtime,jdbcType=TIMESTAMP},
+      enterprise_state = #{enterpriseState,jdbcType=TINYINT},
+      isDelete = #{isdelete,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      createUserID = #{createuserid,jdbcType=BIGINT},
+      createUserName = #{createusername,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateUserID = #{updateuserid,jdbcType=BIGINT},
+      updateUserName = #{updateusername,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+  </update>
+</mapper>

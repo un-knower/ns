@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeChargeItemMapper">
+
+	<resultMap id="ChargeChargeItemResultMap" type="com.newsee.charge.entity.ChargeChargeItem">
+		<id property="id" column="Id" jdbcType="BIGINT" />
+		<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT" />
+		<result property="organizationId" column="OrganizationId"
+			jdbcType="BIGINT" />
+		<result property="chargeItemTypeId" column="ChargeItemTypeId"
+			jdbcType="BIGINT" />
+		<result property="orderIndex" column="OrderIndex" jdbcType="BIGINT" />
+		<result property="chargeItemTypeName" column="ChargeItemTypeName"
+			jdbcType="VARCHAR" />
+		<result property="path" column="Path" jdbcType="VARCHAR" />
+		<result property="unit" column="Unit" jdbcType="VARCHAR" />
+		<result property="parentId" column="ParentId" jdbcType="BIGINT" />
+		<result property="chargeItemCode" column="ChargeItemCode"
+			jdbcType="VARCHAR" />
+		<result property="chargeItemName" column="ChargeItemName"
+			jdbcType="VARCHAR" />
+		<result property="chargeItemShortName" column="ChargeItemShortName"
+			jdbcType="VARCHAR" />
+		<result property="chargeItemHelpCode" column="ChargeItemHelpCode"
+			jdbcType="VARCHAR" />
+		<result property="chargeItemType" column="ChargeItemType"
+			jdbcType="TINYINT" />
+		<result property="chargeItemInType" column="ChargeItemInType"
+			jdbcType="TINYINT" />
+		<result property="chargeItemClass" column="ChargeItemClass"
+			jdbcType="TINYINT" />
+		<result property="taxRate" column="TaxRate" jdbcType="DOUBLE" />
+		<result property="billPrintType" column="BillPrintType"
+			jdbcType="TINYINT" />
+		<result property="chargeInterfaceCode" column="ChargeInterfaceCode"
+			jdbcType="VARCHAR" />
+		<result property="chargeInterfaceName" column="ChargeInterfaceName"
+			jdbcType="VARCHAR" />
+		<result property="isWork" column="IsWork" jdbcType="TINYINT" />
+		<result property="remark" column="Remark" jdbcType="VARCHAR" />
+		<result property="createUserId" column="CreateUserId" jdbcType="BIGINT" />
+		<result property="createUserName" column="CreateUserName"
+			jdbcType="VARCHAR" />
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP" />
+		<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT" />
+		<result property="updateUserName" column="UpdateUserName"
+			jdbcType="VARCHAR" />
+		<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP" />
+		<result property="sysTime" column="SysTime" jdbcType="TIMESTAMP" />
+		<result property="goodsTaxCode" column="GoodsTaxCode" jdbcType="VARCHAR" />
+		<result property="goodsTaxCodeId" column="GoodsTaxCodeId" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeChargeItem_Column_List">
+		Id,EnterpriseId,unit,OrganizationId,ChargeItemTypeId,ChargeItemType,ChargeItemTypeName,ParentId,ChargeItemCode,ChargeItemName,ChargeItemShortName,ChargeItemHelpCode,ChargeItemInType,ChargeItemClass,TaxRate,BillPrintType,ChargeInterfaceCode,ChargeInterfaceName,IsWork,Remark,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime,OrderIndex,Path,GoodsTaxCode,GoodsTaxId
+	</sql>
+
+
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		<where>
+			1=1
+			and IsDelete != 2
+			<if test="mainSearch != null and mainSearch != ''">
+				and LOCATE(#{mainSearch,jdbcType=VARCHAR}, ChargeItemName)>0
+			</if>
+			<if test="enterpriseId != null">
+				and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+			</if>
+			<if test="id != null">
+				and (id = #{id} or  path like concat('%/',#{id},'/%'))
+			</if>
+			<if test="filterList != null">
+				<foreach collection="filterList" item="item">
+					<choose>
+						<when test="item.comparison != null and item.comparison == 'NULL' and item.fieldName == 'highLevelSubjectName'">
+							and ParentId = -1
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NULL' and item.fieldName != 'highLevelSubjectName'">
+							and (${item.fieldName} IS NULL and ${item.fieldName} != '')
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_NULL' and item.fieldName == 'highLevelSubjectName'">
+							and ParentId != -1
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_NULL' and item.fieldName != 'highLevelSubjectName'">
+							and (${item.fieldName} IS NOT NULL and ${item.fieldName} != '')
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_LIKE' and item.fieldName == 'highLevelSubjectName'">
+							and ParentId in (
+									select id from Charge_ChargeItem where ChargeItemName not like concat('%',#{item.fieldValue},'%')
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_LIKE' and item.fieldName != 'highLevelSubjectName'">
+							and LOCATE(#{item.fieldValue}, ${item.fieldName})=0
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LIKE' and item.fieldName == 'highLevelSubjectName'">
+							and ParentId in (
+									select id from Charge_ChargeItem where ChargeItemName like concat('%',#{item.fieldValue},'%')
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LIKE' and item.fieldName != 'highLevelSubjectName'">
+							and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_THAN' and item.type!='date'">
+							and ${item.fieldName} &gt; #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &gt; to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_THAN' and item.type!='date'">
+							and ${item.fieldName} &lt; #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &lt; to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'EQUAL' and item.type!='date'">
+							and ${item.fieldName} = #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'EQUAL' and item.type=='date'">
+							and to_days(${item.fieldName}) = to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+							and ${item.fieldName} != #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type!='date'">
+							and ${item.fieldName} &gt;= #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &gt;= to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type!='date'">
+							and ${item.fieldName} &lt;= #{item.fieldValue}
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &lt;= to_days(#{item.fieldValue})
+						</when>
+					</choose>
+				</foreach>
+			</if>
+             order by  id desc
+			<if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+				 ,${orderFieldName}
+				<if test="orderBy != null and orderBy != ''">
+					${orderBy}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectById" parameterType="java.lang.Long"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where
+		Id = #{id}
+		and IsDelete != 2
+	</select>
+
+	<select id="findPath" parameterType="java.util.Map" resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where  IsDelete != 2
+		<if test="id != null">
+		and Path like concat('%/',#{id},'/%')
+		</if>
+		<if test="itemIds != null">
+		 and id in
+			<foreach collection="itemIds" item="item" separator="," open="(" close=")">
+				${item}
+	    	</foreach>
+		</if>
+		
+	</select>
+
+	<select id="selectByTypeId" parameterType="java.lang.Long"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where 1=1
+		<if test="id == 0">
+			and EnterpriseId = #{enterpriseId}
+		</if>
+		<if test="id != 0">
+			and ParentId = #{id}
+		</if>
+		AND IsWork = 1
+		and IsDelete != 2
+		order by OrderIndex
+	</select>
+
+	<select id="selectItemTreeForm" parameterType="java.lang.Long" resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where
+		IsWork = 1
+		and IsDelete != 2
+		<if test="id == 0">
+			and EnterpriseId = #{enterpriseId}
+			and ParentId = -1
+		</if>
+		<if test="id != 0">
+			and ParentId = #{id}
+		</if>
+		order by OrderIndex
+	</select>
+
+
+
+	<select id="selectByOrganizationId" parameterType="java.util.Map"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		<where>
+            <if test="organizationId!=null">
+                AND OrganizationId = #{organizationId}
+            </if>
+            <if test="enterpriseId!=null">
+                AND EnterpriseId = #{enterpriseId}
+            </if>
+            AND IsWork = 1
+            and IsDelete != 2
+		</where>
+	</select>
+
+	<select id="selectByGoodsTaxCode" parameterType="java.lang.String"
+		resultMap="ChargeChargeItemResultMap">
+		SELECT
+		<include refid="ChargeChargeItem_Column_List" />
+		FROM
+		Charge_ChargeItem
+		WHERE
+		IsWork = 1
+		AND GoodsTaxCode = #{goodsTaxCode}
+		and IsDelete != 2
+	</select>
+
+	<select id="selectByCode" parameterType="java.util.Map"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where
+		EnterpriseId = #{enterpriseId}
+		AND ChargeItemCode = #{chargeItemCode}
+		<if test="id != null">
+			AND Id != #{id}
+		</if>
+		and IsDelete != 2
+	</select>
+
+	<select id="selectByCodeOrName" parameterType="java.util.Map"
+		resultMap="ChargeChargeItemResultMap">
+		select
+		<include refid="ChargeChargeItem_Column_List" />
+		from
+		Charge_ChargeItem
+		where
+		EnterpriseId = #{enterpriseId}
+		AND ( LOCATE(#{chargeItemCode},ChargeItemCode)>0 or
+		LOCATE(#{chargeItemCode},ChargeItemName) > 0)
+		and IsDelete != 2
+	</select>
+
+
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeChargeItem">
+		update Charge_ChargeItem
+		<set>
+			<if test="enterpriseId != null">
+				EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+				OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemTypeId != null">
+				ChargeItemTypeId = #{chargeItemTypeId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemTypeName != null">
+				ChargeItemTypeName = #{chargeItemTypeName, jdbcType=VARCHAR },
+			</if>
+			<if test="parentId != null">
+				ParentId = #{parentId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemCode != null">
+				ChargeItemCode = #{chargeItemCode, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeItemName != null">
+				ChargeItemName = #{chargeItemName, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeItemShortName != null">
+				ChargeItemShortName = #{chargeItemShortName, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeItemHelpCode != null">
+				ChargeItemHelpCode = #{chargeItemHelpCode, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeItemInType != null">
+				ChargeItemInType = #{chargeItemInType, jdbcType=TINYINT },
+			</if>
+			<if test="chargeItemClass != null">
+				ChargeItemClass = #{chargeItemClass, jdbcType=TINYINT },
+			</if>
+			<if test="taxRate != null">
+				TaxRate = #{taxRate, jdbcType=DOUBLE },
+			</if>
+			<if test="chargeItemType != null">
+				ChargeItemType = #{chargeItemType, jdbcType=TINYINT },
+			</if>
+			<if test="billPrintType != null">
+				BillPrintType = #{billPrintType, jdbcType=TINYINT },
+			</if>
+			<if test="chargeInterfaceCode != null">
+				ChargeInterfaceCode = #{chargeInterfaceCode, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeInterfaceName != null">
+				ChargeInterfaceName = #{chargeInterfaceName, jdbcType=VARCHAR },
+			</if>
+			<if test="isWork != null">
+				IsWork = #{isWork, jdbcType=TINYINT },
+			</if>
+			<if test="remark != null">
+				Remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+				CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+				CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+				CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="sysTime != null">
+				SysTime = #{sysTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="unit != null">
+				Unit = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTaxCode != null">
+				GoodsTaxCode = #{goodsTaxCode,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTaxId != null">
+				GoodsTaxId = #{goodsTaxId,jdbcType=BIGINT},
+			</if>
+		</set>
+		where
+		Id = #{id}
+	</update>
+	
+	<update id="deleteById" parameterType="java.lang.Long">
+	 update Charge_ChargeItem set  IsDelete = 2 where Id = #{id}
+	 and not exists (select 1 from Charge_ChargeStandard where ChargeItemId = #{id} and isDelete != 2 )
+	</update>
+	
+	<update id="clearTaxRate" parameterType="java.util.List">
+		update Charge_ChargeItem set  TaxRate = null
+		where Id in
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			${item}
+		</foreach>
+	</update>
+	
+	<update id="deleteBatch" parameterType="java.util.List">
+		update Charge_ChargeItem set  IsDelete = 2
+		where not exists (select 1 from Charge_ChargeStandard where   isDelete != 2 and ChargeItemId  in
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			${item}
+		</foreach>
+		) and
+		Id in
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			${item}
+		</foreach>
+	</update>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeChargeItem">
+		insert into Charge_ChargeItem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="chargeItemTypeId != null">
+				ChargeItemTypeId,
+			</if>
+			<if test="chargeItemTypeName != null">
+				ChargeItemTypeName,
+			</if>
+			<if test="parentId != null">
+				ParentId,
+			</if>
+			<if test="chargeItemCode != null">
+				ChargeItemCode,
+			</if>
+			<if test="chargeItemName != null">
+				ChargeItemName,
+			</if>
+			<if test="chargeItemShortName != null">
+				ChargeItemShortName,
+			</if>
+			<if test="chargeItemHelpCode != null">
+				ChargeItemHelpCode,
+			</if>
+			<if test="chargeItemInType != null">
+				ChargeItemInType,
+			</if>
+			<if test="chargeItemClass != null">
+				ChargeItemClass,
+			</if>
+			<if test="taxRate != null">
+				TaxRate,
+			</if>
+			<if test="chargeItemType != null">
+				ChargeItemType,
+			</if>
+			<if test="billPrintType != null">
+				BillPrintType,
+			</if>
+			<if test="chargeInterfaceCode != null">
+				ChargeInterfaceCode,
+			</if>
+			<if test="chargeInterfaceName != null">
+				ChargeInterfaceName,
+			</if>
+			<if test="isWork != null">
+				IsWork,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="sysTime != null">
+				SysTime,
+			</if>
+			<if test="orderIndex != null">
+				OrderIndex,
+			</if>
+			<if test="path != null">
+				Path,
+			</if>
+			<if test="unit != null">
+				Unit,
+			</if>
+			<if test="goodsTaxCode != null">
+				GoodsTaxCode,
+			</if>
+			<if test="goodsTaxId != null">
+				GoodsTaxId,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemTypeId != null">
+				#{chargeItemTypeId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemTypeName != null">
+				#{chargeItemTypeName, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemCode != null">
+				#{chargeItemCode, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeItemName != null">
+				#{chargeItemName, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeItemShortName != null">
+				#{chargeItemShortName, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeItemHelpCode != null">
+				#{chargeItemHelpCode, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeItemInType != null">
+				#{chargeItemInType, jdbcType=TINYINT},
+			</if>
+			<if test="chargeItemClass != null">
+				#{chargeItemClass, jdbcType=TINYINT},
+			</if>
+			<if test="taxRate != null">
+				#{taxRate, jdbcType=DOUBLE},
+			</if>
+			<if test="chargeItemType != null">
+				#{chargeItemType, jdbcType=TINYINT},
+			</if>
+			<if test="billPrintType != null">
+				#{billPrintType, jdbcType=TINYINT},
+			</if>
+			<if test="chargeInterfaceCode != null">
+				#{chargeInterfaceCode, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeInterfaceName != null">
+				#{chargeInterfaceName, jdbcType=VARCHAR},
+			</if>
+			<if test="isWork != null">
+				#{isWork, jdbcType=TINYINT},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysTime != null">
+				#{sysTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderIndex != null">
+				#{orderIndex, jdbcType=BIGINT},
+			</if>
+			<if test="path != null">
+				#{path, jdbcType=VARCHAR},
+			</if>
+			<if test="unit != null">
+				#{unit, jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTaxCode != null">
+				#{goodsTaxCode, jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTaxId != null">
+				#{goodsTaxId, jdbcType=BIGINT}
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_ChargeItem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			ChargeItemTypeId,
+			ChargeItemTypeName,
+			ParentId,
+			ChargeItemCode,
+			ChargeItemName,
+			ChargeItemShortName,
+			ChargeItemHelpCode,
+			ChargeItemInType,
+			ChargeItemClass,
+			TaxRate,
+			ChargeItemType,
+			BillPrintType,
+			ChargeInterfaceCode,
+			ChargeInterfaceName,
+			IsWork,
+			Remark,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			SysTime,
+			GoodsTaxCode,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId,
+			jdbcType=BIGINT},
+			#{item.chargeItemTypeId, jdbcType=BIGINT},
+			#{item.chargeItemTypeName, jdbcType=VARCHAR},
+			#{item.parentId,
+			jdbcType=BIGINT},
+			#{item.chargeItemCode, jdbcType=VARCHAR},
+			#{item.chargeItemName, jdbcType=VARCHAR},
+			#{item.chargeItemShortName,
+			jdbcType=VARCHAR},
+			#{item.chargeItemHelpCode, jdbcType=VARCHAR},
+			#{item.chargeItemInType, jdbcType=TINYINT},
+			#{item.chargeItemClass,
+			jdbcType=TINYINT},
+			#{item.taxRate, jdbcType=DOUBLE},
+			#{item.chargeItemType, jdbcType=TINYINT},
+			#{item.billPrintType,
+			jdbcType=TINYINT},
+			#{item.chargeInterfaceCode, jdbcType=VARCHAR},
+			#{item.chargeInterfaceName, jdbcType=VARCHAR},
+			#{item.isWork,
+			jdbcType=TINYINT},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName,
+			jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName,
+			jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.sysTime, jdbcType=TIMESTAMP},
+			#{item.goodsTaxCode,
+			jdbcType=VARCHAR},
+			)
+		</foreach>
+	</insert>
+
+</mapper>

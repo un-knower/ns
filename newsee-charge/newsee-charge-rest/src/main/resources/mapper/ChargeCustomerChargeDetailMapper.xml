@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeCustomerChargeDetailMapper">
+
+	<resultMap id="ChargeCustomerChargeDetailResultMap" type="com.newsee.charge.entity.ChargeCustomerChargeDetail">
+			<id property="id" column="Id" jdbcType="BIGINT"/>
+			<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT"/>
+			<result property="organizationId" column="OrganizationId" jdbcType="BIGINT"/>
+			<result property="taskId" column="TaskId" jdbcType="BIGINT"/>
+			<result property="preinctId" column="PreinctId" jdbcType="BIGINT"/>
+			<result property="preinctName" column="PreinctName" jdbcType="VARCHAR"/>
+			<result property="houseId" column="HouseId" jdbcType="BIGINT"/>
+			<result property="houseName" column="HouseName" jdbcType="VARCHAR"/>
+			<result property="ownerId" column="OwnerId" jdbcType="BIGINT"/>
+			<result property="ownerName" column="OwnerName" jdbcType="VARCHAR"/>
+			<result property="paidOwnerType" column="PaidOwnerType" jdbcType="TINYINT"/>
+			<result property="chargeItemId" column="ChargeItemId" jdbcType="BIGINT"/>
+			<result property="chargeItemName" column="ChargeItemName" jdbcType="VARCHAR"/>
+			<result property="chargeId" column="ChargeId" jdbcType="BIGINT"/>
+			<result property="chargeName" column="ChargeName" jdbcType="VARCHAR"/>
+			<result property="price" column="Price" jdbcType="BIGINT"/>
+			<result property="chargeItemPrice" column="ChargeItemPrice" jdbcType="VARCHAR"/>
+			<result property="amount" column="Amount" jdbcType="BIGINT"/>
+			<result property="calcStartDate" column="CalcStartDate" jdbcType="TIMESTAMP"/>
+			<result property="calcEndDate" column="CalcEndDate" jdbcType="TIMESTAMP"/>
+			<result property="shouldChargeDate" column="ShouldChargeDate" jdbcType="TIMESTAMP"/>
+			<result property="actualChargeSum" column="ActualChargeSum" jdbcType="BIGINT"/>
+			<result property="chargeSum" column="ChargeSum" jdbcType="BIGINT"/>
+			<result property="paidChargeSum" column="PaidChargeSum" jdbcType="BIGINT"/>
+			<result property="arrears" column="Arrears" jdbcType="BIGINT"/>
+			<result property="discount" column="Discount" jdbcType="BIGINT"/>
+			<result property="delaySum" column="DelaySum" jdbcType="BIGINT"/>
+			<result property="sequence" column="Sequence" jdbcType="BIGINT"/>
+			<result property="delayDiscount" column="DelayDiscount" jdbcType="BIGINT"/>
+			<result property="delayDays" column="DelayDays" jdbcType="INTEGER"/>
+			<result property="discountReason" column="DiscountReason" jdbcType="VARCHAR"/>
+			<result property="tax" column="Tax" jdbcType="BIGINT"/>
+			<result property="isCheck" column="IsCheck" jdbcType="VARCHAR"/>
+			<result property="notCheckReason" column="NotCheckReason" jdbcType="VARCHAR"/>
+			<result property="isPaid" column="IsPaid" jdbcType="TINYINT"/>
+			<result property="paidDate" column="PaidDate" jdbcType="TIMESTAMP"/>
+			<result property="isClosing" column="IsClosing" jdbcType="TINYINT"/>
+			<result property="isBadDebt" column="IsBadDebt" jdbcType="TINYINT"/>
+			<result property="badDebtDate" column="BadDebtDate" jdbcType="TIMESTAMP"/>
+			<result property="chargeSource" column="ChargeSource" jdbcType="TINYINT"/>
+			<result property="createUserId" column="CreateUserId" jdbcType="BIGINT"/>
+			<result property="createUserName" column="CreateUserName" jdbcType="VARCHAR"/>
+			<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP"/>
+			<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT"/>
+			<result property="updateUserName" column="UpdateUserName" jdbcType="VARCHAR"/>
+			<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP"/>
+			<result property="discountDate" column="DiscountDate" jdbcType="TIMESTAMP"/>
+			<result property="sysTime" column="SysTime" jdbcType="TIMESTAMP"/>
+			<result property="chargeCycle" column="ChargeCycle" jdbcType="VARCHAR"/>
+			<result property="description" column="Description" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeCustomerChargeDetail_Column_List">
+		Id,EnterpriseId,OrganizationId,DiscountDate,Sequence,concat(CalcStartDate,"-",CalcEndDate) as ChargeCycle,TaskId,PreinctId,PreinctName,HouseId,HouseName,OwnerId,OwnerName,PaidOwnerType,ChargeItemId,ChargeItemName,ChargeId,ChargeName,Price,ChargeItemPrice,Amount,CalcStartDate,CalcEndDate,ShouldChargeDate,ActualChargeSum,ChargeSum,PaidChargeSum,Arrears,Discount,DelaySum,DelayDiscount,DelayDays,DiscountReason,Tax,IsCheck,NotCheckReason,IsPaid,PaidDate,IsClosing,IsBadDebt,BadDebtDate,ChargeSource,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime,Description
+	</sql>
+	
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo" resultMap="ChargeCustomerChargeDetailResultMap">
+	    select 
+	        <include refid="ChargeCustomerChargeDetail_Column_List" />
+	    from 
+	       Charge_CustomerChargeDetail
+	    <where>
+			IsDelete = 0
+			<if test="houseIds!=null and houseIds.size()>0">
+				and houseId in
+				<foreach collection="houseIds" item="houseId" open="(" separator="," close=")">
+					#{houseId}
+				</foreach>
+			</if>
+	        <if test="mainSearch != null and mainSearch != ''">
+	            and LOCATE(#{mainSearch,jdbcType=VARCHAR}, OwnerName)>0
+	        </if>
+	        <if test="enterpriseId != null">
+	            and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+	        </if>
+	        <if test="organizationId != null">
+	            and OrganizationId = #{organizationId,jdbcType=BIGINT}
+	        </if>
+	        <if test="filterList != null">
+	            <foreach collection="filterList" item="item">
+	               <choose>
+	                   <when test="item.comparison != null and item.comparison == 'NULL'">
+	                       and (${item.fieldName} IS NULL or ${item.fieldName} = '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                       and (${item.fieldName} IS NOT NULL and ${item.fieldName} != '')
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                       and LOCATE(#{item.fieldValue}, ${item.fieldName})=0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                       and LOCATE(#{item.fieldValue}, ${item.fieldName})>0
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                       and ${item.fieldName} &gt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                       and ${item.fieldName} &lt; #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type != 'date'">
+	                       and ${item.fieldName} = #{item.fieldValue}
+	                   </when>
+					   <when test="item.comparison != null and item.comparison == 'EQUAL' and item.type == 'date'">
+	                       and to_days(${item.fieldName}) = to_days(#{item.fieldValue})
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                       and ${item.fieldName} != #{item.fieldValue}
+	                   </when>
+	                   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type != 'date'">
+	                       and ${item.fieldName} &gt;= #{item.fieldValue}
+	                   </when>
+					   <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type == 'date'">
+						   and to_days(${item.fieldName}) >= to_days(#{item.fieldValue})
+					   </when>
+	                   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type != 'date'">
+	                       and ${item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+					   <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type == 'date'">
+	                       and ${item.fieldName} &lt;= #{item.fieldValue}
+	                   </when>
+	               </choose>
+	            </foreach>
+	        </if>
+	          order by CreateTime
+	        <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           ,${orderFieldName}
+	           <if test="orderBy != null and orderBy != ''">
+	              ${orderBy}
+	           </if>
+	        </if>
+	    </where>
+	  </select>
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ChargeCustomerChargeDetailResultMap">
+		select
+			<include refid="ChargeCustomerChargeDetail_Column_List" />
+		from
+			Charge_CustomerChargeDetail
+		where
+			Id = #{id}
+		and
+			IsDelete=0
+	</select>
+	
+	<select id="selectByTaskId" parameterType="java.lang.Long" resultMap="ChargeCustomerChargeDetailResultMap">
+		select
+			<include refid="ChargeCustomerChargeDetail_Column_List" />
+		from
+			Charge_CustomerChargeDetail
+		where
+			TaskId = #{id}
+		and
+			IsDelete=0
+	</select>
+	
+	<select id="selectByHouseAndItem" parameterType="com.newsee.charge.entity.ChargeCustomerChargeDetail" resultMap="ChargeCustomerChargeDetailResultMap">
+		select
+			<include refid="ChargeCustomerChargeDetail_Column_List" />
+		from
+			Charge_CustomerChargeDetail
+		where
+			HouseId = #{houseId}
+		and ChargeItemId=#{chargeItemId}
+		order by CalcEndDate desc
+		limit 0,1
+	</select>
+	
+	<select id="findPlanExceuteNumbers" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		select
+			IFNULL(Sequence,0)
+		from
+			Charge_CustomerChargeDetail
+		where
+			TaskId=#{planId}
+		order by Sequence desc
+		limit 0,1
+	</select>
+
+	<update id="checkChargeDetail" parameterType="java.util.Map">
+		update Charge_CustomerChargeDetail
+		<if test="isCheck!=null and isCheck!='反审核'">
+			set IsCheck = #{isCheck}
+		</if>
+		<if test="isCheck!=null and isCheck=='反审核'">
+			set IsCheck = if(IsCheck='审核通过','未审核',if(IsCheck = '审核不通过','审核通过',IsCheck))
+		</if>
+		<if test="notCheckReason!=null and notCheckReason!=''">
+			,notCheckReason = #{notCheckReason}
+		</if>
+		where IsDelete =0
+		and id in
+		<foreach collection="ids" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</update>
+	
+	<update id="checkPayment" parameterType="java.util.Map">
+		update Charge_CustomerChargeDetail
+		<if test="isCheck!=null and isCheck=='已审核'">
+			set IsCheck = '审核通过' 
+		</if>
+		<if test="isCheck!=null and isCheck=='未审核'">
+			set IsCheck = '未审核'
+		</if>
+		where IsDelete =0
+		and TaskId in
+		<foreach collection="ids" open="(" separator="," close=")" item="item">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="discountChargeDetail" parameterType="com.newsee.charge.entity.ChargeCustomerChargeDetail">
+		update Charge_CustomerChargeDetail
+		<set>
+			<if test="discountReason != null and discountReason !=''">
+				DiscountReason = #{discountReason},
+			</if>
+			<if test="discount != null">
+				Discount = Discount + #{discount},
+				ActualChargeSum = ActualChargeSum - #{discount}
+			</if>
+		</set>
+		where
+		IsDelete=0
+		and Discount &lt; ChargeSum
+		and id = #{id}
+		<if test="discountDate != null and discountDate != '' ">
+			and DiscountDate =#{discountDate}
+		</if>
+	</update>
+	
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeCustomerChargeDetail">
+		update Charge_CustomerChargeDetail
+		<set>
+			<if test="enterpriseId != null">
+			  EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+			  OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="taskId != null">
+			  TaskId = #{taskId, jdbcType=BIGINT },
+			</if>
+			<if test="preinctId != null">
+			  PreinctId = #{preinctId, jdbcType=BIGINT },
+			</if>
+			<if test="preinctName != null">
+			  PreinctName = #{preinctName, jdbcType=VARCHAR },
+			</if>
+			<if test="houseId != null">
+			  HouseId = #{houseId, jdbcType=BIGINT },
+			</if>
+			<if test="sequence != null">
+			  Sequence = #{sequence, jdbcType=BIGINT },
+			</if>
+			<if test="houseName != null">
+			  HouseName = #{houseName, jdbcType=VARCHAR },
+			</if>
+			<if test="ownerId != null">
+			  OwnerId = #{ownerId, jdbcType=BIGINT },
+			</if>
+			<if test="ownerName != null">
+			  OwnerName = #{ownerName, jdbcType=VARCHAR },
+			</if>
+			<if test="paidOwnerType != null">
+			  PaidOwnerType = #{paidOwnerType, jdbcType=TINYINT },
+			</if>
+			<if test="chargeItemId != null">
+			  ChargeItemId = #{chargeItemId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemName != null">
+			  ChargeItemName = #{chargeItemName, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeId != null">
+			  ChargeId = #{chargeId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeName != null">
+			  ChargeName = #{chargeName, jdbcType=VARCHAR },
+			</if>
+			<if test="price != null">
+			  Price = #{price, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemPrice != null">
+			  ChargeItemPrice = #{chargeItemPrice, jdbcType=VARCHAR },
+			</if>
+			<if test="amount != null">
+			  Amount = #{amount, jdbcType=BIGINT },
+			</if>
+			<if test="calcStartDate != null">
+			  CalcStartDate = #{calcStartDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="calcEndDate != null">
+			  CalcEndDate = #{calcEndDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="shouldChargeDate != null">
+			  ShouldChargeDate = #{shouldChargeDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="actualChargeSum != null">
+			  ActualChargeSum = #{actualChargeSum, jdbcType=BIGINT },
+			</if>
+			<if test="chargeSum != null">
+			  ChargeSum = #{chargeSum, jdbcType=BIGINT },
+			</if>
+			<if test="paidChargeSum != null">
+			  PaidChargeSum = #{paidChargeSum, jdbcType=BIGINT },
+			</if>
+			<if test="arrears != null">
+			  Arrears = #{arrears, jdbcType=BIGINT },
+			</if>
+			<if test="discount != null">
+			  Discount = #{discount, jdbcType=BIGINT },
+			</if>
+			<if test="delaySum != null">
+			  DelaySum = #{delaySum, jdbcType=BIGINT },
+			</if>
+			<if test="delayDiscount != null">
+			  DelayDiscount = #{delayDiscount, jdbcType=BIGINT },
+			</if>
+			<if test="delayDays != null">
+			  DelayDays = #{delayDays, jdbcType=INTEGER },
+			</if>
+			<if test="discountReason != null">
+			  DiscountReason = #{discountReason, jdbcType=VARCHAR },
+			</if>
+			<if test="tax != null">
+			  Tax = #{tax, jdbcType=BIGINT },
+			</if>
+			<if test="isCheck != null">
+			  IsCheck = #{isCheck, jdbcType=VARCHAR },
+			</if>
+			<if test="notCheckReason != null">
+			  NotCheckReason = #{notCheckReason, jdbcType=VARCHAR },
+			</if>
+			<if test="isPaid != null">
+			  IsPaid = #{isPaid, jdbcType=TINYINT },
+			</if>
+			<if test="paidDate != null">
+			  PaidDate = #{paidDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="isClosing != null">
+			  IsClosing = #{isClosing, jdbcType=TINYINT },
+			</if>
+			<if test="isBadDebt != null">
+			  IsBadDebt = #{isBadDebt, jdbcType=TINYINT },
+			</if>
+			<if test="badDebtDate != null">
+			  BadDebtDate = #{badDebtDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="chargeSource != null">
+			  ChargeSource = #{chargeSource, jdbcType=TINYINT },
+			</if>
+			<if test="createUserId != null">
+			  CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+			  CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+			  CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+			  UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+			  UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+			  UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="sysTime != null">
+			  SysTime = #{sysTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="description != null">
+				Description = #{description, jdbcType=VARCHAR},
+			</if>
+		</set>
+		where
+			Id = #{id}
+	</update>
+	
+	<update id="deleteById" parameterType="java.lang.Long">
+		update Charge_CustomerChargeDetail set IsDelete=1
+		where
+			TaskId = #{id}
+	</update>
+	
+	<delete id="deleteBatch" parameterType="java.util.List">
+		update Charge_CustomerChargeDetail
+		set IsDelete =1
+		where
+			Id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	   		${item}
+        </foreach>
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeCustomerChargeDetail">
+		insert into Charge_CustomerChargeDetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="taskId != null">
+				TaskId,
+			</if>
+			<if test="preinctId != null">
+				PreinctId,
+			</if>
+			<if test="preinctName != null">
+				PreinctName,
+			</if>
+			<if test="houseId != null">
+				HouseId,
+			</if>
+			<if test="houseName != null">
+				HouseName,
+			</if>
+			<if test="ownerId != null">
+				OwnerId,
+			</if>
+			<if test="ownerName != null">
+				OwnerName,
+			</if>
+			<if test="paidOwnerType != null">
+				PaidOwnerType,
+			</if>
+			<if test="chargeItemId != null">
+				ChargeItemId,
+			</if>
+			<if test="chargeItemName != null">
+				ChargeItemName,
+			</if>
+			<if test="chargeId != null">
+				ChargeId,
+			</if>
+			<if test="chargeName != null">
+				ChargeName,
+			</if>
+			<if test="price != null">
+				Price,
+			</if>
+			<if test="chargeItemPrice != null">
+				ChargeItemPrice,
+			</if>
+			<if test="amount != null">
+				Amount,
+			</if>
+			<if test="calcStartDate != null">
+				CalcStartDate,
+			</if>
+			<if test="calcEndDate != null">
+				CalcEndDate,
+			</if>
+			<if test="shouldChargeDate != null">
+				ShouldChargeDate,
+			</if>
+			<if test="actualChargeSum != null">
+				ActualChargeSum,
+			</if>
+			<if test="chargeSum != null">
+				ChargeSum,
+			</if>
+			<if test="paidChargeSum != null">
+				PaidChargeSum,
+			</if>
+			<if test="arrears != null">
+				Arrears,
+			</if>
+			<if test="discount != null">
+				Discount,
+			</if>
+			<if test="delaySum != null">
+				DelaySum,
+			</if>
+			<if test="delayDiscount != null">
+				DelayDiscount,
+			</if>
+			<if test="delayDays != null">
+				DelayDays,
+			</if>
+			<if test="discountReason != null">
+				DiscountReason,
+			</if>
+			<if test="tax != null">
+				Tax,
+			</if>
+			<if test="isCheck != null">
+				IsCheck,
+			</if>
+			<if test="notCheckReason != null">
+				NotCheckReason,
+			</if>
+			<if test="isPaid != null">
+				IsPaid,
+			</if>
+			<if test="paidDate != null">
+				PaidDate,
+			</if>
+			<if test="isClosing != null">
+				IsClosing,
+			</if>
+			<if test="isBadDebt != null">
+				IsBadDebt,
+			</if>
+			<if test="badDebtDate != null">
+				BadDebtDate,
+			</if>
+			<if test="chargeSource != null">
+				ChargeSource,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="sysTime != null">
+				SysTime,
+			</if>
+			<if test="sequence != null">
+				Sequence,
+			</if>
+			<if test="description != null">
+				Description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="taskId != null">
+				#{taskId, jdbcType=BIGINT},
+			</if>
+			<if test="preinctId != null">
+				#{preinctId, jdbcType=BIGINT},
+			</if>
+			<if test="preinctName != null">
+				#{preinctName, jdbcType=VARCHAR},
+			</if>
+			<if test="houseId != null">
+				#{houseId, jdbcType=BIGINT},
+			</if>
+			<if test="houseName != null">
+				#{houseName, jdbcType=VARCHAR},
+			</if>
+			<if test="ownerId != null">
+				#{ownerId, jdbcType=BIGINT},
+			</if>
+			<if test="ownerName != null">
+				#{ownerName, jdbcType=VARCHAR},
+			</if>
+			<if test="paidOwnerType != null">
+				#{paidOwnerType, jdbcType=TINYINT},
+			</if>
+			<if test="chargeItemId != null">
+				#{chargeItemId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemName != null">
+				#{chargeItemName, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeId != null">
+				#{chargeId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeName != null">
+				#{chargeName, jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemPrice != null">
+				#{chargeItemPrice, jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount, jdbcType=BIGINT},
+			</if>
+			<if test="calcStartDate != null">
+				#{calcStartDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="calcEndDate != null">
+				#{calcEndDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="shouldChargeDate != null">
+				#{shouldChargeDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="actualChargeSum != null">
+				#{actualChargeSum, jdbcType=BIGINT},
+			</if>
+			<if test="chargeSum != null">
+				#{chargeSum, jdbcType=BIGINT},
+			</if>
+			<if test="paidChargeSum != null">
+				#{paidChargeSum, jdbcType=BIGINT},
+			</if>
+			<if test="arrears != null">
+				#{arrears, jdbcType=BIGINT},
+			</if>
+			<if test="discount != null">
+				#{discount, jdbcType=BIGINT},
+			</if>
+			<if test="delaySum != null">
+				#{delaySum, jdbcType=BIGINT},
+			</if>
+			<if test="delayDiscount != null">
+				#{delayDiscount, jdbcType=BIGINT},
+			</if>
+			<if test="delayDays != null">
+				#{delayDays, jdbcType=INTEGER},
+			</if>
+			<if test="discountReason != null">
+				#{discountReason, jdbcType=VARCHAR},
+			</if>
+			<if test="tax != null">
+				#{tax, jdbcType=BIGINT},
+			</if>
+			<if test="isCheck != null">
+				#{isCheck, jdbcType=VARCHAR},
+			</if>
+			<if test="notCheckReason != null">
+				#{notCheckReason, jdbcType=VARCHAR},
+			</if>
+			<if test="isPaid != null">
+				#{isPaid, jdbcType=TINYINT},
+			</if>
+			<if test="paidDate != null">
+				#{paidDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="isClosing != null">
+				#{isClosing, jdbcType=TINYINT},
+			</if>
+			<if test="isBadDebt != null">
+				#{isBadDebt, jdbcType=TINYINT},
+			</if>
+			<if test="badDebtDate != null">
+				#{badDebtDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="chargeSource != null">
+				#{chargeSource, jdbcType=TINYINT},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysTime != null">
+				#{sysTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sequence != null">
+				#{Sequence, jdbcType=BIGINT},
+			</if>
+			<if test="description !=null">
+				#{Description, jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_CustomerChargeDetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			TaskId,
+			PreinctId,
+			PreinctName,
+			HouseId,
+			HouseName,
+			OwnerId,
+			OwnerName,
+			PaidOwnerType,
+			ChargeItemId,
+			ChargeItemName,
+			ChargeId,
+			ChargeName,
+			Price,
+			ChargeItemPrice,
+			Amount,
+			CalcStartDate,
+			CalcEndDate,
+			ShouldChargeDate,
+			ActualChargeSum,
+			ChargeSum,
+			PaidChargeSum,
+			Arrears,
+			Discount,
+			DelaySum,
+			DelayDiscount,
+			DelayDays,
+			DiscountReason,
+			Tax,
+			IsCheck,
+			NotCheckReason,
+			IsPaid,
+			PaidDate,
+			IsClosing,
+			IsBadDebt,
+			BadDebtDate,
+			ChargeSource,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			SysTime,
+			Sequence,
+			Description,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId, jdbcType=BIGINT},
+			#{item.taskId, jdbcType=BIGINT},
+			#{item.preinctId, jdbcType=BIGINT},
+			#{item.preinctName, jdbcType=VARCHAR},
+			#{item.houseId, jdbcType=BIGINT},
+			#{item.houseName, jdbcType=VARCHAR},
+			#{item.ownerId, jdbcType=BIGINT},
+			#{item.ownerName, jdbcType=VARCHAR},
+			#{item.paidOwnerType, jdbcType=TINYINT},
+			#{item.chargeItemId, jdbcType=BIGINT},
+			#{item.chargeItemName, jdbcType=VARCHAR},
+			#{item.chargeId, jdbcType=BIGINT},
+			#{item.chargeName, jdbcType=VARCHAR},
+			#{item.price, jdbcType=BIGINT},
+			#{item.chargeItemPrice, jdbcType=VARCHAR},
+			#{item.amount, jdbcType=BIGINT},
+			#{item.calcStartDate, jdbcType=TIMESTAMP},
+			#{item.calcEndDate, jdbcType=TIMESTAMP},
+			#{item.shouldChargeDate, jdbcType=TIMESTAMP},
+			#{item.actualChargeSum, jdbcType=BIGINT},
+			#{item.chargeSum, jdbcType=BIGINT},
+			#{item.paidChargeSum, jdbcType=BIGINT},
+			#{item.arrears, jdbcType=BIGINT},
+			#{item.discount, jdbcType=BIGINT},
+			#{item.delaySum, jdbcType=BIGINT},
+			#{item.delayDiscount, jdbcType=BIGINT},
+			#{item.delayDays, jdbcType=INTEGER},
+			#{item.discountReason, jdbcType=VARCHAR},
+			#{item.tax, jdbcType=BIGINT},
+			#{item.isCheck, jdbcType=VARCHAR},
+			#{item.notCheckReason, jdbcType=VARCHAR},
+			#{item.isPaid, jdbcType=TINYINT},
+			#{item.paidDate, jdbcType=TIMESTAMP},
+			#{item.isClosing, jdbcType=TINYINT},
+			#{item.isBadDebt, jdbcType=TINYINT},
+			#{item.badDebtDate, jdbcType=TIMESTAMP},
+			#{item.chargeSource, jdbcType=TINYINT},
+			#{item.createUserId, jdbcType=BIGINT},
+			#{item.createUserName, jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId, jdbcType=BIGINT},
+			#{item.updateUserName, jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.sysTime, jdbcType=TIMESTAMP},
+			#{item.sequence, jdbcType=BIGINT},
+			#{item.description, jdbcType=VARCHAR}
+        )
+        </foreach>
+	</insert>
+	
+</mapper>

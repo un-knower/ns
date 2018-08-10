@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newsee.charge.dao.ChargeChargeStandardMapper">
+
+	<resultMap id="ChargeChargeStandardResultMap" type="com.newsee.charge.entity.ChargeChargeStandard">
+		<id property="id" column="Id" jdbcType="BIGINT" />
+		<result property="enterpriseId" column="EnterpriseId" jdbcType="BIGINT" />
+		<result property="organizationId" column="OrganizationId"
+			jdbcType="BIGINT" />
+		<result property="standardCode" column="StandardCode" jdbcType="VARCHAR" />
+		<result property="standardName" column="StandardName" jdbcType="VARCHAR" />
+		<result property="preinctId" column="PreinctId" jdbcType="BIGINT" />
+		<result property="preinctName" column="PreinctName" jdbcType="VARCHAR" />
+		<result property="chargeItemId" column="ChargeItemId" jdbcType="BIGINT" />
+		<result property="chargeItemName" column="ChargeItemName"
+			jdbcType="VARCHAR" />
+		<result property="isLadder" column="IsLadder" jdbcType="VARCHAR" />
+		<result property="expressions" column="Expressions" jdbcType="VARCHAR" />
+		<result property="price" column="Price" jdbcType="VARCHAR" />
+		<result property="priceUnit" column="PriceUnit" jdbcType="VARCHAR" />
+		<result property="decimalLength" column="DecimalLength"
+			jdbcType="VARCHAR" />
+		<result property="decimalTailLength" column="DecimalTailLength"
+			jdbcType="VARCHAR" />
+		<result property="delayMount" column="DelayMount"
+			jdbcType="VARCHAR" />
+		<result property="delayUnit" column="DelayUnit"
+			jdbcType="VARCHAR" />
+		<result property="delayTypeSelect" column="DelayTypeSelect"
+			jdbcType="VARCHAR" />
+		<result property="chargeRoundType" column="ChargeRoundType"
+			jdbcType="VARCHAR" />
+		<result property="mantissa" column="Mantissa" jdbcType="VARCHAR" />
+		<result property="divideNumber" column="DivideNumber" jdbcType="BIGINT" />
+		<result property="divideUnit" column="DivideUnit" jdbcType="VARCHAR" />
+		<result property="isExecuting" column="IsExecuting" jdbcType="VARCHAR" />
+		<result property="executeDate" column="ExecuteDate" jdbcType="TIMESTAMP" />
+		<result property="cancelDate" column="CancelDate" jdbcType="TIMESTAMP" />
+		<result property="remark" column="Remark" jdbcType="VARCHAR" />
+		<result property="isFixInterval" column="IsFixInterval"
+			jdbcType="VARCHAR" />
+		<result property="periodCount" column="PeriodCount" jdbcType="VARCHAR" />
+		<result property="allMonth" column="AllMonth" jdbcType="VARCHAR" />
+		<result property="chargeType" column="ChargeType" jdbcType="VARCHAR" />
+		<result property="chargeMonthType" column="ChargeMonthType"
+			jdbcType="VARCHAR" />
+		<result property="chargeMonth" column="ChargeMonth" jdbcType="VARCHAR" />
+		<result property="chargeDayType" column="ChargeDayType"
+			jdbcType="VARCHAR" />
+		<result property="chargeDay" column="ChargeDay" jdbcType="VARCHAR" />
+		<result property="accountType" column="AccountType" jdbcType="VARCHAR" />
+		<result property="isDelay" column="IsDelay" jdbcType="VARCHAR" />
+		<result property="rate" column="Rate" jdbcType="VARCHAR" />
+		<result property="delayType" column="DelayType" jdbcType="VARCHAR" />
+		<result property="isDelayDays" column="IsDelayDays" jdbcType="VARCHAR" />
+		<result property="createUserId" column="CreateUserId" jdbcType="BIGINT" />
+		<result property="createUserName" column="CreateUserName"
+			jdbcType="VARCHAR" />
+		<result property="createTime" column="CreateTime" jdbcType="TIMESTAMP" />
+		<result property="updateUserId" column="UpdateUserId" jdbcType="BIGINT" />
+		<result property="updateUserName" column="UpdateUserName"
+			jdbcType="VARCHAR" />
+		<result property="updateTime" column="UpdateTime" jdbcType="TIMESTAMP" />
+		<result property="sysTime" column="SysTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ChargeChargeStandard_Column_List">
+		Id,EnterpriseId,OrganizationId,chargeSplitType,delayTypeSelect,delayMount,delayUnit,StandardCode,StandardName,PreinctId,PreinctName,ChargeItemId,ChargeItemName,IsLadder,Expressions,Price,PriceUnit,DecimalLength,DecimalTailLength,ChargeRoundType,Mantissa,DivideNumber,DivideUnit,IsExecuting,ExecuteDate,CancelDate,Remark,IsFixInterval,PeriodCount,AllMonth,ChargeType,ChargeMonthType,ChargeMonth,ChargeDayType,ChargeDay,AccountType,IsDelay,Rate,DelayType,IsDelayDays,CreateUserId,CreateUserName,CreateTime,UpdateUserId,UpdateUserName,UpdateTime,SysTime
+	</sql>
+
+
+	<select id="findChargeItemNameForPericint" parameterType="java.util.Map"
+		resultMap="ChargeChargeStandardResultMap">
+		select ChargeItemName,ChargeItemId
+		from Charge_ChargeStandard
+		where
+		PreinctId = #{preinctId}
+		and IsExecuting = 1
+		<if test="enterpriseId != null">
+			and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+		</if>
+		<if test="organizationId != null">
+			and OrganizationId = #{organizationId,jdbcType=BIGINT}
+		</if>
+		and IsDelete !=2
+		group by ChargeItemName,ChargeItemId
+	</select>
+
+	<select id="findChargestandardNameForPericint" parameterType="java.util.Map"
+		resultMap="ChargeChargeStandardResultMap">
+		select <include refid="ChargeChargeStandard_Column_List" />
+		from Charge_ChargeStandard
+		where PreinctId =#{preinctId}
+		and ChargeItemId = #{chargeItemId}
+		and IsExecuting = 1
+		<if test="enterpriseId != null">
+			and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+		</if>
+		<if test="organizationId != null">
+			and OrganizationId = #{organizationId,jdbcType=BIGINT}
+		</if>
+		and IsDelete !=2
+	</select>
+
+    <select id="listPageAll" parameterType="com.newsee.common.vo.SearchVo"
+		resultMap="ChargeChargeStandardResultMap">
+		select
+		<include refid="ChargeChargeStandard_Column_List" />
+		from
+		Charge_ChargeStandard
+		<where>
+		 and IsDelete !=2
+			<if test="mainSearch != null and mainSearch != ''">
+				and LOCATE(#{mainSearch,jdbcType=VARCHAR}, StandardName)
+				&gt; 0
+			</if>
+		</where>
+	</select>
+		
+		
+		
+	<select id="listPage" parameterType="com.newsee.common.vo.SearchVo"
+		resultMap="ChargeChargeStandardResultMap">
+		select
+		<include refid="ChargeChargeStandard_Column_List" />
+		from
+		Charge_ChargeStandard
+		<where>
+		 and IsDelete !=2
+			<choose>
+				<when test="ids != null and ids.size >0">
+					AND ChargeItemId in
+					<foreach collection="ids" item="item" separator="," open="("
+						close=")">
+						${item}
+					</foreach>
+				</when>
+			</choose>
+			<choose>
+				<when test="houseIds != null and houseIds.size >0">
+					AND PreinctId in
+					<foreach collection="houseIds" item="item" separator=","
+						open="(" close=")">
+						${item}
+					</foreach>
+				</when>
+			</choose>
+			<if test="mainSearch != null and mainSearch != ''">
+				and LOCATE(#{mainSearch,jdbcType=VARCHAR}, StandardName)
+				&gt; 0
+			</if>
+			<if test="enterpriseId != null">
+				and EnterpriseId = #{enterpriseId,jdbcType=BIGINT}
+			</if>
+			<if test="organizationId != null">
+				and OrganizationId = #{organizationId,jdbcType=BIGINT}
+			</if>
+			<if test="filterList != null and filterList.size() !=0 ">
+				<foreach collection="filterList" item="item">
+					<choose>
+						<when test="item.comparison != null and item.comparison == 'NULL'">
+							and (${item.fieldName} IS NULL or
+							${item.fieldName} = '')
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+							and (${item.fieldName} IS NOT NULL and
+							${item.fieldName} != '')
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+							and LOCATE(#{item.fieldValue},
+							${item.fieldName})=0
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LIKE'">
+							and LOCATE(#{item.fieldValue},
+							${item.fieldName})>0
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'GREATER_THAN' and item.fieldName != 'price' and item.type!='date'">
+							and ${item.fieldName} &gt; #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'GREATER_THAN' and item.fieldName == 'price'">
+							AND Id IN (
+									SELECT StandardId FROM Charge_ChargeStandardLadder WHERE type = 'standard' AND LadderPrice &gt; #{item.fieldValue}
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &gt; to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_THAN' and item.fieldName != 'price' and item.type!='date'">
+							and ${item.fieldName} &lt; #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'LESS_THAN' and item.fieldName == 'price'">
+							AND Id IN (
+									SELECT StandardId FROM Charge_ChargeStandardLadder WHERE type = 'standard' AND LadderPrice &lt; #{item.fieldValue}
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &lt; to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'EQUAL' and item.fieldName != 'price' and item.type!='date'">
+							and ${item.fieldName} = #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'EQUAL' and item.fieldName == 'price'">
+							AND Id IN (
+									SELECT StandardId FROM Charge_ChargeStandardLadder WHERE type = 'standard' AND LadderPrice = #{item.fieldValue}
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'EQUAL' and item.type=='date'">
+							and to_days(${item.fieldName}) = to_days(#{item.fieldValue})
+						</when>
+						<when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+							and ${item.fieldName} != #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.fieldName != 'price' and item.type!='date'">
+							and ${item.fieldName} &gt;= #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.fieldName == 'price'">
+							AND Id IN (
+									SELECT StandardId FROM Charge_ChargeStandardLadder WHERE type = 'standard' AND LadderPrice &gt;= #{item.fieldValue}
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &gt;= to_days(#{item.fieldValue})
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.fieldName != 'price' and item.type!='date'">
+							and ${item.fieldName} &lt;= #{item.fieldValue}
+						</when>
+						<when
+							test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.fieldName == 'price'">
+							AND Id IN (
+									SELECT StandardId FROM Charge_ChargeStandardLadder WHERE type = 'standard' AND LadderPrice &lt;= #{item.fieldValue}
+								)
+						</when>
+						<when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN' and item.type=='date'">
+							and to_days(${item.fieldName}) &lt;= to_days(#{item.fieldValue})
+						</when>
+					</choose>
+				</foreach>
+			</if>
+              order by id desc
+			<if
+				test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+				, ${orderFieldName}
+				<if test="orderBy != null and orderBy != ''">
+					${orderBy}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectById" parameterType="java.lang.Long"
+		resultMap="ChargeChargeStandardResultMap">
+		select
+		<include refid="ChargeChargeStandard_Column_List" />
+		from
+		Charge_ChargeStandard
+		where
+		Id = #{id}
+		and IsDelete !=2
+	</select>
+	<select id="selectByPrecintId" parameterType="java.lang.Long"
+		resultMap="ChargeChargeStandardResultMap">
+		select
+		<include refid="ChargeChargeStandard_Column_List" />
+		from
+		Charge_ChargeStandard
+		where
+		PreinctId = #{id}
+		and IsDelete !=2
+	</select>
+
+	<select id="selectByOrganizationId" parameterType="java.util.Map" resultMap="ChargeChargeStandardResultMap">
+		select
+		<include refid="ChargeChargeStandard_Column_List" />
+		from
+		Charge_ChargeStandard
+		where
+		EnterpriseId = #{enterpriseId}
+		AND
+		OrganizationId = #{organizationId}
+		and IsDelete !=2
+	</select>
+	
+	<select id="checkName" parameterType="com.newsee.charge.entity.ChargeChargeStandard"
+		resultType="java.lang.Integer">
+		select count(1)
+		from
+		Charge_ChargeStandard
+		where
+		  EnterpriseId = #{enterpriseId}
+		and  StandardCode = #{standardCode}
+		<if test="id != null and id != ''">
+		  and  id != #{id}
+		</if>
+		and IsDelete !=2   
+	</select>
+
+	<update id="updateById" parameterType="com.newsee.charge.entity.ChargeChargeStandard">
+		update Charge_ChargeStandard
+		<set>
+			<if test="enterpriseId != null">
+				EnterpriseId = #{enterpriseId, jdbcType=BIGINT },
+			</if>
+			<if test="organizationId != null">
+				OrganizationId = #{organizationId, jdbcType=BIGINT },
+			</if>
+			<if test="standardCode != null">
+				StandardCode = #{standardCode, jdbcType=VARCHAR },
+			</if>
+			<if test="standardName != null">
+				StandardName = #{standardName, jdbcType=VARCHAR },
+			</if>
+			<if test="preinctId != null">
+				PreinctId = #{preinctId, jdbcType=BIGINT },
+			</if>
+			<if test="preinctName != null">
+				PreinctName = #{preinctName, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeItemId != null">
+				ChargeItemId = #{chargeItemId, jdbcType=BIGINT },
+			</if>
+			<if test="chargeItemName != null">
+				ChargeItemName = #{chargeItemName, jdbcType=VARCHAR },
+			</if>
+			<if test="isLadder != null">
+				IsLadder = #{isLadder, jdbcType=VARCHAR },
+			</if>
+			<if test="expressions != null">
+				Expressions = #{expressions, jdbcType=VARCHAR },
+			</if>
+			<if test="price != null">
+				Price = #{price, jdbcType=VARCHAR },
+			</if>
+			<if test="priceUnit != null">
+				PriceUnit = #{priceUnit, jdbcType=VARCHAR },
+			</if>
+			<if test="decimalLength != null">
+				DecimalLength = #{decimalLength, jdbcType=VARCHAR },
+			</if>
+			<if test="decimalTailLength != null">
+				DecimalTailLength = #{decimalTailLength, jdbcType=VARCHAR
+				},
+			</if>
+			<if test="chargeRoundType != null">
+				ChargeRoundType = #{chargeRoundType, jdbcType=VARCHAR },
+			</if>
+			<if test="mantissa != null">
+				Mantissa = #{mantissa, jdbcType=VARCHAR },
+			</if>
+			<if test="divideNumber != null">
+				DivideNumber = #{divideNumber, jdbcType=BIGINT },
+			</if>
+			<if test="divideUnit != null">
+				DivideUnit = #{divideUnit, jdbcType=VARCHAR },
+			</if>
+			<if test="isExecuting != null">
+				IsExecuting = #{isExecuting, jdbcType=VARCHAR },
+			</if>
+			<if test="executeDate != null">
+				ExecuteDate = #{executeDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="cancelDate != null">
+				CancelDate = #{cancelDate, jdbcType=TIMESTAMP },
+			</if>
+			<if test="remark != null">
+				Remark = #{remark, jdbcType=VARCHAR },
+			</if>
+			<if test="isFixInterval != null">
+				IsFixInterval = #{isFixInterval, jdbcType=VARCHAR },
+			</if>
+			<if test="periodCount != null">
+				PeriodCount = #{periodCount, jdbcType=VARCHAR },
+			</if>
+			<if test="allMonth != null">
+				AllMonth = #{allMonth, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeType != null">
+				ChargeType = #{chargeType, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeMonthType != null">
+				ChargeMonthType = #{chargeMonthType, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeMonth != null">
+				ChargeMonth = #{chargeMonth, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeDayType != null">
+				ChargeDayType = #{chargeDayType, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeDay != null">
+				ChargeDay = #{chargeDay, jdbcType=VARCHAR },
+			</if>
+			<if test="accountType != null">
+				AccountType = #{accountType, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelay != null">
+				IsDelay = #{isDelay, jdbcType=VARCHAR },
+			</if>
+			<if test="rate != null">
+				Rate = #{rate, jdbcType=VARCHAR },
+			</if>
+			<if test="delayType != null">
+				DelayType = #{delayType, jdbcType=VARCHAR },
+			</if>
+			<if test="isDelayDays != null">
+				IsDelayDays = #{isDelayDays, jdbcType=VARCHAR },
+			</if>
+			<if test="createUserId != null">
+				CreateUserId = #{createUserId, jdbcType=BIGINT },
+			</if>
+			<if test="createUserName != null">
+				CreateUserName = #{createUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="createTime != null">
+				CreateTime = #{createTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId = #{updateUserId, jdbcType=BIGINT },
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName = #{updateUserName, jdbcType=VARCHAR },
+			</if>
+			<if test="updateTime != null">
+				UpdateTime = #{updateTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="sysTime != null">
+				SysTime = #{sysTime, jdbcType=TIMESTAMP },
+			</if>
+			<if test="delayTypeSelect != null">
+				delayTypeSelect = #{delayTypeSelect, jdbcType=VARCHAR },
+			</if>
+			<if test="delayMount != null">
+				delayMount = #{delayMount, jdbcType=VARCHAR },
+			</if>
+			<if test="delayUnit != null">
+				delayUnit = #{delayUnit, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeSplitType != null">
+				chargeSplitType = #{chargeSplitType, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+		Id = #{id}
+	</update>
+
+	<update id="deleteById" parameterType="java.lang.Long">
+		update
+		Charge_ChargeStandard set IsDelete =2
+		where
+		Id = #{id}
+		and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =#{id} and p.isDelete =0
+		)
+	</update>
+
+	<update id="deleteBatch" parameterType="java.util.List">
+		update
+		Charge_ChargeStandard t set t.IsDelete =2
+		where
+		t.Id in
+		<foreach collection="list" item="item" index="index"
+			open="(" close=")" separator=",">
+			${item}
+		</foreach>
+		and not exists (
+		select 1 from Charge_HouseChargeStandard p
+		where p.StandardId =t.id and p.isDelete =0
+		)
+	</update>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.newsee.charge.entity.ChargeChargeStandard">
+		insert into Charge_ChargeStandard
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				EnterpriseId,
+			</if>
+			<if test="organizationId != null">
+				OrganizationId,
+			</if>
+			<if test="standardCode != null">
+				StandardCode,
+			</if>
+			<if test="standardName != null">
+				StandardName,
+			</if>
+			<if test="preinctId != null">
+				PreinctId,
+			</if>
+			<if test="preinctName != null">
+				PreinctName,
+			</if>
+			<if test="chargeItemId != null">
+				ChargeItemId,
+			</if>
+			<if test="chargeItemName != null">
+				ChargeItemName,
+			</if>
+			<if test="isLadder != null">
+				IsLadder,
+			</if>
+			<if test="expressions != null">
+				Expressions,
+			</if>
+			<if test="price != null">
+				Price,
+			</if>
+			<if test="priceUnit != null">
+				PriceUnit,
+			</if>
+			<if test="decimalLength != null">
+				DecimalLength,
+			</if>
+			<if test="decimalTailLength != null">
+				DecimalTailLength,
+			</if>
+			<if test="chargeRoundType != null">
+				ChargeRoundType,
+			</if>
+			<if test="mantissa != null">
+				Mantissa,
+			</if>
+			<if test="divideNumber != null">
+				DivideNumber,
+			</if>
+			<if test="divideUnit != null">
+				DivideUnit,
+			</if>
+			<if test="isExecuting != null">
+				IsExecuting,
+			</if>
+			<if test="executeDate != null">
+				ExecuteDate,
+			</if>
+			<if test="cancelDate != null">
+				CancelDate,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="isFixInterval != null">
+				IsFixInterval,
+			</if>
+			<if test="periodCount != null">
+				PeriodCount,
+			</if>
+			<if test="allMonth != null">
+				AllMonth,
+			</if>
+			<if test="chargeType != null">
+				ChargeType,
+			</if>
+			<if test="chargeMonthType != null">
+				ChargeMonthType,
+			</if>
+			<if test="chargeMonth != null">
+				ChargeMonth,
+			</if>
+			<if test="chargeDayType != null">
+				ChargeDayType,
+			</if>
+			<if test="chargeDay != null">
+				ChargeDay,
+			</if>
+			<if test="accountType != null">
+				AccountType,
+			</if>
+			<if test="isDelay != null">
+				IsDelay,
+			</if>
+			<if test="rate != null">
+				Rate,
+			</if>
+			<if test="delayType != null">
+				DelayType,
+			</if>
+			<if test="isDelayDays != null">
+				IsDelayDays,
+			</if>
+			<if test="createUserId != null">
+				CreateUserId,
+			</if>
+			<if test="createUserName != null">
+				CreateUserName,
+			</if>
+			<if test="createTime != null">
+				CreateTime,
+			</if>
+			<if test="updateUserId != null">
+				UpdateUserId,
+			</if>
+			<if test="updateUserName != null">
+				UpdateUserName,
+			</if>
+			<if test="updateTime != null">
+				UpdateTime,
+			</if>
+			<if test="sysTime != null">
+				SysTime,
+			</if>
+			<if test="delayTypeSelect != null">
+				delayTypeSelect ,
+			</if>
+			<if test="delayMount != null">
+				delayMount ,
+			</if>
+			<if test="delayUnit != null">
+				delayUnit ,
+			</if>
+			<if test="chargeSplitType != null">
+				chargeSplitType ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="enterpriseId != null">
+				#{enterpriseId, jdbcType=BIGINT},
+			</if>
+			<if test="organizationId != null">
+				#{organizationId, jdbcType=BIGINT},
+			</if>
+			<if test="standardCode != null">
+				#{standardCode, jdbcType=VARCHAR},
+			</if>
+			<if test="standardName != null">
+				#{standardName, jdbcType=VARCHAR},
+			</if>
+			<if test="preinctId != null">
+				#{preinctId, jdbcType=BIGINT},
+			</if>
+			<if test="preinctName != null">
+				#{preinctName, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeItemId != null">
+				#{chargeItemId, jdbcType=BIGINT},
+			</if>
+			<if test="chargeItemName != null">
+				#{chargeItemName, jdbcType=VARCHAR},
+			</if>
+			<if test="isLadder != null">
+				#{isLadder, jdbcType=VARCHAR},
+			</if>
+			<if test="expressions != null">
+				#{expressions, jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price, jdbcType=VARCHAR},
+			</if>
+			<if test="priceUnit != null">
+				#{priceUnit, jdbcType=VARCHAR},
+			</if>
+			<if test="decimalLength != null">
+				#{decimalLength, jdbcType=VARCHAR},
+			</if>
+			<if test="decimalTailLength != null">
+				#{decimalTailLength, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeRoundType != null">
+				#{chargeRoundType, jdbcType=VARCHAR},
+			</if>
+			<if test="mantissa != null">
+				#{mantissa, jdbcType=VARCHAR},
+			</if>
+			<if test="divideNumber != null">
+				#{divideNumber, jdbcType=BIGINT},
+			</if>
+			<if test="divideUnit != null">
+				#{divideUnit, jdbcType=VARCHAR},
+			</if>
+			<if test="isExecuting != null">
+				#{isExecuting, jdbcType=VARCHAR},
+			</if>
+			<if test="executeDate != null">
+				#{executeDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="cancelDate != null">
+				#{cancelDate, jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark, jdbcType=VARCHAR},
+			</if>
+			<if test="isFixInterval != null">
+				#{isFixInterval, jdbcType=VARCHAR},
+			</if>
+			<if test="periodCount != null">
+				#{periodCount, jdbcType=VARCHAR},
+			</if>
+			<if test="allMonth != null">
+				#{allMonth, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeType != null">
+				#{chargeType, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeMonthType != null">
+				#{chargeMonthType, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeMonth != null">
+				#{chargeMonth, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeDayType != null">
+				#{chargeDayType, jdbcType=VARCHAR},
+			</if>
+			<if test="chargeDay != null">
+				#{chargeDay, jdbcType=VARCHAR},
+			</if>
+			<if test="accountType != null">
+				#{accountType, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelay != null">
+				#{isDelay, jdbcType=VARCHAR},
+			</if>
+			<if test="rate != null">
+				#{rate, jdbcType=VARCHAR},
+			</if>
+			<if test="delayType != null">
+				#{delayType, jdbcType=VARCHAR},
+			</if>
+			<if test="isDelayDays != null">
+				#{isDelayDays, jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId, jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId, jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName, jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysTime != null">
+				#{sysTime, jdbcType=TIMESTAMP},
+			</if>
+			<if test="delayTypeSelect != null">
+				#{delayTypeSelect, jdbcType=VARCHAR },
+			</if>
+			<if test="delayMount != null">
+				#{delayMount, jdbcType=VARCHAR },
+			</if>
+			<if test="delayUnit != null">
+				#{delayUnit, jdbcType=VARCHAR },
+			</if>
+			<if test="chargeSplitType != null">
+				#{chargeSplitType, jdbcType=VARCHAR },
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into Charge_ChargeStandard
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			EnterpriseId,
+			OrganizationId,
+			StandardCode,
+			StandardName,
+			PreinctId,
+			PreinctName,
+			ChargeItemId,
+			ChargeItemName,
+			IsLadder,
+			Expressions,
+			Price,
+			PriceUnit,
+			DecimalLength,
+			DecimalTailLength,
+			ChargeRoundType,
+			Mantissa,
+			DivideNumber,
+			DivideUnit,
+			IsExecuting,
+			ExecuteDate,
+			CancelDate,
+			Remark,
+			IsFixInterval,
+			PeriodCount,
+			AllMonth,
+			ChargeType,
+			ChargeMonthType,
+			ChargeMonth,
+			ChargeDayType,
+			ChargeDay,
+			AccountType,
+			IsDelay,
+			Rate,
+			DelayType,
+			IsDelayDays,
+			CreateUserId,
+			CreateUserName,
+			CreateTime,
+			UpdateUserId,
+			UpdateUserName,
+			UpdateTime,
+			SysTime,
+			delayUnit,
+			delayMount,
+			delayTypeSelect,
+			chargeSplitType,
+		</trim>
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.enterpriseId, jdbcType=BIGINT},
+			#{item.organizationId,
+			jdbcType=BIGINT},
+			#{item.standardCode,
+			jdbcType=VARCHAR},
+			#{item.standardName, jdbcType=VARCHAR},
+			#{item.preinctId,
+			jdbcType=BIGINT},
+			#{item.preinctName,
+			jdbcType=VARCHAR},
+			#{item.chargeItemId, jdbcType=BIGINT},
+			#{item.chargeItemName,
+			jdbcType=VARCHAR},
+			#{item.isLadder,
+			jdbcType=VARCHAR},
+			#{item.expressions, jdbcType=VARCHAR},
+			#{item.price, jdbcType=VARCHAR},
+			#{item.priceUnit, jdbcType=VARCHAR},
+			#{item.decimalLength,
+			jdbcType=VARCHAR},
+			#{item.decimalTailLength,
+			jdbcType=VARCHAR},
+			#{item.chargeRoundType, jdbcType=VARCHAR},
+			#{item.mantissa,
+			jdbcType=VARCHAR},
+			#{item.divideNumber,
+			jdbcType=BIGINT},
+			#{item.divideUnit, jdbcType=VARCHAR},
+			#{item.isExecuting,
+			jdbcType=VARCHAR},
+			#{item.executeDate,
+			jdbcType=TIMESTAMP},
+			#{item.cancelDate, jdbcType=TIMESTAMP},
+			#{item.remark,
+			jdbcType=VARCHAR},
+			#{item.isFixInterval,
+			jdbcType=VARCHAR},
+			#{item.periodCount, jdbcType=VARCHAR},
+			#{item.allMonth,
+			jdbcType=VARCHAR},
+			#{item.chargeType,
+			jdbcType=VARCHAR},
+			#{item.chargeMonthType, jdbcType=VARCHAR},
+			#{item.chargeMonth,
+			jdbcType=VARCHAR},
+			#{item.chargeDayType,
+			jdbcType=VARCHAR},
+			#{item.chargeDay, jdbcType=VARCHAR},
+			#{item.accountType,
+			jdbcType=VARCHAR},
+			#{item.isDelay,
+			jdbcType=VARCHAR},
+			#{item.rate,
+			jdbcType=VARCHAR},
+			#{item.delayType,
+			jdbcType=VARCHAR},
+			#{item.isDelayDays, jdbcType=VARCHAR},
+			#{item.createUserId,
+			jdbcType=BIGINT},
+			#{item.createUserName,
+			jdbcType=VARCHAR},
+			#{item.createTime, jdbcType=TIMESTAMP},
+			#{item.updateUserId,
+			jdbcType=BIGINT},
+			#{item.updateUserName,
+			jdbcType=VARCHAR},
+			#{item.updateTime, jdbcType=TIMESTAMP},
+			#{item.sysTime,
+			jdbcType=TIMESTAMP},
+			#{item.delayUnit, jdbcType=VARCHAR},
+			#{item.delayMount, jdbcType=VARCHAR},
+			#{item.delayTypeSelect, jdbcType=VARCHAR},
+			#{item.chargeSplitType, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

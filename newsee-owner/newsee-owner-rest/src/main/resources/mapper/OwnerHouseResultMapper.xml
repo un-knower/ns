@@ -1,0 +1,1967 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseResultMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.HouseListEntity">
+    <id column="house_result_id" jdbcType="BIGINT" property="houseResultId" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="house_id" jdbcType="BIGINT" property="houseId" />
+    <result column="organization_id" jdbcType="BIGINT" property="organizationId" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="precinct_id" property="precinctId" jdbcType="BIGINT" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="house_full_name" jdbcType="VARCHAR" property="houseFullName" />
+    <result column="house_name" jdbcType="VARCHAR" property="houseName" />
+    <result column="house_short_name" jdbcType="VARCHAR" property="houseShortName" />
+    <result column="house_no" jdbcType="VARCHAR" property="houseNo" />
+    <result column="house_stage" jdbcType="VARCHAR" property="houseStage" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="charging_area" jdbcType="BIGINT" property="chargingArea" />
+    <result column="building_area" jdbcType="BIGINT" property="buildingArea" />
+    <result column="inside_area" jdbcType="BIGINT" property="insideArea" />
+    <result column="pool_area" jdbcType="BIGINT" property="poolArea" />
+    <result column="assist_charging_area" property="assistChargingArea" jdbcType="BIGINT" />
+    <result column="garden_area" property="gardenArea" jdbcType="BIGINT" />
+    <result column="basement_area" property="basementArea" jdbcType="BIGINT" />
+    <result column="gift_area" property="giftArea" jdbcType="BIGINT" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="floor_num" property="floorNum" jdbcType="VARCHAR" />
+    <result column="maintenance_start_date" property="maintenanceStartDate" jdbcType="TIMESTAMP" />
+    <result column="maintenance_end_date" property="maintenanceEndDate" jdbcType="TIMESTAMP" />
+    <result column="has_relevance" property="hasRelevance" jdbcType="INTEGER" />
+    <!-- <result column="has_relevance_name" property="hasRelevanceName" jdbcType="VARCHAR" /> -->
+    <result column="room_type_id" property="roomTypeId" jdbcType="VARCHAR" />
+    <!-- <result column="room_type_name" property="roomTypeName" jdbcType="VARCHAR" /> -->
+    <result column="room_property_id" property="roomPropertyId" jdbcType="VARCHAR" />
+    <!-- <result column="room_property_name" property="roomPropertyName" jdbcType="VARCHAR" /> -->
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="owner_phone" jdbcType="VARCHAR" property="ownerPhone" />
+    <result column="certificate" jdbcType="VARCHAR" property="certificate" />
+    <result column="is_lock" jdbcType="INTEGER" property="isLock" />
+    <!-- <result column="is_lock_name" jdbcType="VARCHAR" property="isLockName" /> -->
+    <result column="is_virtual" jdbcType="INTEGER" property="isVirtual" />
+    <!-- <result column="is_virtual_name" jdbcType="VARCHAR" property="isVirtualName" /> -->
+    <result column="rent_stage" jdbcType="VARCHAR" property="rentStage" />
+    <result column="decorate_stage" jdbcType="VARCHAR" property="decorateStage" />
+    <result column="is_block_up" jdbcType="INTEGER" property="isBlockUp" />
+    <!-- <result column="is_block_up_name" jdbcType="VARCHAR" property="isBlockUpName" /> -->
+    <result column="block_up_time" jdbcType="TIMESTAMP" property="blockUpTime" />
+    <result column="is_current_record" jdbcType="TINYINT" property="isCurrentRecord" />
+    <result column="is_now_detail" jdbcType="TINYINT" property="isNowDetail" />
+    <!-- <result column="is_current_record_name" jdbcType="VARCHAR" property="isCurrentRecordName" /> -->
+    <result column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="sales_stage_name" jdbcType="VARCHAR" property="salesStageName" />
+    <result column="take_stage_name" jdbcType="VARCHAR" property="takeStageName" />
+    <result column="check_in_stage_name" jdbcType="VARCHAR" property="checkInStageName" />
+    <result column="rent_stage_name" jdbcType="VARCHAR" property="rentStageName" />
+    <result column="decorate_stage_name" jdbcType="VARCHAR" property="decorateStageName" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="rent_checkin_time" jdbcType="TIMESTAMP" property="rentCheckinTime" />
+    <result column="house_operate_type" jdbcType="VARCHAR" property="houseOperateType" />
+    <result column="lessee_id" jdbcType="BIGINT" property="lesseeId" />
+    <result column="lessee_name" jdbcType="VARCHAR" property="lesseeName" />
+    <result column="lessee_certificate" jdbcType="VARCHAR" property="lesseeCertificate" />
+    <result column="lessee_mobile" jdbcType="VARCHAR" property="lesseeMobile" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="property_owner_names" jdbcType="VARCHAR" property="propertyOwnerNames" />
+    <result column="create_house_user_id" property="createHouseUserId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <!-- 备用字段 -->
+    <result column="column0" property="column0" jdbcType="VARCHAR" />
+    <result column="column1" property="column1" jdbcType="VARCHAR" />
+    <result column="column2" property="column2" jdbcType="VARCHAR" />
+    <result column="column3" property="column3" jdbcType="VARCHAR" />
+    <result column="column4" property="column4" jdbcType="VARCHAR" />
+    <result column="column5" property="column5" jdbcType="VARCHAR" />
+    <result column="column6" property="column6" jdbcType="VARCHAR" />
+    <result column="column7" property="column7" jdbcType="VARCHAR" />
+    <result column="column8" property="column8" jdbcType="VARCHAR" />
+    <result column="column9" property="column9" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    house_result_id, enterprise_id, house_id, organization_id,house_type, path, project_name, precinct_id, group_name, 
+    building_name, unit_name, house_full_name, house_name, house_short_name, house_no, 
+    house_stage, stage_name, charging_area, building_area, inside_area, pool_area,
+    assist_charging_area,garden_area,basement_area,gift_area,floor,floor_num,maintenance_start_date,
+    maintenance_end_date,has_relevance,
+    room_type_id,room_property_id,
+    owner_id, owner_name, owner_phone, certificate, is_lock, is_virtual,
+    rent_stage, decorate_stage, is_block_up, block_up_time,
+    is_current_record, detail_id, sales_stage_name, take_stage_name, check_in_stage_name, 
+    rent_stage_name, decorate_stage_name, handle_time, start_time, end_time, rent_checkin_time, 
+    house_operate_type,lessee_id,lessee_name,lessee_certificate,lessee_mobile,create_time, property_owner_names,create_house_user_id
+    , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_result
+    where house_id = #{houseId,jdbcType=BIGINT} and is_current_record = 1
+  </select>
+  <select id="listHouseByPath" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from owner_house_result
+    where is_current_record = 1
+    AND path LIKE CONCAT(#{path,jdbcType=VARCHAR}, '%')
+    <if test="endTime != null">
+        and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from owner_house_result
+    where house_result_id = #{houseResultId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.HouseListEntity">
+    insert into owner_house_result (house_result_id, enterprise_id, house_id, 
+      organization_id,house_type, path, project_name, precinct_id,
+      group_name, building_name, unit_name, 
+      house_full_name, house_name, house_short_name, 
+      house_no, house_stage, stage_name, 
+      charging_area, building_area, inside_area, 
+      pool_area,assist_charging_area,garden_area,basement_area,gift_area,floor,floor_num,
+      maintenance_start_date,maintenance_end_date,has_relevance,
+      room_type_id,room_property_id, owner_id, owner_name, 
+      owner_phone, certificate, is_lock, is_virtual,
+      rent_stage, decorate_stage, is_block_up,block_up_time,
+      is_current_record, detail_id, sales_stage_name, 
+      take_stage_name, check_in_stage_name, rent_stage_name, 
+      decorate_stage_name, handle_time, start_time, 
+      end_time, rent_checkin_time, house_operate_type,lessee_id,lessee_name,lessee_certificate,lessee_mobile,
+      create_time, property_owner_names,create_house_user_id
+      , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9
+      )
+    values (#{houseResultId,jdbcType=BIGINT}, #{enterpriseId,jdbcType=BIGINT}, #{houseId,jdbcType=BIGINT}, 
+      #{organizationId,jdbcType=BIGINT}, #{houseType,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{precinctId,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, 
+      #{groupName,jdbcType=VARCHAR}, #{buildingName,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, 
+      #{houseFullName,jdbcType=VARCHAR}, #{houseName,jdbcType=VARCHAR}, #{houseShortName,jdbcType=VARCHAR}, 
+      #{houseNo,jdbcType=VARCHAR}, #{houseStage,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, 
+      #{chargingArea,jdbcType=BIGINT}, #{buildingArea,jdbcType=BIGINT}, #{insideArea,jdbcType=BIGINT}, 
+      #{poolArea,jdbcType=BIGINT},#{assistChargingArea,jdbcType=BIGINT},
+      #{gardenArea,jdbcType=BIGINT},#{basementArea,jdbcType=BIGINT},#{giftArea,jdbcType=BIGINT},
+      #{floor,jdbcType=INTEGER},#{floorNum,jdbcType=VARCHAR},#{maintenanceStartDate,jdbcType=TIMESTAMP},
+      #{maintenanceEndDate,jdbcType=TIMESTAMP},#{hasRelevance,jdbcType=INTEGER},
+      #{roomTypeId,jdbcType=VARCHAR},
+      #{roomPropertyId,jdbcType=VARCHAR}, 
+      #{ownerId,jdbcType=BIGINT}, #{ownerName,jdbcType=VARCHAR}, 
+      #{ownerPhone,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, #{isLock,jdbcType=INTEGER},
+      #{isVirtual,jdbcType=INTEGER}, 
+      #{rentStage,jdbcType=VARCHAR}, #{decorateStage,jdbcType=VARCHAR}, #{isBlockUp,jdbcType=INTEGER}, #{blockUpTime,jdbcType=TIMESTAMP},
+      #{isCurrentRecord,jdbcType=TINYINT}, #{detailId,jdbcType=BIGINT}, #{salesStageName,jdbcType=VARCHAR}, 
+      #{takeStageName,jdbcType=VARCHAR}, #{checkInStageName,jdbcType=VARCHAR}, #{rentStageName,jdbcType=VARCHAR}, 
+      #{decorateStageName,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{rentCheckinTime,jdbcType=TIMESTAMP}, #{houseOperateType,jdbcType=VARCHAR},
+      #{lesseeId,jdbcType=BIGINT},#{lesseeName,jdbcType=VARCHAR},#{lesseeCertificate,jdbcType=VARCHAR},#{lesseeMobile,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{propertyOwnerNames,jdbcType=VARCHAR}
+      ,#{createHouseUserId,jdbcType=BIGINT}, #{column0,jdbcType=VARCHAR}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}
+      , #{column4,jdbcType=VARCHAR}, #{column5,jdbcType=VARCHAR}, #{column6,jdbcType=VARCHAR}, #{column7,jdbcType=VARCHAR}
+      , #{column8,jdbcType=VARCHAR}, #{column9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.HouseListEntity">
+    insert into owner_house_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="houseType != null">
+        house_type,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="precinctId != null">
+        precinct_id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="buildingName != null">
+        building_name,
+      </if>
+      <if test="unitName != null">
+        unit_name,
+      </if>
+      <if test="houseFullName != null">
+        house_full_name,
+      </if>
+      <if test="houseName != null">
+        house_name,
+      </if>
+      <if test="houseShortName != null">
+        house_short_name,
+      </if>
+      <if test="houseNo != null">
+        house_no,
+      </if>
+      <if test="houseStage != null">
+        house_stage,
+      </if>
+      <if test="stageName != null">
+        stage_name,
+      </if>
+      <if test="chargingArea != null">
+        charging_area,
+      </if>
+      <if test="buildingArea != null">
+        building_area,
+      </if>
+      <if test="insideArea != null">
+        inside_area,
+      </if>
+      <if test="poolArea != null">
+        pool_area,
+      </if>
+      <if test="assistChargingArea != null">
+        assist_charging_area,
+      </if>
+      <if test="gardenArea != null">
+        garden_area,
+      </if>
+      <if test="basementArea != null">
+        basement_area,
+      </if>
+      <if test="giftArea != null">
+        gift_area,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="floorNum != null">
+        floor_num,
+      </if>
+      <if test="maintenanceStartDate != null">
+        maintenance_start_date,
+      </if>
+      <if test="maintenanceEndDate != null">
+        maintenance_end_date,
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance,
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id,
+      </if>
+      <if test="roomPropertyId != null">
+        room_property_id,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="ownerName != null">
+        owner_name,
+      </if>
+      <if test="ownerPhone != null">
+        owner_phone,
+      </if>
+      <if test="certificate != null">
+        certificate,
+      </if>
+      <if test="isLock != null">
+        is_lock,
+      </if>
+      <if test="isVirtual != null">
+        is_virtual,
+      </if>
+      <if test="rentStage != null">
+        rent_stage,
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage,
+      </if>
+      <if test="isBlockUp != null">
+        is_block_up,
+      </if>
+      <if test="blockUpTime != null">
+        block_up_time,
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record,
+      </if>
+      <if test="detailId != null">
+        detail_id,
+      </if>
+      <if test="salesStageName != null">
+        sales_stage_name,
+      </if>
+      <if test="takeStageName != null">
+        take_stage_name,
+      </if>
+      <if test="checkInStageName != null">
+        check_in_stage_name,
+      </if>
+      <if test="rentStageName != null">
+        rent_stage_name,
+      </if>
+      <if test="decorateStageName != null">
+        decorate_stage_name,
+      </if>
+      <if test="handleTime != null">
+        handle_time,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="rentCheckinTime != null">
+        rent_checkin_time,
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type,
+      </if>
+      <if test="lesseeId != null">
+        lessee_id,
+      </if>
+      <if test="lesseeName != null">
+        lessee_name,
+      </if>
+      <if test="lesseeCertificate != null">
+        lessee_certificate,
+      </if>
+      <if test="lesseeMobile != null">
+        lessee_mobile,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="propertyOwnerNames != null">
+        property_owner_names,
+      </if>
+      <if test="createHouseUserId != null">
+        create_house_user_id,
+      </if>
+      <if test="column0 != null">
+        column0,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+      <if test="column4 != null">
+        column4,
+      </if>
+      <if test="column5 != null">
+        column5,
+      </if>
+      <if test="column6 != null">
+        column6,
+      </if>
+      <if test="column7 != null">
+        column7,
+      </if>
+      <if test="column8 != null">
+        column8,
+      </if>
+      <if test="column9 != null">
+        column9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctId != null">
+        #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFullName != null">
+        #{houseFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseShortName != null">
+        #{houseShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStage != null">
+        #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null">
+        #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null">
+        #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null">
+        #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null">
+        #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null">
+        #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null">
+        #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null">
+        #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null">
+        #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null">
+        #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceStartDate != null">
+        #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null">
+        #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRelevance != null">
+        #{hasRelevance,jdbcType=INTEGER},
+      </if>
+      <if test="roomTypeId != null">
+        #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPropertyId != null">
+        #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerName != null">
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null">
+        #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null">
+        #{isLock,jdbcType=INTEGER},
+      </if>
+      <if test="isVirtual != null">
+        #{isVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="rentStage != null">
+        #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlockUp != null">
+        #{isBlockUp,jdbcType=INTEGER},
+      </if>
+      <if test="blockUpTime != null">
+        #{blockUpTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="isCurrentRecord != null">
+        #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStageName != null">
+        #{salesStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeStageName != null">
+        #{takeStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStageName != null">
+        #{checkInStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStageName != null">
+        #{rentStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStageName != null">
+        #{decorateStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentCheckinTime != null">
+        #{rentCheckinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseOperateType != null">
+        #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeId != null">
+        #{lesseeId,jdbcType=BIGINT},
+      </if>
+      <if test="lesseeName != null">
+        #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeCertificate != null">
+        #{lesseeCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMobile != null">
+        #{lesseeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propertyOwnerNames != null">
+        #{propertyOwnerNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createHouseUserId != null">
+        #{createHouseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="column0 != null">
+        #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        #{column9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.HouseListEntity">
+    update owner_house_result
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFullName != null">
+        house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseShortName != null">
+        house_short_name = #{houseShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStage != null">
+        house_stage = #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        stage_name = #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null">
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null">
+        inside_area = #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null">
+        pool_area = #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null">
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null">
+        garden_area = #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null">
+        basement_area = #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null">
+        gift_area = #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null">
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceStartDate != null">
+        maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null">
+        maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance = #{hasRelevance,jdbcType=INTEGER},
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPropertyId != null">
+        room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null">
+        owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=INTEGER},
+      </if>
+      <if test="isVirtual != null">
+        is_virtual = #{isVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="rentStage != null">
+        rent_stage = #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlockUp != null">
+        is_block_up = #{isBlockUp,jdbcType=INTEGER},
+      </if>
+      <if test="blockUpTime != null">
+        block_up_time = #{blockUpTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStageName != null">
+        sales_stage_name = #{salesStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeStageName != null">
+        take_stage_name = #{takeStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStageName != null">
+        check_in_stage_name = #{checkInStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStageName != null">
+        rent_stage_name = #{rentStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStageName != null">
+        decorate_stage_name = #{decorateStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentCheckinTime != null">
+        rent_checkin_time = #{rentCheckinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=BIGINT},
+      </if>
+      <if test="lesseeName != null">
+        lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeCertificate != null">
+        lessee_certificate = #{lesseeCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMobile != null">
+        lessee_mobile = #{lesseeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propertyOwnerNames != null">
+        property_owner_names = #{propertyOwnerNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createHouseUserId != null">
+        create_house_user_id = #{createHouseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_result_id = #{houseResultId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.HouseListEntity">
+    update owner_house_result
+    set enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=BIGINT},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      precinct_id = #{precinctId,jdbcType=BIGINT},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      building_name = #{buildingName,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      house_short_name = #{houseShortName,jdbcType=VARCHAR},
+      house_no = #{houseNo,jdbcType=VARCHAR},
+      house_stage = #{houseStage,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      charging_area = #{chargingArea,jdbcType=BIGINT},
+      building_area = #{buildingArea,jdbcType=BIGINT},
+      inside_area = #{insideArea,jdbcType=BIGINT},
+      pool_area = #{poolArea,jdbcType=BIGINT},
+      assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      garden_area = #{gardenArea,jdbcType=BIGINT},
+      basement_area = #{basementArea,jdbcType=BIGINT},
+      gift_area = #{giftArea,jdbcType=BIGINT},
+      floor = #{floor,jdbcType=INTEGER},
+      floor_num = #{floorNum,jdbcType=VARCHAR},
+      maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      has_relevance = #{hasRelevance,jdbcType=INTEGER},
+      room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=BIGINT},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      is_lock = #{isLock,jdbcType=INTEGER},
+      is_virtual = #{isVirtual,jdbcType=INTEGER},
+      rent_stage = #{rentStage,jdbcType=VARCHAR},
+      decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      is_block_up = #{isBlockUp,jdbcType=INTEGER},
+      block_up_time = #{blockUpTime,jdbcType=TIMESTAMP}, 
+      is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      detail_id = #{detailId,jdbcType=BIGINT},
+      sales_stage_name = #{salesStageName,jdbcType=VARCHAR},
+      take_stage_name = #{takeStageName,jdbcType=VARCHAR},
+      check_in_stage_name = #{checkInStageName,jdbcType=VARCHAR},
+      rent_stage_name = #{rentStageName,jdbcType=VARCHAR},
+      decorate_stage_name = #{decorateStageName,jdbcType=VARCHAR},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      rent_checkin_time = #{rentCheckinTime,jdbcType=TIMESTAMP},
+      house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      lessee_id = #{lesseeId,jdbcType=BIGINT},
+      lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      lessee_certificate = #{lesseeCertificate,jdbcType=VARCHAR},
+      lessee_mobile = #{lesseeMobile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      property_owner_names = #{propertyOwnerNames,jdbcType=VARCHAR},
+      column0 = #{column0,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR},
+      column4 = #{column4,jdbcType=VARCHAR},
+      column5 = #{column5,jdbcType=VARCHAR},
+      column6 = #{column6,jdbcType=VARCHAR},
+      column7 = #{column7,jdbcType=VARCHAR},
+      column8 = #{column8,jdbcType=VARCHAR},
+      column9 = #{column9,jdbcType=VARCHAR}
+    where house_result_id = #{houseResultId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByHouseId" parameterType="com.newsee.owner.entity.HouseListEntity">
+    update owner_house_result
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFullName != null">
+        house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseShortName != null">
+        house_short_name = #{houseShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStage != null">
+        house_stage = #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        stage_name = #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null">
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null">
+        inside_area = #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null">
+        pool_area = #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null">
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null">
+        garden_area = #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null">
+        basement_area = #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null">
+        gift_area = #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null">
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceStartDate != null">
+        maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null">
+        maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance = #{hasRelevance,jdbcType=INTEGER},
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPropertyId != null">
+        room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null">
+        owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=INTEGER},
+      </if>
+      <if test="isVirtual != null">
+        is_virtual = #{isVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="rentStage != null">
+        rent_stage = #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlockUp != null">
+        is_block_up = #{isBlockUp,jdbcType=INTEGER},
+      </if>
+      <if test="blockUpTime != null">
+        block_up_time = #{blockUpTime,jdbcType=VARCHAR}, 
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStageName != null">
+        sales_stage_name = #{salesStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeStageName != null">
+        take_stage_name = #{takeStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStageName != null">
+        check_in_stage_name = #{checkInStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStageName != null">
+        rent_stage_name = #{rentStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStageName != null">
+        decorate_stage_name = #{decorateStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentCheckinTime != null">
+        rent_checkin_time = #{rentCheckinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=BIGINT},
+      </if>
+      <if test="lesseeName != null">
+        lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeCertificate != null">
+        lessee_certificate = #{lesseeCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMobile != null">
+        lessee_mobile = #{lesseeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propertyOwnerNames != null">
+        property_owner_names = #{propertyOwnerNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createHouseUserId != null">
+        create_house_user_id = #{createHouseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByHouseId" parameterType="java.util.List">
+    delete from owner_house_result
+    where house_id in 
+    <foreach collection="list" item="houseId" open="(" separator="," close=")">
+        #{houseId,jdbcType=BIGINT}
+    </foreach> 
+  </delete>
+  <delete id="deleteCurrentRecord" parameterType="java.lang.Long">
+    delete from owner_house_result
+    where house_id = #{houseId,jdbcType=BIGINT} and is_current_record = true
+  </delete>
+  <select id="listResultBySearch" parameterType="com.newsee.common.vo.SearchVo" resultMap="BaseResultMap">
+    select 
+        house_result_id, enterprise_id, result.house_id, organization_id,house_type, path, precinct_id, project_name, group_name, 
+	    building_name, unit_name, house_full_name, house_name, house_short_name, house_no, 
+	    house_stage, stage_name, charging_area, building_area, inside_area, pool_area,assist_charging_area,garden_area,basement_area,gift_area,floor,floor_num,
+	    maintenance_start_date,maintenance_end_date,has_relevance, owner_id, 
+	    owner_name, owner_phone, certificate, is_lock, is_virtual,
+	    rent_stage, decorate_stage, is_block_up,block_up_time,room_property_id,room_type_id,
+	    is_current_record, detail_id, sales_stage_name, take_stage_name, check_in_stage_name, 
+	    rent_stage_name, decorate_stage_name, handle_time, start_time, end_time, rent_checkin_time, 
+	    house_operate_type,lessee_id,lessee_name,lessee_certificate,lessee_mobile, create_time, property_owner_names,create_house_user_id,
+	    column0, column1, column2, column3, column4, column5, column6, column7, column8, column9,
+	    create_user_id,create_user_name,update_user_id,update_user_name,update_time
+    from owner_house_result result
+    left join (select house_id,level,sort,create_user_id,create_user_name,update_user_id,update_user_name,update_time from owner_house_base_info) base 
+    on base.house_id = result.house_id 
+    <where>
+        <if test="mainSearch != null and mainSearch != ''">
+            and (LOCATE(#{mainSearch,jdbcType=VARCHAR}, result.owner_name)>0 
+                or LOCATE(#{mainSearch,jdbcType=VARCHAR}, result.property_owner_names)>0
+                or LOCATE(#{mainSearch,jdbcType=VARCHAR}, result.owner_phone)>0
+                or LOCATE(#{mainSearch,jdbcType=VARCHAR}, result.lessee_name)>0)
+        </if>
+        <if test="enterpriseId != null">
+            and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+        </if>
+<!-- 	    <if test="organizationId != null">
+	        and organization_id = #{organizationId,jdbcType=BIGINT}
+	    </if> -->
+	    <choose>
+            <when test="seeOrganizationIdList != null and seeUserId != null">
+                and (organization_id in
+                    <foreach collection="seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                    or create_user_id = #{seeUserId,jdbcType=BIGINT})
+            </when>
+            <otherwise>
+                <if test="seeOrganizationIdList != null">
+                    and organization_id in
+                    <foreach collection="seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                </if>
+                <if test="seeUserId != null">
+                    and create_user_id = #{seeUserId,jdbcType=BIGINT}
+                </if>
+            </otherwise>
+        </choose>
+	    <if test="startTime != null">
+	        and create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="endTime != null">
+            and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        </if>
+	    <if test="filterList != null">
+		    <foreach collection="filterList" item="item">
+	           <choose>
+	               <when test="item.comparison != null and item.comparison == 'NULL'">
+	                   and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                   and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                   and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                   and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                   and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                   and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                   and ${item.fieldUnderLineName} = #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                   and ${item.fieldUnderLineName} != #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                   and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                   and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	               </when>
+	           </choose>
+	        </foreach>
+	    </if>
+
+	    <!-- <if test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	       order by ${orderFieldUnderLineName}
+	       <if test="orderBy != null and orderBy != ''">
+	           ${orderBy}
+	       </if>
+	    </if> -->
+	    <choose>
+	       <when test="orderFieldUnderLineName != null and orderFieldUnderLineName != ''">
+	           order by CONVERT(${orderFieldUnderLineName} USING gbk)
+	           <if test="orderBy != null and orderBy != ''">
+	               ${orderBy}
+	           </if>
+	       </when>
+	       <otherwise>order by base.level, base.sort, result.house_name</otherwise>
+	    </choose>
+    </where>
+  </select>
+  <update id="batchUpdateByHouseId"  parameterType="java.util.Map">
+    update owner_house_result
+    <set>
+      <if test="isLock !=null">
+        is_lock = #{isLock},
+      </if>
+      <if test="isBlockUp !=null">
+        is_block_up = #{isBlockUp},
+        block_up_time = NOW(),
+      </if>
+      <if test="editStatus !=null">
+        edit_status=#{editStatus}
+      </if>
+    </set>
+    WHERE house_id in
+    <foreach collection="houseIdList" open="(" separator="," close=")"
+             item="houseId" index="index">
+      #{houseId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <update id="updateCurrentRecord" parameterType="com.newsee.owner.entity.HouseListEntity">
+    update owner_house_result
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFullName != null">
+        house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseShortName != null">
+        house_short_name = #{houseShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStage != null">
+        house_stage = #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        stage_name = #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null">
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null">
+        inside_area = #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null">
+        pool_area = #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null">
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null">
+        garden_area = #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null">
+        basement_area = #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null">
+        gift_area = #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null">
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceStartDate != null">
+        maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null">
+        maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance = #{hasRelevance,jdbcType=INTEGER},
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPropertyId != null">
+        room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null">
+        owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=INTEGER},
+      </if>
+      <if test="isVirtual != null">
+        is_virtual = #{isVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="rentStage != null">
+        rent_stage = #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlockUp != null">
+        is_block_up = #{isBlockUp,jdbcType=INTEGER},
+      </if>
+      <if test="blockUpTime != null">
+        block_up_time = #{blockUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStageName != null">
+        sales_stage_name = #{salesStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeStageName != null">
+        take_stage_name = #{takeStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStageName != null">
+        check_in_stage_name = #{checkInStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStageName != null">
+        rent_stage_name = #{rentStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStageName != null">
+        decorate_stage_name = #{decorateStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentCheckinTime != null">
+        rent_checkin_time = #{rentCheckinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=BIGINT},
+      </if>
+      <if test="lesseeName != null">
+        lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeCertificate != null">
+        lessee_certificate = #{lesseeCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMobile != null">
+        lessee_mobile = #{lesseeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propertyOwnerNames != null">
+        property_owner_names = #{propertyOwnerNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createHouseUserId != null">
+        create_house_user_id = #{createHouseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT} and is_current_record = 1;
+  </update>
+  <select id="listResultBySearchForOperate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+        house_result_id, enterprise_id, result.house_id, organization_id,house_type, path, project_name, precinct_id, group_name, 
+        building_name, unit_name, house_full_name, house_name, house_short_name, house_no, 
+        house_stage, stage_name, charging_area, building_area, inside_area, pool_area,assist_charging_area,garden_area,basement_area,gift_area,floor,floor_num,
+        maintenance_start_date,maintenance_end_date,has_relevance, owner_id, 
+        owner_name, owner_phone, certificate, is_lock, is_virtual, 
+        rent_stage, decorate_stage, is_block_up, block_up_time,room_property_id,room_type_id,
+        is_current_record, result.detail_id, sales_stage_name, take_stage_name, check_in_stage_name, 
+        rent_stage_name, decorate_stage_name, handle_time, start_time, end_time, rent_checkin_time, 
+        house_operate_type,lessee_id,lessee_name,lessee_certificate,lessee_mobile, detail.create_time,property_owner_names,create_house_user_id, detail.is_now_detail
+        , column0, column1, column2, column3, column4, column5, column6, column7, column8, column9,
+        create_user_id,create_user_name,update_user_id,update_user_name,update_time
+    from owner_house_result result
+    LEFT join (select detail_id,is_now_detail,create_user_id,create_user_name,create_time,update_user_id,update_user_name,update_time from owner_house_stage_detail
+    where is_deleted = 0
+        ) detail on detail.detail_id = result.detail_id
+    left join (select house_id,level,sort from owner_house_base_info) base 
+    on base.house_id = result.house_id 
+    <where>
+        is_block_up = false 
+        <if test="searchVo.mainSearch != null and searchVo.mainSearch != ''">
+            and (LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, result.owner_name)>0 
+                or LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, result.property_owner_names)>0
+                or LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, result.owner_phone)>0
+                or LOCATE(#{searchVo.mainSearch,jdbcType=VARCHAR}, result.lessee_name)>0)
+        </if>
+        <if test="searchVo.enterpriseId != null">
+            and enterprise_id = #{searchVo.enterpriseId,jdbcType=BIGINT}
+        </if>
+        <!-- <if test="searchVo.organizationId != null">
+            and organization_id = #{searchVo.organizationId,jdbcType=BIGINT}
+        </if> -->
+        <choose>
+            <when test="searchVo.seeOrganizationIdList != null and searchVo.seeUserId != null">
+                and (organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                    or create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT})
+            </when>
+            <otherwise>
+                <if test="searchVo.seeOrganizationIdList != null">
+                    and organization_id in
+                    <foreach collection="searchVo.seeOrganizationIdList" item="organizationId" open="(" separator="," close=")">
+                        #{organizationId,jdbcType=BIGINT}
+                    </foreach>
+                </if>
+                <if test="searchVo.seeUserId != null">
+                    and create_user_id = #{searchVo.seeUserId,jdbcType=BIGINT}
+                </if>
+            </otherwise>
+        </choose>
+        <if test="searchVo.filterList != null">
+            <foreach collection="searchVo.filterList" item="item">
+	           <choose>
+	               <when test="item.comparison != null and item.comparison == 'NULL'">
+	                   and (${item.fieldUnderLineName} IS NULL or ${item.fieldUnderLineName} = '')
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_NULL'">
+	                   and (${item.fieldUnderLineName} IS NOT NULL and ${item.fieldUnderLineName} != '')
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_LIKE'">
+	                   and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})=0 
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LIKE'">
+	                   and LOCATE(#{item.fieldValue}, ${item.fieldUnderLineName})>0
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'GREATER_THAN'">
+	                   and ${item.fieldUnderLineName} &gt; #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LESS_THAN'">
+	                   and ${item.fieldUnderLineName} &lt; #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'EQUAL'">
+	                   and ${item.fieldUnderLineName} = #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'NOT_EQUAL'">
+	                   and ${item.fieldUnderLineName} != #{item.fieldValue}
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'GREATER_EQUAL_THAN'">
+	                   and ${item.fieldUnderLineName} &gt;= #{item.fieldValue}               
+	               </when>
+	               <when test="item.comparison != null and item.comparison == 'LESS_EQUAL_THAN'">
+	                   and ${item.fieldUnderLineName} &lt;= #{item.fieldValue}
+	               </when>
+	           </choose>
+            </foreach>
+        </if>
+        <if test="houseOperateType != null">
+            <choose>
+                <when test="houseOperateType == 1">
+                     and ((house_stage = 10 and is_current_record = 1) or (house_operate_type in (1,9)))  
+                     <if test="searchVo.startTime != null">
+			             and handle_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP}
+			         </if>
+			         <if test="searchVo.endTime != null">
+			             and handle_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP}
+			         </if>
+                </when>
+                <when test="houseOperateType == 2">
+                     and ((is_current_record = true and house_stage in (10,20)) or (house_operate_type = #{houseOperateType,jdbcType=VARCHAR}))
+                     <if test="searchVo.startTime != null">
+                         and handle_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP}
+                     </if>
+                     <if test="searchVo.endTime != null">
+                         and handle_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP}
+                     </if>
+                </when>
+                <when test="houseOperateType == 3">
+                     and ((is_current_record = true and (house_stage in (30,40))) or (house_operate_type in (3,4,8)))
+                     <if test="searchVo.startTime != null">
+                         and (handle_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP} or end_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP})
+                     </if>
+                     <if test="searchVo.endTime != null">
+                         and (handle_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP} or end_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP})
+                     </if>
+                </when>
+                <when test="houseOperateType == 5">
+                     and ((is_current_record = true and (house_stage != 20) and rent_stage = 0) or (house_operate_type in (5,6,7)))
+                     <if test="searchVo.startTime != null">
+                         and end_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP}
+                     </if>
+                     <if test="searchVo.endTime != null">
+                         and end_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP}
+                     </if>
+                </when>
+                <when test="houseOperateType == 10">
+                     and ((is_current_record = true and decorate_stage = 0) or (house_operate_type = #{houseOperateType,jdbcType=VARCHAR}))
+                     <if test="searchVo.startTime != null">
+                         and end_time &gt;= #{searchVo.startTime,jdbcType=TIMESTAMP}
+                     </if>
+                     <if test="searchVo.endTime != null">
+                         and end_time &lt;= #{searchVo.endTime,jdbcType=TIMESTAMP}
+                     </if>
+                </when>
+            </choose>
+        </if>
+<!--         <if test="searchVo.orderFieldUnderLineName != null and searchVo.orderFieldUnderLineName != ''">
+           order by CONVERT(${searchVo.orderFieldUnderLineName} USING gbk)
+           <if test="searchVo.orderBy != null and searchVo.orderBy != ''">
+               ${searchVo.orderBy}
+           </if>
+        </if> -->
+        <choose>
+           <when test="searchVo.orderFieldUnderLineName != null and searchVo.orderFieldUnderLineName != ''">
+               order by CONVERT(${searchVo.orderFieldUnderLineName} USING gbk)
+               <if test="searchVo.orderBy != null and searchVo.orderBy != ''">
+                   ${searchVo.orderBy}
+               </if>
+           </when>
+           <otherwise>order by base.level ASC, base.sort ASC, result.house_name ASC, detail.is_now_detail DESC</otherwise>
+        </choose>
+    </where>
+  </select>
+  <select id="selectByDetailId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_result
+    where detail_id = #{detailId,jdbcType=BIGINT}
+    <if test="houseId != null">
+        and house_id = #{houseId,jdbcType=BIGINT}
+    </if>
+  </select>
+  
+  <!-- 查询报表信息 -->
+  <select id="selectHouseResultInfoList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT 
+		        res.house_result_id, res.enterprise_id, res.house_id, res.organization_id, res.path, res.project_name, res.precinct_id, res.house_full_name, res.house_name, res.room_type_id,
+        res.house_stage, res.stage_name, res.charging_area, res.building_area, res.inside_area, res.pool_area, res.owner_id, 
+        res.owner_name, res.owner_phone, res.rent_stage, res.decorate_stage, res.is_block_up, res.block_up_time,
+        res.rent_stage_name, res.decorate_stage_name, res.handle_time, res.start_time, res.end_time, res.rent_checkin_time, res.house_operate_type
+	    FROM owner_house_result AS res
+		<where>
+			<if test="organizationId != null">
+	            organization_id = #{organizationId,jdbcType=BIGINT}
+	        </if>
+			<if test="houseIdList != null">
+	            AND house_id IN 
+	              <foreach collection="houseIdList" item="item" open="(" close=")" separator=",">
+	                  #{item,jdbcType=BIGINT} 
+	              </foreach>    
+	        </if>
+	        <!-- 空置 -->
+	        <if test="houseOperateType != null and houseOperateType != ''">
+				AND NOT EXISTS (
+				    SELECT 1 FROM owner_house_result WHERE house_id = res.house_id 
+				     AND house_operate_type = #{houseOperateType,jdbcType=VARCHAR} 
+				     <if test="handleTime != null">
+					     AND handle_time &gt;= #{handleTime,jdbcType=TIMESTAMP}
+				     </if>
+				)
+	        </if>
+	        <!-- 已售 -->
+	        <if test="houseStageGt != null and houseStageGt != ''">
+	               <!-- 大于某个房态 -->
+                   AND res.house_stage &gt; #{houseStageGt,jdbcType=VARCHAR} 
+	             <if test="handleTime != null">
+	                AND (res.handle_time &lt;= #{handleTime,jdbcType=TIMESTAMP} OR res.handle_time IS NULL)
+	             </if>
+	        </if>
+	        <if test="houseStage != null and houseStage != ''">
+	           AND res.house_stage = #{houseStage,jdbcType=VARCHAR} 
+	        </if>
+	        <if test="isBlockUp != null">
+	           AND res.is_block_up = #{isBlockUp,jdbcType=INTEGER}  
+	        </if>
+	        <if test="blockUpTime != null">
+	           AND res.block_up_time &lt;= #{blockUpTime,jdbcType=TIMESTAMP}
+	        </if>
+		</where>
+		ORDER BY res.house_id, res.house_result_id DESC
+  </select>
+  
+  <!-- 出租，装修段信息 -->
+  <select id="selectHouseResultSegmentInfoList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT 
+                res.house_result_id, res.enterprise_id, res.house_id, res.organization_id, res.path, res.project_name, res.precinct_id, res.house_full_name, res.house_name, res.room_type_id,
+        res.house_stage, res.stage_name, res.charging_area, res.building_area, res.inside_area, res.pool_area, res.owner_id, 
+        res.owner_name, res.owner_phone, res.rent_stage, res.decorate_stage, res.is_block_up,
+        res.rent_stage_name, res.decorate_stage_name, res.handle_time, res.start_time, res.end_time, res.rent_checkin_time, res.house_operate_type
+        FROM owner_house_result AS res
+        <where>
+            <if test="organizationId != null">
+                res.organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="houseIdList != null">
+                AND res.house_id IN 
+                  <foreach collection="houseIdList" item="item" open="(" close=")" separator=",">
+                      #{item,jdbcType=BIGINT} 
+                  </foreach>    
+            </if>
+            <if test="endTime != null">
+                AND res.end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        <if test="isUnion != null">
+	       UNION
+	        SELECT 
+	                res.house_result_id, res.enterprise_id, res.house_id, res.organization_id, res.path, res.project_name, res.precinct_id, res.house_full_name, res.house_name, res.room_type_id,
+	        res.house_stage, res.stage_name, res.charging_area, res.building_area, res.inside_area, res.pool_area, res.owner_id, 
+	        res.owner_name, res.owner_phone, res.rent_stage, res.decorate_stage, res.is_block_up,
+	        res.rent_stage_name, res.decorate_stage_name, res.handle_time, res.start_time, res.end_time, res.rent_checkin_time, res.house_operate_type
+	        FROM owner_house_result AS res
+	        <where>
+	            <if test="organizationId != null">
+	                res.organization_id = #{organizationId,jdbcType=BIGINT}
+	            </if>
+	            <if test="houseIdList != null">
+	                AND res.house_id IN 
+	                  <foreach collection="houseIdList" item="item" open="(" close=")" separator=",">
+	                      #{item,jdbcType=BIGINT} 
+	                  </foreach>    
+	            </if>
+	            <if test="endTime != null">
+	                AND NOT EXISTS (
+						    SELECT 1 FROM owner_house_result WHERE house_id = res.house_id AND res.end_time IS NOT NULL
+						)
+	            </if>
+	        </where>
+        </if>
+        ORDER BY house_id, house_result_id DESC
+  </select>
+  
+  <update id="updateByDetailId" parameterType="com.newsee.owner.entity.HouseListEntity">
+    update owner_house_result
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=BIGINT},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=BIGINT},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="precinctId != null">
+        precinct_id = #{precinctId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFullName != null">
+        house_full_name = #{houseFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseShortName != null">
+        house_short_name = #{houseShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseNo != null">
+        house_no = #{houseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStage != null">
+        house_stage = #{houseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        stage_name = #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargingArea != null">
+        charging_area = #{chargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="buildingArea != null">
+        building_area = #{buildingArea,jdbcType=BIGINT},
+      </if>
+      <if test="insideArea != null">
+        inside_area = #{insideArea,jdbcType=BIGINT},
+      </if>
+      <if test="poolArea != null">
+        pool_area = #{poolArea,jdbcType=BIGINT},
+      </if>
+      <if test="assistChargingArea != null">
+        assist_charging_area = #{assistChargingArea,jdbcType=BIGINT},
+      </if>
+      <if test="gardenArea != null">
+        garden_area = #{gardenArea,jdbcType=BIGINT},
+      </if>
+      <if test="basementArea != null">
+        basement_area = #{basementArea,jdbcType=BIGINT},
+      </if>
+      <if test="giftArea != null">
+        gift_area = #{giftArea,jdbcType=BIGINT},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="floorNum != null">
+        floor_num = #{floorNum,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceStartDate != null">
+        maintenance_start_date = #{maintenanceStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maintenanceEndDate != null">
+        maintenance_end_date = #{maintenanceEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hasRelevance != null">
+        has_relevance = #{hasRelevance,jdbcType=INTEGER},
+      </if>
+      <if test="roomTypeId != null">
+        room_type_id = #{roomTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomPropertyId != null">
+        room_property_id = #{roomPropertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null">
+        owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=INTEGER},
+      </if>
+      <if test="isVirtual != null">
+        is_virtual = #{isVirtual,jdbcType=INTEGER},
+      </if>
+      <if test="rentStage != null">
+        rent_stage = #{rentStage,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage,jdbcType=VARCHAR},
+      </if>
+      <if test="isBlockUp != null">
+        is_block_up = #{isBlockUp,jdbcType=INTEGER},
+      </if>
+      <if test="blockUpTime != null">
+        block_up_time = #{blockUpTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="isCurrentRecord != null">
+        is_current_record = #{isCurrentRecord,jdbcType=TINYINT},
+      </if>
+      <if test="detailId != null">
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="salesStageName != null">
+        sales_stage_name = #{salesStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeStageName != null">
+        take_stage_name = #{takeStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStageName != null">
+        check_in_stage_name = #{checkInStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="rentStageName != null">
+        rent_stage_name = #{rentStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="decorateStageName != null">
+        decorate_stage_name = #{decorateStageName,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null">
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentCheckinTime != null">
+        rent_checkin_time = #{rentCheckinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseOperateType != null">
+        house_operate_type = #{houseOperateType,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeId != null">
+        lessee_id = #{lesseeId,jdbcType=BIGINT},
+      </if>
+      <if test="lesseeName != null">
+        lessee_name = #{lesseeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeCertificate != null">
+        lessee_certificate = #{lesseeCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="lesseeMobile != null">
+        lessee_mobile = #{lesseeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propertyOwnerNames != null">
+        property_owner_names = #{propertyOwnerNames,jdbcType=VARCHAR},
+      </if>
+      <if test="createHouseUserId != null">
+        create_house_user_id = #{createHouseUserId,jdbcType=BIGINT},
+      </if>
+      <if test="column0 != null">
+        column0 = #{column0,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="column4 != null">
+        column4 = #{column4,jdbcType=VARCHAR},
+      </if>
+      <if test="column5 != null">
+        column5 = #{column5,jdbcType=VARCHAR},
+      </if>
+      <if test="column6 != null">
+        column6 = #{column6,jdbcType=VARCHAR},
+      </if>
+      <if test="column7 != null">
+        column7 = #{column7,jdbcType=VARCHAR},
+      </if>
+      <if test="column8 != null">
+        column8 = #{column8,jdbcType=VARCHAR},
+      </if>
+      <if test="column9 != null">
+        column9 = #{column9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=BIGINT} and detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="batchUpdateDecorateStageByHouseId"  parameterType="java.util.Map">
+    update owner_house_result
+    <set>
+      <if test="decorateStage != null">
+        decorate_stage = #{decorateStage}
+      </if>
+    </set>
+    WHERE house_id in
+    <foreach collection="houseIdList" open="(" separator="," close=")"
+             item="houseId" index="index">
+      #{houseId,jdbcType=BIGINT}
+    </foreach>  
+    and is_current_record = 1
+  </update>
+  
+  <select id="searchHouseTreeApp" parameterType="com.newsee.common.vo.SearchProjectVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from owner_house_result
+        <where>
+        	1=1
+            <if test="enterpriseId != null">
+                and enterprise_id = #{enterpriseId,jdbcType=BIGINT}
+            </if>
+            <if test="organizationId != null">
+                and organization_id = #{organizationId,jdbcType=BIGINT}
+            </if>
+            <if test="houseId!=null and houseId!=''">
+                and house_id = #{houseId}
+            </if>
+        </where>
+    </select>
+</mapper>

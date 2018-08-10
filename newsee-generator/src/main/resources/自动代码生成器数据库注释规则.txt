@@ -1,0 +1,54 @@
+﻿备注,
+column注释【是否表头（0,1）|表头字段类型（text，date，number，select）|是否合计字段（0,1）|宽度|顺序】,
+表单注释【是否表单项目|控件类型|是否必输（0,1）|必输验证规则|排序|是否隐藏】,
+10:未审核|20:已审核(在列或者表单配置中，控件类型为checkbox或者radio或者select时需要配置，用于生成数据字典的初始化sql)
+
+控件类型
+文本框：text
+数值框：numbertext
+文本域：textarea
+单选框：radio
+复选框：checkbox
+下拉框：select
+日期：datepicker
+日期时间：timepicker"
+日期月份：monthpicker
+日期期间：datepicker-range
+多数据选项集合，省市区：cascader
+上传：upload
+展示字段：label
+头像：avatar
+
+必输验证规则：
+验证 小写字母
+ lowerCase
+  // 验证 大写字母
+  upperCase
+  // 验证 大小写字母
+  alphabets
+  // 验证 由数字和26个英文字母组成的字符串
+  numEn
+  // 验证 必须同时包含数字和26个英文字母
+  numEnBoth
+  // 验证 不能为纯数字
+  notAllNum
+  // 验证 由数字和.组成的字符串
+  num
+  // 验证 用户名
+  acount
+  // 验证 邮箱
+  email
+  // 验证 Mobilephone（国内手机）
+  mobile
+  // 验证 tel固定电话（国内固定电话）
+  tel
+  // 验证 fax传真
+  fax
+  // 验证 身份证
+  carded
+  // 验证 网址
+  web
+  // 验证QQ号码
+  QQ
+  // 验证合法路径
+  url

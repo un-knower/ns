@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>
+		代码生成器配置文件: 
+		1.会为所有的property生成property_dir属性,如pkg=com.company => pkg_dir=com/company
+		2.可以引用环境变量: ${env.JAVA_HOME} or System.properties: ${user.home},property之间也可以相互引用
+	</comment>
+	
+	<entry key="basepackage">com.newsee</entry>
+	<!-- 子包,只支持单个词 -->
+	<entry key="subpackage">charge</entry>
+	<entry key="subpackageCh">计费</entry>
+	<!-- 所属子系统的funcid -->
+	<entry key="rootFuncid">4sA9EJMIj7pTc5q4tQn</entry>
+	<entry key="rootMenuid">O6dHiGuLDuyE8RuiQJC</entry>
+	<!-- jsp namespace: web/${namespace}/${className}/list.jsp -->
+	<entry key="namespace">pages</entry>
+	<!-- 输出目录,相对 cd 路径 -->
+	<entry key="outRoot">code</entry>
+	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
+	<entry key="tableRemovePrefixes">T_AR,T_BD,T_CD,T_PD,T_CL,T_IP,T_LO,T_RI,T_EV</entry>
+	<!-- 需要移除的列名前缀,逗号分隔,示例: S_,I_ -->
+	<entry key="rowRemovePrefixes">S_,B_,I_,DT_,TS_,M_,F_,PK_I_N,PK_I_S</entry>
+	<!-- 需要忽略的表,逗号分隔,示例: ACT_,BATCH_ -->
+    <entry key="skipTablePrefixes">ACT_,tmp_</entry>
+    <entry key="gg.isOverride">true</entry>
+	
+	<!-- 数据库类型映射  -->
+	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
+	<entry key="java_typemapping.java.sql.Date">Date</entry>
+	<entry key="java_typemapping.java.sql.Time">Date</entry>
+	<entry key="java_typemapping.java.util.Date">Date</entry>
+	<entry key="java_typemapping.java.lang.Byte">Integer</entry>
+	<entry key="java_typemapping.java.lang.Short">Integer</entry>
+	<entry key="java_typemapping.java.lang.Integer">Integer</entry>
+	<entry key="java_typemapping.java.lang.Long">Long</entry>
+	<entry key="java_typemapping.java.lang.String">String</entry>
+	<entry key="java_typemapping.java.math.BigDecimal">java.math.BigDecimal</entry>
+		
+	<!-- Mysql连接,useInformationSchema 取出表名注释 -->
+	<entry key="jdbc.url">jdbc:mysql://192.168.1.16:3307/newsee-charge?useUnicode=true&amp;characterEncoding=utf8&amp;useInformationSchema=true</entry>
+	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
+	<entry key="jdbc.username">root</entry>
+	<entry key="jdbc.password">newsee888</entry>
+	
+	<!-- 子系统页面名字定义，会生成相应的controller层，service层，和vue文件 -->
+	<entry key="pages">itemList,standardList,houseStandardList,paymethodList,goodsTaxList,goodsTaxRateList,paymentCalcList,paymentList</entry>
+	<!-- 页面所需操作的表，需配置驼峰格式的表名 -->
+	<!-- 页面中文名称 -->
+	<!-- 是否有组织树 -->
+	<!-- 是否有房产树 -->
+	<entry key="itemList.table">Charge_ChargeItem,Charge_ChargeItemType</entry>
+	<entry key="itemList.name">收费科目</entry>
+	<entry key="itemList.hasOrgTree">true</entry>
+	<entry key="itemList.hasHouseTree">false</entry>
+	<!-- <entry key="itemList.jepfFuncId"></entry> -->
+	
+	<entry key="standardList.table">Charge_ChargeStandard,Charge_ChargeStandardLadder</entry>
+	<entry key="standardList.name">收费标准</entry>
+	<entry key="standardList.hasOrgTree">false</entry>
+	<entry key="standardList.hasHouseTree">true</entry>
+	<!-- <entry key="standardList.jepfFuncId"></entry> -->
+	
+	<entry key="houseStandardList.table">Charge_HouseChargeStandard,Charge_ChargeStandard,Charge_HouseChargeStandardCustomer</entry>
+	<entry key="houseStandardList.name">房产收费标准</entry>
+	<entry key="houseStandardList.hasOrgTree">false</entry>
+	<entry key="houseStandardList.hasHouseTree">true</entry>
+	<!-- <entry key="houseStandardList.jepfFuncId"></entry> -->
+	
+	<entry key="paymethodList.table">Charge_ChargePaymentMethod</entry>
+	<entry key="paymethodList.name">支付方式</entry>
+	<entry key="paymethodList.hasOrgTree">true</entry>
+	<entry key="paymethodList.hasHouseTree">false</entry>
+	<!-- <entry key="paymethodList.jepfFuncId"></entry> -->
+	
+	<entry key="goodsTaxList.table">Charge_GoodsTax</entry>
+	<entry key="goodsTaxList.name">税目</entry>
+	<entry key="goodsTaxList.hasOrgTree">true</entry>
+	<entry key="goodsTaxList.hasHouseTree">false</entry>
+	<!-- <entry key="goodsTaxList.jepfFuncId"></entry> -->
+	
+	<entry key="goodsTaxRateList.table">Charge_GoodsTaxRate</entry>
+	<entry key="goodsTaxRateList.name">税率</entry>
+	<entry key="goodsTaxRateList.hasOrgTree">true</entry>
+	<entry key="goodsTaxRateList.hasHouseTree">false</entry>
+	<!-- <entry key="goodsTaxRateList.jepfFuncId"></entry> -->
+	
+	<entry key="paymentCalcList.table">Charge_CustomerChargeCalcTask,Charge_CustomerChargeCalcTask_ChargeItem,Charge_CustomerChargeCalcTask_House</entry>
+	<entry key="paymentCalcList.name">应收款计算</entry>
+	<entry key="paymentCalcList.hasOrgTree">true</entry>
+	<entry key="paymentCalcList.hasHouseTree">false</entry>
+	<!-- <entry key="paymentCalcList.jepfFuncId"></entry> -->
+	
+	<entry key="paymentList.table">Charge_CustomerChargeDetail</entry>
+	<entry key="paymentList.name">应收款</entry>
+	<entry key="paymentList.hasOrgTree">true</entry>
+	<entry key="paymentList.hasHouseTree">false</entry>
+	<!-- <entry key="paymentList.jepfFuncId"></entry> -->
+
+</properties>

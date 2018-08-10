@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newsee.owner.dao.OwnerHouseStageExtendInfoRentMapper">
+  <resultMap id="BaseResultMap" type="com.newsee.owner.entity.OwnerHouseStageExtendInfoRent">
+    <id column="detail_id" jdbcType="BIGINT" property="detailId" />
+    <result column="rent_owner_id" jdbcType="BIGINT" property="rentOwnerId" />
+    <result column="rent_start_date" jdbcType="TIMESTAMP" property="rentStartDate" />
+    <result column="rent_end_date" jdbcType="TIMESTAMP" property="rentEndDate" />
+    <result column="owner_property" jdbcType="VARCHAR" property="ownerProperty" />
+    <result column="sys_time" jdbcType="TIMESTAMP" property="sysTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    detail_id, rent_owner_id, rent_start_date, rent_end_date, owner_property, sys_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_extend_info_rent
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <select id="loadLastRent">
+    select 
+    <include refid="Base_Column_List" />
+    from owner_house_stage_extend_info_rent
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <select id="listRentByHouseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    rent.detail_id, rent.rent_owner_id, rent.rent_start_date, rent.rent_end_date, rent.owner_property
+    from owner_house_stage_extend_info_rent rent
+    inner join owner_house_stage_detail detail on detail.detail_id = rent.detail_id
+    where detail.house_id = #{houseId,jdbcType=BIGINT} and detail.is_deleted = false
+  </select>
+  <select id="listAllRentByOwnerId" resultType="java.lang.Long" parameterType="java.lang.Long">
+    select 
+    detail_id
+    from owner_house_stage_extend_info_rent
+    where rent_owner_id = #{ownerId,jdbcType=BIGINT}
+  </select>
+  <select id="listAllCurrentRent" resultMap="BaseResultMap" parameterType="java.util.List">
+    select 
+    rent.detail_id, rent.rent_owner_id, rent.rent_start_date, rent.rent_end_date, rent.owner_property
+    from owner_house_stage_extend_info_rent rent
+    inner join owner_house_relationship relation on rent.detail_id = relation.detail_id
+    where rent_owner_id in
+    <foreach collection="list" item="ownerId" open="(" separator="," close=")">
+        #{ownerId,jdbcType=BIGINT}
+    </foreach> 
+     and relation.is_current_record = true and relation.is_deleted = false
+  </select>
+  <select id="listAllRentIdByHouseId" resultType="java.lang.Long" parameterType="java.util.List">
+    select 
+    rent.rent_owner_id
+    from owner_house_stage_extend_info_rent rent
+    inner join owner_house_relationship relation on rent.detail_id = relation.detail_id
+    where relation.house_id in
+    <foreach collection="list" item="houseId" open="(" separator="," close=")">
+        #{houseId,jdbcType=BIGINT}
+    </foreach> 
+     and relation.is_current_record = true and relation.is_deleted = false
+  </select>
+  <select id="listAllRentByDetail" resultMap="BaseResultMap" parameterType="java.util.List">
+    select 
+    rent.detail_id, rent.rent_owner_id, rent.rent_start_date, rent.rent_end_date, rent.owner_property
+    from owner_house_stage_extend_info_rent rent
+    where rent.detail_id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item.detailId,jdbcType=BIGINT}
+    </foreach> 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from owner_house_stage_extend_info_rent
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoRent">
+    insert into owner_house_stage_extend_info_rent (detail_id, rent_owner_id, rent_start_date, 
+      rent_end_date, owner_property, sys_time)
+    values (#{detailId,jdbcType=BIGINT}, #{rentOwnerId,jdbcType=BIGINT}, #{rentStartDate,jdbcType=TIMESTAMP}, 
+      #{rentEndDate,jdbcType=TIMESTAMP}, #{ownerProperty,jdbcType=VARCHAR} , #{sysTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoRent">
+    insert into owner_house_stage_extend_info_rent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        detail_id,
+      </if>
+      <if test="rentOwnerId != null">
+        rent_owner_id,
+      </if>
+      <if test="rentStartDate != null">
+        rent_start_date,
+      </if>
+      <if test="rentEndDate != null">
+        rent_end_date,
+      </if>
+      <if test="ownerProperty != null">
+        owner_property,
+      </if>
+      <if test="sysTime != null">
+        sys_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailId != null">
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="rentOwnerId != null">
+        #{rentOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="rentStartDate != null">
+        #{rentStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentEndDate != null">
+        #{rentEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerProperty != null">
+        #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="sysTime != null">
+        #{sysTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoRent">
+    update owner_house_stage_extend_info_rent
+    <set>
+      <if test="rentOwnerId != null">
+        rent_owner_id = #{rentOwnerId,jdbcType=BIGINT},
+      </if>
+      <if test="rentStartDate != null">
+        rent_start_date = #{rentStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rentEndDate != null">
+        rent_end_date = #{rentEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ownerProperty != null">
+        owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      </if>
+        sys_time = NOW()
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newsee.owner.entity.OwnerHouseStageExtendInfoRent">
+    update owner_house_stage_extend_info_rent
+    set rent_owner_id = #{rentOwnerId,jdbcType=BIGINT},
+      rent_start_date = #{rentStartDate,jdbcType=TIMESTAMP},
+      rent_end_date = #{rentEndDate,jdbcType=TIMESTAMP},
+      owner_property = #{ownerProperty,jdbcType=VARCHAR},
+      sys_time = #{sysTime,jdbcType=TIMESTAMP}
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+</mapper>
